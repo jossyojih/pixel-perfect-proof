@@ -16,7 +16,6 @@ interface ExcelRow {
 }
 
 interface ParsedStudent {
-  rollNo: number;
   name: string;
   subjects: Array<{
     name: string;
@@ -56,13 +55,11 @@ export default function UploadReport() {
 
         jsonData.forEach((row) => {
           const studentName = row['Student Name'];
-          const rollNo = row['Roll No'];
           
-          if (!studentName || !rollNo) return;
+          if (!studentName) return;
 
           if (!studentMap.has(studentName)) {
             studentMap.set(studentName, {
-              rollNo: rollNo,
               name: studentName,
               subjects: []
             });
@@ -158,7 +155,7 @@ export default function UploadReport() {
               className="w-full"
             />
             <p className="text-sm text-muted-foreground mt-1">
-              Upload an Excel file with columns: Roll No, Student Name, Subject, Subject Teacher's Name, Term Report
+              Upload an Excel file with columns: Student Name, Subject, Subject Teacher's Name, Term Report
             </p>
           </div>
 
@@ -172,9 +169,9 @@ export default function UploadReport() {
                   <SelectValue placeholder="Choose a student" />
                 </SelectTrigger>
                 <SelectContent>
-                  {students.map((student) => (
-                    <SelectItem key={student.rollNo} value={student.name}>
-                      {student.name} (Roll No: {student.rollNo})
+                  {students.map((student, index) => (
+                    <SelectItem key={index} value={student.name}>
+                      {student.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
