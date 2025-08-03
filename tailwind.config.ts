@@ -52,6 +52,12 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Report Card Colors
+				'report-header': 'hsl(var(--report-header-bg))',
+				'report-border': 'hsl(var(--report-border))',
+				'grade-excellent': 'hsl(var(--grade-excellent))',
+				'grade-good': 'hsl(var(--grade-good))',
+				'grade-satisfactory': 'hsl(var(--grade-satisfactory))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
