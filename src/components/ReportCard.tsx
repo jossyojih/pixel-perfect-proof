@@ -318,7 +318,7 @@ export const ReportCard = ({
         <div className="text-center space-y-4">
           <div className="flex justify-center">
             <img 
-              src="/lovable-uploads/b688bfc7-7620-4283-b8aa-8d5ab8617a5f.png" 
+              src="/lovable-uploads/8e2cb997-99fd-4baa-98af-b2cfb393803f.png" 
               alt="Signature" 
               className="h-16 w-auto"
             />
