@@ -83,12 +83,12 @@ export default function StudentReport() {
       subjects: mainSubjects,
       specials: [...specialSubjects, ...additionalSpecials],
       workHabits: [
-        { trait: "Punctuality", rating: "Excellent" },
-        { trait: "Cooperation", rating: "Good" },
-        { trait: "Initiative", rating: "Very Good" },
-        { trait: "Organization", rating: "Good" }
+        { trait: "Shows Effort", rating: student.showsEffort || "Outstanding" },
+        { trait: "Works well with others", rating: student.worksWellWithOthers || "Satisfactory" },
+        { trait: "Produces legible handwriting", rating: student.producesLegibleHandwriting || "Outstanding" },
+        { trait: "Demonstrates great character trait", rating: student.demonstratesGreatCharacterTrait || "Satisfactory" }
       ],
-      generalComment: `${student.name} has shown excellent progress this term. Continue to encourage reading and mathematical thinking.`,
+      generalComment: student.finalComment || student.comment || `${student.name} has shown excellent progress this term. Continue to encourage reading and mathematical thinking.`,
       attendance: {
         totalDays: student.totalDays || 53,
         daysPresent: student.daysPresent || 48,
