@@ -186,7 +186,7 @@ export default function UploadReport() {
   const generateReportData = (student: any) => {
     // Separate main subjects from specials (include Science in specials)
     const mainSubjects = student.subjects.filter((subject: any) => 
-      !['Computer Studies', 'Hausa', 'Religious Studies', 'French', 'Science'].includes(subject.name)
+      !['Computer Studies', 'Hausa', 'Religious Studies', 'French', 'Science', 'PHE'].includes(subject.name)
     );
     
     const specialSubjects = student.subjects.filter((subject: any) => 

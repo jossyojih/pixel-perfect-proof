@@ -61,7 +61,7 @@ export default function StudentReport() {
   const generateReportData = (student: any) => {
     // Separate main subjects from specials (include Science in specials)
     const mainSubjects = student.subjects.filter((subject: any) => 
-      !['Computer Studies', 'Hausa', 'Religious Studies', 'French', 'Science'].includes(subject.name)
+      !['Computer Studies', 'Hausa', 'Religious Studies', 'French', 'Science', 'PHE'].includes(subject.name)
     );
     
     const specialSubjects = student.subjects.filter((subject: any) => 
@@ -105,8 +105,8 @@ export default function StudentReport() {
         { trait: "Demonstrates great character trait", rating: student.demonstratesGreatCharacterTrait || "Satisfactory" }
       ],
       generalComment: student.Comments || student.comments,
-      mathLanguageArt: student.math_language_art,
-      englishLanguageArtTeacherName: student.english_language_art_teacher_name,
+      mathLanguageArt: student.rawData?.['math_language_teacher_name'] || "Math Teacher",
+      englishLanguageArtTeacherName: student.rawData?.['english_language_teacher_name'] || "English Teacher",
       attendance: {
         totalDays: student.totalDays || 53,
         daysPresent: student.daysPresent || 53,
