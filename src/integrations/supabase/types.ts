@@ -14,7 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      student_reports: {
+        Row: {
+          class_tag: string
+          file_path: string
+          grade_tag: string
+          id: string
+          public_url: string
+          student_name: string
+          uploaded_at: string
+        }
+        Insert: {
+          class_tag: string
+          file_path: string
+          grade_tag: string
+          id?: string
+          public_url: string
+          student_name: string
+          uploaded_at?: string
+        }
+        Update: {
+          class_tag?: string
+          file_path?: string
+          grade_tag?: string
+          id?: string
+          public_url?: string
+          student_name?: string
+          uploaded_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
