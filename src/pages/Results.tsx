@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import * as XLSX from 'xlsx';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface UploadedReport {
   id: string;
@@ -19,20 +20,65 @@ interface UploadedReport {
 export default function Results() {
   const [reports, setReports] = useState<UploadedReport[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedClass, setSelectedClass] = useState<string>('elementary');
+  const [selectedGrade, setSelectedGrade] = useState<string>('class 2');
+  const [availableClasses, setAvailableClasses] = useState<string[]>([]);
+  const [availableGrades, setAvailableGrades] = useState<string[]>([]);
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchReports();
+    fetchAvailableOptions();
   }, []);
+
+  useEffect(() => {
+    if (selectedClass && selectedGrade) {
+      fetchReports();
+    }
+  }, [selectedClass, selectedGrade]);
+
+  const fetchAvailableOptions = async () => {
+    try {
+      // Fetch distinct class tags
+      const { data: classes, error: classError } = await supabase
+        .from('student_reports')
+        .select('class_tag')
+        .neq('class_tag', null);
+
+      if (classError) throw classError;
+
+      const uniqueClasses = [...new Set(classes?.map(item => item.class_tag) || [])];
+      setAvailableClasses(uniqueClasses);
+
+      // Fetch distinct grade tags
+      const { data: grades, error: gradeError } = await supabase
+        .from('student_reports')
+        .select('grade_tag')
+        .neq('grade_tag', null);
+
+      if (gradeError) throw gradeError;
+
+      const uniqueGrades = [...new Set(grades?.map(item => item.grade_tag) || [])];
+      setAvailableGrades(uniqueGrades);
+
+    } catch (error) {
+      console.error('Error fetching available options:', error);
+      toast({
+        title: "Error loading options",
+        description: "There was an error loading the available classes and grades.",
+        variant: "destructive"
+      });
+    }
+  };
 
   const fetchReports = async () => {
     try {
+      setIsLoading(true);
       const { data, error } = await supabase
         .from('student_reports')
         .select('*')
-        .eq('class_tag', 'elementary')
-        .eq('grade_tag', 'class 2')
+        .eq('class_tag', selectedClass)
+        .eq('grade_tag', selectedGrade)
         .order('uploaded_at', { ascending: false });
 
       if (error) throw error;
@@ -73,7 +119,7 @@ export default function Results() {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Reports');
     
-    XLSX.writeFile(workbook, `elementary-class2-reports-${new Date().toISOString().split('T')[0]}.xlsx`);
+    XLSX.writeFile(workbook, `${selectedClass}-${selectedGrade}-reports-${new Date().toISOString().split('T')[0]}.xlsx`);
     
     toast({
       title: "Export successful",
@@ -96,7 +142,7 @@ export default function Results() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">Uploaded Reports</h1>
-          <p className="text-muted-foreground">Elementary - Class 2</p>
+          <p className="text-muted-foreground">{selectedClass} - {selectedGrade}</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={exportToExcel} disabled={reports.length === 0}>
@@ -107,6 +153,41 @@ export default function Results() {
           </Button>
         </div>
       </div>
+
+      <Card className="p-4">
+        <div className="flex gap-4 items-center">
+          <div className="flex-1">
+            <label className="text-sm font-medium mb-2 block">Class</label>
+            <Select value={selectedClass} onValueChange={setSelectedClass}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a class" />
+              </SelectTrigger>
+              <SelectContent>
+                {availableClasses.map((classTag) => (
+                  <SelectItem key={classTag} value={classTag}>
+                    {classTag}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex-1">
+            <label className="text-sm font-medium mb-2 block">Grade</label>
+            <Select value={selectedGrade} onValueChange={setSelectedGrade}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a grade" />
+              </SelectTrigger>
+              <SelectContent>
+                {availableGrades.map((gradeTag) => (
+                  <SelectItem key={gradeTag} value={gradeTag}>
+                    {gradeTag}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </Card>
 
       <Card className="p-6">
         {reports.length === 0 ? (
