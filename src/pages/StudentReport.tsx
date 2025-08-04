@@ -61,27 +61,19 @@ export default function StudentReport() {
       ['Computer Studies', 'Hausa', 'Religious Studies', 'French'].includes(subject.name)
     );
 
-    // Get Art, Music, and PE teacher names from the original Excel data
-    const studentsData = localStorage.getItem('studentsData');
-    let artTeacher = "Art Teacher";
-    let musicTeacher = "Music Teacher";
-    let peTeacher = "PE Teacher";
-    
-    if (studentsData) {
-      const students = JSON.parse(studentsData);
-      const foundStudent = students.find((s: any) => s.name === student.name);
-      if (foundStudent && foundStudent.rawData) {
-        artTeacher = foundStudent.rawData['art_teacher_name'] || "Art Teacher";
-        musicTeacher = foundStudent.rawData['music_teacher_name'] || "Music Teacher";
-        peTeacher = foundStudent.rawData['physical_education_teacher_name'] || foundStudent.rawData['pe_teacher_name'] || "PE Teacher";
-      }
-    }
+    // Only add Physical Education if not already in the subjects data
+    const hasPhysicalEducation = specialSubjects.some((subject: any) => 
+      subject.name.toLowerCase().includes('physical') || subject.name.toLowerCase().includes('pe')
+    );
 
-    const hardcodedSpecials = [
-      { name: "Art", grade: 85, teacher: artTeacher },
-      { name: "Music", grade: 90, teacher: musicTeacher },
-      { name: "Physical Education", grade: 88, teacher: peTeacher }
-    ];
+    const additionalSpecials = [];
+    if (!hasPhysicalEducation) {
+      additionalSpecials.push({ 
+        name: "Physical Education", 
+        grade: 88, 
+        teacher: "Geoffrey Nushu Gabriel" 
+      });
+    }
 
     return {
       studentName: student.name,
@@ -89,7 +81,7 @@ export default function StudentReport() {
       term: "First Term",
       academicYear: "2023/2024",
       subjects: mainSubjects,
-      specials: [...specialSubjects, ...hardcodedSpecials],
+      specials: [...specialSubjects, ...additionalSpecials],
       workHabits: [
         { trait: "Punctuality", rating: "Excellent" },
         { trait: "Cooperation", rating: "Good" },
