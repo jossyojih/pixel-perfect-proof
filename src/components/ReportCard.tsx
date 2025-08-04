@@ -279,12 +279,12 @@ export const ReportCard = ({
           <table className="w-full">
             <tbody>
               <tr className="border-t border-report-border">
-                <td className="border-r border-report-border px-4 py-2 text-foreground bg-report-header">No. of School Days</td>
-                <td className="border-r border-report-border px-4 py-2 text-center text-foreground font-medium">{attendance.totalDays}</td>
-                <td className="border-r border-report-border px-4 py-2 text-foreground bg-report-header">Days Present</td>
-                <td className="border-r border-report-border px-4 py-2 text-center text-foreground font-medium">{attendance.daysPresent}</td>
-                <td className="border-r border-report-border px-4 py-2 text-foreground bg-report-header">Days Absent</td>
-                <td className="px-4 py-2 text-center text-foreground font-medium">{attendance.daysAbsent}</td>
+                <td className="border-r border-report-border px-4 py-2 text-foreground">No. of School Days</td>
+                <td className="border-r border-report-border px-4 py-2 text-center text-foreground font-medium bg-report-header">{attendance.totalDays}</td>
+                <td className="border-r border-report-border px-4 py-2 text-foreground">Days Present</td>
+                <td className="border-r border-report-border px-4 py-2 text-center text-foreground font-medium bg-report-header">{attendance.daysPresent}</td>
+                <td className="border-r border-report-border px-4 py-2 text-foreground">Days Absent</td>
+                <td className="px-4 py-2 text-center text-foreground font-medium bg-report-header">{attendance.daysAbsent}</td>
               </tr>
             </tbody>
           </table>
