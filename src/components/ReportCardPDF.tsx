@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     marginBottom: 20,
-    borderBottom: 2,
+    borderBottomWidth: 2,
+    borderBottomStyle: 'solid',
     borderBottomColor: '#000',
     paddingBottom: 10,
   },
@@ -93,7 +94,8 @@ const styles = StyleSheet.create({
   },
   subjectRow: {
     flexDirection: 'row',
-    borderBottom: 1,
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
     borderBottomColor: '#dee2e6',
     paddingVertical: 8,
     paddingHorizontal: 5,
@@ -131,13 +133,15 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   specialsTable: {
-    border: 1,
+    borderWidth: 1,
+    borderStyle: 'solid',
     borderColor: '#dee2e6',
     marginBottom: 10,
   },
   specialRow: {
     flexDirection: 'row',
-    borderBottom: 1,
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
     borderBottomColor: '#dee2e6',
     paddingVertical: 6,
     paddingHorizontal: 8,
@@ -159,7 +163,8 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   commentBox: {
-    border: 1,
+    borderWidth: 1,
+    borderStyle: 'solid',
     borderColor: '#dee2e6',
     padding: 10,
     backgroundColor: '#f8f9fa',
@@ -210,7 +215,8 @@ const styles = StyleSheet.create({
   },
   signatureBox: {
     width: '45%',
-    borderBottom: 1,
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
     borderBottomColor: '#000',
     paddingBottom: 20,
     alignItems: 'center',
