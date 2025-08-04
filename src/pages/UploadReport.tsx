@@ -18,6 +18,7 @@ interface ParsedStudent {
     grade: number | "N/A";
     comment: string;
   }>;
+  rawData?: ExcelRow; // Optional raw Excel data for accessing teacher names
 }
 
 
@@ -61,7 +62,8 @@ export default function UploadReport() {
           if (!studentMap.has(studentName)) {
             studentMap.set(studentName, {
               name: studentName,
-              subjects: []
+              subjects: [],
+              rawData: row // Store the raw Excel row data for teacher names
             });
           }
 
@@ -129,6 +131,9 @@ export default function UploadReport() {
 
         const parsedStudents = Array.from(studentMap.values());
         setStudents(parsedStudents);
+        
+        // Store the students data in localStorage for access in StudentReport
+        localStorage.setItem('studentsData', JSON.stringify(parsedStudents));
         
         toast({
           title: "Excel file parsed successfully!",

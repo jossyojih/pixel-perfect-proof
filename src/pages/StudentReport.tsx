@@ -52,17 +52,44 @@ export default function StudentReport() {
   }, [studentName, navigate, toast]);
 
   const generateReportData = (student: any) => {
+    // Separate main subjects from specials
+    const mainSubjects = student.subjects.filter((subject: any) => 
+      !['Computer Studies', 'Hausa', 'Religious Studies', 'French'].includes(subject.name)
+    );
+    
+    const specialSubjects = student.subjects.filter((subject: any) => 
+      ['Computer Studies', 'Hausa', 'Religious Studies', 'French'].includes(subject.name)
+    );
+
+    // Get Art, Music, and PE teacher names from the original Excel data
+    const studentsData = localStorage.getItem('studentsData');
+    let artTeacher = "Art Teacher";
+    let musicTeacher = "Music Teacher";
+    let peTeacher = "PE Teacher";
+    
+    if (studentsData) {
+      const students = JSON.parse(studentsData);
+      const foundStudent = students.find((s: any) => s.name === student.name);
+      if (foundStudent && foundStudent.rawData) {
+        artTeacher = foundStudent.rawData['art_teacher_name'] || "Art Teacher";
+        musicTeacher = foundStudent.rawData['music_teacher_name'] || "Music Teacher";
+        peTeacher = foundStudent.rawData['physical_education_teacher_name'] || foundStudent.rawData['pe_teacher_name'] || "PE Teacher";
+      }
+    }
+
+    const hardcodedSpecials = [
+      { name: "Art", grade: 85, teacher: artTeacher },
+      { name: "Music", grade: 90, teacher: musicTeacher },
+      { name: "Physical Education", grade: 88, teacher: peTeacher }
+    ];
+
     return {
       studentName: student.name,
       grade: "Grade 3-A",
       term: "First Term",
       academicYear: "2023/2024",
-      subjects: student.subjects,
-      specials: [
-        { name: "Art", grade: 85, teacher: "Art Teacher" },
-        { name: "Music", grade: 90, teacher: "Music Teacher" },
-        { name: "Physical Education", grade: 88, teacher: "PE Teacher" }
-      ],
+      subjects: mainSubjects,
+      specials: [...specialSubjects, ...hardcodedSpecials],
       workHabits: [
         { trait: "Punctuality", rating: "Excellent" },
         { trait: "Cooperation", rating: "Good" },

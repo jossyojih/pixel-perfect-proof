@@ -126,7 +126,7 @@ export const ReportCard = ({
         </div>
       </Card>
 
-      {/* Specials and Science Page */}
+      {/* Specials Page */}
       <Card className="p-6 mb-8 border-2 border-report-border">
         <div className="flex justify-start mb-6">
           <img 
@@ -134,28 +134,6 @@ export const ReportCard = ({
             alt="AUN Schools Logo" 
             className="h-16 w-auto"
           />
-        </div>
-
-        {/* Science Section */}
-        <div className="mb-6 border border-report-border">
-          <div className="bg-report-header px-4 py-2 flex justify-between items-center">
-            <h3 className="font-medium text-foreground">Science</h3>
-            <span className="font-medium text-foreground">Monsurat Adebimpe</span>
-          </div>
-          
-          <div className="border-b border-report-border bg-report-header px-4 py-2">
-            <span className="font-medium text-foreground">Term Report</span>
-          </div>
-          
-          <div className="p-4 space-y-2">
-            <div className="flex justify-between items-center">
-              <span className="text-foreground">Grade</span>
-              <span className="text-lg font-bold text-foreground">98</span>
-            </div>
-            <p className="text-sm text-foreground leading-relaxed">
-              Ashira can define engineering problem and how to design, test and improve a solution. She understands what forces are and its types.
-            </p>
-          </div>
         </div>
 
         {/* Specials Table */}
