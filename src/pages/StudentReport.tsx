@@ -90,9 +90,9 @@ export default function StudentReport() {
       ],
       generalComment: `${student.name} has shown excellent progress this term. Continue to encourage reading and mathematical thinking.`,
       attendance: {
-        totalDays: 85,
-        daysPresent: 82,
-        daysAbsent: 3
+        totalDays: student.totalDays || 53,
+        daysPresent: student.daysPresent || 48,
+        daysAbsent: student.daysAbsent || 5
       }
     };
   };
