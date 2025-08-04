@@ -272,24 +272,22 @@ export const ReportCard = ({
         </div>
 
         {/* Attendance Section */}
-        <div className="mb-8 border border-report-border">
+        <div className="mb-8 overflow-hidden border border-report-border">
           <div className="bg-report-header px-4 py-2">
             <h3 className="font-medium text-foreground">Attendance</h3>
           </div>
-          <div className="p-4">
-            <table className="w-full">
-              <tbody>
-                <tr>
-                  <td className="py-2 text-foreground">No. of School Days</td>
-                  <td className="py-2 text-center text-foreground font-medium">{attendance.totalDays}</td>
-                  <td className="py-2 text-foreground">Days Present</td>
-                  <td className="py-2 text-center text-foreground font-medium">{attendance.daysPresent}</td>
-                  <td className="py-2 text-foreground">Days Absent</td>
-                  <td className="py-2 text-center text-foreground font-medium">{attendance.daysAbsent}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <table className="w-full">
+            <tbody>
+              <tr className="border-t border-report-border">
+                <td className="border-r border-report-border px-4 py-2 text-foreground bg-report-header">No. of School Days</td>
+                <td className="border-r border-report-border px-4 py-2 text-center text-foreground font-medium">{attendance.totalDays}</td>
+                <td className="border-r border-report-border px-4 py-2 text-foreground bg-report-header">Days Present</td>
+                <td className="border-r border-report-border px-4 py-2 text-center text-foreground font-medium">{attendance.daysPresent}</td>
+                <td className="border-r border-report-border px-4 py-2 text-foreground bg-report-header">Days Absent</td>
+                <td className="px-4 py-2 text-center text-foreground font-medium">{attendance.daysAbsent}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         {/* Signature Section */}
