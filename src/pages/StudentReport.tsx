@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { pdf } from '@react-pdf/renderer';
+import html2canvas from 'html2canvas';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ReportCard } from "@/components/ReportCard";
-import { ReportCardPDF } from "@/components/ReportCardPDF";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -26,6 +25,7 @@ export default function StudentReport() {
   const { toast } = useToast();
   const [isUploading, setIsUploading] = useState(false);
   const [student, setStudent] = useState<any>(null);
+  const reportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Get student data from localStorage (passed from UploadReport page)
@@ -100,22 +100,37 @@ export default function StudentReport() {
   };
 
   const uploadToSupabase = async () => {
-    if (!student) return;
+    if (!student || !reportRef.current) return;
 
     setIsUploading(true);
     try {
       const reportData = generateReportData(student);
       
-      // Generate PDF from the report data
-      const pdfDoc = <ReportCardPDF {...reportData} />;
-      const pdfBlob = await pdf(pdfDoc).toBlob();
+      // Generate PNG from the HTML report card
+      const canvas = await html2canvas(reportRef.current, {
+        scale: 2, // Higher resolution
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        width: reportRef.current.scrollWidth,
+        height: reportRef.current.scrollHeight,
+        scrollX: 0,
+        scrollY: 0
+      });
+
+      // Convert to blob
+      const blob = await new Promise<Blob>((resolve) => {
+        canvas.toBlob((blob) => {
+          resolve(blob!);
+        }, 'image/png', 1.0);
+      });
 
       // Upload to Supabase Storage
-      const fileName = `${student.name.toLowerCase().replace(/\s+/g, '-')}-report-${Date.now()}.pdf`;
+      const fileName = `${student.name.toLowerCase().replace(/\s+/g, '-')}-report-${Date.now()}.png`;
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from('reports')
-        .upload(fileName, pdfBlob, {
-          contentType: 'application/pdf'
+        .upload(fileName, blob, {
+          contentType: 'image/png'
         });
 
       if (uploadError) throw uploadError;
@@ -141,7 +156,7 @@ export default function StudentReport() {
 
       toast({
         title: "Report uploaded successfully!",
-        description: `Report for ${student.name} has been uploaded to Supabase.`
+        description: `Report for ${student.name} has been uploaded as PNG image.`
       });
 
       navigate('/results');
@@ -184,12 +199,14 @@ export default function StudentReport() {
             onClick={uploadToSupabase}
             disabled={isUploading}
           >
-            {isUploading ? "Uploading..." : "Upload to Supabase"}
+            {isUploading ? "Converting to PNG & Uploading..." : "Upload Report as PNG"}
           </Button>
         </div>
       </div>
 
-      <ReportCard {...reportData} />
+      <div ref={reportRef}>
+        <ReportCard {...reportData} />
+      </div>
     </div>
   );
 }
