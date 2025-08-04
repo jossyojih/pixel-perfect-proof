@@ -82,7 +82,7 @@ export const ReportCard = ({
               {grade}
             </p>
             <p className="text-sm text-foreground">
-              Prisca Oyinkansola Oyewale, Monsurat Opeyemi Adebimpe
+              Emmanuel O. Abioye, Monsurat Opeyemi Adebimpe
             </p>
           </div>
         </div>
