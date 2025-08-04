@@ -155,10 +155,12 @@ export default function UploadReport() {
 
           // Add subjects that have valid grades to the student
           subjects.forEach(subject => {
-            if (subject.grade !== "N/A" && subject.grade !== null && subject.grade !== undefined) {
+            if (subject.grade !== "N/A" && subject.grade !== null && subject.grade !== undefined && subject.grade !== "") {
               student.subjects.push(subject);
             }
           });
+          
+          console.log(`Student ${studentName} has ${student.subjects.length} subjects:`, student.subjects.map(s => s.name));
         });
 
         const parsedStudents = Array.from(studentMap.values());
@@ -240,7 +242,25 @@ export default function UploadReport() {
 
   // Use the exact same PDF generation logic as StudentReport.tsx
   const generateBulkReports = async () => {
-    if (students.length === 0) return;
+    console.log('Starting bulk upload for', students.length, 'students');
+    
+    if (students.length === 0) {
+      console.log('No students found');
+      return;
+    }
+    
+    // Filter out students with no subjects
+    const studentsWithSubjects = students.filter(student => student.subjects.length > 0);
+    console.log(`Filtered to ${studentsWithSubjects.length} students with subjects`);
+    
+    if (studentsWithSubjects.length === 0) {
+      toast({
+        title: "No students with valid subjects found",
+        description: "Please check your Excel file format and data.",
+        variant: "destructive"
+      });
+      return;
+    }
     
     setIsGeneratingReports(true);
     
@@ -248,12 +268,24 @@ export default function UploadReport() {
       let successCount = 0;
       let errorCount = 0;
       
-      for (const student of students) {
+      for (let index = 0; index < studentsWithSubjects.length; index++) {
+        const student = studentsWithSubjects[index];
+        console.log(`Processing student ${index + 1}/${studentsWithSubjects.length}: ${student.name}`);
+        
         try {
           // Generate report data using the same logic as StudentReport
+          console.log('Generating report data for', student.name);
           const reportData = generateReportData(student);
+          console.log('Report data generated:', reportData);
+          
+          // Skip students with no main subjects to avoid empty reports
+          if (reportData.subjects.length === 0) {
+            console.log(`Skipping ${student.name} - no main subjects`);
+            continue;
+          }
           
           // Create temporary DOM elements for PDF generation (same as StudentReport)
+          console.log('Creating temporary DOM container');
           const tempContainer = document.createElement('div');
           tempContainer.style.position = 'absolute';
           tempContainer.style.left = '-9999px';
@@ -268,9 +300,11 @@ export default function UploadReport() {
           const finalRef = { current: null };
           
           // Render ReportCard component using same approach as StudentReport
+          console.log('Importing react-dom/client');
           const { createRoot } = await import('react-dom/client');
           const root = createRoot(tempContainer);
           
+          console.log('Rendering ReportCard component');
           await new Promise<void>((resolve) => {
             root.render(
               <ReportCard 
@@ -283,9 +317,10 @@ export default function UploadReport() {
                 }}
               />
             );
-            setTimeout(resolve, 1000); // Wait for render
+            setTimeout(resolve, 1500); // Increased wait time for render
           });
           
+          console.log('Starting PDF generation');
           // Generate PDF using the exact same logic as StudentReport
           const pdf = new jsPDF('p', 'mm', 'a4');
           const sections = [
@@ -297,7 +332,10 @@ export default function UploadReport() {
           
           for (let i = 0; i < sections.length; i++) {
             const section = sections[i];
+            console.log(`Processing section ${i + 1}/${sections.length}: ${section.name}`);
+            
             if (section.ref.current) {
+              console.log('Generating canvas for section', section.name);
               const canvas = await html2canvas(section.ref.current, {
                 scale: 2,
                 useCORS: true,
@@ -314,13 +352,18 @@ export default function UploadReport() {
               }
               
               pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+              console.log(`Added section ${section.name} to PDF`);
+            } else {
+              console.warn(`Section ${section.name} ref is null`);
             }
           }
           
+          console.log('Cleaning up DOM');
           // Clean up
           root.unmount();
           document.body.removeChild(tempContainer);
           
+          console.log('Starting upload to Supabase');
           // Upload to Supabase (same logic as StudentReport)
           const pdfBlob = pdf.output('blob');
           const fileName = `${student.name.replace(/[^a-zA-Z0-9]/g, '_')}_report.pdf`;
@@ -338,11 +381,13 @@ export default function UploadReport() {
             continue;
           }
 
+          console.log('Getting public URL');
           // Get public URL
           const { data: { publicUrl } } = supabase.storage
             .from('reports')
             .getPublicUrl(fileName);
 
+          console.log('Inserting database record');
           // Insert record into database
           const { error: dbError } = await supabase
             .from('student_reports')
@@ -359,6 +404,7 @@ export default function UploadReport() {
             errorCount++;
           } else {
             successCount++;
+            console.log(`Successfully processed ${student.name}`);
           }
           
         } catch (error) {
@@ -367,12 +413,14 @@ export default function UploadReport() {
         }
       }
       
+      console.log(`Bulk upload completed. Success: ${successCount}, Errors: ${errorCount}`);
       toast({
         title: "Bulk upload completed!",
         description: `Successfully uploaded ${successCount} reports. ${errorCount > 0 ? `${errorCount} failed.` : ''}`
       });
       
     } catch (error) {
+      console.error('Fatal error during bulk upload:', error);
       toast({
         title: "Error during bulk upload",
         description: "Please try again or upload reports individually.",
