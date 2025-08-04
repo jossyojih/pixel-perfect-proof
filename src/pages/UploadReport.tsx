@@ -8,11 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import * as XLSX from 'xlsx';
 
 interface ExcelRow {
-  'Roll No': number;
-  'Student Name': string;
-  'Subject': string;
-  "Subject Teacher's Name": string;
-  'Term Report': string;
+  [key: string]: any; // More flexible structure to handle different Excel formats
 }
 
 interface ParsedStudent {
@@ -57,10 +53,11 @@ export default function UploadReport() {
 
         jsonData.forEach((row, index) => {
           console.log(`Processing row ${index}:`, row);
-          const studentName = row['Student Name'];
+          // The student name is in column _2
+          const studentName = row['_2'];
           console.log(`Student name found: "${studentName}"`);
           
-          if (!studentName) return;
+          if (!studentName || typeof studentName !== 'string') return;
 
           if (!studentMap.has(studentName)) {
             studentMap.set(studentName, {
@@ -71,19 +68,63 @@ export default function UploadReport() {
 
           const student = studentMap.get(studentName)!;
           
-          // Parse term report - extract grade and comment
-          const termReport = row['Term Report'] || '';
-          const gradeMatch = termReport.match(/^(\d+)/);
-          const grade = gradeMatch ? parseInt(gradeMatch[1]) : "N/A";
-          
-          // The comment is the rest of the term report after the grade
-          const comment = termReport.replace(/^\d+\s*/, '').trim();
+          // Parse all the subjects from the row
+          const subjects = [
+            {
+              name: 'English Language',
+              teacher: row['english_language_teacher_name'] || '',
+              grade: row['english_language_art'] || "N/A",
+              comment: row['english_language_remark'] || ''
+            },
+            {
+              name: 'Mathematics',
+              teacher: row['math_language_teacher_name'] || '',
+              grade: row['math_language_art'] || "N/A",
+              comment: row['math_language_art_remark'] || ''
+            },
+            {
+              name: 'Social Studies',
+              teacher: row['social_studies_teacher_name'] || '',
+              grade: row['social_studies_art'] || "N/A",
+              comment: row['social_studies_remark'] || ''
+            },
+            {
+              name: 'Science',
+              teacher: row['science_teacher_name'] || '',
+              grade: row['science_art'] || "N/A",
+              comment: row['science_remark'] || ''
+            },
+            {
+              name: 'Computer Studies',
+              teacher: row['computer_teacher_name'] || '',
+              grade: row['Computer_art'] || "N/A",
+              comment: ''
+            },
+            {
+              name: 'Hausa',
+              teacher: row['hausa_teacher_name'] || '',
+              grade: row['hausa_art'] || "N/A",
+              comment: ''
+            },
+            {
+              name: 'Religious Studies',
+              teacher: row['religious_studies_teacher_name'] || '',
+              grade: row['religious_studies_art'] || row['religious_studies_art2'] || "N/A",
+              comment: ''
+            },
+            {
+              name: 'French',
+              teacher: row['french_teacher_name'] || '',
+              grade: row['french_art'] || "N/A",
+              comment: ''
+            }
+          ];
 
-          student.subjects.push({
-            name: row['Subject'] || '',
-            teacher: row["Subject Teacher's Name"] || '',
-            grade: grade,
-            comment: comment
+          // Add subjects that have valid grades to the student
+          subjects.forEach(subject => {
+            if (subject.grade !== "N/A" && subject.grade !== null && subject.grade !== undefined) {
+              student.subjects.push(subject);
+            }
           });
         });
 
