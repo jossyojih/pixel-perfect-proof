@@ -389,7 +389,7 @@ export const ReportCard = ({
                   <td className="border-r border-black px-4 py-3 text-black font-medium bg-white">Days Present</td>
                   <td className="border-r border-black px-4 py-3 text-center text-black font-bold bg-white">{attendance.daysPresent}</td>
                   <td className="border-r border-black px-4 py-3 text-black font-medium bg-white">Days Absent</td>
-                  <td className="px-4 py-3 text-center text-black font-bold bg-white">{attendance.daysAbsent}</td>
+                  <td className="px-4 py-3 text-center text-black font-bold bg-white">{attendance.totalDays - attendance.daysPresent}</td>
                 </tr>
               </tbody>
             </table>
