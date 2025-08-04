@@ -230,7 +230,7 @@ export default function StudentReport() {
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => navigate('/upload')}>
-            Back to Upload
+            Back to Students List
           </Button>
           <Button variant="outline" onClick={() => navigate('/results')}>
             View Results
