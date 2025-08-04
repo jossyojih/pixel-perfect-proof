@@ -1,55 +1,125 @@
-import { ReportCard } from "@/components/ReportCard";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
+import { GraduationCap, Users, BookOpen, School } from "lucide-react";
 
 const Index = () => {
-  const sampleData = {
-    studentName: "Ashira Kamsiyochukwu Benjamin",
-    grade: "Grade 3 A",
-    term: "Term 1",
-    academicYear: "2024 - 2025",
-    subjects: [
-      {
-        name: "English language Art",
-        grade: 92,
-        teacher: "Oyewale Oyinkansola Prisca",
-        comment: "Ashira demonstrates excellent phonics and grammar skills, and her comprehension abilities are strong. She communicates effectively and confidently. However, her writing skills would benefit from additional practice to further enhance her overall performance."
-      },
-      {
-        name: "Mathematics",
-        grade: 97,
-        teacher: "Monsurat Adebimpe",
-        comment: "Ashira can round to the nearest tens and hundreds. She can estimate sums and differences. She understands roman numerals and can add and subtract using place value."
-      },
-      {
-        name: "Social Studies",
-        grade: 92,
-        teacher: "Oyewale Oyinkansola Prisca",
-        comment: "Ashira demonstrated a clear understanding of the concepts of maps and globes, water bodies and landforms, natural resources, and climate effects. Her performance reflects her strong grasp of these topics."
-      }
-    ],
-    specials: [
-      { name: "PHE", grade: "N/A" as const, teacher: "Emmanuel Abioye" },
-      { name: "Computer", grade: 100, teacher: "Ejovwo Jesutekevwe" },
-      { name: "Hausa", grade: 88, teacher: "Isa Inuwa" },
-      { name: "Religious Studies", grade: 100, teacher: "Chidi Okwuanaso" },
-      { name: "French", grade: 86, teacher: "Edward Amechi" }
-    ],
-    workHabits: [
-      { trait: "Shows Effort", rating: "Outstanding" },
-      { trait: "Works well with others", rating: "Satisfactory" },
-      { trait: "Produces legible handwriting", rating: "Outstanding" },
-      { trait: "Demonstrates great character trait", rating: "Satisfactory" }
-    ],
-    generalComment: "Ashira is an intelligent, competitive student who relates well with classmates and completes her work, often assisting others when asked. However, her attention-seeking behavior and competitive nature can sometimes distract her. With balanced focus, she will continue to excel.",
-    attendance: {
-      totalDays: 54,
-      daysPresent: 54,
-      daysAbsent: 0
+  const navigate = useNavigate();
+
+  const sections = [
+    {
+      id: "elementary",
+      title: "Elementary",
+      description: "Primary school report generation for grades 1-6",
+      icon: <GraduationCap className="h-8 w-8" />,
+      status: "active",
+      color: "bg-primary/10 text-primary border-primary/20",
+      buttonText: "Manage Elementary Reports",
+      onClick: () => navigate("/upload")
+    },
+    {
+      id: "junior-secondary",
+      title: "Junior Secondary",
+      description: "Report generation for JSS 1-3 students",
+      icon: <BookOpen className="h-8 w-8" />,
+      status: "coming-soon",
+      color: "bg-muted/50 text-muted-foreground border-muted",
+      buttonText: "Coming Soon",
+      onClick: () => {}
+    },
+    {
+      id: "senior-secondary", 
+      title: "Senior Secondary",
+      description: "Report generation for SSS 1-3 students",
+      icon: <School className="h-8 w-8" />,
+      status: "coming-soon",
+      color: "bg-muted/50 text-muted-foreground border-muted",
+      buttonText: "Coming Soon",
+      onClick: () => {}
+    },
+    {
+      id: "administration",
+      title: "Administration",
+      description: "School administration and management tools",
+      icon: <Users className="h-8 w-8" />,
+      status: "coming-soon", 
+      color: "bg-muted/50 text-muted-foreground border-muted",
+      buttonText: "Coming Soon",
+      onClick: () => {}
     }
-  };
+  ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <ReportCard {...sampleData} />
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-6 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-foreground mb-4">
+            School Report Management System
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Generate, manage, and distribute student reports across all school sections. 
+            Upload Excel data and create professional report cards with ease.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {sections.map((section) => (
+            <Card 
+              key={section.id} 
+              className={`relative transition-all duration-200 hover:shadow-lg ${section.color}`}
+            >
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    {section.icon}
+                    <div>
+                      <CardTitle className="text-xl">{section.title}</CardTitle>
+                      <CardDescription className="mt-1">
+                        {section.description}
+                      </CardDescription>
+                    </div>
+                  </div>
+                  <Badge 
+                    variant={section.status === "active" ? "default" : "secondary"}
+                    className="ml-2"
+                  >
+                    {section.status === "active" ? "Active" : "Coming Soon"}
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Button 
+                  onClick={section.onClick}
+                  disabled={section.status !== "active"}
+                  className="w-full"
+                  variant={section.status === "active" ? "default" : "outline"}
+                >
+                  {section.buttonText}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="mt-16 text-center">
+          <div className="bg-card border rounded-lg p-8 max-w-2xl mx-auto">
+            <h3 className="text-lg font-semibold mb-4">Quick Start with Elementary</h3>
+            <p className="text-muted-foreground mb-6">
+              Get started by uploading your Excel file with student data. 
+              Our system will automatically generate individual report cards that you can review and upload to Supabase.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button onClick={() => navigate("/upload")} size="lg">
+                Upload Excel File
+              </Button>
+              <Button variant="outline" onClick={() => navigate("/results")} size="lg">
+                View Uploaded Reports
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
