@@ -195,10 +195,8 @@ export default function StudentReport() {
 
       toast({
         title: "Report uploaded successfully!",
-        description: `Report for ${student.name} has been uploaded as PDF.`
+        description: `Report for ${student.name} has been uploaded as PDF. You can continue uploading more reports or navigate to Results when ready.`
       });
-
-      navigate('/results');
     } catch (error) {
       console.error('Upload error:', error);
       toast({
@@ -233,6 +231,9 @@ export default function StudentReport() {
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => navigate('/upload')}>
             Back to Upload
+          </Button>
+          <Button variant="outline" onClick={() => navigate('/results')}>
+            View Results
           </Button>
           <Button 
             onClick={uploadToSupabase}
