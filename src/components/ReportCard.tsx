@@ -60,11 +60,11 @@ export const ReportCard = ({
       {/* Cover Page */}
       <div ref={pageRefs?.coverRef} className="w-full h-screen p-8 flex flex-col justify-between" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
         <div className="flex-1 flex flex-col justify-center items-center text-center">
-          <div className="mb-8">
+          <div className="mb-12">
             <img 
               src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
               alt="AUN Schools Logo" 
-              className="h-20 mx-auto"
+              className="h-32 mx-auto"
             />
           </div>
           
@@ -119,15 +119,15 @@ export const ReportCard = ({
 
       {/* Academic Subjects Page */}
       <div ref={pageRefs?.subjectsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
-        <div className="mb-8">
+        <div className="mb-12">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-16"
+            className="h-24"
           />
         </div>
 
-        <div className="flex-1 space-y-6">
+        <div className="flex-1 space-y-8">
           {subjects.map((subject, index) => (
             <div key={index} className="border border-gray-400">
               <div className="bg-gray-400 px-4 py-3 flex justify-between items-center">
@@ -139,13 +139,13 @@ export const ReportCard = ({
                 <span className="font-medium text-black">Term Report</span>
               </div>
               
-              <div className="p-4 bg-white">
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-black">Grade</span>
-                  <span className="text-xl font-bold text-black">{subject.grade}</span>
+              <div className="p-6 bg-white">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-black font-medium">Grade</span>
+                  <span className="text-2xl font-bold text-black">{subject.grade}</span>
                 </div>
                 {subject.comment && (
-                  <p className="text-sm text-black leading-relaxed">
+                  <p className="text-base text-black leading-relaxed mt-4">
                     {subject.comment}
                   </p>
                 )}
@@ -176,18 +176,18 @@ export const ReportCard = ({
 
       {/* Specials Page */}
       <div ref={pageRefs?.specialsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
-        <div className="mb-8">
+        <div className="mb-12">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-16"
+            className="h-24"
           />
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 space-y-8">
           {/* Science Subject Section */}
           {scienceSubject && (
-            <div className="border border-gray-400 mb-6">
+            <div className="border border-gray-400 mb-8">
               <div className="bg-gray-400 px-4 py-3 flex justify-between items-center">
                 <h3 className="font-medium text-black">{scienceSubject.name}</h3>
                 <span className="font-medium text-black">{scienceSubject.teacher}</span>
@@ -197,13 +197,13 @@ export const ReportCard = ({
                 <span className="font-medium text-black">Term Report</span>
               </div>
               
-              <div className="p-4 bg-white">
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-black">Grade</span>
-                  <span className="text-xl font-bold text-black">{scienceSubject.grade}</span>
+              <div className="p-6 bg-white">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-black font-medium">Grade</span>
+                  <span className="text-2xl font-bold text-black">{scienceSubject.grade}</span>
                 </div>
                 {scienceSubject.comment && (
-                  <p className="text-sm text-black leading-relaxed">
+                  <p className="text-base text-black leading-relaxed mt-4">
                     {scienceSubject.comment}
                   </p>
                 )}
@@ -212,17 +212,17 @@ export const ReportCard = ({
           )}
 
           {/* Specials Table */}
-          <div className="border border-gray-400 mb-6">
+          <div className="border border-gray-400">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-400">
-                  <th className="border-r border-gray-400 px-4 py-3 text-left font-bold text-black">
+                  <th className="border-r border-gray-400 px-6 py-4 text-left font-bold text-black text-base">
                     Specials
                   </th>
-                  <th className="border-r border-gray-400 px-4 py-3 text-center font-bold text-black">
+                  <th className="border-r border-gray-400 px-6 py-4 text-center font-bold text-black text-base">
                     Grade
                   </th>
-                  <th className="px-4 py-3 text-center font-bold text-black">
+                  <th className="px-6 py-4 text-center font-bold text-black text-base">
                     Subject Teacher's Name
                   </th>
                 </tr>
@@ -230,13 +230,13 @@ export const ReportCard = ({
               <tbody>
                 {specials.map((special, index) => (
                   <tr key={index} className="border-t border-gray-400">
-                    <td className="border-r border-gray-400 px-4 py-3 bg-gray-300 text-black font-medium">
+                    <td className="border-r border-gray-400 px-6 py-4 bg-gray-300 text-black font-medium text-base">
                       {special.name}
                     </td>
-                    <td className="border-r border-gray-400 px-4 py-3 text-center text-black font-medium bg-white">
+                    <td className="border-r border-gray-400 px-6 py-4 text-center text-black font-medium bg-white text-base">
                       {special.grade}
                     </td>
-                    <td className="px-4 py-3 text-center text-black font-medium bg-white">
+                    <td className="px-6 py-4 text-center text-black font-medium bg-white text-base">
                       {special.teacher}
                     </td>
                   </tr>
@@ -268,15 +268,15 @@ export const ReportCard = ({
 
       {/* Work Habits and Final Page */}
       <div ref={pageRefs?.finalRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
-        <div className="mb-8">
+        <div className="mb-12">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-16"
+            className="h-24"
           />
         </div>
 
-        <div className="flex-1 space-y-6">
+        <div className="flex-1 space-y-8">
           {/* Work Habits Table */}
           <div className="border border-gray-400">
             <table className="w-full border-collapse">
