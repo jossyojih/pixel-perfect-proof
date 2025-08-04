@@ -312,7 +312,7 @@ export const ReportCard = ({
             <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-600">
-                  <th colSpan={6} className="px-4 py-3 text-center font-bold text-white">
+                  <th colSpan={4} className="px-4 py-3 text-center font-bold text-white">
                     Metrics
                   </th>
                 </tr>
@@ -328,14 +328,22 @@ export const ReportCard = ({
                   <td className="border-r border-black px-3 py-2 text-sm text-black bg-gray-400 font-medium">
                     D = 60-69%
                   </td>
-                  <td className="border-r border-black px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
+                  <td className="px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
                     Below Average
                   </td>
+                </tr>
+                <tr className="border-t border-black">
                   <td className="border-r border-black px-3 py-2 text-sm text-black bg-gray-400 font-medium">
                     B = 80-89%
                   </td>
-                  <td className="px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
+                  <td className="border-r border-black px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
                     Above Average
+                  </td>
+                  <td className="border-r border-black px-3 py-2 text-sm text-black bg-gray-400 font-medium">
+                    U = 0-59%
+                  </td>
+                  <td className="px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
+                    Unsatisfactory
                   </td>
                 </tr>
                 <tr className="border-t border-black">
@@ -346,12 +354,11 @@ export const ReportCard = ({
                     Average
                   </td>
                   <td className="border-r border-black px-3 py-2 text-sm text-black bg-gray-400 font-medium">
-                    U = 0-59%
+                    
                   </td>
                   <td className="px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
-                    Unsatisfactory
+                    
                   </td>
-                  <td colSpan={2} className="bg-gray-400 border-l border-black"></td>
                 </tr>
               </tbody>
             </table>
