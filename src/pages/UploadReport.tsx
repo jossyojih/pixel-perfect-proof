@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ReportCard } from "@/components/ReportCard";
+import { StudentsTable } from "@/components/StudentsTable";
 import { useToast } from "@/hooks/use-toast";
 import * as XLSX from 'xlsx';
 
@@ -28,7 +28,6 @@ interface ParsedStudent {
 export default function UploadReport() {
   const [file, setFile] = useState<File | null>(null);
   const [students, setStudents] = useState<ParsedStudent[]>([]);
-  const [selectedStudent, setSelectedStudent] = useState<string>("");
   const [generatedReport, setGeneratedReport] = useState<any>(null);
   const { toast } = useToast();
 
@@ -101,10 +100,7 @@ export default function UploadReport() {
     reader.readAsArrayBuffer(file);
   };
 
-  const generateReport = () => {
-    const student = students.find(s => s.name === selectedStudent);
-    if (!student) return;
-
+  const handleStudentClick = (student: ParsedStudent) => {
     // Sample data for missing fields - you can make these configurable later
     const reportData = {
       studentName: student.name,
@@ -162,27 +158,10 @@ export default function UploadReport() {
           {students.length > 0 && (
             <div>
               <label className="block text-sm font-medium mb-2">
-                Select Student
+                Students from Excel File
               </label>
-              <Select value={selectedStudent} onValueChange={setSelectedStudent}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Choose a student" />
-                </SelectTrigger>
-                <SelectContent>
-                  {students.map((student, index) => (
-                    <SelectItem key={index} value={student.name}>
-                      {student.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <StudentsTable students={students} onStudentClick={handleStudentClick} />
             </div>
-          )}
-
-          {selectedStudent && (
-            <Button onClick={generateReport} className="w-full">
-              Generate Report Card
-            </Button>
           )}
         </div>
       </Card>
