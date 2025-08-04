@@ -214,28 +214,28 @@ export const ReportCard = ({
           )}
 
           {/* Specials Table */}
-          <div className="border border-gray-400">
+          <div className="border border-black">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="bg-gray-400">
-                  <th className="border-r border-gray-400 px-6 py-4 text-left font-bold text-black text-base">
+                <tr className="bg-gray-600">
+                  <th className="border-r border-black px-6 py-4 text-left font-bold text-white text-base">
                     Specials
                   </th>
-                  <th className="border-r border-gray-400 px-6 py-4 text-center font-bold text-black text-base">
+                  <th className="border-r border-black px-6 py-4 text-center font-bold text-white text-base">
                     Grade
                   </th>
-                  <th className="px-6 py-4 text-center font-bold text-black text-base">
+                  <th className="px-6 py-4 text-center font-bold text-white text-base">
                     Subject Teacher's Name
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {specials.map((special, index) => (
-                  <tr key={index} className="border-t border-gray-400">
-                    <td className="border-r border-gray-400 px-6 py-4 bg-gray-300 text-black font-medium text-base">
+                  <tr key={index} className="border-t border-black">
+                    <td className="border-r border-black px-6 py-4 bg-gray-300 text-black font-medium text-base">
                       {special.name}
                     </td>
-                    <td className="border-r border-gray-400 px-6 py-4 text-center text-black font-medium bg-white text-base">
+                    <td className="border-r border-black px-6 py-4 text-center text-black font-medium bg-white text-base">
                       {special.grade}
                     </td>
                     <td className="px-6 py-4 text-center text-black font-medium bg-white text-base">
@@ -280,22 +280,22 @@ export const ReportCard = ({
 
         <div className="flex-1 space-y-6">
           {/* Work Habits Table */}
-          <div className="border border-gray-400">
+          <div className="border border-black">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="bg-gray-400">
-                  <th className="border-r border-gray-400 px-4 py-3 text-left font-bold text-black">
+                <tr className="bg-gray-600">
+                  <th className="border-r border-black px-4 py-3 text-left font-bold text-white">
                     Work Habits/Conduct
                   </th>
-                  <th className="px-4 py-3 text-center font-bold text-black">
+                  <th className="px-4 py-3 text-center font-bold text-white">
                     Remarks
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {workHabits.map((habit, index) => (
-                  <tr key={index} className="border-t border-gray-400">
-                    <td className="border-r border-gray-400 px-4 py-3 text-black bg-white">
+                  <tr key={index} className="border-t border-black">
+                    <td className="border-r border-black px-4 py-3 text-black bg-white">
                       {habit.trait}
                     </td>
                     <td className="px-4 py-3 text-center text-black bg-white">
@@ -308,59 +308,59 @@ export const ReportCard = ({
           </div>
 
           {/* Metrics Table */}
-          <div className="border border-gray-400">
+          <div className="border border-black">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="bg-gray-400">
-                  <th colSpan={6} className="px-4 py-3 text-center font-bold text-black">
+                <tr className="bg-gray-600">
+                  <th colSpan={6} className="px-4 py-3 text-center font-bold text-white">
                     Metrics
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-t border-gray-400">
-                  <td className="border-r border-gray-400 px-3 py-2 text-sm text-black bg-gray-400 font-medium">
+                <tr className="border-t border-black">
+                  <td className="border-r border-black px-3 py-2 text-sm text-black bg-gray-400 font-medium">
                     A = 90-100%
                   </td>
-                  <td className="border-r border-gray-400 px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
+                  <td className="border-r border-black px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
                     Superior
                   </td>
-                  <td className="border-r border-gray-400 px-3 py-2 text-sm text-black bg-gray-400 font-medium">
+                  <td className="border-r border-black px-3 py-2 text-sm text-black bg-gray-400 font-medium">
                     D = 60-69%
                   </td>
-                  <td className="border-r border-gray-400 px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
+                  <td className="border-r border-black px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
                     Below Average
                   </td>
-                  <td className="border-r border-gray-400 px-3 py-2 text-sm text-black bg-gray-400 font-medium">
+                  <td className="border-r border-black px-3 py-2 text-sm text-black bg-gray-400 font-medium">
                     B = 80-89%
                   </td>
                   <td className="px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
                     Above Average
                   </td>
                 </tr>
-                <tr className="border-t border-gray-400">
-                  <td className="border-r border-gray-400 px-3 py-2 text-sm text-black bg-gray-400 font-medium">
+                <tr className="border-t border-black">
+                  <td className="border-r border-black px-3 py-2 text-sm text-black bg-gray-400 font-medium">
                     C = 70-79%
                   </td>
-                  <td className="border-r border-gray-400 px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
+                  <td className="border-r border-black px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
                     Average
                   </td>
-                  <td className="border-r border-gray-400 px-3 py-2 text-sm text-black bg-gray-400 font-medium">
+                  <td className="border-r border-black px-3 py-2 text-sm text-black bg-gray-400 font-medium">
                     U = 0-59%
                   </td>
                   <td className="px-3 py-2 text-sm text-center text-black bg-gray-400 font-medium">
                     Unsatisfactory
                   </td>
-                  <td colSpan={2} className="bg-gray-400"></td>
+                  <td colSpan={2} className="bg-gray-400 border-l border-black"></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           {/* Comments Section */}
-          <div className="border border-gray-400">
-            <div className="bg-gray-400 px-4 py-3">
-              <h3 className="font-bold text-black">Comments</h3>
+          <div className="border border-black">
+            <div className="bg-gray-600 px-4 py-3 border-b border-black">
+              <h3 className="font-bold text-white">Comments</h3>
             </div>
             <div className="p-4 bg-white">
               <p className="text-sm text-black leading-relaxed">
@@ -370,18 +370,18 @@ export const ReportCard = ({
           </div>
 
           {/* Attendance Section */}
-          <div className="border border-gray-400">
-            <div className="bg-gray-400 px-4 py-3">
-              <h3 className="font-bold text-black">Attendance</h3>
+          <div className="border border-black">
+            <div className="bg-gray-600 px-4 py-3 border-b border-black">
+              <h3 className="font-bold text-white">Attendance</h3>
             </div>
             <table className="w-full border-collapse">
               <tbody>
-                <tr className="border-t border-gray-400">
-                  <td className="border-r border-gray-400 px-4 py-3 text-black font-medium bg-white">No. of School Days</td>
-                  <td className="border-r border-gray-400 px-4 py-3 text-center text-black font-bold bg-white">{attendance.totalDays}</td>
-                  <td className="border-r border-gray-400 px-4 py-3 text-black font-medium bg-white">Days Present</td>
-                  <td className="border-r border-gray-400 px-4 py-3 text-center text-black font-bold bg-white">{attendance.daysPresent}</td>
-                  <td className="border-r border-gray-400 px-4 py-3 text-black font-medium bg-white">Days Absent</td>
+                <tr>
+                  <td className="border-r border-black px-4 py-3 text-black font-medium bg-white">No. of School Days</td>
+                  <td className="border-r border-black px-4 py-3 text-center text-black font-bold bg-white">{attendance.totalDays}</td>
+                  <td className="border-r border-black px-4 py-3 text-black font-medium bg-white">Days Present</td>
+                  <td className="border-r border-black px-4 py-3 text-center text-black font-bold bg-white">{attendance.daysPresent}</td>
+                  <td className="border-r border-black px-4 py-3 text-black font-medium bg-white">Days Absent</td>
                   <td className="px-4 py-3 text-center text-black font-bold bg-white">{attendance.daysAbsent}</td>
                 </tr>
               </tbody>
