@@ -132,16 +132,16 @@ export const ReportCard = ({
         <div className="flex-1 space-y-8">
           {subjects.map((subject, index) => (
             <div key={index} className="border border-black">
-              <div className="bg-gray-500 px-4 py-3 flex justify-between items-center border-b border-black">
+              <div className="bg-gray-600 px-4 py-3 flex justify-between items-center border-b border-black">
                 <h3 className="font-medium text-white">{subject.name}</h3>
                 <span className="font-medium text-white">{subject.teacher}</span>
               </div>
               
-              <div className="bg-gray-500 px-4 py-2 border-b border-black">
-                <span className="font-medium text-white">Term Report</span>
+              <div className="bg-gray-400 px-4 py-2 border-b border-black">
+                <span className="font-medium text-black">Term Report</span>
               </div>
               
-              <div className="p-6 bg-white">
+              <div className="p-6 bg-white border-b border-black">
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-black font-medium">Grade</span>
                   <span className="text-2xl font-bold text-black">{subject.grade}</span>
@@ -190,16 +190,16 @@ export const ReportCard = ({
           {/* Science Subject Section */}
           {scienceSubject && (
             <div className="border border-black mb-8">
-              <div className="bg-gray-500 px-4 py-3 flex justify-between items-center border-b border-black">
+              <div className="bg-gray-600 px-4 py-3 flex justify-between items-center border-b border-black">
                 <h3 className="font-medium text-white">{scienceSubject.name}</h3>
                 <span className="font-medium text-white">{scienceSubject.teacher}</span>
               </div>
               
-              <div className="bg-gray-500 px-4 py-2 border-b border-black">
-                <span className="font-medium text-white">Term Report</span>
+              <div className="bg-gray-400 px-4 py-2 border-b border-black">
+                <span className="font-medium text-black">Term Report</span>
               </div>
               
-              <div className="p-6 bg-white">
+              <div className="p-6 bg-white border-b border-black">
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-black font-medium">Grade</span>
                   <span className="text-2xl font-bold text-black">{scienceSubject.grade}</span>
