@@ -148,7 +148,7 @@ export default function UploadReport() {
                {
               name: 'PHE',
               teacher: row['phe_teacher_name'] || '',
-              grade: row['french_art'] || "N/A",
+              grade: row['phe_art'] || "N/A",
               comment: ''
             }
           ];
