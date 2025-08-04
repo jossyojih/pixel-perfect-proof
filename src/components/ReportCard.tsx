@@ -58,67 +58,69 @@ export const ReportCard = ({
   return (
     <div className="bg-white font-sans">
       {/* Cover Page */}
-      <div ref={pageRefs?.coverRef} className="w-full h-screen p-8 flex flex-col justify-between" style={{ minHeight: '210mm', width: '297mm', border: '4px solid #1e40af' }}>
-        <div className="flex-1 flex flex-col justify-center items-center text-center">
-          <div className="mb-12">
-            <img 
-              src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
-              alt="AUN Schools Logo" 
-              className="h-32 mx-auto"
-            />
-          </div>
-          
-          <h1 className="text-xl font-bold text-black mb-8">
-            AUN SCHOOLS-ELEMENTARY
-          </h1>
-          
-          <div className="space-y-4 mb-12">
-            <h2 className="text-lg font-bold italic text-black">
-              End of Term Report
-            </h2>
-            <p className="text-lg font-medium text-blue-600">
-              Term 3
-            </p>
-            <p className="text-lg text-black">
-              2024 - 2025
-            </p>
-          </div>
-          
-          <div className="space-y-6">
-            <h3 className="text-xl font-bold text-black">
-              {studentName}
-            </h3>
-            <p className="text-lg font-medium text-black">
-              {grade}
-            </p>
-            <p className="text-base text-black">
-              Emmanuel O. Abioye, Monsurat Opeyemi Adebimpe
-            </p>
-          </div>
-        </div>
-        
-        {/* Footer */}
-        <div className="text-xs text-black border-t border-gray-300 pt-4">
-          <div className="flex justify-between">
-            <div>
-              <p className="font-bold mb-1">ADDRESS</p>
-              <p>AUN Schools-Elementary</p>
-              <p>99 Lamido Zubairu Way</p>
-              <p>Yola Bypass</p>
-              <p>Yola Adamawa State</p>
+      <div ref={pageRefs?.coverRef} className="w-full h-screen p-12 flex flex-col justify-between" style={{ minHeight: '210mm', width: '297mm' }}>
+        <div className="border-4 border-blue-700 p-8 h-full flex flex-col justify-between">
+          <div className="flex-1 flex flex-col justify-center items-center text-center">
+            <div className="mb-12">
+              <img 
+                src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
+                alt="AUN Schools Logo" 
+                className="h-32 mx-auto"
+              />
             </div>
-            <div className="text-right">
-              <p className="font-bold mb-1">CONTACT</p>
-              <p>Phone: +2348032425524</p>
-              <p>Email: info@aunschools.net</p>
-              <p>Website: aunschools.net</p>
+            
+            <h1 className="text-xl font-bold text-black mb-8">
+              AUN SCHOOLS-ELEMENTARY
+            </h1>
+            
+            <div className="space-y-4 mb-12">
+              <h2 className="text-lg font-bold italic text-black">
+                End of Term Report
+              </h2>
+              <p className="text-lg font-medium text-blue-600">
+                Term 3
+              </p>
+              <p className="text-lg text-black">
+                2024 - 2025
+              </p>
+            </div>
+            
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold text-black">
+                {studentName}
+              </h3>
+              <p className="text-lg font-medium text-black">
+                {grade}
+              </p>
+              <p className="text-base text-black">
+                Emmanuel O. Abioye, Monsurat Opeyemi Adebimpe
+              </p>
+            </div>
+          </div>
+          
+          {/* Footer */}
+          <div className="text-xs text-black border-t border-gray-300 pt-4">
+            <div className="flex justify-between">
+              <div>
+                <p className="font-bold mb-1">ADDRESS</p>
+                <p>AUN Schools-Elementary</p>
+                <p>99 Lamido Zubairu Way</p>
+                <p>Yola Bypass</p>
+                <p>Yola Adamawa State</p>
+              </div>
+              <div className="text-right">
+                <p className="font-bold mb-1">CONTACT</p>
+                <p>Phone: +2348032425524</p>
+                <p>Email: info@aunschools.net</p>
+                <p>Website: aunschools.net</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Academic Subjects Page */}
-      <div ref={pageRefs?.subjectsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '210mm', width: '297mm', border: '4px solid #1e40af' }}>
+      <div ref={pageRefs?.subjectsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '210mm', width: '297mm' }}>
         <div className="mb-12">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
@@ -175,7 +177,7 @@ export const ReportCard = ({
       </div>
 
       {/* Specials Page */}
-      <div ref={pageRefs?.specialsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '210mm', width: '297mm', border: '4px solid #1e40af' }}>
+      <div ref={pageRefs?.specialsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '210mm', width: '297mm' }}>
         <div className="mb-12">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
@@ -267,8 +269,8 @@ export const ReportCard = ({
       </div>
 
       {/* Work Habits and Final Page */}
-      <div ref={pageRefs?.finalRef} className="w-full p-6 flex flex-col" style={{ minHeight: '210mm', width: '297mm', border: '4px solid #1e40af' }}>
-        <div className="mb-12">
+      <div ref={pageRefs?.finalRef} className="w-full p-6 flex flex-col" style={{ minHeight: '210mm', width: '297mm' }}>
+        <div className="mb-8">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
@@ -276,7 +278,7 @@ export const ReportCard = ({
           />
         </div>
 
-        <div className="flex-1 space-y-8">
+        <div className="flex-1 space-y-6">
           {/* Work Habits Table */}
           <div className="border border-gray-400">
             <table className="w-full border-collapse">
@@ -387,7 +389,7 @@ export const ReportCard = ({
           </div>
 
           {/* Signature Section */}
-          <div className="text-center space-y-4 mt-8">
+          <div className="text-center space-y-4 mt-6">
             <div className="flex justify-center">
               <img 
                 src="/lovable-uploads/8e2cb997-99fd-4baa-98af-b2cfb393803f.png" 
@@ -405,7 +407,7 @@ export const ReportCard = ({
         </div>
         
         {/* Footer */}
-        <div className="mt-8 text-xs text-black border-t border-gray-300 pt-4">
+        <div className="mt-6 text-xs text-black border-t border-gray-300 pt-4">
           <div className="flex justify-between">
             <div>
               <p className="font-bold mb-1">ADDRESS</p>
