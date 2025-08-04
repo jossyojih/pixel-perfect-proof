@@ -77,7 +77,7 @@ export const ReportCard = ({
               End of Term Report
             </h2>
             <p className="text-lg font-medium text-blue-600">
-              Term Three
+              Term 3
             </p>
             <p className="text-lg text-black">
               2024 - 2025
