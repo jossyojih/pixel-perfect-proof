@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { ReportCard } from "@/components/ReportCard";
 import { StudentsTable } from "@/components/StudentsTable";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import * as XLSX from 'xlsx';
 
 interface ExcelRow {
