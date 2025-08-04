@@ -68,8 +68,8 @@ export default function UploadReport() {
 
         jsonData.forEach((row, index) => {
           console.log(`Processing row ${index}:`, row);
-          // The student name is in column __EMPTY_2
-          const studentName = row['__EMPTY_2'];
+          // The student name can be in either __EMPTY_2 or _2 depending on Excel format
+          const studentName = row['__EMPTY_2'] || row['_2'];
           console.log(`Student name found: "${studentName}"`);
           
           if (!studentName || typeof studentName !== 'string') return;
