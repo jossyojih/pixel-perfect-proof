@@ -219,7 +219,7 @@ export default function UploadReport() {
       term: "First Term",
       academicYear: "2023/2024",
       subjects: mainSubjects,
-      specials: [...specialSubjects, ...additionalSpecials],
+      specials: specialSubjects,
       scienceSubject: scienceSubject[0] || null, // Pass science subject separately
       workHabits: [
         { trait: "Shows Effort", rating: student.showsEffort || "Outstanding" },
