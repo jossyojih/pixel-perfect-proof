@@ -67,7 +67,7 @@ export const ReportCard = ({
               End of Term Report
             </h2>
             <p className="text-lg font-medium text-blue-600">
-              {term}
+              Third Term
             </p>
             <p className="text-lg text-foreground">
               {academicYear}
