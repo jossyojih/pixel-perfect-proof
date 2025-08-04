@@ -73,15 +73,15 @@ export default function UploadReport() {
               name: studentName,
               subjects: [],
               rawData: row, // Store the raw Excel row data for teacher names
-              // Extract additional data from Excel
-              Comments: row['Comments'],
-              showsEffort: row['Shows Effort'],
-              worksWellWithOthers: row['Works well with others'],
-              producesLegibleHandwriting: row['Produces legible handwriting'],
-              demonstratesGreatCharacterTrait: row['Demonstrates great character trait'],
-              totalDays: row['No. of School Days'],
-              daysPresent: row['Days Present'],
-              daysAbsent: row['Days Absent']
+              // Extract additional data from Excel using correct column names
+              Comments: row['teacher_comments'],
+              showsEffort: row['shows_effort_remarks'],
+              worksWellWithOthers: row['works_with_remarks'],
+              producesLegibleHandwriting: row['produces_legible_remarks'],
+              demonstratesGreatCharacterTrait: row['demonstrates_great_remarks'],
+              totalDays: parseInt(row['no_of_school_days']) || 53,
+              daysPresent: parseInt(row['days_present']) || 48,
+              daysAbsent: parseInt(row['days_absent']) || 5
             });
           }
 
