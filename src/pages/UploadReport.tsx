@@ -79,9 +79,9 @@ export default function UploadReport() {
               worksWellWithOthers: row['works_with_remarks'],
               producesLegibleHandwriting: row['produces_legible_remarks'],
               demonstratesGreatCharacterTrait: row['demonstrates_great_remarks'],
-              totalDays: parseInt(row['no_of_school_days']) || 53,
-              daysPresent: parseInt(row['days_present']) || 48,
-              daysAbsent: parseInt(row['days_absent']) || 5
+              totalDays: parseInt(row['No. of school days']) || 53,
+              daysPresent: parseInt(row['Days Present']) || 48,
+              daysAbsent: parseInt(row['Days Absent']) || 5
             });
           }
 
