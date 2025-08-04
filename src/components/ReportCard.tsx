@@ -131,14 +131,14 @@ export const ReportCard = ({
 
         <div className="flex-1 space-y-8">
           {subjects.map((subject, index) => (
-            <div key={index} className="border border-gray-400">
-              <div className="bg-gray-400 px-4 py-3 flex justify-between items-center">
-                <h3 className="font-medium text-black">{subject.name}</h3>
-                <span className="font-medium text-black">{subject.teacher}</span>
+            <div key={index} className="border border-black">
+              <div className="bg-gray-500 px-4 py-3 flex justify-between items-center border-b border-black">
+                <h3 className="font-medium text-white">{subject.name}</h3>
+                <span className="font-medium text-white">{subject.teacher}</span>
               </div>
               
-              <div className="border-b border-gray-400 bg-gray-400 px-4 py-2">
-                <span className="font-medium text-black">Term Report</span>
+              <div className="bg-gray-500 px-4 py-2 border-b border-black">
+                <span className="font-medium text-white">Term Report</span>
               </div>
               
               <div className="p-6 bg-white">
@@ -189,14 +189,14 @@ export const ReportCard = ({
         <div className="flex-1 space-y-8">
           {/* Science Subject Section */}
           {scienceSubject && (
-            <div className="border border-gray-400 mb-8">
-              <div className="bg-gray-400 px-4 py-3 flex justify-between items-center">
-                <h3 className="font-medium text-black">{scienceSubject.name}</h3>
-                <span className="font-medium text-black">{scienceSubject.teacher}</span>
+            <div className="border border-black mb-8">
+              <div className="bg-gray-500 px-4 py-3 flex justify-between items-center border-b border-black">
+                <h3 className="font-medium text-white">{scienceSubject.name}</h3>
+                <span className="font-medium text-white">{scienceSubject.teacher}</span>
               </div>
               
-              <div className="border-b border-gray-400 bg-gray-400 px-4 py-2">
-                <span className="font-medium text-black">Term Report</span>
+              <div className="bg-gray-500 px-4 py-2 border-b border-black">
+                <span className="font-medium text-white">Term Report</span>
               </div>
               
               <div className="p-6 bg-white">
