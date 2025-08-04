@@ -29,6 +29,8 @@ interface ReportCardProps {
   scienceSubject?: Subject;
   workHabits: WorkHabit[];
   generalComment: string;
+  mathLanguageArt?: string;
+  englishLanguageArtTeacherName?: string;
   attendance: {
     totalDays: number;
     daysPresent: number;
@@ -52,6 +54,8 @@ export const ReportCard = ({
   scienceSubject,
   workHabits,
   generalComment,
+  mathLanguageArt,
+  englishLanguageArtTeacherName,
   attendance,
   pageRefs,
 }: ReportCardProps) => {
@@ -93,8 +97,9 @@ export const ReportCard = ({
                 {grade}
               </p>
               <p className="text-base text-black">
-                Iveren Iyough Nnamele, Rukayat Akintonde
-
+                {mathLanguageArt && englishLanguageArtTeacherName 
+                  ? `${mathLanguageArt}, ${englishLanguageArtTeacherName}`
+                  : "Iveren Iyough Nnamele, Rukayat Akintonde"}
               </p>
             </div>
           </div>

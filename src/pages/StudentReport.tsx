@@ -105,6 +105,8 @@ export default function StudentReport() {
         { trait: "Demonstrates great character trait", rating: student.demonstratesGreatCharacterTrait || "Satisfactory" }
       ],
       generalComment: student.Comments || student.comments,
+      mathLanguageArt: student.math_language_art,
+      englishLanguageArtTeacherName: student.english_language_art_teacher_name,
       attendance: {
         totalDays: student.totalDays || 53,
         daysPresent: student.daysPresent || 53,
