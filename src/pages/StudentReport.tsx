@@ -65,7 +65,7 @@ export default function StudentReport() {
     );
     
     const specialSubjects = student.subjects.filter((subject: any) => 
-      ['Computer Studies', 'Hausa', 'Religious Studies', 'French'].includes(subject.name)
+      ['Computer Studies', 'Hausa', 'Religious Studies', 'French', 'PHE'].includes(subject.name)
     );
 
     // Get Science subject for specials page
@@ -84,7 +84,7 @@ export default function StudentReport() {
     const additionalSpecials = [];
     if (!hasPhysicalEducation) {
       additionalSpecials.push({ 
-        name: "Physical Education", 
+        name: "PHE", 
         grade: 88, 
         teacher: "Geoffrey Nushu Gabriel" 
       });

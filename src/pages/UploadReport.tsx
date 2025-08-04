@@ -92,6 +92,8 @@ export default function UploadReport() {
           }
 
           const student = studentMap.get(studentName)!;
+
+          console.log(student,"Student map o")
           
           // Parse all the subjects from the row
           const subjects = [
@@ -139,6 +141,12 @@ export default function UploadReport() {
             },
             {
               name: 'French',
+              teacher: row['french_teacher_name'] || '',
+              grade: row['french_art'] || "N/A",
+              comment: ''
+            },
+               {
+              name: 'PHE',
               teacher: row['french_teacher_name'] || '',
               grade: row['french_art'] || "N/A",
               comment: ''
