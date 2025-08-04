@@ -58,7 +58,7 @@ export const ReportCard = ({
   return (
     <div className="bg-white font-sans">
       {/* Cover Page */}
-      <div ref={pageRefs?.coverRef} className="w-full h-screen p-8 flex flex-col justify-between" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
+      <div ref={pageRefs?.coverRef} className="w-full h-screen p-8 flex flex-col justify-between" style={{ minHeight: '210mm', width: '297mm', border: '4px solid #1e40af' }}>
         <div className="flex-1 flex flex-col justify-center items-center text-center">
           <div className="mb-12">
             <img 
@@ -118,7 +118,7 @@ export const ReportCard = ({
       </div>
 
       {/* Academic Subjects Page */}
-      <div ref={pageRefs?.subjectsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
+      <div ref={pageRefs?.subjectsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '210mm', width: '297mm', border: '4px solid #1e40af' }}>
         <div className="mb-12">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
@@ -175,7 +175,7 @@ export const ReportCard = ({
       </div>
 
       {/* Specials Page */}
-      <div ref={pageRefs?.specialsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
+      <div ref={pageRefs?.specialsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '210mm', width: '297mm', border: '4px solid #1e40af' }}>
         <div className="mb-12">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
@@ -267,7 +267,7 @@ export const ReportCard = ({
       </div>
 
       {/* Work Habits and Final Page */}
-      <div ref={pageRefs?.finalRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
+      <div ref={pageRefs?.finalRef} className="w-full p-6 flex flex-col" style={{ minHeight: '210mm', width: '297mm', border: '4px solid #1e40af' }}>
         <div className="mb-12">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 

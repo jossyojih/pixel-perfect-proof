@@ -118,7 +118,7 @@ export default function StudentReport() {
       const reportData = generateReportData(student);
       
       const pdf = new jsPDF({
-        orientation: 'portrait',
+        orientation: 'landscape',
         unit: 'mm',
         format: 'a4',
         compress: true
@@ -150,9 +150,9 @@ export default function StudentReport() {
           pdf.addPage();
         }
         
-        // Calculate dimensions to fit A4
-        const imgWidth = 210; // A4 width in mm
-        const pageHeight = 297; // A4 height in mm
+        // Calculate dimensions to fit A4 landscape
+        const imgWidth = 297; // A4 landscape width in mm
+        const pageHeight = 210; // A4 landscape height in mm
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         
         // Center the image on the page if it's smaller than A4
