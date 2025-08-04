@@ -27,6 +27,10 @@ export default function StudentReport() {
   const [isUploading, setIsUploading] = useState(false);
   const [student, setStudent] = useState<any>(null);
   const reportRef = useRef<HTMLDivElement>(null);
+  const coverRef = useRef<HTMLDivElement>(null);
+  const subjectsRef = useRef<HTMLDivElement>(null);
+  const specialsRef = useRef<HTMLDivElement>(null);
+  const finalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Get student data from localStorage (passed from UploadReport page)
@@ -101,50 +105,54 @@ export default function StudentReport() {
   };
 
   const uploadToSupabase = async () => {
-    if (!student || !reportRef.current) return;
+    if (!student || !coverRef.current || !subjectsRef.current || !specialsRef.current || !finalRef.current) return;
 
     setIsUploading(true);
     try {
       const reportData = generateReportData(student);
       
-      // Generate canvas from the HTML report card
-      const canvas = await html2canvas(reportRef.current, {
-        scale: 1, // Reduced scale for smaller file size
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#ffffff',
-        width: reportRef.current.scrollWidth,
-        height: reportRef.current.scrollHeight,
-        scrollX: 0,
-        scrollY: 0
-      });
-
-      // Convert canvas to JPEG with compression for smaller file size
-      const imgData = canvas.toDataURL('image/jpeg', 0.8);
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4',
-        compress: true // Enable PDF compression
+        compress: true
       });
+
+      const pageRefs = [coverRef, subjectsRef, specialsRef, finalRef];
       
-      // Calculate dimensions to fit A4
-      const imgWidth = 210; // A4 width in mm
-      const pageHeight = 297; // A4 height in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
-      
-      let position = 0;
-      
-      // Add image to PDF (split across pages if needed)
-      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-      
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
+      for (let i = 0; i < pageRefs.length; i++) {
+        const pageElement = pageRefs[i].current;
+        if (!pageElement) continue;
+
+        // Generate canvas for each page section
+        const canvas = await html2canvas(pageElement, {
+          scale: 1,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          width: pageElement.scrollWidth,
+          height: pageElement.scrollHeight,
+          scrollX: 0,
+          scrollY: 0
+        });
+
+        // Convert to JPEG
+        const imgData = canvas.toDataURL('image/jpeg', 0.8);
+        
+        // Add new page for each section (except first)
+        if (i > 0) {
+          pdf.addPage();
+        }
+        
+        // Calculate dimensions to fit A4
+        const imgWidth = 210; // A4 width in mm
+        const pageHeight = 297; // A4 height in mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        // Center the image on the page if it's smaller than A4
+        const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
+        
+        pdf.addImage(imgData, 'JPEG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
       }
       
       // Convert PDF to blob
@@ -230,7 +238,15 @@ export default function StudentReport() {
       </div>
 
       <div ref={reportRef}>
-        <ReportCard {...reportData} />
+        <ReportCard 
+          {...reportData} 
+          pageRefs={{
+            coverRef,
+            subjectsRef,
+            specialsRef,
+            finalRef
+          }}
+        />
       </div>
     </div>
   );

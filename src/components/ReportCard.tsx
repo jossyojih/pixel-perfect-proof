@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import { forwardRef } from "react";
 
 interface Subject {
   name: string;
@@ -32,6 +33,12 @@ interface ReportCardProps {
     daysPresent: number;
     daysAbsent: number;
   };
+  pageRefs?: {
+    coverRef: React.RefObject<HTMLDivElement>;
+    subjectsRef: React.RefObject<HTMLDivElement>;
+    specialsRef: React.RefObject<HTMLDivElement>;
+    finalRef: React.RefObject<HTMLDivElement>;
+  };
 }
 
 export const ReportCard = ({
@@ -44,11 +51,12 @@ export const ReportCard = ({
   workHabits,
   generalComment,
   attendance,
+  pageRefs,
 }: ReportCardProps) => {
   return (
     <div className="max-w-4xl mx-auto bg-white">
       {/* Cover Page */}
-      <Card className="p-8 mb-8 border-4 border-primary">
+      <Card ref={pageRefs?.coverRef} className="p-8 mb-8 border-4 border-primary">
         <div className="text-center space-y-6">
           <div className="flex justify-center mb-6">
             <img 
@@ -89,7 +97,7 @@ export const ReportCard = ({
       </Card>
 
       {/* Academic Subjects Page */}
-      <Card className="p-6 mb-8 border-2 border-report-border">
+      <Card ref={pageRefs?.subjectsRef} className="p-6 mb-8 border-2 border-report-border">
         <div className="flex justify-start mb-6">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
@@ -127,7 +135,7 @@ export const ReportCard = ({
       </Card>
 
       {/* Specials Page */}
-      <Card className="p-6 mb-8 border-2 border-report-border">
+      <Card ref={pageRefs?.specialsRef} className="p-6 mb-8 border-2 border-report-border">
         <div className="flex justify-start mb-6">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
@@ -172,7 +180,7 @@ export const ReportCard = ({
       </Card>
 
       {/* Work Habits and Final Page */}
-      <Card className="p-6 border-2 border-report-border">
+      <Card ref={pageRefs?.finalRef} className="p-6 border-2 border-report-border">
         <div className="flex justify-start mb-6">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
