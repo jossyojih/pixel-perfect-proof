@@ -182,7 +182,7 @@ export default function UploadReport() {
     );
     
     const specialSubjects = student.subjects.filter((subject: any) => 
-      ['Computer Studies', 'Hausa', 'Religious Studies', 'French'].includes(subject.name)
+      ['Computer Studies', 'Hausa', 'Religious Studies', 'French',"PHE"].includes(subject.name)
     );
 
     // Get Science subject for specials page
