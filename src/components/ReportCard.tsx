@@ -93,7 +93,8 @@ export const ReportCard = ({
                 {grade}
               </p>
               <p className="text-base text-black">
-                Iveren Iyough Nnamele, Monsurat Opeyemi Adebimpe
+                Iveren Iyough Nnamele, Rukayat Akintonde
+
               </p>
             </div>
           </div>
