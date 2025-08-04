@@ -79,6 +79,8 @@ export default function StudentReport() {
       subject.name.toLowerCase().includes('PHE')
     );
 
+    console.log(hasPhysicalEducation,"Has physical Education")
+
     const additionalSpecials = [];
     if (!hasPhysicalEducation) {
       additionalSpecials.push({ 
