@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 interface ParsedStudent {
   name: string;
@@ -13,10 +14,16 @@ interface ParsedStudent {
 
 interface StudentsTableProps {
   students: ParsedStudent[];
-  onStudentClick: (student: ParsedStudent) => void;
 }
 
-export function StudentsTable({ students, onStudentClick }: StudentsTableProps) {
+export function StudentsTable({ students }: StudentsTableProps) {
+  const navigate = useNavigate();
+
+  const handleStudentClick = (student: ParsedStudent) => {
+    // Store students data in localStorage for the report page
+    localStorage.setItem('studentsData', JSON.stringify(students));
+    navigate(`/report/${encodeURIComponent(student.name)}`);
+  };
   if (students.length === 0) {
     return null;
   }
@@ -53,7 +60,7 @@ export function StudentsTable({ students, onStudentClick }: StudentsTableProps) 
               </TableCell>
               <TableCell>
                 <Button 
-                  onClick={() => onStudentClick(student)}
+                  onClick={() => handleStudentClick(student)}
                   variant="outline"
                   size="sm"
                 >

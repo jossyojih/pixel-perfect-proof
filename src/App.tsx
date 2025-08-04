@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Index from "./pages/Index";
 import UploadReport from "./pages/UploadReport";
+import StudentReport from "./pages/StudentReport";
+import Results from "./pages/Results";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,11 +28,16 @@ const App = () => (
               <Button asChild variant="outline">
                 <Link to="/upload">Upload Excel</Link>
               </Button>
+              <Button asChild variant="outline">
+                <Link to="/results">View Results</Link>
+              </Button>
             </div>
           </nav>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/upload" element={<UploadReport />} />
+            <Route path="/report/:studentName" element={<StudentReport />} />
+            <Route path="/results" element={<Results />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
