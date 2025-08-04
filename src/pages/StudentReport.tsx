@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ReportCard } from "@/components/ReportCard";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 interface StudentReportProps {
@@ -106,7 +107,7 @@ export default function StudentReport() {
     try {
       const reportData = generateReportData(student);
       
-      // Generate PNG from the HTML report card
+      // Generate canvas from the HTML report card
       const canvas = await html2canvas(reportRef.current, {
         scale: 2, // Higher resolution
         useCORS: true,
@@ -118,19 +119,42 @@ export default function StudentReport() {
         scrollY: 0
       });
 
-      // Convert to blob
-      const blob = await new Promise<Blob>((resolve) => {
-        canvas.toBlob((blob) => {
-          resolve(blob!);
-        }, 'image/png', 1.0);
+      // Convert canvas to PDF
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
       });
+      
+      // Calculate dimensions to fit A4
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      
+      let position = 0;
+      
+      // Add image to PDF (split across pages if needed)
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      // Convert PDF to blob
+      const pdfBlob = pdf.output('blob');
 
       // Upload to Supabase Storage
-      const fileName = `${student.name.toLowerCase().replace(/\s+/g, '-')}-report-${Date.now()}.png`;
+      const fileName = `${student.name.toLowerCase().replace(/\s+/g, '-')}-report-${Date.now()}.pdf`;
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from('reports')
-        .upload(fileName, blob, {
-          contentType: 'image/png'
+        .upload(fileName, pdfBlob, {
+          contentType: 'application/pdf'
         });
 
       if (uploadError) throw uploadError;
@@ -156,7 +180,7 @@ export default function StudentReport() {
 
       toast({
         title: "Report uploaded successfully!",
-        description: `Report for ${student.name} has been uploaded as PNG image.`
+        description: `Report for ${student.name} has been uploaded as PDF.`
       });
 
       navigate('/results');
@@ -199,7 +223,7 @@ export default function StudentReport() {
             onClick={uploadToSupabase}
             disabled={isUploading}
           >
-            {isUploading ? "Converting to PNG & Uploading..." : "Upload Report as PNG"}
+            {isUploading ? "Converting to PDF & Uploading..." : "Upload Report as PDF"}
           </Button>
         </div>
       </div>
