@@ -228,6 +228,8 @@ export default function UploadReport() {
         { trait: "Demonstrates great character trait", rating: student.demonstratesGreatCharacterTrait || "Satisfactory" }
       ],
       generalComment: student.Comments || student.comments,
+      mathLanguageArt: student.rawData?.['math_language_teacher_name'] || "Math Teacher",
+      englishLanguageArtTeacherName: student.rawData?.['english_language_teacher_name'] || "English Teacher",
       attendance: {
         totalDays: student.totalDays || 53,
         daysPresent: student.daysPresent || 53,
