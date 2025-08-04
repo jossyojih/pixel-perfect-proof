@@ -104,8 +104,8 @@ export default function StudentReport() {
       generalComment: student.Comments || student.comments,
       attendance: {
         totalDays: student.totalDays || 53,
-        daysPresent: student.daysPresent || 48,
-        daysAbsent: student.daysAbsent || 5
+        daysPresent: student.daysPresent || 53,
+        daysAbsent: student.daysAbsent || (student.totalDays && student.daysPresent ? student.totalDays - student.daysPresent : 0)
       }
     };
   };
