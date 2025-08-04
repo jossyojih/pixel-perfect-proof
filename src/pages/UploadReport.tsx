@@ -19,6 +19,15 @@ interface ParsedStudent {
     comment: string;
   }>;
   rawData?: ExcelRow; // Optional raw Excel data for accessing teacher names
+  // Additional fields for report
+  Comments?: string;
+  showsEffort?: string;
+  worksWellWithOthers?: string;
+  producesLegibleHandwriting?: string;
+  demonstratesGreatCharacterTrait?: string;
+  totalDays?: number;
+  daysPresent?: number;
+  daysAbsent?: number;
 }
 
 
@@ -63,7 +72,16 @@ export default function UploadReport() {
             studentMap.set(studentName, {
               name: studentName,
               subjects: [],
-              rawData: row // Store the raw Excel row data for teacher names
+              rawData: row, // Store the raw Excel row data for teacher names
+              // Extract additional data from Excel
+              Comments: row['Comments'],
+              showsEffort: row['Shows Effort'],
+              worksWellWithOthers: row['Works well with others'],
+              producesLegibleHandwriting: row['Produces legible handwriting'],
+              demonstratesGreatCharacterTrait: row['Demonstrates great character trait'],
+              totalDays: row['No. of School Days'],
+              daysPresent: row['Days Present'],
+              daysAbsent: row['Days Absent']
             });
           }
 
