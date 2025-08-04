@@ -77,7 +77,7 @@ export const ReportCard = ({
               End of Term Report
             </h2>
             <p className="text-lg font-medium text-blue-600">
-              Term 1
+              Term Three
             </p>
             <p className="text-lg text-black">
               2024 - 2025
@@ -92,7 +92,7 @@ export const ReportCard = ({
               {grade}
             </p>
             <p className="text-base text-black">
-              Prisca Oyinkansola Oyewale, Monsurat Opeyemi Adebimpe
+              Emmanuel O. Abioye, Monsurat Opeyemi Adebimpe
             </p>
           </div>
         </div>
