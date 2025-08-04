@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import UploadReport from "./pages/UploadReport";
 import StudentReport from "./pages/StudentReport";
 import Results from "./pages/Results";
+import ClassTable from "./pages/ClassTable";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,9 @@ const App = () => (
               <Button asChild variant="outline">
                 <Link to="/results">View Results</Link>
               </Button>
+              <Button asChild variant="outline">
+                <Link to="/class-table">Class Table</Link>
+              </Button>
             </div>
           </nav>
           <Routes>
@@ -38,6 +42,7 @@ const App = () => (
             <Route path="/upload" element={<UploadReport />} />
             <Route path="/report/:studentName" element={<StudentReport />} />
             <Route path="/results" element={<Results />} />
+            <Route path="/class-table" element={<ClassTable />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
