@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import * as XLSX from 'xlsx';
 
 interface UploadedReport {
   id: string;
@@ -57,6 +58,29 @@ export default function Results() {
     });
   };
 
+  const exportToExcel = () => {
+    if (reports.length === 0) return;
+
+    const exportData = reports.map(report => ({
+      'Student Name': report.student_name,
+      'Class': report.class_tag,
+      'Grade': report.grade_tag,
+      'Upload Date': new Date(report.uploaded_at).toLocaleDateString(),
+      'Report Link': report.public_url
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Reports');
+    
+    XLSX.writeFile(workbook, `elementary-class2-reports-${new Date().toISOString().split('T')[0]}.xlsx`);
+    
+    toast({
+      title: "Export successful",
+      description: "Reports have been exported to Excel file."
+    });
+  };
+
   if (isLoading) {
     return (
       <div className="container mx-auto p-6">
@@ -74,9 +98,14 @@ export default function Results() {
           <h1 className="text-2xl font-bold">Uploaded Reports</h1>
           <p className="text-muted-foreground">Elementary - Class 2</p>
         </div>
-        <Button variant="outline" onClick={() => navigate('/upload')}>
-          Upload More Reports
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={exportToExcel} disabled={reports.length === 0}>
+            Export to Excel
+          </Button>
+          <Button variant="outline" onClick={() => navigate('/upload')}>
+            Upload More Reports
+          </Button>
+        </div>
       </div>
 
       <Card className="p-6">
