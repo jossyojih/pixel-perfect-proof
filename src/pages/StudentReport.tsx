@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { pdf } from '@react-pdf/renderer';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ReportCard } from "@/components/ReportCard";
+import { ReportCardPDF } from "@/components/ReportCardPDF";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -104,44 +106,17 @@ export default function StudentReport() {
     try {
       const reportData = generateReportData(student);
       
-      // Create a simple text representation of the report for storage
-      const reportContent = `
-Student Report Card
-==================
-Student: ${reportData.studentName}
-Grade: ${reportData.grade}
-Term: ${reportData.term}
-Academic Year: ${reportData.academicYear}
-
-SUBJECTS:
-${reportData.subjects.map(subject => 
-  `${subject.name}: ${subject.grade} (Teacher: ${subject.teacher})\nComment: ${subject.comment}`
-).join('\n\n')}
-
-SPECIAL SUBJECTS:
-${reportData.specials.map(special => 
-  `${special.name}: ${special.grade} (Teacher: ${special.teacher})`
-).join('\n')}
-
-WORK HABITS:
-${reportData.workHabits.map(habit => 
-  `${habit.trait}: ${habit.rating}`
-).join('\n')}
-
-ATTENDANCE:
-Total Days: ${reportData.attendance.totalDays}
-Days Present: ${reportData.attendance.daysPresent}
-Days Absent: ${reportData.attendance.daysAbsent}
-
-GENERAL COMMENT:
-${reportData.generalComment}
-      `;
+      // Generate PDF from the report data
+      const pdfDoc = <ReportCardPDF {...reportData} />;
+      const pdfBlob = await pdf(pdfDoc).toBlob();
 
       // Upload to Supabase Storage
-      const fileName = `${student.name.toLowerCase().replace(/\s+/g, '-')}-report-${Date.now()}.txt`;
+      const fileName = `${student.name.toLowerCase().replace(/\s+/g, '-')}-report-${Date.now()}.pdf`;
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from('reports')
-        .upload(fileName, new Blob([reportContent], { type: 'text/plain' }));
+        .upload(fileName, pdfBlob, {
+          contentType: 'application/pdf'
+        });
 
       if (uploadError) throw uploadError;
 
