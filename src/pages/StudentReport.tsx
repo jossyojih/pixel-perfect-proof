@@ -75,7 +75,8 @@ export default function StudentReport() {
 
     // Only add Physical Education if not already in the subjects data
     const hasPhysicalEducation = specialSubjects.some((subject: any) => 
-      subject.name.toLowerCase().includes('physical') || subject.name.toLowerCase().includes('pe')
+      subject.name.toLowerCase().includes('physical') || subject.name.toLowerCase().includes('pe') ||
+      subject.name.toLowerCase().includes('PHE')
     );
 
     const additionalSpecials = [];
@@ -91,7 +92,7 @@ export default function StudentReport() {
       studentName: student.name,
       grade: "Grade 1 A",
       term: "First Term",
-      academicYear: "2023/2024",
+      academicYear: "2024/2025",
       subjects: mainSubjects,
       specials: [...specialSubjects, ...additionalSpecials],
       scienceSubject: scienceSubject[0] || null, // Pass science subject separately
