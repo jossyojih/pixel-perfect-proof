@@ -224,19 +224,19 @@ export const ReportCard = ({
                 <td className="border-r border-report-border px-3 py-2 text-sm text-foreground bg-report-header">
                   A = 90-100%
                 </td>
-                <td className="border-r border-report-border px-3 py-2 text-sm text-center text-foreground">
+                <td className="border-r border-report-border px-3 py-2 text-sm text-center text-foreground bg-report-header">
                   Superior
                 </td>
                 <td className="border-r border-report-border px-3 py-2 text-sm text-foreground bg-report-header">
                   D = 60-69%
                 </td>
-                <td className="border-r border-report-border px-3 py-2 text-sm text-center text-foreground">
+                <td className="border-r border-report-border px-3 py-2 text-sm text-center text-foreground bg-report-header">
                   Below Average
                 </td>
                 <td className="border-r border-report-border px-3 py-2 text-sm text-foreground bg-report-header">
                   B = 80-89%
                 </td>
-                <td className="px-3 py-2 text-sm text-center text-foreground">
+                <td className="px-3 py-2 text-sm text-center text-foreground bg-report-header">
                   Above Average
                 </td>
               </tr>
@@ -244,16 +244,16 @@ export const ReportCard = ({
                 <td className="border-r border-report-border px-3 py-2 text-sm text-foreground bg-report-header">
                   C = 70-79%
                 </td>
-                <td className="border-r border-report-border px-3 py-2 text-sm text-center text-foreground">
+                <td className="border-r border-report-border px-3 py-2 text-sm text-center text-foreground bg-report-header">
                   Average
                 </td>
                 <td className="border-r border-report-border px-3 py-2 text-sm text-foreground bg-report-header">
                   U = 0-59%
                 </td>
-                <td className="px-3 py-2 text-sm text-center text-foreground">
+                <td className="px-3 py-2 text-sm text-center text-foreground bg-report-header">
                   Unsatisfactory
                 </td>
-                <td colSpan={2}></td>
+                <td colSpan={2} className="bg-report-header"></td>
               </tr>
             </tbody>
           </table>
@@ -280,11 +280,11 @@ export const ReportCard = ({
             <tbody>
               <tr className="border-t border-report-border">
                 <td className="border-r border-report-border px-4 py-2 text-foreground">No. of School Days</td>
-                <td className="border-r border-report-border px-4 py-2 text-center text-foreground font-medium bg-report-header">{attendance.totalDays}</td>
+                <td className="border-r border-report-border px-4 py-2 text-center text-foreground font-medium">{attendance.totalDays}</td>
                 <td className="border-r border-report-border px-4 py-2 text-foreground">Days Present</td>
-                <td className="border-r border-report-border px-4 py-2 text-center text-foreground font-medium bg-report-header">{attendance.daysPresent}</td>
+                <td className="border-r border-report-border px-4 py-2 text-center text-foreground font-medium">{attendance.daysPresent}</td>
                 <td className="border-r border-report-border px-4 py-2 text-foreground">Days Absent</td>
-                <td className="px-4 py-2 text-center text-foreground font-medium bg-report-header">{attendance.daysAbsent}</td>
+                <td className="px-4 py-2 text-center text-foreground font-medium">{attendance.daysAbsent}</td>
               </tr>
             </tbody>
           </table>
