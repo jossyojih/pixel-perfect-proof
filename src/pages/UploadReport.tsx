@@ -3,8 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { StudentsTable } from "@/components/StudentsTable";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { ReportCard } from "@/components/ReportCard";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { useRef } from "react";
 import * as XLSX from 'xlsx';
 
 interface ExcelRow {
@@ -35,6 +39,7 @@ interface ParsedStudent {
 export default function UploadReport() {
   const [file, setFile] = useState<File | null>(null);
   const [students, setStudents] = useState<ParsedStudent[]>([]);
+  const [isGeneratingReports, setIsGeneratingReports] = useState(false);
   const { toast } = useToast();
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -169,6 +174,204 @@ export default function UploadReport() {
     reader.readAsArrayBuffer(file);
   };
 
+  // Use the exact same data processing logic as StudentReport.tsx
+  const generateReportData = (student: any) => {
+    // Separate main subjects from specials (include Science in specials)
+    const mainSubjects = student.subjects.filter((subject: any) => 
+      !['Computer Studies', 'Hausa', 'Religious Studies', 'French', 'Science'].includes(subject.name)
+    );
+    
+    const specialSubjects = student.subjects.filter((subject: any) => 
+      ['Computer Studies', 'Hausa', 'Religious Studies', 'French'].includes(subject.name)
+    );
+
+    // Get Science subject for specials page
+    const scienceSubject = student.subjects.filter((subject: any) => 
+      subject.name === 'Science'
+    );
+
+    // Only add Physical Education if not already in the subjects data
+    const hasPhysicalEducation = specialSubjects.some((subject: any) => 
+      subject.name.toLowerCase().includes('physical') || subject.name.toLowerCase().includes('pe')
+    );
+
+    const additionalSpecials = [];
+    if (!hasPhysicalEducation) {
+      additionalSpecials.push({ 
+        name: "Physical Education", 
+        grade: 88, 
+        teacher: "Geoffrey Nushu Gabriel" 
+      });
+    }
+
+    return {
+      studentName: student.name,
+      grade: "Grade 3-A",
+      term: "First Term",
+      academicYear: "2023/2024",
+      subjects: mainSubjects,
+      specials: [...specialSubjects, ...additionalSpecials],
+      scienceSubject: scienceSubject[0] || null, // Pass science subject separately
+      workHabits: [
+        { trait: "Shows Effort", rating: student.showsEffort || "Outstanding" },
+        { trait: "Works well with others", rating: student.worksWellWithOthers || "Satisfactory" },
+        { trait: "Produces legible handwriting", rating: student.producesLegibleHandwriting || "Outstanding" },
+        { trait: "Demonstrates great character trait", rating: student.demonstratesGreatCharacterTrait || "Satisfactory" }
+      ],
+      generalComment: student.Comments || student.comments,
+      attendance: {
+        totalDays: student.totalDays || 53,
+        daysPresent: student.daysPresent || 53,
+        daysAbsent: student.daysAbsent || (student.totalDays && student.daysPresent ? student.totalDays - student.daysPresent : 0)
+      }
+    };
+  };
+
+  // Use the exact same PDF generation logic as StudentReport.tsx
+  const generateBulkReports = async () => {
+    if (students.length === 0) return;
+    
+    setIsGeneratingReports(true);
+    
+    try {
+      let successCount = 0;
+      let errorCount = 0;
+      
+      for (const student of students) {
+        try {
+          // Generate report data using the same logic as StudentReport
+          const reportData = generateReportData(student);
+          
+          // Create temporary DOM elements for PDF generation (same as StudentReport)
+          const tempContainer = document.createElement('div');
+          tempContainer.style.position = 'absolute';
+          tempContainer.style.left = '-9999px';
+          tempContainer.style.top = '-9999px';
+          tempContainer.style.width = '794px'; // A4 width in pixels at 96 DPI
+          document.body.appendChild(tempContainer);
+          
+          // Create refs for each section (same as StudentReport)
+          const coverRef = { current: null };
+          const subjectsRef = { current: null };
+          const specialsRef = { current: null };
+          const finalRef = { current: null };
+          
+          // Render ReportCard component using same approach as StudentReport
+          const { createRoot } = await import('react-dom/client');
+          const root = createRoot(tempContainer);
+          
+          await new Promise<void>((resolve) => {
+            root.render(
+              <ReportCard 
+                {...reportData}
+                pageRefs={{
+                  coverRef,
+                  subjectsRef,
+                  specialsRef,
+                  finalRef
+                }}
+              />
+            );
+            setTimeout(resolve, 1000); // Wait for render
+          });
+          
+          // Generate PDF using the exact same logic as StudentReport
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const sections = [
+            { ref: coverRef, name: 'cover' },
+            { ref: subjectsRef, name: 'subjects' },
+            { ref: specialsRef, name: 'specials' },
+            { ref: finalRef, name: 'final' }
+          ];
+          
+          for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            if (section.ref.current) {
+              const canvas = await html2canvas(section.ref.current, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff'
+              });
+              
+              const imgData = canvas.toDataURL('image/png');
+              const imgWidth = 210; // A4 width in mm
+              const imgHeight = (canvas.height * imgWidth) / canvas.width;
+              
+              if (i > 0) {
+                pdf.addPage();
+              }
+              
+              pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+            }
+          }
+          
+          // Clean up
+          root.unmount();
+          document.body.removeChild(tempContainer);
+          
+          // Upload to Supabase (same logic as StudentReport)
+          const pdfBlob = pdf.output('blob');
+          const fileName = `${student.name.replace(/[^a-zA-Z0-9]/g, '_')}_report.pdf`;
+          
+          const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('reports')
+            .upload(fileName, pdfBlob, {
+              cacheControl: '3600',
+              upsert: true
+            });
+
+          if (uploadError) {
+            console.error('Upload error for', student.name, uploadError);
+            errorCount++;
+            continue;
+          }
+
+          // Get public URL
+          const { data: { publicUrl } } = supabase.storage
+            .from('reports')
+            .getPublicUrl(fileName);
+
+          // Insert record into database
+          const { error: dbError } = await supabase
+            .from('student_reports')
+            .insert({
+              student_name: student.name,
+              file_path: uploadData.path,
+              public_url: publicUrl,
+              class_tag: student.rawData?.class || "Primary 6",
+              grade_tag: "A"
+            });
+
+          if (dbError) {
+            console.error('Database error for', student.name, dbError);
+            errorCount++;
+          } else {
+            successCount++;
+          }
+          
+        } catch (error) {
+          console.error('Error processing', student.name, error);
+          errorCount++;
+        }
+      }
+      
+      toast({
+        title: "Bulk upload completed!",
+        description: `Successfully uploaded ${successCount} reports. ${errorCount > 0 ? `${errorCount} failed.` : ''}`
+      });
+      
+    } catch (error) {
+      toast({
+        title: "Error during bulk upload",
+        description: "Please try again or upload reports individually.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGeneratingReports(false);
+    }
+  };
+
 
 
   return (
@@ -201,10 +404,20 @@ export default function UploadReport() {
                 <StudentsTable students={students} />
               </div>
               
-              <div className="pt-4 border-t">
-                <p className="text-sm text-muted-foreground">
-                  Click on any student name to generate and upload their individual report
-                </p>
+              <div className="flex justify-between items-center pt-4 border-t">
+                <div>
+                  <h3 className="text-lg font-medium">Reports Generation</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Generate all reports using the exact /report/:studentName format, or click on individual students
+                  </p>
+                </div>
+                <Button 
+                  onClick={generateBulkReports}
+                  disabled={isGeneratingReports}
+                  size="lg"
+                >
+                  {isGeneratingReports ? "Generating..." : "Generate All Reports"}
+                </Button>
               </div>
             </div>
           )}
