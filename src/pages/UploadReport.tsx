@@ -49,11 +49,16 @@ export default function UploadReport() {
         const worksheet = workbook.Sheets[sheetName];
         const jsonData: ExcelRow[] = XLSX.utils.sheet_to_json(worksheet);
 
+        console.log('Raw JSON data from Excel:', jsonData);
+        console.log('First row keys:', jsonData.length > 0 ? Object.keys(jsonData[0]) : 'No data');
+
         // Group data by student
         const studentMap = new Map<string, ParsedStudent>();
 
-        jsonData.forEach((row) => {
+        jsonData.forEach((row, index) => {
+          console.log(`Processing row ${index}:`, row);
           const studentName = row['Student Name'];
+          console.log(`Student name found: "${studentName}"`);
           
           if (!studentName) return;
 
