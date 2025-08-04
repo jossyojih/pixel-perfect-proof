@@ -198,20 +198,20 @@ export default function UploadReport() {
       subject.name === 'Science'
     );
 
-    // Only add Physical Education if not already in the subjects data
-    const hasPhysicalEducation = specialSubjects.some((subject: any) => 
-      subject.name.toLowerCase().includes('physical') || subject.name.toLowerCase().includes('pe')
-      || subject.name.toLowerCase().includes('PHE')
-    );
+    // // Only add Physical Education if not already in the subjects data
+    // const hasPhysicalEducation = specialSubjects.some((subject: any) => 
+    //   subject.name.toLowerCase().includes('physical') || subject.name.toLowerCase().includes('pe')
+    //   || subject.name.toLowerCase().includes('PHE')
+    // );
 
-    const additionalSpecials = [];
-    if (!hasPhysicalEducation) {
-      additionalSpecials.push({ 
-        name: "Physical Education", 
-        grade: 88, 
-        teacher: "Geoffrey Nushu Gabriel" 
-      });
-    }
+    // const additionalSpecials = [];
+    // if (!hasPhysicalEducation) {
+    //   additionalSpecials.push({ 
+    //     name: "Physical Education", 
+    //     grade: 88, 
+    //     teacher: "Geoffrey Nushu Gabriel" 
+    //   });
+    // }
 
     return {
       studentName: student.name,

@@ -76,7 +76,7 @@ export default function StudentReport() {
     // Only add Physical Education if not already in the subjects data
     const hasPhysicalEducation = specialSubjects.some((subject: any) => 
       subject.name.toLowerCase().includes('physical') || subject.name.toLowerCase().includes('pe') ||
-      subject.name.toLowerCase().includes('PHE')
+      subject.name.toLowerCase().includes('phe')
     );
 
     console.log(hasPhysicalEducation,"Has physical Education")
