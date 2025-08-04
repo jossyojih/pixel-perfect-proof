@@ -26,6 +26,7 @@ interface ReportCardProps {
   academicYear: string;
   subjects: Subject[];
   specials: Special[];
+  scienceSubject?: Subject;
   workHabits: WorkHabit[];
   generalComment: string;
   attendance: {
@@ -48,6 +49,7 @@ export const ReportCard = ({
   academicYear,
   subjects,
   specials,
+  scienceSubject,
   workHabits,
   generalComment,
   attendance,
@@ -116,7 +118,7 @@ export const ReportCard = ({
       </div>
 
       {/* Academic Subjects Page */}
-      <div ref={pageRefs?.subjectsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm' }}>
+      <div ref={pageRefs?.subjectsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
         <div className="mb-8">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
@@ -173,7 +175,7 @@ export const ReportCard = ({
       </div>
 
       {/* Specials Page */}
-      <div ref={pageRefs?.specialsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm' }}>
+      <div ref={pageRefs?.specialsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
         <div className="mb-8">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
@@ -183,6 +185,32 @@ export const ReportCard = ({
         </div>
 
         <div className="flex-1">
+          {/* Science Subject Section */}
+          {scienceSubject && (
+            <div className="border border-gray-400 mb-6">
+              <div className="bg-gray-400 px-4 py-3 flex justify-between items-center">
+                <h3 className="font-medium text-black">{scienceSubject.name}</h3>
+                <span className="font-medium text-black">{scienceSubject.teacher}</span>
+              </div>
+              
+              <div className="border-b border-gray-400 bg-gray-400 px-4 py-2">
+                <span className="font-medium text-black">Term Report</span>
+              </div>
+              
+              <div className="p-4 bg-white">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-black">Grade</span>
+                  <span className="text-xl font-bold text-black">{scienceSubject.grade}</span>
+                </div>
+                {scienceSubject.comment && (
+                  <p className="text-sm text-black leading-relaxed">
+                    {scienceSubject.comment}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Specials Table */}
           <div className="border border-gray-400 mb-6">
             <table className="w-full border-collapse">
@@ -239,7 +267,7 @@ export const ReportCard = ({
       </div>
 
       {/* Work Habits and Final Page */}
-      <div ref={pageRefs?.finalRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm' }}>
+      <div ref={pageRefs?.finalRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
         <div className="mb-8">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 

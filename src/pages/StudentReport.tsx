@@ -59,13 +59,18 @@ export default function StudentReport() {
   }, [studentName, navigate, toast]);
 
   const generateReportData = (student: any) => {
-    // Separate main subjects from specials
+    // Separate main subjects from specials (include Science in specials)
     const mainSubjects = student.subjects.filter((subject: any) => 
-      !['Computer Studies', 'Hausa', 'Religious Studies', 'French'].includes(subject.name)
+      !['Computer Studies', 'Hausa', 'Religious Studies', 'French', 'Science'].includes(subject.name)
     );
     
     const specialSubjects = student.subjects.filter((subject: any) => 
       ['Computer Studies', 'Hausa', 'Religious Studies', 'French'].includes(subject.name)
+    );
+
+    // Get Science subject for specials page
+    const scienceSubject = student.subjects.filter((subject: any) => 
+      subject.name === 'Science'
     );
 
     // Only add Physical Education if not already in the subjects data
@@ -89,6 +94,7 @@ export default function StudentReport() {
       academicYear: "2023/2024",
       subjects: mainSubjects,
       specials: [...specialSubjects, ...additionalSpecials],
+      scienceSubject: scienceSubject[0] || null, // Pass science subject separately
       workHabits: [
         { trait: "Shows Effort", rating: student.showsEffort || "Outstanding" },
         { trait: "Works well with others", rating: student.worksWellWithOthers || "Satisfactory" },
