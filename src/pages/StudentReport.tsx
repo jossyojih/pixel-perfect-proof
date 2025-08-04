@@ -88,7 +88,7 @@ export default function StudentReport() {
         { trait: "Produces legible handwriting", rating: student.producesLegibleHandwriting || "Outstanding" },
         { trait: "Demonstrates great character trait", rating: student.demonstratesGreatCharacterTrait || "Satisfactory" }
       ],
-      generalComment: student.finalComment || student.comment || `${student.name} has shown excellent progress this term. Continue to encourage reading and mathematical thinking.`,
+      generalComment: student.Comments || student.comments,
       attendance: {
         totalDays: student.totalDays || 53,
         daysPresent: student.daysPresent || 48,
