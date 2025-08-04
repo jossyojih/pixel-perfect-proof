@@ -54,51 +54,49 @@ export const ReportCard = ({
   pageRefs,
 }: ReportCardProps) => {
   return (
-    <div className="max-w-4xl mx-auto bg-white">
+    <div className="bg-white font-sans">
       {/* Cover Page */}
-      <Card ref={pageRefs?.coverRef} className="p-8 min-h-[297mm] border-4 border-blue-800 flex flex-col justify-between">
-        <div className="flex-1 flex flex-col justify-center">
-          <div className="text-center space-y-8">
-            <div className="flex justify-center mb-8">
-              <img 
-                src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
-                alt="AUN Schools Logo" 
-                className="h-20 w-auto"
-              />
-            </div>
-            
-            <h1 className="text-xl font-bold text-black tracking-wide">
-              AUN SCHOOLS-ELEMENTARY
-            </h1>
-            
-            <div className="space-y-4">
-              <h2 className="text-lg font-bold italic text-black">
-                End of Term Report
-              </h2>
-              <p className="text-lg font-medium text-blue-600">
-                Term 1
-              </p>
-              <p className="text-lg text-black">
-                2024 - 2025
-              </p>
-            </div>
-            
-            <div className="space-y-6 mt-12">
-              <h3 className="text-xl font-bold text-black">
-                {studentName}
-              </h3>
-              <p className="text-lg font-medium text-black">
-                {grade}
-              </p>
-              <p className="text-base text-black">
-                Prisca Oyinkansola Oyewale, Monsurat Opeyemi Adebimpe
-              </p>
-            </div>
+      <div ref={pageRefs?.coverRef} className="w-full h-screen p-8 flex flex-col justify-between" style={{ minHeight: '297mm', width: '210mm', border: '4px solid #1e40af' }}>
+        <div className="flex-1 flex flex-col justify-center items-center text-center">
+          <div className="mb-8">
+            <img 
+              src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
+              alt="AUN Schools Logo" 
+              className="h-20 mx-auto"
+            />
+          </div>
+          
+          <h1 className="text-xl font-bold text-black mb-8">
+            AUN SCHOOLS-ELEMENTARY
+          </h1>
+          
+          <div className="space-y-4 mb-12">
+            <h2 className="text-lg font-bold italic text-black">
+              End of Term Report
+            </h2>
+            <p className="text-lg font-medium text-blue-600">
+              Term 1
+            </p>
+            <p className="text-lg text-black">
+              2024 - 2025
+            </p>
+          </div>
+          
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold text-black">
+              {studentName}
+            </h3>
+            <p className="text-lg font-medium text-black">
+              {grade}
+            </p>
+            <p className="text-base text-black">
+              Prisca Oyinkansola Oyewale, Monsurat Opeyemi Adebimpe
+            </p>
           </div>
         </div>
         
         {/* Footer */}
-        <div className="mt-8 text-xs text-black border-t border-gray-300 pt-4">
+        <div className="text-xs text-black border-t border-gray-300 pt-4">
           <div className="flex justify-between">
             <div>
               <p className="font-bold mb-1">ADDRESS</p>
@@ -115,15 +113,15 @@ export const ReportCard = ({
             </div>
           </div>
         </div>
-      </Card>
+      </div>
 
       {/* Academic Subjects Page */}
-      <Card ref={pageRefs?.subjectsRef} className="p-6 min-h-[297mm] border-0 flex flex-col">
-        <div className="flex justify-start mb-8">
+      <div ref={pageRefs?.subjectsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm' }}>
+        <div className="mb-8">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-16 w-auto"
+            className="h-16"
           />
         </div>
 
@@ -139,13 +137,13 @@ export const ReportCard = ({
                 <span className="font-medium text-black">Term Report</span>
               </div>
               
-              <div className="p-4 space-y-3">
-                <div className="flex justify-between items-center">
+              <div className="p-4 bg-white">
+                <div className="flex justify-between items-center mb-3">
                   <span className="text-black">Grade</span>
                   <span className="text-xl font-bold text-black">{subject.grade}</span>
                 </div>
                 {subject.comment && (
-                  <p className="text-sm text-black leading-relaxed mt-3">
+                  <p className="text-sm text-black leading-relaxed">
                     {subject.comment}
                   </p>
                 )}
@@ -172,22 +170,22 @@ export const ReportCard = ({
             </div>
           </div>
         </div>
-      </Card>
+      </div>
 
       {/* Specials Page */}
-      <Card ref={pageRefs?.specialsRef} className="p-6 min-h-[297mm] border-0 flex flex-col">
-        <div className="flex justify-start mb-8">
+      <div ref={pageRefs?.specialsRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm' }}>
+        <div className="mb-8">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-16 w-auto"
+            className="h-16"
           />
         </div>
 
         <div className="flex-1">
           {/* Specials Table */}
-          <div className="overflow-hidden border border-gray-400 mb-6">
-            <table className="w-full">
+          <div className="border border-gray-400 mb-6">
+            <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-400">
                   <th className="border-r border-gray-400 px-4 py-3 text-left font-bold text-black">
@@ -207,10 +205,10 @@ export const ReportCard = ({
                     <td className="border-r border-gray-400 px-4 py-3 bg-gray-300 text-black font-medium">
                       {special.name}
                     </td>
-                    <td className="border-r border-gray-400 px-4 py-3 text-center text-black font-medium">
+                    <td className="border-r border-gray-400 px-4 py-3 text-center text-black font-medium bg-white">
                       {special.grade}
                     </td>
-                    <td className="px-4 py-3 text-center text-black font-medium">
+                    <td className="px-4 py-3 text-center text-black font-medium bg-white">
                       {special.teacher}
                     </td>
                   </tr>
@@ -238,22 +236,22 @@ export const ReportCard = ({
             </div>
           </div>
         </div>
-      </Card>
+      </div>
 
       {/* Work Habits and Final Page */}
-      <Card ref={pageRefs?.finalRef} className="p-6 min-h-[297mm] border-0 flex flex-col">
-        <div className="flex justify-start mb-8">
+      <div ref={pageRefs?.finalRef} className="w-full p-6 flex flex-col" style={{ minHeight: '297mm', width: '210mm' }}>
+        <div className="mb-8">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-16 w-auto"
+            className="h-16"
           />
         </div>
 
         <div className="flex-1 space-y-6">
           {/* Work Habits Table */}
-          <div className="overflow-hidden border border-gray-400">
-            <table className="w-full">
+          <div className="border border-gray-400">
+            <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-400">
                   <th className="border-r border-gray-400 px-4 py-3 text-left font-bold text-black">
@@ -267,10 +265,10 @@ export const ReportCard = ({
               <tbody>
                 {workHabits.map((habit, index) => (
                   <tr key={index} className="border-t border-gray-400">
-                    <td className="border-r border-gray-400 px-4 py-3 text-black">
+                    <td className="border-r border-gray-400 px-4 py-3 text-black bg-white">
                       {habit.trait}
                     </td>
-                    <td className="px-4 py-3 text-center text-black">
+                    <td className="px-4 py-3 text-center text-black bg-white">
                       {habit.rating}
                     </td>
                   </tr>
@@ -280,8 +278,8 @@ export const ReportCard = ({
           </div>
 
           {/* Metrics Table */}
-          <div className="overflow-hidden border border-gray-400">
-            <table className="w-full">
+          <div className="border border-gray-400">
+            <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-400">
                   <th colSpan={6} className="px-4 py-3 text-center font-bold text-black">
@@ -334,7 +332,7 @@ export const ReportCard = ({
             <div className="bg-gray-400 px-4 py-3">
               <h3 className="font-bold text-black">Comments</h3>
             </div>
-            <div className="p-4">
+            <div className="p-4 bg-white">
               <p className="text-sm text-black leading-relaxed">
                 {generalComment}
               </p>
@@ -342,19 +340,19 @@ export const ReportCard = ({
           </div>
 
           {/* Attendance Section */}
-          <div className="overflow-hidden border border-gray-400">
+          <div className="border border-gray-400">
             <div className="bg-gray-400 px-4 py-3">
               <h3 className="font-bold text-black">Attendance</h3>
             </div>
-            <table className="w-full">
+            <table className="w-full border-collapse">
               <tbody>
                 <tr className="border-t border-gray-400">
-                  <td className="border-r border-gray-400 px-4 py-3 text-black font-medium">No. of School Days</td>
-                  <td className="border-r border-gray-400 px-4 py-3 text-center text-black font-bold">{attendance.totalDays}</td>
-                  <td className="border-r border-gray-400 px-4 py-3 text-black font-medium">Days Present</td>
-                  <td className="border-r border-gray-400 px-4 py-3 text-center text-black font-bold">{attendance.daysPresent}</td>
-                  <td className="border-r border-gray-400 px-4 py-3 text-black font-medium">Days Absent</td>
-                  <td className="px-4 py-3 text-center text-black font-bold">{attendance.daysAbsent}</td>
+                  <td className="border-r border-gray-400 px-4 py-3 text-black font-medium bg-white">No. of School Days</td>
+                  <td className="border-r border-gray-400 px-4 py-3 text-center text-black font-bold bg-white">{attendance.totalDays}</td>
+                  <td className="border-r border-gray-400 px-4 py-3 text-black font-medium bg-white">Days Present</td>
+                  <td className="border-r border-gray-400 px-4 py-3 text-center text-black font-bold bg-white">{attendance.daysPresent}</td>
+                  <td className="border-r border-gray-400 px-4 py-3 text-black font-medium bg-white">Days Absent</td>
+                  <td className="px-4 py-3 text-center text-black font-bold bg-white">{attendance.daysAbsent}</td>
                 </tr>
               </tbody>
             </table>
@@ -366,7 +364,7 @@ export const ReportCard = ({
               <img 
                 src="/lovable-uploads/8e2cb997-99fd-4baa-98af-b2cfb393803f.png" 
                 alt="Signature" 
-                className="h-16 w-auto"
+                className="h-16"
               />
             </div>
             <div className="border-t border-black w-64 mx-auto"></div>
@@ -396,7 +394,7 @@ export const ReportCard = ({
             </div>
           </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };
