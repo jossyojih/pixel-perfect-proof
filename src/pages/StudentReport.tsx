@@ -89,7 +89,7 @@ export default function StudentReport() {
 
     return {
       studentName: student.name,
-      grade: "Grade 3-A",
+      grade: "Grade 1-A",
       term: "First Term",
       academicYear: "2023/2024",
       subjects: mainSubjects,
