@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Download } from "lucide-react";
@@ -19,6 +20,23 @@ interface UploadedReport {
 export default function ClassTable() {
   const [reports, setReports] = useState<UploadedReport[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedClass, setSelectedClass] = useState<string>('');
+  
+  // Predefined classes list
+  const availableClasses = [
+    'Pregrade_A',
+    'Grade 1A',
+    'Grade 1B', 
+    'Grade 2A',
+    'Grade 2B',
+    'Grade 3A',
+    'Grade 3B',
+    'Grade 4A',
+    'Grade 4B',
+    'Grade 5A',
+    'Grade 5B'
+  ];
+  
   const { toast } = useToast();
 
   useEffect(() => {
@@ -47,8 +65,13 @@ export default function ClassTable() {
     }
   };
 
+  // Filter reports based on selected class
+  const filteredReports = selectedClass 
+    ? reports.filter(report => report.grade_tag === selectedClass)
+    : reports;
+
   const exportToExcel = () => {
-    const worksheetData = reports.map(report => ({
+    const worksheetData = filteredReports.map(report => ({
       'Student Name': report.student_name,
       'Class': report.class_tag,
       'Grade': report.grade_tag,
@@ -91,6 +114,30 @@ export default function ClassTable() {
         </Button>
       </div>
 
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <label htmlFor="class-select" className="text-sm font-medium">
+            Filter by Class:
+          </label>
+          <Select value={selectedClass} onValueChange={setSelectedClass}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="All Classes" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="">All Classes</SelectItem>
+              {availableClasses.map((className) => (
+                <SelectItem key={className} value={className}>
+                  {className}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <p className="text-sm text-muted-foreground">
+          Showing {filteredReports.length} of {reports.length} reports
+        </p>
+      </div>
+
       <Card className="p-6">
         {reports.length === 0 ? (
           <div className="text-center py-8">
@@ -109,7 +156,7 @@ export default function ClassTable() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {reports.map((report) => (
+                {filteredReports.map((report) => (
                   <TableRow key={report.id}>
                     <TableCell className="font-medium">{report.student_name}</TableCell>
                     <TableCell>{report.class_tag}</TableCell>
