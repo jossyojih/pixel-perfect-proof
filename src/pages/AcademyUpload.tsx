@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { StudentsTable } from "@/components/StudentsTable";
+import { AcademyStudentsTable } from "@/components/AcademyStudentsTable";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
@@ -167,9 +167,9 @@ export default function AcademyUpload() {
         const parsedStudents = Array.from(studentMap.values());
         setStudents(parsedStudents);
         
-        // Store the students data and selected class in localStorage for access in StudentReport
-        localStorage.setItem('studentsData', JSON.stringify(parsedStudents));
-        localStorage.setItem('selectedClass', selectedClass);
+        // Store the Academy students data and selected class in localStorage for access in AcademyReport
+        localStorage.setItem('academyStudentsData', JSON.stringify(parsedStudents));
+        localStorage.setItem('selectedAcademyClass', selectedClass);
         
         toast({
           title: "Excel file parsed successfully!",
@@ -480,7 +480,7 @@ export default function AcademyUpload() {
             {students.length > 0 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold">Academy Students Found: {students.length}</h3>
-                <StudentsTable students={students} />
+                <AcademyStudentsTable students={students} />
                 
                 <div className="flex gap-4">
                   <Button 

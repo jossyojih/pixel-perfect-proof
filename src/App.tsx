@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import UploadReport from "./pages/UploadReport";
 import AcademyUpload from "./pages/AcademyUpload";
 import StudentReport from "./pages/StudentReport";
+import AcademyReport from "./pages/AcademyReport";
 import Results from "./pages/Results";
 import ClassTable from "./pages/ClassTable";
 import NotFound from "./pages/NotFound";
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/upload" element={<UploadReport />} />
             <Route path="/academy-upload" element={<AcademyUpload />} />
             <Route path="/report/:studentName" element={<StudentReport />} />
+            <Route path="/academy-report/:studentName" element={<AcademyReport />} />
             <Route path="/results" element={<Results />} />
             <Route path="/class-table" element={<ClassTable />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
