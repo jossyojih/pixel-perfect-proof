@@ -328,8 +328,13 @@ export default function UploadReport() {
           });
           
           console.log('Starting PDF generation');
-          // Generate PDF using the exact same logic as StudentReport
-          const pdf = new jsPDF('p', 'mm', 'a4');
+          // Generate PDF using the same optimized settings as StudentReport
+          const pdf = new jsPDF({
+            orientation: 'landscape',
+            unit: 'mm',
+            format: 'a4',
+            compress: true
+          });
           const sections = [
             { ref: coverRef, name: 'cover' },
             { ref: subjectsRef, name: 'subjects' },
@@ -344,21 +349,30 @@ export default function UploadReport() {
             if (section.ref.current) {
               console.log('Generating canvas for section', section.name);
               const canvas = await html2canvas(section.ref.current, {
-                scale: 2,
+                scale: 1,
                 useCORS: true,
                 allowTaint: true,
-                backgroundColor: '#ffffff'
+                backgroundColor: '#ffffff',
+                width: section.ref.current.scrollWidth,
+                height: section.ref.current.scrollHeight,
+                scrollX: 0,
+                scrollY: 0
               });
               
-              const imgData = canvas.toDataURL('image/png');
-              const imgWidth = 210; // A4 width in mm
+              // Convert to JPEG with compression
+              const imgData = canvas.toDataURL('image/jpeg', 0.8);
+              const imgWidth = 297; // A4 landscape width in mm
+              const pageHeight = 210; // A4 landscape height in mm
               const imgHeight = (canvas.height * imgWidth) / canvas.width;
               
               if (i > 0) {
                 pdf.addPage();
               }
               
-              pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+              // Center the image on the page if it's smaller than A4
+              const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
+              
+              pdf.addImage(imgData, 'JPEG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
               console.log(`Added section ${section.name} to PDF`);
             } else {
               console.warn(`Section ${section.name} ref is null`);
