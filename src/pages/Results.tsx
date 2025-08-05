@@ -20,10 +20,24 @@ interface UploadedReport {
 export default function Results() {
   const [reports, setReports] = useState<UploadedReport[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedClass, setSelectedClass] = useState<string>('elementary');
-  const [selectedGrade, setSelectedGrade] = useState<string>('class 2');
+  const [selectedClass, setSelectedClass] = useState<string>('');
+  const [selectedGrade, setSelectedGrade] = useState<string>('');
   const [availableClasses, setAvailableClasses] = useState<string[]>([]);
-  const [availableGrades, setAvailableGrades] = useState<string[]>([]);
+  
+  // Predefined grades list
+  const availableGrades = [
+    'Pregrade_A',
+    'Grade 1A',
+    'Grade 1B', 
+    'Grade 2A',
+    'Grade 2B',
+    'Grade 3A',
+    'Grade 3B',
+    'Grade 4A',
+    'Grade 4B',
+    'Grade 5A',
+    'Grade 5B'
+  ];
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -80,22 +94,11 @@ export default function Results() {
       const uniqueClasses = [...new Set(classes?.map(item => item.class_tag) || [])];
       setAvailableClasses(uniqueClasses);
 
-      // Fetch distinct grade tags
-      const { data: grades, error: gradeError } = await supabase
-        .from('student_reports')
-        .select('grade_tag')
-        .neq('grade_tag', null);
-
-      if (gradeError) throw gradeError;
-
-      const uniqueGrades = [...new Set(grades?.map(item => item.grade_tag) || [])];
-      setAvailableGrades(uniqueGrades);
-
     } catch (error) {
       console.error('Error fetching available options:', error);
       toast({
         title: "Error loading options",
-        description: "There was an error loading the available classes and grades.",
+        description: "There was an error loading the available classes.",
         variant: "destructive"
       });
     }
