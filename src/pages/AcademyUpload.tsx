@@ -334,9 +334,12 @@ export default function AcademyUpload() {
             }
           ];
 
-          // Add subjects that have valid grades to the student
+          // Add subjects that have valid grades and are visible to the student
           subjects.forEach(subject => {
-            if (subject.grade !== "N/A" && subject.grade !== null && subject.grade !== undefined && subject.grade !== "") {
+            const isVisible = subject.visible === undefined || subject.visible === "Y";
+            const hasValidScore = subject.totalScore && subject.totalScore !== "N/A" && subject.totalScore !== null && subject.totalScore !== undefined && subject.totalScore !== "";
+            
+            if (isVisible && hasValidScore) {
               student.subjects.push(subject);
             }
           });
