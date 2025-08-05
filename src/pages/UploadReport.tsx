@@ -371,47 +371,76 @@ export default function UploadReport() {
           document.body.removeChild(tempContainer);
           
           console.log('Starting upload to Supabase');
-          // Upload to Supabase (same logic as StudentReport)
-          const pdfBlob = pdf.output('blob');
-          const fileName = `${student.name.replace(/[^a-zA-Z0-9]/g, '_')}_report.pdf`;
           
-          const { data: uploadData, error: uploadError } = await supabase.storage
-            .from('reports')
-            .upload(fileName, pdfBlob, {
-              cacheControl: '3600',
-              upsert: true
-            });
+          try {
+            // Upload to Supabase with timeout and better error handling
+            const pdfBlob = pdf.output('blob');
+            const fileName = `${student.name.replace(/[^a-zA-Z0-9]/g, '_')}_report.pdf`;
+            
+            console.log(`Uploading PDF blob of size: ${pdfBlob.size} bytes for ${student.name}`);
+            
+            // Add timeout wrapper for upload
+            const uploadPromise = supabase.storage
+              .from('reports')
+              .upload(fileName, pdfBlob, {
+                cacheControl: '3600',
+                upsert: true
+              });
+            
+            const timeoutPromise = new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('Upload timeout after 30 seconds')), 30000)
+            );
+            
+            const { data: uploadData, error: uploadError } = await Promise.race([
+              uploadPromise,
+              timeoutPromise
+            ]) as any;
 
-          if (uploadError) {
-            console.error('Upload error for', student.name, uploadError);
+            if (uploadError) {
+              console.error('Upload error for', student.name, uploadError);
+              errorCount++;
+              continue;
+            }
+
+            console.log('Upload successful, getting public URL for', student.name);
+            // Get public URL
+            const { data: { publicUrl } } = supabase.storage
+              .from('reports')
+              .getPublicUrl(fileName);
+
+            console.log('Public URL obtained, inserting database record for', student.name);
+            // Insert record into database with timeout
+            const dbPromise = supabase
+              .from('student_reports')
+              .insert({
+                student_name: student.name,
+                file_path: uploadData.path,
+                public_url: publicUrl,
+                class_tag: selectedClass || "Grade 3A",
+                grade_tag: "A"
+              });
+            
+            const dbTimeoutPromise = new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('Database timeout after 10 seconds')), 10000)
+            );
+            
+            const { error: dbError } = await Promise.race([
+              dbPromise,
+              dbTimeoutPromise
+            ]) as any;
+
+            if (dbError) {
+              console.error('Database error for', student.name, dbError);
+              errorCount++;
+            } else {
+              successCount++;
+              console.log(`Successfully processed ${student.name} - Complete!`);
+            }
+            
+          } catch (timeoutError) {
+            console.error('Timeout or network error for', student.name, timeoutError);
             errorCount++;
             continue;
-          }
-
-          console.log('Getting public URL');
-          // Get public URL
-          const { data: { publicUrl } } = supabase.storage
-            .from('reports')
-            .getPublicUrl(fileName);
-
-          console.log('Inserting database record');
-          // Insert record into database
-          const { error: dbError } = await supabase
-            .from('student_reports')
-            .insert({
-              student_name: student.name,
-              file_path: uploadData.path,
-              public_url: publicUrl,
-              class_tag: selectedClass || "Grade 3A",
-              grade_tag: "A"
-            });
-
-          if (dbError) {
-            console.error('Database error for', student.name, dbError);
-            errorCount++;
-          } else {
-            successCount++;
-            console.log(`Successfully processed ${student.name}`);
           }
           
         } catch (error) {
