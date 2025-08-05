@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Index from "./pages/Index";
 import UploadReport from "./pages/UploadReport";
+import AcademyUpload from "./pages/AcademyUpload";
 import StudentReport from "./pages/StudentReport";
 import Results from "./pages/Results";
 import ClassTable from "./pages/ClassTable";
@@ -30,6 +31,9 @@ const App = () => (
                 <Link to="/upload">Upload Excel</Link>
               </Button>
               <Button asChild variant="outline">
+                <Link to="/academy-upload">Academy Upload</Link>
+              </Button>
+              <Button asChild variant="outline">
                 <Link to="/results">View Results</Link>
               </Button>
               <Button asChild variant="outline">
@@ -40,6 +44,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/upload" element={<UploadReport />} />
+            <Route path="/academy-upload" element={<AcademyUpload />} />
             <Route path="/report/:studentName" element={<StudentReport />} />
             <Route path="/results" element={<Results />} />
             <Route path="/class-table" element={<ClassTable />} />

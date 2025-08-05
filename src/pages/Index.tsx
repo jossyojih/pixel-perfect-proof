@@ -23,10 +23,10 @@ const Index = () => {
       title: "Academy",
       description: "Report generation for Year 7, JSS 2, SSS 1 and SSS 2 students",
       icon: <School className="h-8 w-8" />,
-      status: "coming-soon",
-      color: "bg-muted/50 text-muted-foreground border-muted",
-      buttonText: "Coming Soon",
-      onClick: () => {}
+      status: "active",
+      color: "bg-primary/10 text-primary border-primary/20",
+      buttonText: "Manage Academy Reports",
+      onClick: () => navigate("/academy-upload")
     },
     {
       id: "charter-school",
