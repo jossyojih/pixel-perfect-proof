@@ -40,9 +40,9 @@ export default function ClassTable() {
 
       setReports(data || []);
       
-      // Extract unique grade_tag values for the dropdown
-      const uniqueGrades = [...new Set(data?.map(report => report.grade_tag) || [])];
-      setAvailableClasses(uniqueGrades);
+      // Extract unique class_tag values for the dropdown
+      const uniqueClasses = [...new Set(data?.map(report => report.class_tag) || [])];
+      setAvailableClasses(uniqueClasses);
       
     } catch (error) {
       console.error('Error fetching reports:', error);
@@ -58,7 +58,7 @@ export default function ClassTable() {
 
   // Filter reports based on selected class
   const filteredReports = selectedClass && selectedClass !== 'all'
-    ? reports.filter(report => report.grade_tag === selectedClass)
+    ? reports.filter(report => report.class_tag === selectedClass)
     : reports;
 
   const exportToExcel = () => {
