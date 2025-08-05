@@ -88,7 +88,7 @@ export default function ClassTable() {
       const { error } = await supabase
         .from('student_reports')
         .delete()
-        .neq('id', 'impossible-id'); // This will delete all records
+        .gte('uploaded_at', '1970-01-01'); // This will match all records
 
       if (error) throw error;
 
