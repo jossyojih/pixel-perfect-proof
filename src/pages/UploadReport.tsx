@@ -225,7 +225,7 @@ export default function UploadReport() {
 
     return {
       studentName: student.name,
-      grade: "Grade 3-A",
+      grade: selectedClass || "Grade 1-A",
       term: "First Term",
       academicYear: "2023/2024",
       subjects: mainSubjects,
