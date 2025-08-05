@@ -113,114 +113,118 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     });
 
     const ReportPage = () => (
-      <div ref={pageRefs.coverRef} className="w-[794px] h-[1123px] bg-white p-6 font-sans text-black">
+      <div ref={pageRefs.coverRef} className="w-[794px] h-[1123px] bg-white p-4 font-sans text-black text-xs">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <img src={aunLogo} alt="AUN Logo" className="h-16 w-16" />
+        <div className="flex items-center justify-between mb-4">
+          <img src={aunLogo} alt="AUN Logo" className="h-12 w-12" />
           <div className="text-center flex-1">
-            <h1 className="text-lg font-bold">American University of Nigeria Schools - Academy</h1>
-            <p className="text-sm">No. 99, Lamido Zubairu Way, Yola Bye – Pass, P.M.B. 2250</p>
-            <h2 className="text-lg font-bold mt-2">STUDENT REPORT CARD</h2>
+            <h1 className="text-sm font-bold">American University of Nigeria Schools - Academy</h1>
+            <p className="text-xs">No. 99, Lamido Zubairu Way, Yola Bye - Pass, P.M.B. 2250</p>
+            <h2 className="text-sm font-bold mt-1">STUDENT REPORT CARD</h2>
           </div>
-          <div className="w-16"></div>
+          <div className="w-12"></div>
         </div>
 
         {/* Student Information Grid */}
-        <div className="grid grid-cols-4 gap-2 mb-4 text-sm">
-          <div className="bg-red-100 p-2">
+        <div className="grid grid-cols-4 gap-0 mb-3 text-xs border border-black">
+          <div className="bg-red-200 p-1 border-r border-black">
             <div className="font-bold">Student's ID</div>
-            <div>{studentId}</div>
+            <div></div>
           </div>
-          <div className="bg-green-100 p-2">
+          <div className="bg-green-200 p-1 border-r border-black">
             <div className="font-bold">Student's Name</div>
-            <div>{studentName}</div>
+            <div></div>
           </div>
-          <div className="bg-blue-100 p-2">
+          <div className="bg-blue-200 p-1 border-r border-black">
             <div className="font-bold">Academic Year</div>
-            <div>{academicYear}</div>
+            <div></div>
           </div>
-          <div className="bg-yellow-100 p-2">
+          <div className="bg-yellow-200 p-1">
             <div className="font-bold">Term</div>
-            <div>{term}</div>
+            <div></div>
           </div>
-          <div className="bg-gray-100 p-2">
+          <div className="bg-purple-200 p-1 border-r border-black border-t border-black">
             <div className="font-bold">Class</div>
-            <div>{studentClass}</div>
+            <div></div>
           </div>
-          <div className="bg-purple-100 p-2">
+          <div className="bg-pink-200 p-1 border-r border-black border-t border-black">
             <div className="font-bold">Position in Class</div>
-            <div>{positionInClass || '-'}</div>
+            <div></div>
           </div>
-          <div className="bg-pink-100 p-2">
+          <div className="bg-orange-200 p-1 border-r border-black border-t border-black">
             <div className="font-bold">No. in Class</div>
-            <div>{noInClass || '-'}</div>
+            <div></div>
           </div>
-          <div className="bg-orange-100 p-2">
+          <div className="bg-cyan-200 p-1 border-t border-black">
             <div className="font-bold">Total Subject</div>
-            <div>{totalSubjects}</div>
+            <div></div>
           </div>
         </div>
 
         {/* Subjects Table */}
-        <table className="w-full border-collapse border border-black text-xs mb-4">
+        <table className="w-full border-collapse border border-black text-xs mb-3">
           <thead>
-            <tr className="bg-blue-200">
-              <th className="border border-black p-1">Subject Name</th>
-              <th className="border border-black p-1">CA1</th>
-              <th className="border border-black p-1">CA2</th>
-              <th className="border border-black p-1">CA3</th>
-              <th className="border border-black p-1">CA4</th>
-              <th className="border border-black p-1">Exam</th>
-              <th className="border border-black p-1">Total</th>
-              <th className="border border-black p-1">Score</th>
-              <th className="border border-black p-1">Grade</th>
-              <th className="border border-black p-1">Position</th>
-              <th className="border border-black p-1">Remark</th>
-              <th className="border border-black p-1">Teacher's Average</th>
+            <tr className="bg-blue-300">
+              <th className="border border-black p-1 text-xs">Subject Name</th>
+              <th className="border border-black p-1 text-xs">CA1</th>
+              <th className="border border-black p-1 text-xs">CA2</th>
+              <th className="border border-black p-1 text-xs">CA3</th>
+              <th className="border border-black p-1 text-xs">CA4</th>
+              <th className="border border-black p-1 text-xs">Exam</th>
+              <th className="border border-black p-1 text-xs">Total</th>
+              <th className="border border-black p-1 text-xs">Score</th>
+              <th className="border border-black p-1 text-xs">Grade</th>
+              <th className="border border-black p-1 text-xs">Position</th>
+              <th className="border border-black p-1 text-xs">Remark</th>
+              <th className="border border-black p-1 text-xs">Teacher's Average</th>
             </tr>
           </thead>
           <tbody>
             {orderedSubjects.map((subject, index) => (
-              <tr key={index} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                <td className="border border-black p-1 font-medium">{subject.name}</td>
-                <td className="border border-black p-1 text-center">{subject.ca1 || '-'}</td>
-                <td className="border border-black p-1 text-center">{subject.ca2 || '-'}</td>
-                <td className="border border-black p-1 text-center">{subject.ca3 || '-'}</td>
-                <td className="border border-black p-1 text-center">{subject.ca4 || '-'}</td>
-                <td className="border border-black p-1 text-center">{subject.exam || '-'}</td>
-                <td className="border border-black p-1 text-center">{subject.total || '-'}</td>
-                <td className="border border-black p-1 text-center font-bold">{subject.score || '-'}</td>
-                <td className="border border-black p-1 text-center font-bold">{subject.grade || getLetterGrade(subject.score)}</td>
-                <td className="border border-black p-1 text-center">{subject.position || '-'}</td>
-                <td className="border border-black p-1 text-center">{subject.remark || '-'}</td>
-                <td className="border border-black p-1 text-center">{subject.teachersAverage || '-'}</td>
+              <tr key={index} className={
+                index === 0 || index === 3 || index === 6 || index === 9 || index === 12 ? "bg-green-100" :
+                index === 1 || index === 4 || index === 7 || index === 10 || index === 13 ? "bg-blue-100" :
+                index === 2 || index === 5 || index === 8 || index === 11 || index === 14 ? "bg-pink-100" : "bg-white"
+              }>
+                <td className="border border-black p-1 text-xs">{subject.name}</td>
+                <td className="border border-black p-1 text-center text-xs"></td>
+                <td className="border border-black p-1 text-center text-xs"></td>
+                <td className="border border-black p-1 text-center text-xs"></td>
+                <td className="border border-black p-1 text-center text-xs"></td>
+                <td className="border border-black p-1 text-center text-xs"></td>
+                <td className="border border-black p-1 text-center text-xs"></td>
+                <td className="border border-black p-1 text-center text-xs"></td>
+                <td className="border border-black p-1 text-center text-xs"></td>
+                <td className="border border-black p-1 text-center text-xs"></td>
+                <td className="border border-black p-1 text-center text-xs"></td>
+                <td className="border border-black p-1 text-center text-xs"></td>
               </tr>
             ))}
           </tbody>
         </table>
 
         {/* Summary Row */}
-        <div className="grid grid-cols-3 gap-4 mb-4 text-sm">
-          <div className="bg-gray-100 p-2">
-            <span className="font-bold">Cumulative Score:</span> {cumulativeScore || '-'}
+        <div className="grid grid-cols-3 gap-0 mb-3 text-xs border border-black">
+          <div className="bg-gray-200 p-1 border-r border-black">
+            <span className="font-bold">Cumulative Score :</span>
           </div>
-          <div className="bg-gray-100 p-2">
-            <span className="font-bold">Cut-Off Average:</span> {cutOffAverage || '-'}
+          <div className="bg-gray-200 p-1 border-r border-black">
+            <span className="font-bold">Cut-Off Average :</span>
           </div>
-          <div className="bg-gray-100 p-2">
-            <span className="font-bold">Student's Average:</span> {studentsAverage || '-'}
+          <div className="bg-gray-200 p-1">
+            <span className="font-bold">Student's Average :</span>
           </div>
         </div>
 
         {/* Grade Descriptors */}
-        <div className="mb-4">
-          <h3 className="text-center font-bold bg-blue-200 p-2 mb-2">GRADE DESCRIPTORS</h3>
+        <div className="mb-3">
+          <h3 className="text-center font-bold bg-blue-300 p-1 mb-0 text-xs border border-black border-b-0">GRADE DESCRIPTORS</h3>
           <table className="w-full border-collapse border border-black text-xs">
             <thead>
-              <tr className="bg-blue-100">
-                <th className="border border-black p-1">% Score</th>
-                <th className="border border-black p-1">Grade</th>
-                <th className="border border-black p-1">Descriptor</th>
+              <tr className="bg-blue-200">
+                <th className="border border-black p-1 text-xs">% Score</th>
+                <th className="border border-black p-1 text-xs">Grade</th>
+                <th className="border border-black p-1 text-xs">Descriptor</th>
               </tr>
             </thead>
             <tbody>
@@ -238,19 +242,18 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Personal Tutor Comment */}
-        <div className="mb-6">
-          <h3 className="text-center font-bold bg-purple-200 p-2 mb-2">PERSONAL TUTOR'S COMMENT</h3>
-          <div className="border border-black p-4 min-h-[60px] bg-gray-50">
-            <p className="text-sm">{personalTutorComment}</p>
+        <div className="mb-4">
+          <h3 className="text-center font-bold bg-blue-300 p-1 mb-0 text-xs border border-black border-b-0">PERSONAL TUTOR'S COMMENT</h3>
+          <div className="border border-black p-2 min-h-[40px] bg-white">
           </div>
         </div>
 
         {/* Signature */}
-        <div className="text-center mt-8">
+        <div className="text-center mt-6">
           <div className="inline-block">
-            <img src={signature} alt="Signature" className="h-12 mx-auto mb-2" />
-            <div className="border-t border-black pt-2 w-48">
-              <p className="text-sm font-bold">N. Y. Mikail</p>
+            <img src={signature} alt="Signature" className="h-8 mx-auto mb-1" />
+            <div className="border-t border-black pt-1 w-32">
+              <p className="text-xs font-bold">N. Y. Mikail</p>
               <p className="text-xs">Asst. Director Academics</p>
               <p className="text-xs">AUN Schools</p>
             </div>
