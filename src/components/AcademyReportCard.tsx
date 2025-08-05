@@ -63,7 +63,10 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         
         {/* Header */}
         <div className="relative z-10 flex items-start mb-4">
-          <img src={aunLogo} alt="AUN Logo" className="h-16 w-16 mr-4" />
+          <img 
+                        src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
+            alt="AUN Schools Logo" 
+            className="h-16 w-16 mr-4" />
           <div className="text-center flex-1">
             <h1 className="text-base font-bold">American University of Nigeria Schools – Academy</h1>
             <p className="text-sm">No. 99, Lamido Zubairu Way, Yola Bye – Pass, P.M.B. 2250</p>
