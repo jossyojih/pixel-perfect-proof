@@ -6,7 +6,7 @@ import { StudentsTable } from "@/components/StudentsTable";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
-import { ReportCard } from "@/components/ReportCard";
+import { AcademyReportCard } from "@/components/AcademyReportCard";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useRef } from "react";
@@ -281,10 +281,10 @@ export default function AcademyUpload() {
           const { createRoot } = await import('react-dom/client');
           const root = createRoot(tempContainer);
           
-          console.log('Rendering ReportCard component');
+          console.log('Rendering AcademyReportCard component');
           await new Promise<void>((resolve) => {
             root.render(
-              <ReportCard 
+              <AcademyReportCard 
                 {...reportData}
                 pageRefs={{
                   coverRef,
