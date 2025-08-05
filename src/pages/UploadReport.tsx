@@ -45,8 +45,8 @@ export default function UploadReport() {
   const { toast } = useToast();
 
   const classOptions = [
-    "Pregrade_A", "Grade 1A", "Grade 1B", "Grade 2A", "Grade 2B", 
-    "Grade 3A", "Grade 3B", "Grade 4A", "Grade 4B", "Grade 5A", "Grade 5B"
+    "Pregrade_A", "Grade 1 A", "Grade 1 B", "Grade 2 A", "Grade 2 B", 
+    "Grade 3 A", "Grade 3 B", "Grade 4 A", "Grade 4 B", "Grade 5 A", "Grade 5 B"
   ];
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -431,7 +431,7 @@ export default function UploadReport() {
                 file_path: uploadData.path,
                 public_url: publicUrl,
                 class_tag: selectedClass || "Grade 3A",
-                grade_tag: selectedClass || "Grade 3A"
+                grade_tag: "A"
               });
             
             const dbTimeoutPromise = new Promise((_, reject) => 
