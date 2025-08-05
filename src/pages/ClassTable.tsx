@@ -20,7 +20,7 @@ interface UploadedReport {
 export default function ClassTable() {
   const [reports, setReports] = useState<UploadedReport[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedClass, setSelectedClass] = useState<string>('');
+  const [selectedClass, setSelectedClass] = useState<string>('all');
   
   // Predefined classes list
   const availableClasses = [
@@ -66,7 +66,7 @@ export default function ClassTable() {
   };
 
   // Filter reports based on selected class
-  const filteredReports = selectedClass 
+  const filteredReports = selectedClass && selectedClass !== 'all'
     ? reports.filter(report => report.grade_tag === selectedClass)
     : reports;
 
@@ -124,7 +124,7 @@ export default function ClassTable() {
               <SelectValue placeholder="All Classes" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Classes</SelectItem>
+              <SelectItem value="all">All Classes</SelectItem>
               {availableClasses.map((className) => (
                 <SelectItem key={className} value={className}>
                   {className}
