@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Download } from "lucide-react";
+import { Download, Trash2 } from "lucide-react";
 import * as XLSX from "xlsx";
 
 interface UploadedReport {
@@ -82,6 +83,33 @@ export default function ClassTable() {
     });
   };
 
+  const clearDatabase = async () => {
+    try {
+      const { error } = await supabase
+        .from('student_reports')
+        .delete()
+        .neq('id', 'impossible-id'); // This will delete all records
+
+      if (error) throw error;
+
+      setReports([]);
+      setAvailableClasses([]);
+      setSelectedClass('all');
+      
+      toast({
+        title: "Database cleared",
+        description: "All student reports have been deleted from the database."
+      });
+    } catch (error) {
+      console.error('Error clearing database:', error);
+      toast({
+        title: "Error clearing database",
+        description: "There was an error clearing the database.",
+        variant: "destructive"
+      });
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="container mx-auto p-6">
@@ -99,10 +127,34 @@ export default function ClassTable() {
           <h1 className="text-2xl font-bold">Class Reports Table</h1>
           <p className="text-muted-foreground">All uploaded student reports</p>
         </div>
-        <Button onClick={exportToExcel} className="flex items-center gap-2">
-          <Download className="h-4 w-4" />
-          Export to Excel
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={exportToExcel} className="flex items-center gap-2">
+            <Download className="h-4 w-4" />
+            Export to Excel
+          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" className="flex items-center gap-2">
+                <Trash2 className="h-4 w-4" />
+                Clear Database
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Clear Database</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will permanently delete all student reports from the database. This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={clearDatabase} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                  Clear Database
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </div>
 
       <div className="flex items-center gap-4">
