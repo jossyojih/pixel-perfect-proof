@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
-import { GraduationCap, Users, BookOpen, School } from "lucide-react";
+import { GraduationCap, Users, BookOpen, School, Building, Trophy, Briefcase } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -19,9 +19,29 @@ const Index = () => {
       onClick: () => navigate("/upload")
     },
     {
-      id: "junior-secondary",
-      title: "Junior Secondary",
-      description: "Report generation for JSS 1-3 students",
+      id: "academy",
+      title: "Academy",
+      description: "Report generation for Year 7, JSS 2, SSS 1 and SSS 2 students",
+      icon: <School className="h-8 w-8" />,
+      status: "coming-soon",
+      color: "bg-muted/50 text-muted-foreground border-muted",
+      buttonText: "Coming Soon",
+      onClick: () => {}
+    },
+    {
+      id: "charter-school",
+      title: "Charter School",
+      description: "Charter school report management system",
+      icon: <Building className="h-8 w-8" />,
+      status: "coming-soon",
+      color: "bg-muted/50 text-muted-foreground border-muted",
+      buttonText: "Coming Soon",
+      onClick: () => {}
+    },
+    {
+      id: "hse",
+      title: "HSE",
+      description: "Higher School Education report generation",
       icon: <BookOpen className="h-8 w-8" />,
       status: "coming-soon",
       color: "bg-muted/50 text-muted-foreground border-muted",
@@ -29,10 +49,10 @@ const Index = () => {
       onClick: () => {}
     },
     {
-      id: "senior-secondary", 
-      title: "Senior Secondary",
-      description: "Report generation for SSS 1-3 students",
-      icon: <School className="h-8 w-8" />,
+      id: "dolphin",
+      title: "Dolphin",
+      description: "Dolphin program report management",
+      icon: <Trophy className="h-8 w-8" />,
       status: "coming-soon",
       color: "bg-muted/50 text-muted-foreground border-muted",
       buttonText: "Coming Soon",
