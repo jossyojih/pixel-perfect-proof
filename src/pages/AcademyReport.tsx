@@ -20,31 +20,31 @@ export default function AcademyReport() {
   const specialsRef = useRef<HTMLDivElement>(null);
   const finalRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Get Academy student data from localStorage
-    const studentsData = localStorage.getItem('academyStudentsData');
-    if (studentsData) {
-      const students = JSON.parse(studentsData);
-      const foundStudent = students.find((s: any) => s.name === studentName);
-      if (foundStudent) {
-        setStudent(foundStudent);
-      } else {
-        toast({
-          title: "Academy student not found",
-          description: "Please go back and select a student from the Academy list.",
-          variant: "destructive"
-        });
-        navigate('/academy-upload');
-      }
-    } else {
-      toast({
-        title: "No Academy student data found",
-        description: "Please upload an Academy Excel file first.",
-        variant: "destructive"
-      });
-      navigate('/academy-upload');
-    }
-  }, [studentName, navigate, toast]);
+  // useEffect(() => {
+  //   // Get Academy student data from localStorage
+  //   const studentsData = localStorage.getItem('academyStudentsData');
+  //   if (studentsData) {
+  //     const students = JSON.parse(studentsData);
+  //     const foundStudent = students.find((s: any) => s.name === studentName);
+  //     if (foundStudent) {
+  //       setStudent(foundStudent);
+  //     } else {
+  //       toast({
+  //         title: "Academy student not found",
+  //         description: "Please go back and select a student from the Academy list.",
+  //         variant: "destructive"
+  //       });
+  //       navigate('/academy-upload');
+  //     }
+  //   } else {
+  //     toast({
+  //       title: "No Academy student data found",
+  //       description: "Please upload an Academy Excel file first.",
+  //       variant: "destructive"
+  //     });
+  //     navigate('/academy-upload');
+  //   }
+  // }, [studentName, navigate, toast]);
 
   const generateAcademyReportData = (student: any) => {
     // Convert old subject format to new Academy format
