@@ -45,7 +45,7 @@ export default function UploadReport() {
   const { toast } = useToast();
 
   const classOptions = [
-    "Pregrade_A", "Grade 1 A", "Grade 1 B", "Grade 2 A", "Grade 2 B", 
+    "Pre-Grade A","Pre-Grade B" "Grade 1 A", "Grade 1 B", "Grade 2 A", "Grade 2 B", 
     "Grade 3 A", "Grade 3 B", "Grade 4 A", "Grade 4 B", "Grade 5 A", "Grade 5 B"
   ];
 
