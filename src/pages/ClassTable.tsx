@@ -21,21 +21,7 @@ export default function ClassTable() {
   const [reports, setReports] = useState<UploadedReport[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedClass, setSelectedClass] = useState<string>('all');
-  
-  // Predefined classes list
-  const availableClasses = [
-    'Pregrade_A',
-    'Grade 1A',
-    'Grade 1B', 
-    'Grade 2A',
-    'Grade 2B',
-    'Grade 3A',
-    'Grade 3B',
-    'Grade 4A',
-    'Grade 4B',
-    'Grade 5A',
-    'Grade 5B'
-  ];
+  const [availableClasses, setAvailableClasses] = useState<string[]>([]);
   
   const { toast } = useToast();
 
@@ -53,6 +39,11 @@ export default function ClassTable() {
       if (error) throw error;
 
       setReports(data || []);
+      
+      // Extract unique grade_tag values for the dropdown
+      const uniqueGrades = [...new Set(data?.map(report => report.grade_tag) || [])];
+      setAvailableClasses(uniqueGrades);
+      
     } catch (error) {
       console.error('Error fetching reports:', error);
       toast({
