@@ -96,61 +96,241 @@ export default function AcademyUpload() {
 
           const student = studentMap.get(studentName)!;
 
-          // Academy-specific subjects (adjust based on your Excel template)
+          // Academy-specific subjects based on actual Excel data structure
           const subjects = [
             {
-              name: 'English Language',
-              teacher: row['english_language_teacher_name'] || '',
-              grade: row['english_language_art'] || "N/A",
-              comment: row['english_language_remark'] || ''
-            },
-            {
               name: 'Mathematics',
-              teacher: row['math_language_teacher_name'] || '',
-              grade: row['math_language_art'] || "N/A",
-              comment: row['math_language_art_remark'] || ''
+              teacher: '',
+              grade: row['mathematics_total_score'] || "N/A",
+              comment: row['mathematics_remark'] || '',
+              ca1: row['mathematics_ca_one'],
+              ca2: row['mathematics_ca_two'],
+              ca3: row['mathematics_ca_three'],
+              ca4: row['mathematics_ca_four'],
+              exam: row['mathematics_exam'],
+              totalScore: row['mathematics_total_score'],
+              gradeValue: row['mathematics_grade'],
+              position: row['mathematics_position'],
+              cssAverage: row['mathematics_css_average']
             },
             {
-              name: 'Social Studies',
-              teacher: row['social_studies_teacher_name'] || '',
-              grade: row['social_studies_art'] || "N/A",
-              comment: row['social_studies_remark'] || ''
+              name: 'English',
+              teacher: '',
+              grade: row['english_total_score'] || "N/A",
+              comment: row['english_remark'] || '',
+              ca1: row['english_ca_one'],
+              ca2: row['english_ca_two'],
+              ca3: row['english_ca_three'],
+              ca4: row['english_ca_four'],
+              exam: row['english_exam'],
+              totalScore: row['english_total_score'],
+              gradeValue: row['english_grade'],
+              position: row['english_position'],
+              cssAverage: row['english_css_average']
+            },
+            {
+              name: 'Global Perspectives',
+              teacher: '',
+              grade: row['global_perspectives_total_score'] || "N/A",
+              comment: row['global_perspectives_remark'] || '',
+              ca1: row['global_perspectives_ca_one'],
+              ca2: row['global_perspectives_ca_two'],
+              ca3: row['global_perspectives_ca_three'],
+              ca4: row['global_perspectives_ca_four'],
+              exam: row['global_perspectives_exam'],
+              totalScore: row['global_perspectives_total_score'],
+              gradeValue: row['global_perspectives_grade'],
+              position: row['global_perspectives_position'],
+              cssAverage: row['global_perspectives_css_average']
             },
             {
               name: 'Science',
-              teacher: row['science_teacher_name'] || '',
-              grade: row['science_art'] || "N/A",
-              comment: row['science_remark'] || ''
+              teacher: '',
+              grade: row['basic_science_total_score'] || "N/A",
+              comment: row['basic_science_remark'] || '',
+              ca1: row['basic_science_ca_one'],
+              ca2: row['basic_science_ca_two'],
+              ca3: row['basic_science_ca_three'],
+              ca4: row['basic_science_ca_four'],
+              exam: row['basic_science_exam'],
+              totalScore: row['basic_science_total_score'],
+              gradeValue: row['basic_science_grade'],
+              position: row['basic_science_position'],
+              cssAverage: row['basic_science_css_average']
             },
             {
-              name: 'Computer Studies',
-              teacher: row['computer_teacher_name'] || '',
-              grade: row['Computer_art'] || "N/A",
-              comment: ''
-            },
-            {
-              name: 'Hausa',
-              teacher: row['hausa_teacher_name'] || '',
-              grade: row['hausa_art'] || "N/A",
-              comment: ''
-            },
-            {
-              name: 'Religious Studies',
-              teacher: row['religious_studies_teacher_name'] || '',
-              grade: row['religious_studies_art'] || row['religious_studies_art2'] || "N/A",
-              comment: ''
+              name: 'Digital Literacy',
+              teacher: '',
+              grade: row['digital_literacy_total_score'] || "N/A",
+              comment: row['digital_literacy_remark'] || '',
+              ca1: row['digital_literacy_ca_one'],
+              ca2: row['digital_literacy_ca_two'],
+              ca3: row['digital_literacy_ca_three'],
+              ca4: row['digital_literacy_ca_four'],
+              exam: row['digital_literacy_exam'],
+              totalScore: row['digital_literacy_total_score'],
+              gradeValue: row['digital_literacy_grade'],
+              position: row['digital_literacy_position'],
+              cssAverage: row['digital_literacy_css_average']
             },
             {
               name: 'French',
-              teacher: row['french_teacher_name'] || '',
-              grade: row['french_art'] || "N/A",
-              comment: ''
+              teacher: '',
+              grade: row['french_total_score'] || "N/A",
+              comment: row['french_remark'] || '',
+              ca1: row['french_ca_one'],
+              ca2: row['french_ca_two'],
+              ca3: row['french_ca_three'],
+              ca4: row['french_ca_four'],
+              exam: row['french_exam'],
+              totalScore: row['french_total_score'],
+              gradeValue: row['french_grade'],
+              position: row['french_position'],
+              cssAverage: row['french_css_average'],
+              visible: row['french_visible']
             },
             {
-              name: 'PHE',
-              teacher: row['phe_teacher_name'] || '',
-              grade: row['phe_art'] || "N/A",
-              comment: ''
+              name: 'Arabic',
+              teacher: '',
+              grade: row['arabic_total_score'] || "N/A",
+              comment: row['arabic_remark'] || '',
+              ca1: row['arabic_ca_one'],
+              ca2: row['arabic_ca_two'],
+              ca3: row['arabic_ca_three'],
+              ca4: row['arabic_ca_four'],
+              exam: row['arabic_exam'],
+              totalScore: row['arabic_total_score'],
+              gradeValue: row['arabic_grade'],
+              position: row['arabic_position'],
+              cssAverage: row['arabic_css_average'],
+              visible: row['arabic_visible']
+            },
+            {
+              name: 'Religion IRS',
+              teacher: '',
+              grade: row['religion_total_score'] || "N/A",
+              comment: row['religion_remark'] || '',
+              ca1: row['religion_ca_one'],
+              ca2: row['religion_ca_two'],
+              ca3: row['religion_ca_three'],
+              ca4: row['religion_ca_four'],
+              exam: row['religion_exam'],
+              totalScore: row['religion_total_score'],
+              gradeValue: row['religion_grade'],
+              position: row['religion_position'],
+              cssAverage: row['religion_css_average'],
+              visible: row['religion_irs_visible']
+            },
+            {
+              name: 'Religion CRS',
+              teacher: '',
+              grade: row['religion_crs_total_score'] || "N/A",
+              comment: row['religion_crs_remark'] || '',
+              ca1: row['religion_crs_ca_one'],
+              ca2: row['religion_crs_ca_two'],
+              ca3: row['religion_crs_ca_three'],
+              ca4: row['religion_crs_ca_four'],
+              exam: row['religion_crs_exam'],
+              totalScore: row['religion_crs_total_score'],
+              gradeValue: row['religion_crs_grade'],
+              position: row['religion_crs_position'],
+              cssAverage: row['religion_crs_css_average'],
+              visible: row['religion_crs_visible']
+            },
+            {
+              name: 'Humanities-Geography',
+              teacher: '',
+              grade: row['human_geo_total_score'] || "N/A",
+              comment: row['human_geo_remark'] || '',
+              ca1: row['human_geo_ca_one'],
+              ca2: row['human_geo_ca_two'],
+              ca3: row['human_geo_ca_three'],
+              ca4: row['human_geo_ca_four'],
+              exam: row['human_geo_exam'],
+              totalScore: row['human_geo_total_score'],
+              gradeValue: row['human_geo_grade'],
+              position: row['human_geo_position'],
+              cssAverage: row['human_geo_css_average']
+            },
+            {
+              name: 'Humanities-History',
+              teacher: '',
+              grade: row['human_hstry_total_score'] || "N/A",
+              comment: row['human_hstry_remark'] || '',
+              ca1: row['human_hstry_ca_one'],
+              ca2: row['human_hstry_ca_two'],
+              ca3: row['human_hstry_ca_three'],
+              ca4: row['human_hstry_ca_four'],
+              exam: row['human_hstry_exam'],
+              totalScore: row['human_hstry_total_score'],
+              gradeValue: row['human_hstry_grade'],
+              position: row['human_hstry_position'],
+              cssAverage: row['human_hstry_css_average'],
+              visible: row['human_hstry_visible']
+            },
+            {
+              name: 'Music',
+              teacher: '',
+              grade: row['music_total_score'] || "N/A",
+              comment: row['music_remark'] || '',
+              ca1: row['music_ca_one'],
+              ca2: row['music_ca_two'],
+              ca3: row['music_ca_three'],
+              ca4: row['music_ca_four'],
+              exam: row['music_exam'],
+              totalScore: row['music_total_score'],
+              gradeValue: row['music_grade'],
+              position: row['music_position'],
+              cssAverage: row['music_css_average'],
+              visible: row['music_visible']
+            },
+            {
+              name: 'Physical And Health Education (PHE)',
+              teacher: '',
+              grade: row['phe_total_score'] || "N/A",
+              comment: row['phe_remark'] || '',
+              ca1: row['phe_ca_one'],
+              ca2: row['phe_ca_two'],
+              ca3: row['phe_ca_three'],
+              ca4: row['phe_ca_four'],
+              exam: row['phe_exam'],
+              totalScore: row['phe_total_score'],
+              gradeValue: row['phe_grade'],
+              position: row['phe_position'],
+              cssAverage: row['phe_css_average'],
+              visible: row['phe_visible']
+            },
+            {
+              name: 'Arts and Design',
+              teacher: '',
+              grade: row['arts_design_total_score'] || "N/A",
+              comment: row['arts_design_remark'] || '',
+              ca1: row['arts_design_ca_one'],
+              ca2: row['arts_design_ca_two'],
+              ca3: row['arts_design_ca_three'],
+              ca4: row['arts_design_ca_four'],
+              exam: row['arts_design_exam'],
+              totalScore: row['arts_design_total_score'],
+              gradeValue: row['arts_design_grade'],
+              position: row['arts_design_position'],
+              cssAverage: row['arts_design_css_average'],
+              visible: row['arts_design_visible']
+            },
+            {
+              name: 'Hausa',
+              teacher: '',
+              grade: row['hausa_total_score'] || "N/A",
+              comment: row['hausa_remark'] || '',
+              ca1: row['hausa_ca_one'],
+              ca2: row['hausa_ca_two'],
+              ca3: row['hausa_ca_three'],
+              ca4: row['hausa_ca_four'],
+              exam: row['hausa_exam'],
+              totalScore: row['hausa_total_score'],
+              gradeValue: row['hausa_grade'],
+              position: row['hausa_position'],
+              cssAverage: row['hausa_css_average'],
+              visible: row['hausa_visible']
             }
           ];
 
@@ -187,51 +367,41 @@ export default function AcademyUpload() {
   };
 
   const generateReportData = (student: any) => {
-    // Convert subjects to Academy format
+    // Convert subjects to Academy format using actual Excel data
     const academySubjects = student.subjects.map((subject: any) => {
-      const score = typeof subject.grade === 'number' ? subject.grade : parseInt(subject.grade) || 0;
-      const getLetterGrade = (score: number): string => {
-        if (score >= 91) return 'A1';
-        if (score >= 81) return 'A2';  
-        if (score >= 71) return 'B3';
-        if (score >= 65) return 'C4';
-        if (score >= 60) return 'C5';
-        if (score >= 50) return 'C6';
-        if (score >= 45) return 'D7';
-        if (score >= 40) return 'E8';
-        return 'F9';
-      };
-
       return {
         name: subject.name,
-        ca1: Math.floor(score * 0.1),
-        ca2: Math.floor(score * 0.1), 
-        ca3: Math.floor(score * 0.1),
-        ca4: Math.floor(score * 0.1),
-        exam: Math.floor(score * 0.6),
-        total: score,
-        score: score,
-        grade: getLetterGrade(score),
-        position: Math.floor(Math.random() * 30) + 1,
-        remark: score >= 70 ? 'Good' : score >= 60 ? 'Satisfactory' : 'Needs Improvement',
-        teachersAverage: score + Math.floor(Math.random() * 10) - 5
+        ca1: subject.ca1 || 0,
+        ca2: subject.ca2 || 0,
+        ca3: subject.ca3 || 0,
+        ca4: subject.ca4 || 0,
+        exam: subject.exam || 0,
+        total: subject.totalScore || 0,
+        score: subject.totalScore || 0,
+        grade: subject.gradeValue || 'F9',
+        position: subject.position || 0,
+        remark: subject.comment || 'No remark',
+        teachersAverage: subject.cssAverage || 0
       };
     });
 
+    // Get basic student info from raw data
+    const rawData = student.rawData || {};
+    
     return {
-      studentId: student.rawData?.student_id || `STU${Math.floor(Math.random() * 10000)}`,
+      studentId: rawData[''] || `STU${Math.floor(Math.random() * 10000)}`,
       studentName: student.name,
       class: selectedClass || "Year 7",
-      academicYear: "2023/2024",
-      positionInClass: Math.floor(Math.random() * 30) + 1,
-      noInClass: 30,
-      term: "First Term",
-      totalSubjects: academySubjects.length,
+      academicYear: rawData['academic_year'] || "2024-2025",
+      positionInClass: rawData['position_class'] || 1,
+      noInClass: rawData['no_in_class'] || 15,
+      term: rawData['term_name'] || "Term 3",
+      totalSubjects: rawData['total_subject'] || academySubjects.length,
       subjects: academySubjects,
       cumulativeScore: academySubjects.reduce((sum, s) => sum + s.score, 0),
       cutOffAverage: 50,
       studentsAverage: academySubjects.reduce((sum, s) => sum + s.score, 0) / academySubjects.length,
-      personalTutorComment: student.Comments || student.comments || "The student demonstrates good academic progress."
+      personalTutorComment: student.Comments || "The student demonstrates good academic progress."
     };
   };
 

@@ -40,7 +40,11 @@ interface AcademyReportCardProps {
 }
 
 export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardProps>(
-  ({ pageRefs }, ref) => {
+  ({ 
+    studentId, studentName, class: studentClass, academicYear, positionInClass, 
+    noInClass, term, totalSubjects, subjects, cumulativeScore, cutOffAverage, 
+    studentsAverage, personalTutorComment, pageRefs 
+  }, ref) => {
     
     // Academy subjects in the correct order from template
     const academySubjects = [
@@ -73,27 +77,27 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             <tbody>
               <tr>
                 <td className="border border-black p-2 font-bold w-1/4">Student's ID</td>
-                <td className="border border-black p-2 w-1/4">:</td>
+                <td className="border border-black p-2 w-1/4">: {studentId}</td>
                 <td className="border border-black p-2 font-bold w-1/4">Student's Name</td>
-                <td className="border border-black p-2 w-1/4">:</td>
+                <td className="border border-black p-2 w-1/4">: {studentName}</td>
               </tr>
               <tr>
                 <td className="border border-black p-2 font-bold">Class</td>
-                <td className="border border-black p-2">:</td>
+                <td className="border border-black p-2">: {studentClass}</td>
                 <td className="border border-black p-2 font-bold">Academic Year</td>
-                <td className="border border-black p-2">:</td>
+                <td className="border border-black p-2">: {academicYear}</td>
               </tr>
               <tr>
                 <td className="border border-black p-2 font-bold">Position in Class</td>
-                <td className="border border-black p-2">:</td>
+                <td className="border border-black p-2">: {positionInClass}</td>
                 <td className="border border-black p-2 font-bold">Term</td>
-                <td className="border border-black p-2">:</td>
+                <td className="border border-black p-2">: {term}</td>
               </tr>
               <tr>
                 <td className="border border-black p-2 font-bold">No. in Class</td>
-                <td className="border border-black p-2">:</td>
+                <td className="border border-black p-2">: {noInClass}</td>
                 <td className="border border-black p-2 font-bold">Total Subject</td>
-                <td className="border border-black p-2">:</td>
+                <td className="border border-black p-2">: {totalSubjects}</td>
               </tr>
             </tbody>
           </table>
@@ -119,22 +123,25 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               </tr>
             </thead>
             <tbody>
-              {academySubjects.map((subject, index) => (
-                <tr key={index}>
-                  <td className="border border-black p-1">{subject}</td>
-                  <td className="border border-black p-1"></td>
-                  <td className="border border-black p-1"></td>
-                  <td className="border border-black p-1"></td>
-                  <td className="border border-black p-1"></td>
-                  <td className="border border-black p-1"></td>
-                  <td className="border border-black p-1"></td>
-                  <td className="border border-black p-1"></td>
-                  <td className="border border-black p-1"></td>
-                  <td className="border border-black p-1"></td>
-                  <td className="border border-black p-1"></td>
-                  <td className="border border-black p-1"></td>
-                </tr>
-              ))}
+              {academySubjects.map((subjectName, index) => {
+                const subjectData = subjects.find(s => s.name === subjectName);
+                return (
+                  <tr key={index}>
+                    <td className="border border-black p-1">{subjectName}</td>
+                    <td className="border border-black p-1">{subjectData?.ca1 || ''}</td>
+                    <td className="border border-black p-1">{subjectData?.ca2 || ''}</td>
+                    <td className="border border-black p-1">{subjectData?.ca3 || ''}</td>
+                    <td className="border border-black p-1">{subjectData?.ca4 || ''}</td>
+                    <td className="border border-black p-1">{subjectData?.exam || ''}</td>
+                    <td className="border border-black p-1">{subjectData?.total || ''}</td>
+                    <td className="border border-black p-1">{subjectData?.score || ''}</td>
+                    <td className="border border-black p-1">{subjectData?.grade || ''}</td>
+                    <td className="border border-black p-1">{subjectData?.position || ''}</td>
+                    <td className="border border-black p-1">{subjectData?.remark || ''}</td>
+                    <td className="border border-black p-1">{subjectData?.teachersAverage || ''}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -144,9 +151,9 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <table className="w-full border-collapse border border-black text-sm">
             <tbody>
               <tr>
-                <td className="border border-black p-2 font-bold w-1/3">Cumulative Score :</td>
-                <td className="border border-black p-2 font-bold w-1/3">Cut-Off Average :</td>
-                <td className="border border-black p-2 font-bold w-1/3">Student's Average :</td>
+                <td className="border border-black p-2 font-bold w-1/3">Cumulative Score : {cumulativeScore?.toFixed(2) || 0}</td>
+                <td className="border border-black p-2 font-bold w-1/3">Cut-Off Average : {cutOffAverage || 50}</td>
+                <td className="border border-black p-2 font-bold w-1/3">Student's Average : {studentsAverage?.toFixed(2) || 0}</td>
               </tr>
             </tbody>
           </table>
@@ -190,6 +197,9 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               <div className="text-6xl font-bold text-gray-300 opacity-30 transform rotate-12">
                 SCHOOLS
               </div>
+            </div>
+            <div className="relative z-10">
+              {personalTutorComment}
             </div>
           </div>
         </div>
