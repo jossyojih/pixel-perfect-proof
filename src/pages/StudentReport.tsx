@@ -92,7 +92,7 @@ export default function StudentReport() {
 
     return {
       studentName: student.name,
-      grade: "Grade 1 A",
+      grade: localStorage.getItem('selectedClass') || "Grade 1 A",
       term: "Term 3",
       academicYear: "2024/2025",
       subjects: mainSubjects,

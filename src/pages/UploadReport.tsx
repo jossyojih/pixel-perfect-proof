@@ -173,8 +173,9 @@ export default function UploadReport() {
         const parsedStudents = Array.from(studentMap.values());
         setStudents(parsedStudents);
         
-        // Store the students data in localStorage for access in StudentReport
+        // Store the students data and selected class in localStorage for access in StudentReport
         localStorage.setItem('studentsData', JSON.stringify(parsedStudents));
+        localStorage.setItem('selectedClass', selectedClass);
         
         toast({
           title: "Excel file parsed successfully!",
