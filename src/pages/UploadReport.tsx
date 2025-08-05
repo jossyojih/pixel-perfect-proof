@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { StudentsTable } from "@/components/StudentsTable";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { ReportCard } from "@/components/ReportCard";
 import html2canvas from 'html2canvas';
@@ -40,7 +41,13 @@ export default function UploadReport() {
   const [file, setFile] = useState<File | null>(null);
   const [students, setStudents] = useState<ParsedStudent[]>([]);
   const [isGeneratingReports, setIsGeneratingReports] = useState(false);
+  const [selectedClass, setSelectedClass] = useState<string>("");
   const { toast } = useToast();
+
+  const classOptions = [
+    "Pregrade_A", "Grade 1A", "Grade 1B", "Grade 2A", "Grade 2B", 
+    "Grade 3A", "Grade 3B", "Grade 4A", "Grade 4B", "Grade 5A", "Grade 5B"
+  ];
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files?.[0];
@@ -395,7 +402,7 @@ export default function UploadReport() {
               student_name: student.name,
               file_path: uploadData.path,
               public_url: publicUrl,
-              class_tag: student.rawData?.class || "Primary 6",
+              class_tag: selectedClass || "Grade 3A",
               grade_tag: "A"
             });
 
@@ -441,6 +448,24 @@ export default function UploadReport() {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-2">
+              Select Class
+            </label>
+            <Select value={selectedClass} onValueChange={setSelectedClass}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a class" />
+              </SelectTrigger>
+              <SelectContent>
+                {classOptions.map((classOption) => (
+                  <SelectItem key={classOption} value={classOption}>
+                    {classOption}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">
               Upload Excel File
             </label>
             <Input
@@ -472,11 +497,16 @@ export default function UploadReport() {
                 </div>
                 <Button 
                   onClick={generateBulkReports}
-                  disabled={isGeneratingReports}
+                  disabled={isGeneratingReports || !selectedClass}
                   size="lg"
                 >
                   {isGeneratingReports ? "Generating..." : "Generate All Reports"}
                 </Button>
+                {!selectedClass && (
+                  <p className="text-sm text-muted-foreground">
+                    Please select a class to enable report generation
+                  </p>
+                )}
               </div>
             </div>
           )}
