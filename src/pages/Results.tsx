@@ -37,6 +37,36 @@ export default function Results() {
     }
   }, [selectedClass, selectedGrade]);
 
+  // Set up real-time subscription for new reports
+  useEffect(() => {
+    const channel = supabase
+      .channel('schema-db-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'student_reports'
+        },
+        (payload) => {
+          const newReport = payload.new as UploadedReport;
+          // Only add the report if it matches current filters
+          if (newReport.class_tag === selectedClass && newReport.grade_tag === selectedGrade) {
+            setReports(prev => [newReport, ...prev]);
+            toast({
+              title: "New report uploaded",
+              description: `Report for ${newReport.student_name} has been uploaded.`
+            });
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [selectedClass, selectedGrade, toast]);
+
   const fetchAvailableOptions = async () => {
     try {
       // Fetch distinct class tags
