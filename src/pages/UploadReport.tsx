@@ -431,7 +431,7 @@ export default function UploadReport() {
                 file_path: uploadData.path,
                 public_url: publicUrl,
                 class_tag: selectedClass || "Grade 3A",
-                grade_tag: "A"
+                grade_tag: selectedClass || "Grade 3A"
               });
             
             const dbTimeoutPromise = new Promise((_, reject) => 
