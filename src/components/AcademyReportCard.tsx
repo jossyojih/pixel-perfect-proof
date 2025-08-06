@@ -67,7 +67,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-[110px] w-[110px] mr-4" 
+            className="h-[120px] w-[120px]" 
           />
           <div className="text-center flex-1">
             <h1 className="text-lg font-bold">American University of Nigeria Schools – Academy</h1>
