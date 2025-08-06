@@ -159,53 +159,49 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Summary */}
         <div className="relative z-10 mb-4">
-          <table className="w-full border-collapse border border-black text-sm">
-            <tbody>
-              <tr>
-                <td className="border border-black p-2 font-bold w-1/3">Cumulative Score : {cumulativeScore?.toFixed(2) || 0}</td>
-                <td className="border border-black p-2 font-bold w-1/3">Cut-Off Average : {cutOffAverage || 50}</td>
-                <td className="border border-black p-2 font-bold w-1/3">Student's Average : {studentsAverage?.toFixed(2) || 0}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="flex justify-between text-sm font-bold">
+            <span>Cumulative Score : {cumulativeScore?.toFixed(2) || 0}</span>
+            <span>Cut-Off Average : {cutOffAverage || 50}</span>
+            <span>Student's Average : {studentsAverage?.toFixed(2) || 0}</span>
+          </div>
         </div>
 
         {/* Grade Descriptors */}
         <div className="relative z-10 mb-4">
-          <div className="bg-blue-900 text-white text-center font-bold p-2 border border-black">
+          <div className="bg-blue-900 text-white text-center font-bold p-2">
             GRADE DESCRIPTORS
           </div>
           <table className="w-full border-collapse border border-black text-xs">
             <thead>
-              <tr>
-                <th className="border border-black p-1">% Score</th>
-                <th className="border border-black p-1">Grade</th>
-                <th className="border border-black p-1">Descriptor</th>
+              <tr className="bg-purple-300">
+                <th className="border border-black p-1 font-bold">% Score</th>
+                <th className="border border-black p-1 font-bold bg-green-300">Grade</th>
+                <th className="border border-black p-1 font-bold">Descriptor</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td className="border border-black p-1">91.00 - 100.00</td><td className="border border-black p-1">A1</td><td className="border border-black p-1">Excellent</td></tr>
-              <tr><td className="border border-black p-1">81.00 - 90.00</td><td className="border border-black p-1">B2</td><td className="border border-black p-1">Very Good</td></tr>
-              <tr><td className="border border-black p-1">71.00 - 80.00</td><td className="border border-black p-1">B3</td><td className="border border-black p-1">Good</td></tr>
-              <tr><td className="border border-black p-1">65.00 - 70.00</td><td className="border border-black p-1">C4</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">60.00 - 64.00</td><td className="border border-black p-1">C5</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">50.00 - 59.00</td><td className="border border-black p-1">C6</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">45.00 - 49.00</td><td className="border border-black p-1">D7</td><td className="border border-black p-1">Pass</td></tr>
-              <tr><td className="border border-black p-1">40.00 - 44.00</td><td className="border border-black p-1">E8</td><td className="border border-black p-1">Pass</td></tr>
-              <tr><td className="border border-black p-1">0.00 - 39.00</td><td className="border border-black p-1">F9</td><td className="border border-black p-1">Fail</td></tr>
+              <tr className="bg-purple-200"><td className="border border-black p-1">91.00 - 100.00</td><td className="border border-black p-1 bg-green-200">A1</td><td className="border border-black p-1">Excellent</td></tr>
+              <tr className="bg-purple-200"><td className="border border-black p-1">81.00 - 90.00</td><td className="border border-black p-1 bg-green-200">B2</td><td className="border border-black p-1">Very Good</td></tr>
+              <tr className="bg-purple-200"><td className="border border-black p-1">71.00 - 80.00</td><td className="border border-black p-1 bg-green-200">B3</td><td className="border border-black p-1">Good</td></tr>
+              <tr className="bg-purple-200"><td className="border border-black p-1">65.00 - 70.00</td><td className="border border-black p-1 bg-green-200">C4</td><td className="border border-black p-1">Credit</td></tr>
+              <tr className="bg-purple-200"><td className="border border-black p-1">60.00 - 64.00</td><td className="border border-black p-1 bg-green-200">C5</td><td className="border border-black p-1">Credit</td></tr>
+              <tr className="bg-purple-200"><td className="border border-black p-1">50.00 - 59.00</td><td className="border border-black p-1 bg-green-200">C6</td><td className="border border-black p-1">Credit</td></tr>
+              <tr className="bg-purple-200"><td className="border border-black p-1">45.00 - 49.00</td><td className="border border-black p-1 bg-green-200">D7</td><td className="border border-black p-1">Pass</td></tr>
+              <tr className="bg-purple-200"><td className="border border-black p-1">40.00 - 44.00</td><td className="border border-black p-1 bg-green-200">E8</td><td className="border border-black p-1">Pass</td></tr>
+              <tr className="bg-purple-200"><td className="border border-black p-1">0.00 - 39.00</td><td className="border border-black p-1 bg-green-200">F9</td><td className="border border-black p-1">Fail</td></tr>
             </tbody>
           </table>
         </div>
 
         {/* Personal Tutor Comment */}
         <div className="relative z-10 mb-6">
-          <div className="bg-blue-900 text-white text-center font-bold p-2 border border-black">
+          <div className="bg-purple-600 text-white text-center font-bold p-2">
             PERSONAL TUTOR'S COMMENT
           </div>
-          <div className="border border-black min-h-[60px] p-4 relative">
+          <div className="border border-black min-h-[80px] p-4 relative bg-purple-100">
             {/* SCHOOLS Watermark */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="text-6xl font-bold text-gray-300 opacity-30 transform rotate-12">
+              <div className="text-6xl font-bold text-purple-400 opacity-40">
                 SCHOOLS
               </div>
             </div>
@@ -216,10 +212,10 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Signature */}
-        <div className="relative z-10 text-center">
+        <div className="relative z-10 text-center mt-8">
           <div className="inline-block">
             <img src={signature} alt="Signature" className="h-12 mx-auto mb-2" />
-            <div className="border-t border-black pt-2 w-40">
+            <div className="border-t border-black pt-2 w-48">
               <p className="text-sm font-bold">N. Y. Mikail</p>
               <p className="text-sm font-bold">Asst. Director Academics</p>
               <p className="text-sm font-bold">AUN Schools</p>
