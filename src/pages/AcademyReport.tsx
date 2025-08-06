@@ -103,7 +103,7 @@ export default function AcademyReport() {
       const reportData = generateAcademyReportData(student);
       
       const pdf = new jsPDF({
-        orientation: 'landscape',
+        orientation: 'portrait',
         unit: 'mm',
         format: 'a4',
         compress: true
