@@ -125,7 +125,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         <div className="relative z-10 mb-1">
           <table className="w-full border-collapse border border-black text-xs text-center">
             <thead>
-              <tr className="bg-blue-900 text-white" style={{ paddingBottom: '18px' }}>
+              <tr className="bg-blue-900 text-white">
                 <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Subject Name</th>
                 <th style={{ paddingBottom: '18px' }} className="border border-black p-1 style={{ paddingBottom: '8px' }}">CA1</th>
                 <th style={{ paddingBottom: '18px' }} className="border border-black p-1">CA2</th>
@@ -169,8 +169,8 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Grade Descriptors */}
-        <div className="relative z-10 mb-2" style={{ paddingBottom: '18px' }}>
-          <div className="bg-blue-900 text-white text-center font-bold p-2">
+        <div className="relative z-10 mb-2">
+          <div className="bg-blue-900 text-white text-center font-bold p-2" style={{ paddingBottom: '18px' }}>
             GRADE DESCRIPTORS
           </div>
           <table className="w-full border-collapse border border-black text-xs">
