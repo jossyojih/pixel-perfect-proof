@@ -142,17 +142,17 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             <tbody>
               {studentSubjects.map((subject, index) => (
                 <tr key={index}>
-                  <td style={{ paddingBottom: '9px'}} className="border border-black text-left">{subject.name}</td>
-                  <td style={{ paddingBottom: '9px' }} className="border border-black">{subject.ca1 || ''}</td>
-                  <td style={{ paddingBottom: '9px' }} className="border border-black">{subject.ca2 || ''}</td>
-                  <td style={{ paddingBottom: '9px' }} className="border border-black">{subject.ca3 || ''}</td>
-                  <td style={{ paddingBottom: '9px' }} className="border border-black">{subject.ca4 || ''}</td>
-                  <td style={{ paddingBottom: '9px' }} className="border border-black">{subject.exam || ''}</td>
-                  <td style={{ paddingBottom: '9px' }} className="border border-black">{subject.total || ''}</td>
-                  <td style={{ paddingBottom: '9px' }} className="border border-black">{subject.grade || ''}</td>
-                  <td style={{ paddingBottom: '9px' }} className="border border-black">{subject.position || ''}</td>
-                  <td style={{ paddingBottom: '9px' }} className="border border-black">{subject.remark || ''}</td>
-                  <td style={{ paddingBottom: '9px' }} className="border border-black">{subject.teachersAverage || ''}</td>
+                  <td className="border border-black text-left -mt-2">{subject.name}</td>
+                  <td  className="border border-black -mt-2">{subject.ca1 || ''}</td>
+                  <td  className="border border-black -mt-2">{subject.ca2 || ''}</td>
+                  <td  className="border border-black -mt-2">{subject.ca3 || ''}</td>
+                  <td  className="border border-black -mt-2">{subject.ca4 || ''}</td>
+                  <td  className="border border-black -mt-2">{subject.exam || ''}</td>
+                  <td  className="border border-black -mt-2">{subject.total || ''}</td>
+                  <td  className="border border-black -mt-2">{subject.grade || ''}</td>
+                  <td  className="border border-black -mt-2">{subject.position || ''}</td>
+                  <td  className="border border-black -mt-2">{subject.remark || ''}</td>
+                  <td  className="border border-black -mt-2">{subject.teachersAverage || ''}</td>
                 </tr>
               ))}
             </tbody>
