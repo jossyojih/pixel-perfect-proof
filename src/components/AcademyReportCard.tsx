@@ -128,7 +128,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               <tr className="bg-blue-900 text-white">
                 <th className="border border-black p-1 style={{ paddingBottom: '8px' }}">Subject Name</th>
                 <th className="border border-black p-1 style={{ paddingBottom: '8px' }}">CA1</th>
-                <th className="border border-black p-1 style={{ padding: '8px' }}">CA2</th>
+                <th className="border border-black p-1 style={{ marginBottom: 8px' }}">CA2</th>
                 <th className="border border-black p-1 style={{ padding: '8px' }}">CA3</th>
                 <th className="border border-black p-1 style={{ padding: '8px' }}">CA4</th>
                 <th className="border border-black p-1">Exam</th>
