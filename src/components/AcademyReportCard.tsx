@@ -80,42 +80,42 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
           <div className="grid grid-cols-3 text-sm">
             <div className="flex p-2">
-              <span className="font-bold text-red-400">Student's ID</span>
+              <span className="text-red-400">Student's ID</span>
               <span className="ml-2">: {studentId}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold text-red-400">Student's Name</span>
+              <span className="text-red-400">Student's Name</span>
               <span className="ml-2">: {studentName}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold text-red-400">Term</span>
+              <span className="text-red-400">Term</span>
               <span className="ml-2">: {term}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold text-red-400">Total Subject</span>
+              <span className="text-red-400">Total Subject</span>
               <span className="ml-2">: {totalSubjects}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold text-red-400">Class</span>
+              <span className="text-red-400">Class</span>
               <span className="ml-2">: {studentClass}</span>
             </div>
-            <div className="flex p-2">
-              <span className="font-bold text-red-400">Academic Year</span>
+            <div className="flex">
+              <span className="text-red-400">Academic Year</span>
               <span className="ml-2">: {academicYear}</span>
             </div>
-            <div className="flex p-2">
-              <span className="font-bold text-red-400">Position in Class</span>
+            <div className="flex">
+              <span className="text-red-400">Position in Class</span>
               <span className="ml-2">: {positionInClass}</span>
             </div>
-            <div className="flex p-2">
-              <span className="font-bold text-red-400">No. in Class</span>
+            <div className="flex">
+              <span className="text-red-400">No. in Class</span>
               <span className="ml-2">: {noInClass}</span>
             </div>
           </div>
         </div>
 
         {/* Subjects Table */}
-        <div className="relative z-10 mb-4">
+        <div className="relative z-10 mb-3">
           <table className="w-full border-collapse border border-black text-xs">
             <thead>
               <tr className="bg-blue-900 text-white">
@@ -155,7 +155,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Summary */}
-        <div className="relative z-10 mb-4">
+        <div className="relative z-10 mb-3">
           <div className="flex justify-between text-sm font-bold">
             <span className="text-red-500">Cumulative Score : {cumulativeScore?.toFixed(2) || 0}</span>
             <span className="text-red-500" >Cut-Off Average : {cutOffAverage || 50}</span>
