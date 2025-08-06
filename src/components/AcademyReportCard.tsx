@@ -67,7 +67,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-[150px] w-[150px] -ml-8" 
+            className="h-[130px] w-[130px] -ml-8" 
           />
           <div className="text-center flex-1">
             <h1 className="text-lg font-bold">American University of Nigeria Schools – Academy</h1>
@@ -78,7 +78,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Student Information */}
         <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
-          <div className="grid grid-cols-3 text-sm">
+          <div className="grid grid-cols-3 text-sm text-center">
             <div className="flex p-[2px]">
               <span className="text-red-400">Student's ID :</span>
               <span className="ml-2"> {studentId}</span>
@@ -116,7 +116,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Subjects Table */}
         <div className="relative z-10 mb-1">
-          <table className="w-full border-collapse border border-black text-xs">
+          <table className="w-full border-collapse border border-black text-xs text-center">
             <thead>
               <tr className="bg-blue-900 text-white">
                 <th className="border border-black p-1">Subject Name</th>
@@ -155,7 +155,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Summary */}
-        <div className="relative z-10 mb-1">
+        <div className="relative z-10 mb-3">
           <div className="flex justify-between text-sm font-bold">
             <span className="text-red-500">Cumulative Score: <span className="text-black ml-[2rem]">{cumulativeScore?.toFixed(2) || 0}</span></span>
             <span className="text-red-500" >Cut-Off Average : {cutOffAverage || 50}</span>
