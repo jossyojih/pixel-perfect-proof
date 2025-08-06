@@ -178,8 +178,8 @@ export default function AcademyUpload() {
             'human_geo': ['Humanities-Geography'],
             'human_hstry': ['Humanities-History'],
             'music': ['Music'],
-            'phe': ['Physical And Health Education (PHE)'],
-            'arts_design': ['Arts and Design'],
+            'physical_health': ['Physical And Health Education (PHE)'],
+            'visual_arts': ['Arts and Design'],
             'hausa': ['Hausa']
           };
           
@@ -200,7 +200,7 @@ export default function AcademyUpload() {
             const visibleKey = `${key}_visible`;
 
             const totalScore = row[totalScoreKey];
-            const isVisible = row[visibleKey] === undefined || row[visibleKey] === "Y";
+            const isVisible = row[visibleKey] === "Y";
             const hasValidScore = totalScore && totalScore !== "N/A" && totalScore !== null && totalScore !== undefined && totalScore !== "";
 
             console.log(`Subject ${key} processing:`, {
@@ -209,11 +209,11 @@ export default function AcademyUpload() {
               visibleKey,
               isVisible: row[visibleKey],
               hasValidScore,
-              willInclude: hasValidScore // Changed logic: include if has valid score, regardless of visibility
+              willInclude: isVisible && hasValidScore
             });
 
-            // CRITICAL FIX: Include subjects with valid scores even if visible="N"
-            if (hasValidScore) {
+            // Only include subjects that are marked as visible="Y" AND have valid scores
+            if (isVisible && hasValidScore) {
               // Find the best matching subject name from configuration
               const configuredSubject = subjects.find(s => 
                 possibleNames.some(name => 
