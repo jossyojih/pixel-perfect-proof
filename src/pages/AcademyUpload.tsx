@@ -104,12 +104,36 @@ export default function AcademyUpload() {
 
         jsonData.forEach((row, index) => {
           console.log(`Processing row ${index}:`, row);
+          console.log('Available Excel fields:', Object.keys(row));
+          
           const studentName = row['__EMPTY_2'] || row['_2'];
           console.log(`Student name found: "${studentName}"`);
           
           if (!studentName || typeof studentName !== 'string') return;
 
           if (!studentMap.has(studentName)) {
+            // Log potential student ID fields
+            console.log('Potential student ID fields:', {
+              roll_id: row['__EMPTY'] || row['_1'],
+              student_id: row['student_id'],
+              roll_no: row['roll_no'],
+              id: row['id'],
+              empty_1: row['__EMPTY_1'],
+              registration_no: row['registration_no']
+            });
+            
+            // Log potential class/term fields
+            console.log('Potential class/term fields:', {
+              term: row['term'],
+              class: row['class'],
+              grade: row['grade'],
+              position: row['position'],
+              position_in_class: row['position_in_class'],
+              no_in_class: row['no_in_class'],
+              class_size: row['class_size'],
+              total_students: row['total_students']
+            });
+            
             studentMap.set(studentName, {
               name: studentName,
               subjects: [],

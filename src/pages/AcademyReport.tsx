@@ -48,6 +48,7 @@ export default function AcademyReport() {
 
   const generateAcademyReportData = (student: any) => {
     console.log('Generating Academy report data for student:', student);
+    console.log('Student raw data available:', student.rawData ? Object.keys(student.rawData) : 'No raw data');
     
     // Use actual data from Excel parsing
     const academySubjects = student.subjects.map((subject: any) => {
@@ -98,18 +99,48 @@ export default function AcademyReport() {
     const cumulativeScore = validScores.reduce((sum, s) => sum + s.total, 0);
     const studentsAverage = validScores.length > 0 ? cumulativeScore / validScores.length : 0;
 
-    // Use actual student data where available
-    const studentId = student.rawData?.student_id || student.rawData?.__EMPTY || `AUN${Date.now().toString().slice(-4)}`;
+    // Extract actual student data from Excel fields
+    const rawData = student.rawData || {};
+    console.log('Extracting student info from rawData:', rawData);
+    
+    // Try multiple possible field names for student ID (Roll ID)
+    const studentId = rawData['__EMPTY'] || rawData['_1'] || rawData['roll_id'] || 
+                     rawData['student_id'] || rawData['roll_no'] || rawData['id'] || 
+                     rawData['__EMPTY_1'] || rawData['registration_no'] || 
+                     `AUN${Date.now().toString().slice(-4)}`;
+    
+    // Try multiple possible field names for term
+    const termData = rawData['term'] || rawData['Term'] || rawData['TERM'] || 
+                    rawData['current_term'] || rawData['school_term'] || "Term 3";
+    
+    // Try multiple possible field names for position in class
+    const positionInClass = rawData['position'] || rawData['position_in_class'] || 
+                           rawData['class_position'] || rawData['overall_position'] || 
+                           rawData['rank'] || rawData['pos'] || 0;
+    
+    // Try multiple possible field names for number in class
+    const noInClass = rawData['no_in_class'] || rawData['class_size'] || 
+                     rawData['total_students'] || rawData['class_total'] || 
+                     rawData['students_in_class'] || 30;
+    
     const selectedClass = localStorage.getItem('selectedAcademyClass') || localStorage.getItem('selectedClass') || "Year 7";
+    
+    console.log('Extracted student info:', {
+      studentId,
+      termData,
+      positionInClass,
+      noInClass,
+      selectedClass
+    });
     
     return {
       studentId: studentId,
       studentName: student.name,
       class: selectedClass,
       academicYear: "2024/2025",
-      positionInClass: student.rawData?.overall_position || 0,
-      noInClass: student.rawData?.total_students || 30,
-      term: "First Term",
+      positionInClass: positionInClass,
+      noInClass: noInClass,
+      term: termData,
       totalSubjects: validScores.length,
       subjects: academySubjects,
       cumulativeScore: cumulativeScore,
