@@ -123,7 +123,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Subjects Table */}
         <div className="relative z-10 mb-1">
-          <table className="w-full border-collapse border border-black text-xs text-center">
+          <table style={{ textAlign: 'center', tableLayout: 'fixed' }} className="w-full border-collapse border border-black text-xs text-center">
             <thead>
               <tr className="bg-blue-900 text-white">
                 <th className="border border-black p-1">Subject Name</th>
