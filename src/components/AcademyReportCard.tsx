@@ -78,7 +78,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Student Information */}
         <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
-          <div className="grid grid-cols-4 text-sm">
+          <div className="grid grid-cols-3 text-sm">
             <div className="flex p-2">
               <span className="font-bold text-red-400">Student's ID</span>
               <span className="ml-2">: {studentId}</span>
@@ -158,8 +158,8 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         <div className="relative z-10 mb-4">
           <div className="flex justify-between text-sm font-bold">
             <span className="text-red-500">Cumulative Score : {cumulativeScore?.toFixed(2) || 0}</span>
-            <span>Cut-Off Average : {cutOffAverage || 50}</span>
-            <span>Student's Average : {studentsAverage?.toFixed(2) || 0}</span>
+            <span className="text-red-500" >Cut-Off Average : {cutOffAverage || 50}</span>
+            <span className="text-red-500" >Student's Average : {studentsAverage?.toFixed(2) || 0}</span>
           </div>
         </div>
 
