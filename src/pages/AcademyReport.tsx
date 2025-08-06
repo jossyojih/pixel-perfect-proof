@@ -73,49 +73,60 @@ export default function AcademyReport() {
       });
     }
     
-    // Use actual data from Excel parsing
-    const academySubjects = student.subjects.map((subject: any) => {
-      console.log('Processing subject for report:', subject.name, 'with data:', subject);
-      
-      const getLetterGrade = (score: number): string => {
-        if (score >= 91) return 'A1';
-        if (score >= 81) return 'B2';  
-        if (score >= 71) return 'B3';
-        if (score >= 65) return 'C4';
-        if (score >= 60) return 'C5';
-        if (score >= 50) return 'C6';
-        if (score >= 45) return 'D7';
-        if (score >= 40) return 'E8';
-        return 'F9';
-      };
+    // Use actual data from Excel parsing and filter subjects with complete scores
+    const academySubjects = student.subjects
+      .map((subject: any) => {
+        console.log('Processing subject for report:', subject.name, 'with data:', subject);
+        
+        const getLetterGrade = (score: number): string => {
+          if (score >= 91) return 'A1';
+          if (score >= 81) return 'B2';  
+          if (score >= 71) return 'B3';
+          if (score >= 65) return 'C4';
+          if (score >= 60) return 'C5';
+          if (score >= 50) return 'C6';
+          if (score >= 45) return 'D7';
+          if (score >= 40) return 'E8';
+          return 'F9';
+        };
 
-      // Use actual scores from Excel data
-      const totalScore = subject.totalScore || subject.grade || 0;
-      const ca1 = subject.ca1 || 0;
-      const ca2 = subject.ca2 || 0;
-      const ca3 = subject.ca3 || 0;
-      const ca4 = subject.ca4 || 0;
-      const exam = subject.exam || 0;
-      const gradeValue = subject.gradeValue || getLetterGrade(totalScore);
-      const position = subject.position || 0;
-      const comment = subject.comment || '';
-      const cssAverage = subject.cssAverage || 0;
+        // Use actual scores from Excel data
+        const totalScore = subject.totalScore || subject.grade || 0;
+        const ca1 = subject.ca1 || 0;
+        const ca2 = subject.ca2 || 0;
+        const ca3 = subject.ca3 || 0;
+        const ca4 = subject.ca4 || 0;
+        const exam = subject.exam || 0;
+        const gradeValue = subject.gradeValue || getLetterGrade(totalScore);
+        const position = subject.position || 0;
+        const comment = subject.comment || '';
+        const cssAverage = subject.cssAverage || 0;
 
-      return {
-        name: subject.name,
-        ca1: ca1,
-        ca2: ca2,
-        ca3: ca3,
-        ca4: ca4,
-        exam: exam,
-        total: totalScore,
-        score: totalScore,
-        grade: gradeValue,
-        position: position,
-        remark: comment || (totalScore >= 70 ? 'Good' : totalScore >= 60 ? 'Satisfactory' : 'Needs Improvement'),
-        teachersAverage: cssAverage
-      };
-    });
+        return {
+          name: subject.name,
+          ca1: ca1,
+          ca2: ca2,
+          ca3: ca3,
+          ca4: ca4,
+          exam: exam,
+          total: totalScore,
+          score: totalScore,
+          grade: gradeValue,
+          position: position,
+          remark: comment || (totalScore >= 70 ? 'Good' : totalScore >= 60 ? 'Satisfactory' : 'Needs Improvement'),
+          teachersAverage: cssAverage
+        };
+      })
+      .filter((subject: any) => {
+        // Only include subjects where student has scores for all CAs and Exam
+        const hasAllCAs = subject.ca1 > 0 && subject.ca2 > 0 && subject.ca3 > 0 && subject.ca4 > 0;
+        const hasExam = subject.exam > 0;
+        const includeSubject = hasAllCAs && hasExam;
+        
+        console.log(`Subject ${subject.name}: CA1=${subject.ca1}, CA2=${subject.ca2}, CA3=${subject.ca3}, CA4=${subject.ca4}, Exam=${subject.exam}, Include=${includeSubject}`);
+        
+        return includeSubject;
+      });
 
     // Extract actual student data from Excel fields
     const rawData = student.rawData || {};
@@ -158,13 +169,8 @@ export default function AcademyReport() {
                      parseInt(rawData['class_total']) || 
                      parseInt(rawData['students_in_class']) || 15;
     
-    // Total subjects should be 12 from Excel or use actual count
-    const totalSubjects = parseInt(rawData['total_subject']) || 
-                         parseInt(rawData['total_subjects']) || 
-                         parseInt(rawData['Total Subjects']) || 
-                         parseInt(rawData['no_of_subjects']) || 
-                         parseInt(rawData['subject_count']) || 
-                         academySubjects.filter(s => s.total > 0).length || 12;
+    // Total subjects count based on actual subjects offered by the student
+    const totalSubjects = academySubjects.length;
     
     const selectedClass = localStorage.getItem('selectedAcademyClass') || localStorage.getItem('selectedClass') || "Year 7";
     
