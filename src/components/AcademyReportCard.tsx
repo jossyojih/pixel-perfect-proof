@@ -63,7 +63,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
         
         {/* Header */}
-        <div className="relative z-10 flex items-start justify-start mb-1">
+        <div className="relative z-10 flex items-center justify-start mb-1 ml-0">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
