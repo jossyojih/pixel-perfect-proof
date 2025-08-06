@@ -221,36 +221,40 @@ export const ReportCard = ({
 
           {/* Specials Table */}
           <div className="border border-black">
-            {/* <table className="w-full border-collapse">
-              <thead>
-                <tr className="bg-gray-600">
-                  <th className="border-r border-black px-6 py-4 text-left font-bold text-white text-base">
-                    Specials
-                  </th>
-                  <th className="border-r border-black px-6 py-4 text-center font-bold text-white text-base">
-                    Grade
-                  </th>
-                  <th className="px-6 py-4 text-center font-bold text-white text-base">
-                    Subject Teacher's Name
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {specials.map((special, index) => (
-                  <tr key={index} className="border-t border-black">
-                    <td className="border-r border-black px-6 py-4 bg-gray-300 text-black font-medium text-base">
-                      {special.name}
-                    </td>
-                    <td className="border-r border-black px-6 py-4 text-center text-black font-medium bg-white text-base">
-                      {special.grade}
-                    </td>
-                    <td className="px-6 py-4 text-center text-black font-medium bg-white text-base">
-                      {special.teacher}
-                    </td>
+            {grade !== "Pre-Grade-A" && grade !== "Pre-Grade-B" ? (
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="bg-gray-600">
+                    <th className="border-r border-black px-6 py-4 text-left font-bold text-white text-base">
+                      Specials
+                    </th>
+                    <th className="border-r border-black px-6 py-4 text-center font-bold text-white text-base">
+                      Grade
+                    </th>
+                    <th className="px-6 py-4 text-center font-bold text-white text-base">
+                      Subject Teacher's Name
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table> */}
+                </thead>
+                <tbody>
+                  {specials.map((special, index) => (
+                    <tr key={index} className="border-t border-black">
+                      <td className="border-r border-black px-6 py-4 bg-gray-300 text-black font-medium text-base">
+                        {special.name}
+                      </td>
+                      <td className="border-r border-black px-6 py-4 text-center text-black font-medium bg-white text-base">
+                        {special.grade}
+                      </td>
+                      <td className="px-6 py-4 text-center text-black font-medium bg-white text-base">
+                        {special.teacher}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="h-64 bg-white"></div>
+            )}
           </div>
         </div> 
         
@@ -436,7 +440,6 @@ export const ReportCard = ({
               <p>Website: aunschools.net</p>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
