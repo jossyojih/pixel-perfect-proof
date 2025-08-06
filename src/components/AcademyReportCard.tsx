@@ -167,20 +167,20 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             <thead>
               <tr>
                 <th className="border border-black p-1 font-bold">% Score</th>
-                <th className="border border-black p-1 font-bold">Grade</th>
+                <th className="border border-black p-1 font-bold bg-green-300">Grade</th>
                 <th className="border border-black p-1 font-bold">Descriptor</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td className="border border-black p-1">91.00 - 100.00</td><td className="border border-black">A1</td><td className="border border-black p-1">Excellent</td></tr>
-              <tr><td className="border border-black p-1">81.00 - 90.00</td><td className="border border-black">B2</td><td className="border border-black p-1">Very Good</td></tr>
-              <tr><td className="border border-black p-1">71.00 - 80.00</td><td className="border border-black">B3</td><td className="border border-black p-1">Good</td></tr>
-              <tr><td className="border border-black p-1">65.00 - 70.00</td><td className="border border-black">C4</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">60.00 - 64.00</td><td className="border border-black">C5</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">50.00 - 59.00</td><td className="border border-black">C6</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">45.00 - 49.00</td><td className="border border-black">D7</td><td className="border border-black p-1">Pass</td></tr>
-              <tr><td className="border border-black p-1">40.00 - 44.00</td><td className="border border-black">E8</td><td className="border border-black p-1">Pass</td></tr>
-              <tr><td className="border border-black p-1">0.00 - 39.00</td><td className="border border-black">F9</td><td className="border border-black p-1">Fail</td></tr>
+              <tr><td className="border border-black p-1">91.00 - 100.00</td><td className="border border-black p-1 bg-green-200">A1</td><td className="border border-black p-1">Excellent</td></tr>
+              <tr><td className="border border-black p-1">81.00 - 90.00</td><td className="border border-black p-1 bg-green-200">B2</td><td className="border border-black p-1">Very Good</td></tr>
+              <tr><td className="border border-black p-1">71.00 - 80.00</td><td className="border border-black p-1 bg-green-200">B3</td><td className="border border-black p-1">Good</td></tr>
+              <tr><td className="border border-black p-1">65.00 - 70.00</td><td className="border border-black p-1 bg-green-200">C4</td><td className="border border-black p-1">Credit</td></tr>
+              <tr><td className="border border-black p-1">60.00 - 64.00</td><td className="border border-black p-1 bg-green-200">C5</td><td className="border border-black p-1">Credit</td></tr>
+              <tr><td className="border border-black p-1">50.00 - 59.00</td><td className="border border-black p-1 bg-green-200">C6</td><td className="border border-black p-1">Credit</td></tr>
+              <tr><td className="border border-black p-1">45.00 - 49.00</td><td className="border border-black p-1 bg-green-200">D7</td><td className="border border-black p-1">Pass</td></tr>
+              <tr><td className="border border-black p-1">40.00 - 44.00</td><td className="border border-black p-1 bg-green-200">E8</td><td className="border border-black p-1">Pass</td></tr>
+              <tr><td className="border border-black p-1">0.00 - 39.00</td><td className="border border-black p-1 bg-green-200">F9</td><td className="border border-black p-1">Fail</td></tr>
             </tbody>
           </table>
         </div>
@@ -198,7 +198,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         {/* Signature */}
         <div className="relative z-10 text-center mt-10">
           <div className="inline-block">
-            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-12 mx-auto mb-2" />
+            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-9 mx-auto mb-2" />
             <div className="border-t border-black pt-2 w-48">
               <p className="text-sm font-bold">N. Y. Mikail</p>
               <p className="text-sm font-bold">Asst. Director Academics</p>
