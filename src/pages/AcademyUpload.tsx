@@ -164,27 +164,62 @@ export default function AcademyUpload() {
 
           const student = studentMap.get(studentName)!;
 
-          // Dynamic subject mapping based on your provided names
-          const subjectMappings = {
-            'mathematics': ['Mathematics'],
-            'english': ['English'],
-            'global_perspectives': ['Global Perspectives'],
-            'basic_science': ['Basic Science'],
-            'digital_literacy': ['Digital Literacy'],
-            'french': ['French'],
-            'arabic': ['Arabic'],
-            'religion': ['Religion (IRS)'],
-            'religion_crs': ['Religion (CRS)'],
-            'human_geo': ['Humanities-Geography'],
-            'human_hstry': ['Humanities-History'],
-            'music': ['Music'],
-            'physical_health': ['Physical And Health Education (PHE)'],
-            'visual_arts': ['Arts and Design'],
-            'hausa': ['Hausa']
+          // Dynamic subject mapping based on class level
+          const getSubjectMappings = (classLevel: string) => {
+            if (classLevel === 'JSS 2') {
+              return {
+                'mathematics': ['Mathematics'],
+                'english': ['English'],
+                'basic_science': ['Basic Science'],
+                'basic_technology': ['Basic Technology'],
+                'agricultural_science': ['Agricultural Science'],
+                'history': ['History'],
+                'music': ['Music'],
+                'civic_education': ['Civic Education'],
+                'social_studies': ['Social Studies'],
+                'french': ['French'],
+                'hausa': ['Hausa'],
+                'business_studies': ['Business Studies'],
+                'cultural_creative_art': ['Cultural And Creative Art (CCA)'],
+                'religion': ['Religion (IRS)'],
+                'religion_crs': ['Religion (CRS)'],
+                'physical_health': ['Physical And Health Education (PHE)'],
+                'computer_studies': ['Computer Studies'],
+                'arabic_studies': ['Arabic Studies']
+              };
+            }
+            
+            // Default for Year 7 and other classes
+            return {
+              'mathematics': ['Mathematics'],
+              'english': ['English'],
+              'global_perspectives': ['Global Perspectives'],
+              'basic_science': ['Basic Science'],
+              'digital_literacy': ['Digital Literacy'],
+              'french': ['French'],
+              'arabic': ['Arabic'],
+              'religion': ['Religion (IRS)'],
+              'religion_crs': ['Religion (CRS)'],
+              'human_geo': ['Humanities-Geography'],
+              'human_hstry': ['Humanities-History'],
+              'music': ['Music'],
+              'physical_health': ['Physical And Health Education (PHE)'],
+              'visual_arts': ['Arts and Design'],
+              'hausa': ['Hausa']
+            };
           };
 
-          // Define which subjects are optional (need visibility check)
-          const optionalSubjects = ['french', 'religion_crs', 'hausa'];
+          const subjectMappings = getSubjectMappings(selectedClass);
+
+          // Define which subjects are optional (need visibility check) based on class
+          const getOptionalSubjects = (classLevel: string) => {
+            if (classLevel === 'JSS 2') {
+              return ['french', 'religion_crs', 'hausa', 'arabic_studies'];
+            }
+            return ['french', 'religion_crs', 'hausa'];
+          };
+          
+          const optionalSubjects = getOptionalSubjects(selectedClass);
           
           console.log('Processing student:', studentName, 'with subject mappings:', Object.keys(subjectMappings));
 
