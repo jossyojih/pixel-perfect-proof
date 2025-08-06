@@ -182,6 +182,9 @@ export default function AcademyUpload() {
             'visual_arts': ['Arts and Design'],
             'hausa': ['Hausa']
           };
+
+          // Define which subjects are optional (need visibility check)
+          const optionalSubjects = ['french', 'religion_crs', 'hausa'];
           
           console.log('Processing student:', studentName, 'with subject mappings:', Object.keys(subjectMappings));
 
@@ -200,8 +203,15 @@ export default function AcademyUpload() {
             const visibleKey = `${key}_visible`;
 
             const totalScore = row[totalScoreKey];
-            const isVisible = row[visibleKey] === "Y";
             const hasValidScore = totalScore && totalScore !== "N/A" && totalScore !== null && totalScore !== undefined && totalScore !== "";
+            
+            // Check if this is an optional subject that needs visibility check
+            const isOptionalSubject = optionalSubjects.includes(key);
+            const isVisible = row[visibleKey] === "Y";
+            
+            // For core subjects: include if has valid score
+            // For optional subjects: include if visible="Y" AND has valid score
+            const shouldInclude = isOptionalSubject ? (isVisible && hasValidScore) : hasValidScore;
 
             console.log(`Subject ${key} processing:`, {
               totalScoreKey,
@@ -209,11 +219,11 @@ export default function AcademyUpload() {
               visibleKey,
               isVisible: row[visibleKey],
               hasValidScore,
-              willInclude: isVisible && hasValidScore
+              isOptionalSubject,
+              shouldInclude
             });
 
-            // Only include subjects that are marked as visible="Y" AND have valid scores
-            if (isVisible && hasValidScore) {
+            if (shouldInclude) {
               // Find the best matching subject name from configuration
               const configuredSubject = subjects.find(s => 
                 possibleNames.some(name => 
