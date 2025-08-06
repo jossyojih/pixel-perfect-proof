@@ -158,17 +158,25 @@ export const useSubjectConfig = (gradeLevel?: string) => {
       
       const hasMatch = excelHeaders.some(header => {
         const cleanHeader = header.toLowerCase().trim();
-        return patterns.some(pattern => 
-          cleanHeader.includes(pattern) || 
-          cleanHeader.includes(pattern.replace('_', ''))
-        );
+        return patterns.some(pattern => {
+          // Check if header starts with the pattern (for exact matches)
+          const startsWithPattern = cleanHeader.startsWith(pattern);
+          // Check if header contains the pattern
+          const containsPattern = cleanHeader.includes(pattern);
+          // Check pattern without underscores
+          const containsPatternNoUnderscore = cleanHeader.includes(pattern.replace('_', ''));
+          
+          console.log(`Checking "${targetSubject}" pattern "${pattern}" against header "${cleanHeader}": starts=${startsWithPattern}, contains=${containsPattern}, noUnderscore=${containsPatternNoUnderscore}`);
+          
+          return startsWithPattern || containsPattern || containsPatternNoUnderscore;
+        });
       });
       
       if (hasMatch) {
         detectedSubjects.push(targetSubject);
         console.log(`✓ Detected subject: ${targetSubject}`);
       } else {
-        console.log(`✗ Subject not found in Excel: ${targetSubject}`);
+        console.log(`✗ Subject not found in Excel: ${targetSubject} (patterns: ${patterns.join(', ')})`);
       }
     });
 
