@@ -123,7 +123,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Subjects Table */}
         <div className="relative z-10 mb-1">
-          <table style={{ textAlign: 'center' }} className="w-full border-collapse border border-black text-xs text-center">
+          <table className="w-full border-collapse border border-black text-xs text-center">
             <thead>
               <tr className="bg-blue-900 text-white">
                 <th className="border border-black p-1 style={{ paddingBottom: '8px' }}">Subject Name</th>
@@ -131,7 +131,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
                 <th className="border border-black p-1 style={{ marginBottom: 8px' }}">CA2</th>
                 <th className="border border-black p-1 style={{ padding: '8px' }}">CA3</th>
                 <th className="border border-black p-1 style={{ padding: '8px' }}">CA4</th>
-                <th className="border border-black p-1">Exam</th>
+                <th className="border border-black p-1 mb-2">Exam</th>
                 <th className="border border-black p-1">Total Score</th>
                 <th className="border border-black p-1">Grade</th>
                 <th className="border border-black p-1">Position</th>
@@ -147,7 +147,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
                   <td className="border border-black p-1">{subject.ca2 || ''}</td>
                   <td className="border border-black p-1">{subject.ca3 || ''}</td>
                   <td className="border border-black p-1">{subject.ca4 || ''}</td>
-                  <td className="border border-black p-1">{subject.exam || ''}</td>
+                  <td className="border border-black p-1 mb-2">{subject.exam || ''}</td>
                   <td className="border border-black p-1">{subject.total || ''}</td>
                   <td className="border border-black p-1">{subject.grade || ''}</td>
                   <td className="border border-black p-1">{subject.position || ''}</td>
