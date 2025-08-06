@@ -173,7 +173,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <div className="bg-blue-900 text-white text-center font-bold p-2" style={{ paddingBottom: '14px' }}>
             GRADE DESCRIPTORS
           </div>
-          <table className="w-full border-collapse border border-black text-xs">
+          <table className="w-full border-collapse border border-black text-xs text-center">
             <thead>
               <tr>
                 <th className="border border-black p-1 font-bold text-left">% Score</th>
