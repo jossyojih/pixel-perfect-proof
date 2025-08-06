@@ -389,9 +389,12 @@ export default function AcademyUpload() {
 
     // Get basic student info from raw data
     const rawData = student.rawData || {};
+    console.log(student,"Na my student be this")
+    console.log(rawData,"Name raw data")
+    
     
     return {
-      studentId: rawData[''] || `STU${Math.floor(Math.random() * 10000)}`,
+      studentId:rawData[] rawData[''] || `STU${Math.floor(Math.random() * 10000)}`,
       studentName: student.name,
       class: selectedClass || "Year 7",
       academicYear: rawData['academic_year'] || "2024/2025",
