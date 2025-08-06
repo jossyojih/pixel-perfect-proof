@@ -72,42 +72,42 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Student Information */}
-        <div className="relative z-10 mb-4">
-          <div className="grid grid-cols-4 text-sm">
-            <div className="flex border-r border-black p-2">
-              <span className="font-bold">Student's ID</span>
-              <span className="ml-2 text-red-600">: {studentId}</span>
-            </div>
-            <div className="flex border-r border-black p-2">
-              <span className="font-bold">Student's Name</span>
-              <span className="ml-2">: {studentName}</span>
-            </div>
-            <div className="flex border-r border-black p-2">
-              <span className="font-bold">Term</span>
-              <span className="ml-2">: {term}</span>
-            </div>
-            <div className="flex p-2">
-              <span className="font-bold">Total Subject</span>
-              <span className="ml-2">: {totalSubjects}</span>
-            </div>
-            <div className="flex border-r border-black border-t border-black p-2">
-              <span className="font-bold">Class</span>
-              <span className="ml-2">: {studentClass}</span>
-            </div>
-            <div className="flex border-r border-black border-t border-black p-2">
-              <span className="font-bold">Academic Year</span>
-              <span className="ml-2">: {academicYear}</span>
-            </div>
-            <div className="flex border-r border-black border-t border-black p-2">
-              <span className="font-bold">Position in Class</span>
-              <span className="ml-2">: {positionInClass}</span>
-            </div>
-            <div className="flex border-t border-black p-2">
-              <span className="font-bold">No. in Class</span>
-              <span className="ml-2">: {noInClass}</span>
-            </div>
-          </div>
-        </div>
+<div className="relative z-10 mb-4 border-t border-b border-black">
+  <div className="grid grid-cols-4 text-sm">
+    <div className="flex p-2">
+      <span className="font-bold">Student's ID</span>
+      <span className="ml-2 text-red-600">: {studentId}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Student's Name</span>
+      <span className="ml-2">: {studentName}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Term</span>
+      <span className="ml-2">: {term}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Total Subject</span>
+      <span className="ml-2">: {totalSubjects}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Class</span>
+      <span className="ml-2">: {studentClass}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Academic Year</span>
+      <span className="ml-2">: {academicYear}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Position in Class</span>
+      <span className="ml-2">: {positionInClass}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">No. in Class</span>
+      <span className="ml-2">: {noInClass}</span>
+    </div>
+  </div>
+</div>
 
         {/* Subjects Table */}
         <div className="relative z-10 mb-4">
@@ -187,7 +187,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Personal Tutor Comment */}
         <div className="relative z-10 mb-6">
-          <div className="text-black text-center font-bold p-2">
+          <div className="text-white text-center font-bold p-2">
             PERSONAL TUTOR'S COMMENT
           </div>
           <div className="relative z-10 p-2">
@@ -196,7 +196,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Signature */}
-        <div className="relative z-10 text-center mt-[120px]">
+        <div className="relative z-10 text-center mt-10">
           <div className="inline-block">
             <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-16 mx-auto mb-2" />
             <div className="border-t border-black pt-2 w-48">
