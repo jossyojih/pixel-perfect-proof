@@ -220,8 +220,8 @@ export const ReportCard = ({
           )}
 
           {/* Specials Table */}
-          <div className="border border-black">
-            {grade !== "Pre-Grade-A" && grade !== "Pre-Grade-B" ? (
+          {grade !== "Pre-Grade-A" && grade !== "Pre-Grade-B" ? (
+            <div className="border border-black">
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-gray-600">
@@ -252,10 +252,10 @@ export const ReportCard = ({
                   ))}
                 </tbody>
               </table>
-            ) : (
-              <div className="h-64 bg-white"></div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="h-64 bg-white"></div>
+          )}
         </div> 
         
         {/* Footer */}
