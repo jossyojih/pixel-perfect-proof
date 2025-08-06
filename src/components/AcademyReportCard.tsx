@@ -78,7 +78,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Student Information */}
         <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
-          <div className="grid grid-cols-3 text-sm text-center">
+          <div className="grid grid-cols-3 text-sm text-center mb-2">
             <div className="flex p-[2px]">
               <span className="text-red-400">Student's ID :</span>
               <span className="ml-2"> {studentId}</span>
