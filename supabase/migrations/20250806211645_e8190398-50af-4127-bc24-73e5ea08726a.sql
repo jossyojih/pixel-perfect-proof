@@ -1,0 +1,20 @@
+-- Insert JSS 2 subject configurations
+INSERT INTO public.subject_configurations (grade_level, subject_name, display_order, is_active) VALUES
+('JSS 2', 'Mathematics', 1, true),
+('JSS 2', 'English', 2, true),
+('JSS 2', 'Basic Science', 3, true),
+('JSS 2', 'Basic Technology', 4, true),
+('JSS 2', 'Agricultural Science', 5, true),
+('JSS 2', 'History', 6, true),
+('JSS 2', 'Music', 7, true),
+('JSS 2', 'Civic Education', 8, true),
+('JSS 2', 'Social Studies', 9, true),
+('JSS 2', 'French', 10, true),
+('JSS 2', 'Hausa', 11, true),
+('JSS 2', 'Business Studies', 12, true),
+('JSS 2', 'Cultural And Creative Art (CCA)', 13, true),
+('JSS 2', 'Religion (IRS)', 14, true),
+('JSS 2', 'Religion (CRS)', 15, true),
+('JSS 2', 'Physical And Health Education (PHE)', 16, true),
+('JSS 2', 'Computer Studies', 17, true),
+('JSS 2', 'Arabic Studies', 18, true);
