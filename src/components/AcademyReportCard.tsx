@@ -76,40 +76,43 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           </div>
         </div>
 
-        {/* Student Information */}
+              {/* Student Information */}
         <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
-          <div className="grid grid-cols-2 gap-y-1 text-sm text-left mb-2 p-2">
-            <div className="flex">
-              <span className="text-red-400 min-w-[150px]">Student's ID:</span>
-              <span className="ml-2">{studentId}</span>
+          <div className="grid grid-cols-3 text-sm text-center mb-2">
+            <div className="flex p-[2px]">
+              <span className="text-red-400 min-w-[120px]">Student's ID</span>
+              <span className="text-red-400">:</span>
+              <span className="ml-2"> {studentId}</span>
             </div>
-            <div className="flex">
-              <span className="text-red-400 min-w-[150px]">Student's Name:</span>
-              <span className="ml-2">{studentName}</span>
+            <div className="flex p-[2px] col-span-2 whitespace-nowrap">
+              <span className="text-red-400 min-w-[120px]">Student's Name </span>
+              <span className="text-red-400">:</span>
+              <span className="ml-2"> {studentName}</span>
             </div>
-            <div className="flex">
-              <span className="text-red-400 min-w-[150px]">Class:</span>
-              <span className="ml-2">{studentClass}</span>
+            <div className="flex p-[2px]">
+              <span className="text-red-400 min-w-[120px]">Class</span>
+               <span className="text-red-400">:</span>
+              <span className="ml-2"> {studentClass}</span>
             </div>
-            <div className="flex">
-              <span className="text-red-400 min-w-[150px]">Academic Year:</span>
-              <span className="ml-2">{academicYear}</span>
+            <div className="flex p-[2px]">
+              <span className="text-red-400">Academic Year :</span>
+              <span className="ml-1"> {academicYear}</span>
             </div>
-            <div className="flex">
-              <span className="text-red-400 min-w-[150px]">Term:</span>
-              <span className="ml-2">{term}</span>
+            <div className="flex p-[2px]">
+              <span className="text-red-400">Term :</span>
+              <span className="ml-2"> {term}</span>
             </div>
-            <div className="flex">
-              <span className="text-red-400 min-w-[150px]">Position in Class:</span>
-              <span className="ml-2">{positionInClass}</span>
+            <div className="flex p-[2px]">
+              <span className="text-red-400">Position in Class :</span>
+              <span className="ml-2"> {positionInClass}</span>
             </div>
-            <div className="flex">
-              <span className="text-red-400 min-w-[150px]">No. in Class:</span>
-              <span className="ml-2">{noInClass}</span>
+            <div className="flex p-[2px]">
+              <span className="text-red-400">No. in Class :</span>
+              <span className="ml-2"> {noInClass}</span>
             </div>
-            <div className="flex">
-              <span className="text-red-400 min-w-[150px]">Total Subjects:</span>
-              <span className="ml-2">{totalSubjects}</span>
+            <div className="flex p-[2px]">
+              <span className="text-red-400">Total Subject :</span>
+              <span className="ml-2"> {totalSubjects}</span>
             </div>
           </div>
         </div>
