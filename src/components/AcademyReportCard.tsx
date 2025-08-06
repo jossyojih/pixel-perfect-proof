@@ -76,34 +76,42 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Student Information */}
         <div className="relative z-10 mb-4">
-          <table className="w-full border-collapse border border-black text-sm">
-            <tbody>
-              <tr>
-                <td className="border border-black p-2 font-bold w-1/4">Student's ID</td>
-                <td className="border border-black p-2 w-1/4">: {studentId}</td>
-                <td className="border border-black p-2 font-bold w-1/4">Student's Name</td>
-                <td className="border border-black p-2 w-1/4">: {studentName}</td>
-              </tr>
-              <tr>
-                <td className="border border-black p-2 font-bold">Class</td>
-                <td className="border border-black p-2">: {studentClass}</td>
-                <td className="border border-black p-2 font-bold">Academic Year</td>
-                <td className="border border-black p-2">: {academicYear}</td>
-              </tr>
-              <tr>
-                <td className="border border-black p-2 font-bold">Position in Class</td>
-                <td className="border border-black p-2">: {positionInClass}</td>
-                <td className="border border-black p-2 font-bold">Term</td>
-                <td className="border border-black p-2">: {term}</td>
-              </tr>
-              <tr>
-                <td className="border border-black p-2 font-bold">No. in Class</td>
-                <td className="border border-black p-2">: {noInClass}</td>
-                <td className="border border-black p-2 font-bold">Total Subject</td>
-                <td className="border border-black p-2">: {totalSubjects}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="grid grid-cols-4 gap-4 text-sm border-b border-black pb-2">
+            <div className="flex">
+              <span className="font-bold">Student's ID</span>
+              <span className="ml-2">: {studentId}</span>
+            </div>
+            <div className="flex">
+              <span className="font-bold">Student's Name</span>
+              <span className="ml-2">: {studentName}</span>
+            </div>
+            <div className="flex">
+              <span className="font-bold">Term</span>
+              <span className="ml-2">: {term}</span>
+            </div>
+            <div className="flex">
+              <span className="font-bold">Total Subject</span>
+              <span className="ml-2">: {totalSubjects}</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-4 gap-4 text-sm pt-2">
+            <div className="flex">
+              <span className="font-bold">Class</span>
+              <span className="ml-2">: {studentClass}</span>
+            </div>
+            <div className="flex">
+              <span className="font-bold">Academic Year</span>
+              <span className="ml-2">: {academicYear}</span>
+            </div>
+            <div className="flex">
+              <span className="font-bold">Position in Class</span>
+              <span className="ml-2">: {positionInClass}</span>
+            </div>
+            <div className="flex">
+              <span className="font-bold">No. in Class</span>
+              <span className="ml-2">: {noInClass}</span>
+            </div>
+          </div>
         </div>
 
         {/* Subjects Table */}
