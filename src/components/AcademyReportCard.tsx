@@ -58,7 +58,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <img 
             src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} 
             alt="AUN Logo Watermark" 
-            className="w-[740px] h-[1000px]" 
+            className="w-[740px] h-[800px]" 
           />
         </div>
         
