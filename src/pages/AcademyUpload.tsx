@@ -84,7 +84,19 @@ export default function AcademyUpload() {
 
         // Detect subjects from Excel headers
         const excelHeaders = jsonData.length > 0 ? Object.keys(jsonData[0]) : [];
+        console.log('Excel headers:', excelHeaders);
+        
+        // Extract actual subject names from headers
+        const detectedSubjectHeaders = excelHeaders.filter(header => 
+          header.toLowerCase().includes('total_score') || 
+          header.toLowerCase().includes('grade') ||
+          header.toLowerCase().includes('exam') ||
+          header.toLowerCase().includes('_ca')
+        );
+        console.log('Detected subject-related headers:', detectedSubjectHeaders);
+        
         const detected = detectSubjectsFromExcel(excelHeaders, selectedClass);
+        console.log('Final detected subjects:', detected);
         setDetectedSubjects(detected);
 
         // Group data by student
@@ -115,24 +127,26 @@ export default function AcademyUpload() {
 
           const student = studentMap.get(studentName)!;
 
-          // Dynamic subject mapping based on database configuration
+          // Dynamic subject mapping based on your provided names
           const subjectMappings = {
-            'mathematics': ['Mathematics', 'Maths'],
-            'english': ['English', 'English Language'],
+            'mathematics': ['Mathematics'],
+            'english': ['English'],
             'global_perspectives': ['Global Perspectives'],
-            'basic_science': ['Science', 'Basic Science'],
-            'digital_literacy': ['Digital Literacy', 'Computer Science'],
+            'basic_science': ['Basic Science'],
+            'digital_literacy': ['Digital Literacy'],
             'french': ['French'],
             'arabic': ['Arabic'],
-            'religion': ['Religion IRS', 'Islamic Religious Studies'],
-            'religion_crs': ['Religion CRS', 'Christian Religious Studies'],
-            'human_geo': ['Humanities-Geography', 'Geography'],
-            'human_hstry': ['Humanities-History', 'History'],
+            'religion': ['Religion (IRS)'],
+            'religion_crs': ['Religion (CRS)'],
+            'human_geo': ['Humanities-Geography'],
+            'human_hstry': ['Humanities-History'],
             'music': ['Music'],
-            'phe': ['Physical And Health Education (PHE)', 'Physical Education'],
-            'arts_design': ['Arts and Design', 'Art'],
+            'phe': ['Physical And Health Education (PHE)'],
+            'arts_design': ['Arts and Design'],
             'hausa': ['Hausa']
           };
+          
+          console.log('Processing student:', studentName, 'with subject mappings:', Object.keys(subjectMappings));
 
           // Process subjects dynamically
           Object.entries(subjectMappings).forEach(([key, possibleNames]) => {

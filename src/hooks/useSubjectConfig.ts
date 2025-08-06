@@ -50,18 +50,69 @@ export const useSubjectConfig = (gradeLevel?: string) => {
   };
 
   const detectSubjectsFromExcel = (excelHeaders: string[], gradeLevel: string): string[] => {
-    // Get configured subjects for the grade
-    const configuredSubjects = subjects.map(s => s.subject_name.toLowerCase());
+    // Your provided subject names list
+    const targetSubjects = [
+      'Mathematics',
+      'English',
+      'Global Perspectives',
+      'Basic Science',
+      'French',
+      'Humanities-History',
+      'Humanities-Geography',
+      'Arabic',
+      'Religion (IRS)',
+      'Religion (CRS)',
+      'Digital Literacy',
+      'Physical And Health Education (PHE)',
+      'Hausa',
+      'Arts and Design',
+      'Music'
+    ];
+
+    console.log('Target subjects to detect:', targetSubjects);
+    console.log('Excel headers to search in:', excelHeaders);
     
-    // Filter Excel headers to find matching subjects
-    const detectedSubjects = excelHeaders.filter(header => {
-      const cleanHeader = header.toLowerCase().trim();
-      return configuredSubjects.some(subject => 
-        cleanHeader.includes(subject.toLowerCase()) || 
-        subject.toLowerCase().includes(cleanHeader)
-      );
+    // Create mapping patterns for each subject
+    const subjectPatterns = {
+      'Mathematics': ['math', 'mathematics'],
+      'English': ['english'],
+      'Global Perspectives': ['global', 'perspectives'],
+      'Basic Science': ['science', 'basic_science'],
+      'French': ['french'],
+      'Humanities-History': ['history', 'human_hstry', 'humanities'],
+      'Humanities-Geography': ['geography', 'human_geo', 'geo'],
+      'Arabic': ['arabic'],
+      'Religion (IRS)': ['religion', 'irs', 'islamic'],
+      'Religion (CRS)': ['religion_crs', 'crs', 'christian'],
+      'Digital Literacy': ['digital', 'literacy', 'computer'],
+      'Physical And Health Education (PHE)': ['phe', 'physical', 'health', 'education'],
+      'Hausa': ['hausa'],
+      'Arts and Design': ['arts', 'design', 'art'],
+      'Music': ['music']
+    };
+
+    const detectedSubjects: string[] = [];
+    
+    targetSubjects.forEach(targetSubject => {
+      const patterns = subjectPatterns[targetSubject as keyof typeof subjectPatterns] || [];
+      
+      const hasMatch = excelHeaders.some(header => {
+        const cleanHeader = header.toLowerCase().trim();
+        return patterns.some(pattern => 
+          cleanHeader.includes(pattern) || 
+          cleanHeader.includes(pattern.replace('_', ''))
+        );
+      });
+      
+      if (hasMatch) {
+        detectedSubjects.push(targetSubject);
+        console.log(`✓ Detected subject: ${targetSubject}`);
+      } else {
+        console.log(`✗ Subject not found in Excel: ${targetSubject}`);
+      }
     });
 
+    console.log('Final detected subjects from Excel:', detectedSubjects);
     return detectedSubjects;
   };
 
