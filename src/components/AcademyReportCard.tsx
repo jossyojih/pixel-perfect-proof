@@ -169,7 +169,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Grade Descriptors */}
-        <div className="relative z-10 mb-4">
+        <div className="relative z-10 mb-2">
           <div className="bg-blue-900 text-white text-center font-bold p-2">
             GRADE DESCRIPTORS
           </div>
@@ -196,7 +196,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Personal Tutor Comment */}
-        <div className="relative z-10 mb-10">
+        <div className="relative z-10 mb-5">
           <div className="text-black text-center font-bold p-2 text-xl">
             PERSONAL TUTOR'S COMMENT
           </div>
