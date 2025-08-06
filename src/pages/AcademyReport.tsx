@@ -114,7 +114,6 @@ export default function AcademyReport() {
       for (let i = 0; i < pageRefs.length; i++) {
         const pageElement = pageRefs[i].current;
         if (!pageElement) continue;
-
         // Generate canvas for each page section
         const canvas = await html2canvas(pageElement, {
           scale: 1,
@@ -126,23 +125,22 @@ export default function AcademyReport() {
           scrollX: 0,
           scrollY: 0
         });
-
         // Convert to JPEG
         const imgData = canvas.toDataURL('image/jpeg', 1.0);
-        
+       
         // Add new page for each section (except first)
         if (i > 0) {
           pdf.addPage();
         }
-        
-        // Calculate dimensions to fit A4 landscape
-        const imgWidth = 297; // A4 landscape width in mm
-        const pageHeight = 210; // A4 landscape height in mm
+       
+        // Calculate dimensions to fit A4 portrait
+        const imgWidth = 210; // A4 portrait width in mm
+        const pageHeight = 297; // A4 portrait height in mm
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        
+       
         // Center the image on the page if it's smaller than A4
         const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
-        
+       
         pdf.addImage(imgData, 'JPEG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
       }
       
