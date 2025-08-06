@@ -83,6 +83,49 @@ export default function ClassTable() {
     });
   };
 
+  const deleteSelectedClass = async () => {
+    if (!selectedClass || selectedClass === 'all') {
+      toast({
+        title: "No class selected",
+        description: "Please select a specific class to delete.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('student_reports')
+        .delete()
+        .eq('class_tag', selectedClass);
+
+      if (error) throw error;
+
+      // Update local state
+      const updatedReports = reports.filter(report => report.class_tag !== selectedClass);
+      setReports(updatedReports);
+      
+      // Update available classes
+      const uniqueClasses = [...new Set(updatedReports.map(report => report.class_tag))];
+      setAvailableClasses(uniqueClasses);
+      
+      // Reset filter to 'all' since the selected class no longer exists
+      setSelectedClass('all');
+      
+      toast({
+        title: "Class deleted",
+        description: `All reports for ${selectedClass} have been deleted.`
+      });
+    } catch (error) {
+      console.error('Error deleting class reports:', error);
+      toast({
+        title: "Error deleting class",
+        description: "There was an error deleting the class reports.",
+        variant: "destructive"
+      });
+    }
+  };
+
   const clearDatabase = async () => {
     try {
       const { error } = await supabase
@@ -132,6 +175,32 @@ export default function ClassTable() {
             <Download className="h-4 w-4" />
             Export to Excel
           </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button 
+                variant="outline" 
+                className="flex items-center gap-2 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                disabled={!selectedClass || selectedClass === 'all'}
+              >
+                <Trash2 className="h-4 w-4" />
+                Delete Class
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete Class Reports</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will permanently delete all reports for "{selectedClass}". This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={deleteSelectedClass} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                  Delete Class
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive" className="flex items-center gap-2">
