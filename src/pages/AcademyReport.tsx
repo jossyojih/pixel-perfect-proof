@@ -47,12 +47,15 @@ export default function AcademyReport() {
   }, [studentName, navigate, toast]);
 
   const generateAcademyReportData = (student: any) => {
-    // Convert old subject format to new Academy format
+    console.log('Generating Academy report data for student:', student);
+    
+    // Use actual data from Excel parsing
     const academySubjects = student.subjects.map((subject: any) => {
-      const score = typeof subject.grade === 'number' ? subject.grade : parseInt(subject.grade) || 0;
+      console.log('Processing subject:', subject);
+      
       const getLetterGrade = (score: number): string => {
         if (score >= 91) return 'A1';
-        if (score >= 81) return 'A2';  
+        if (score >= 81) return 'B2';  
         if (score >= 71) return 'B3';
         if (score >= 65) return 'C4';
         if (score >= 60) return 'C5';
@@ -62,35 +65,56 @@ export default function AcademyReport() {
         return 'F9';
       };
 
+      // Use actual scores from Excel data
+      const totalScore = subject.totalScore || subject.grade || 0;
+      const ca1 = subject.ca1 || 0;
+      const ca2 = subject.ca2 || 0;
+      const ca3 = subject.ca3 || 0;
+      const ca4 = subject.ca4 || 0;
+      const exam = subject.exam || 0;
+      const gradeValue = subject.gradeValue || getLetterGrade(totalScore);
+      const position = subject.position || 0;
+      const comment = subject.comment || '';
+      const cssAverage = subject.cssAverage || 0;
+
       return {
         name: subject.name,
-        ca1: Math.floor(score * 0.1),
-        ca2: Math.floor(score * 0.1), 
-        ca3: Math.floor(score * 0.1),
-        ca4: Math.floor(score * 0.1),
-        exam: Math.floor(score * 0.6),
-        total: score,
-        score: score,
-        grade: getLetterGrade(score),
-        position: Math.floor(Math.random() * 30) + 1,
-        remark: score >= 70 ? 'Good' : score >= 60 ? 'Satisfactory' : 'Needs Improvement',
-        teachersAverage: score + Math.floor(Math.random() * 10) - 5
+        ca1: ca1,
+        ca2: ca2,
+        ca3: ca3,
+        ca4: ca4,
+        exam: exam,
+        total: totalScore,
+        score: totalScore,
+        grade: gradeValue,
+        position: position,
+        remark: comment || (totalScore >= 70 ? 'Good' : totalScore >= 60 ? 'Satisfactory' : 'Needs Improvement'),
+        teachersAverage: cssAverage
       };
     });
 
+    // Calculate actual cumulative score and average
+    const validScores = academySubjects.filter(s => s.total > 0);
+    const cumulativeScore = validScores.reduce((sum, s) => sum + s.total, 0);
+    const studentsAverage = validScores.length > 0 ? cumulativeScore / validScores.length : 0;
+
+    // Use actual student data where available
+    const studentId = student.rawData?.student_id || student.rawData?.__EMPTY || `AUN${Date.now().toString().slice(-4)}`;
+    const selectedClass = localStorage.getItem('selectedAcademyClass') || localStorage.getItem('selectedClass') || "Year 7";
+    
     return {
-      studentId: student.rawData?.student_id || `STU${Math.floor(Math.random() * 10000)}`,
+      studentId: studentId,
       studentName: student.name,
-      class: localStorage.getItem('selectedAcademyClass') || "Year 7",
-      academicYear: "2023/2024",
-      positionInClass: Math.floor(Math.random() * 30) + 1,
-      noInClass: 30,
+      class: selectedClass,
+      academicYear: "2024/2025",
+      positionInClass: student.rawData?.overall_position || 0,
+      noInClass: student.rawData?.total_students || 30,
       term: "First Term",
-      totalSubjects: academySubjects.length,
+      totalSubjects: validScores.length,
       subjects: academySubjects,
-      cumulativeScore: academySubjects.reduce((sum, s) => sum + s.score, 0),
+      cumulativeScore: cumulativeScore,
       cutOffAverage: 50,
-      studentsAverage: academySubjects.reduce((sum, s) => sum + s.score, 0) / academySubjects.length,
+      studentsAverage: studentsAverage,
       personalTutorComment: student.Comments || student.comments || "The student has shown excellent progress throughout the term and demonstrates strong academic potential."
     };
   };
