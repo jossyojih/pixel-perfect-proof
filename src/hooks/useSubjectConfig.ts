@@ -59,6 +59,7 @@ export const useSubjectConfig = (gradeLevel?: string) => {
           'Basic Science',
           'Basic Technology',
           'Agricultural Science',
+          'Home Economics',
           'History',
           'Music',
           'Civic Education',
@@ -71,7 +72,10 @@ export const useSubjectConfig = (gradeLevel?: string) => {
           'Religion (CRS)',
           'Physical And Health Education (PHE)',
           'Computer Studies',
-          'Arabic Studies'
+          'Arabic Studies',
+          'Arabic',
+          'Igbo',
+          'Yoruba'
         ];
       }
       
@@ -119,13 +123,17 @@ export const useSubjectConfig = (gradeLevel?: string) => {
           ...basePatterns,
           'Basic Technology': ['basic_technology', 'technology'],
           'Agricultural Science': ['agricultural_science', 'agriculture'],
+          'Home Economics': ['home_economics', 'home', 'economics'],
           'History': ['history'],
           'Civic Education': ['civic_education', 'civic'],
           'Social Studies': ['social_studies', 'social'],
           'Business Studies': ['business_studies', 'business'],
           'Cultural And Creative Art (CCA)': ['cultural', 'creative', 'cca', 'art'],
           'Computer Studies': ['computer_studies', 'computer'],
-          'Arabic Studies': ['arabic_studies', 'arabic']
+          'Arabic Studies': ['arabic_studies'],
+          'Arabic': ['arabic'],
+          'Igbo': ['igbo'],
+          'Yoruba': ['yoruba']
         };
       }
       

@@ -173,6 +173,7 @@ export default function AcademyUpload() {
                 'basic_science': ['Basic Science'],
                 'basic_technology': ['Basic Technology'],
                 'agricultural_science': ['Agricultural Science'],
+                'home_economics': ['Home Economics'],
                 'history': ['History'],
                 'music': ['Music'],
                 'civic_education': ['Civic Education'],
@@ -185,7 +186,10 @@ export default function AcademyUpload() {
                 'religion_crs': ['Religion (CRS)'],
                 'physical_health': ['Physical And Health Education (PHE)'],
                 'computer_studies': ['Computer Studies'],
-                'arabic_studies': ['Arabic Studies']
+                'arabic_studies': ['Arabic Studies'],
+                'arabic': ['Arabic'],
+                'igbo': ['Igbo'],
+                'yoruba': ['Yoruba']
               };
             }
             
@@ -214,7 +218,7 @@ export default function AcademyUpload() {
           // Define which subjects are optional (need visibility check) based on class
           const getOptionalSubjects = (classLevel: string) => {
             if (classLevel === 'JSS 2') {
-              return ['french', 'religion_crs', 'hausa', 'arabic_studies'];
+              return ['french', 'religion_crs', 'hausa', 'arabic_studies', 'arabic', 'igbo', 'yoruba'];
             }
             return ['french', 'religion_crs', 'hausa'];
           };
