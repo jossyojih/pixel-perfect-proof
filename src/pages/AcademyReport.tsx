@@ -118,12 +118,10 @@ export default function AcademyReport() {
         };
       })
       .filter((subject: any) => {
-        // Only include subjects where student has scores for all CAs and Exam
-        const hasAllCAs = subject.ca1 > 0 && subject.ca2 > 0 && subject.ca3 > 0 && subject.ca4 > 0;
-        const hasExam = subject.exam > 0;
-        const includeSubject = hasAllCAs && hasExam;
+        // Only include subjects that have a Total Score
+        const includeSubject = subject.total > 0;
         
-        console.log(`Subject ${subject.name}: CA1=${subject.ca1}, CA2=${subject.ca2}, CA3=${subject.ca3}, CA4=${subject.ca4}, Exam=${subject.exam}, Include=${includeSubject}`);
+        console.log(`Subject ${subject.name}: Total=${subject.total}, Include=${includeSubject}`);
         
         return includeSubject;
       });
