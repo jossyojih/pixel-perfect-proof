@@ -55,7 +55,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
       <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white p-4 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
-          <img src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} alt="AUN Logo Watermark" className="w-[754px] h-[924px]" />
+          <img src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} alt="AUN Logo Watermark" className="w-[694px] h-[1024px]" />
         </div>
         
         {/* Header */}
@@ -167,20 +167,20 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             <thead>
               <tr>
                 <th className="border border-black p-1 font-bold">% Score</th>
-                <th className="border border-black p-1 font-bold bg-green-300">Grade</th>
+                <th className="border border-black p-1 font-bold">Grade</th>
                 <th className="border border-black p-1 font-bold">Descriptor</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td className="border border-black p-1">91.00 - 100.00</td><td className="border border-black p-1 bg-green-200">A1</td><td className="border border-black p-1">Excellent</td></tr>
-              <tr><td className="border border-black p-1">81.00 - 90.00</td><td className="border border-black p-1 bg-green-200">B2</td><td className="border border-black p-1">Very Good</td></tr>
-              <tr><td className="border border-black p-1">71.00 - 80.00</td><td className="border border-black p-1 bg-green-200">B3</td><td className="border border-black p-1">Good</td></tr>
-              <tr><td className="border border-black p-1">65.00 - 70.00</td><td className="border border-black p-1 bg-green-200">C4</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">60.00 - 64.00</td><td className="border border-black p-1 bg-green-200">C5</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">50.00 - 59.00</td><td className="border border-black p-1 bg-green-200">C6</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">45.00 - 49.00</td><td className="border border-black p-1 bg-green-200">D7</td><td className="border border-black p-1">Pass</td></tr>
-              <tr><td className="border border-black p-1">40.00 - 44.00</td><td className="border border-black p-1 bg-green-200">E8</td><td className="border border-black p-1">Pass</td></tr>
-              <tr><td className="border border-black p-1">0.00 - 39.00</td><td className="border border-black p-1 bg-green-200">F9</td><td className="border border-black p-1">Fail</td></tr>
+              <tr><td className="border border-black p-1">91.00 - 100.00</td><td className="border border-black">A1</td><td className="border border-black p-1">Excellent</td></tr>
+              <tr><td className="border border-black p-1">81.00 - 90.00</td><td className="border border-black">B2</td><td className="border border-black p-1">Very Good</td></tr>
+              <tr><td className="border border-black p-1">71.00 - 80.00</td><td className="border border-black">B3</td><td className="border border-black p-1">Good</td></tr>
+              <tr><td className="border border-black p-1">65.00 - 70.00</td><td className="border border-black">C4</td><td className="border border-black p-1">Credit</td></tr>
+              <tr><td className="border border-black p-1">60.00 - 64.00</td><td className="border border-black">C5</td><td className="border border-black p-1">Credit</td></tr>
+              <tr><td className="border border-black p-1">50.00 - 59.00</td><td className="border border-black">C6</td><td className="border border-black p-1">Credit</td></tr>
+              <tr><td className="border border-black p-1">45.00 - 49.00</td><td className="border border-black">D7</td><td className="border border-black p-1">Pass</td></tr>
+              <tr><td className="border border-black p-1">40.00 - 44.00</td><td className="border border-black">E8</td><td className="border border-black p-1">Pass</td></tr>
+              <tr><td className="border border-black p-1">0.00 - 39.00</td><td className="border border-black">F9</td><td className="border border-black p-1">Fail</td></tr>
             </tbody>
           </table>
         </div>
@@ -196,9 +196,9 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Signature */}
-        <div className="relative z-10 text-center mt-[50px]">
+        <div className="relative z-10 text-center mt-10">
           <div className="inline-block">
-            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-16 mx-auto mb-2" />
+            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-12 mx-auto mb-2" />
             <div className="border-t border-black pt-2 w-48">
               <p className="text-sm font-bold">N. Y. Mikail</p>
               <p className="text-sm font-bold">Asst. Director Academics</p>
