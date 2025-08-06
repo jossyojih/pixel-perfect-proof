@@ -77,38 +77,38 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Student Information */}
-        <div className="relative z-10 mb-2 border-t-[2px] border-b-[2px] border-black">
+        <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
           <div className="grid grid-cols-4 text-sm">
             <div className="flex p-2">
-              <span className="font-bold">Student's ID</span>
-              <span className="ml-2 text-red-600">: {studentId}</span>
+              <span className="font-bold text-red-600">Student's ID</span>
+              <span className="ml-2">: {studentId}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold">Student's Name</span>
+              <span className="font-bold text-red-600">Student's Name</span>
               <span className="ml-2">: {studentName}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold">Term</span>
+              <span className="font-bold text-red-600">Term</span>
               <span className="ml-2">: {term}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold">Total Subject</span>
+              <span className="font-bold text-red-600">Total Subject</span>
               <span className="ml-2">: {totalSubjects}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold">Class</span>
+              <span className="font-bold text-red-600">Class</span>
               <span className="ml-2">: {studentClass}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold">Academic Year</span>
+              <span className="font-bold text-red-600">Academic Year</span>
               <span className="ml-2">: {academicYear}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold">Position in Class</span>
+              <span className="font-bold text-red-600">Position in Class</span>
               <span className="ml-2">: {positionInClass}</span>
             </div>
             <div className="flex p-2">
-              <span className="font-bold">No. in Class</span>
+              <span className="font-bold text-red-600">No. in Class</span>
               <span className="ml-2">: {noInClass}</span>
             </div>
           </div>
