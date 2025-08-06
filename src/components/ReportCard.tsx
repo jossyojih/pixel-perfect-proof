@@ -221,7 +221,7 @@ export const ReportCard = ({
 
           {/* Specials Table */}
           {grade !== "Pre-Grade-A" && grade !== "Pre-Grade-B" ? (
-            <div className="border border-black">
+            <div className="">
               {/* <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-gray-600">
