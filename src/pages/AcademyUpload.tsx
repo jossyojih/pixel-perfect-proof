@@ -483,7 +483,7 @@ export default function AcademyUpload() {
           
           console.log('Starting PDF generation');
           const pdf = new jsPDF({
-            orientation: 'landscape',
+            orientation: 'portrait',
             unit: 'mm',
             format: 'a4',
             compress: true
