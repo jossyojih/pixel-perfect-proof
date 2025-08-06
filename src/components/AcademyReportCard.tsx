@@ -51,9 +51,9 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     );
 
     const ReportPage = () => (
-      <div ref={pageRefs.coverRef} className="relative -mt-2 w-[794px] h-[1123px] bg-white px-7 font-sans text-black text-xs overflow-hidden">
+      <div ref={pageRefs.coverRef} className="relative -mt-5 w-[794px] h-[1123px] bg-white px-7 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
-        <div className="absolute inset-0 mb-5 flex items-center justify-center pointer-events-none opacity-30">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
           <img 
             src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} 
             alt="AUN Logo Watermark" 
