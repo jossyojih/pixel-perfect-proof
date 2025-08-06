@@ -79,25 +79,38 @@ export default function AcademyUpload() {
         const worksheet = workbook.Sheets[sheetName];
         const jsonData: ExcelRow[] = XLSX.utils.sheet_to_json(worksheet);
 
+        console.log('\n=== EXCEL PARSING DEBUG ===');
         console.log('Raw JSON data from Excel:', jsonData);
+        console.log('Total rows:', jsonData.length);
         console.log('First row keys:', jsonData.length > 0 ? Object.keys(jsonData[0]) : 'No data');
 
-        // Detect subjects from Excel headers
+        // Get all Excel headers for comprehensive analysis
         const excelHeaders = jsonData.length > 0 ? Object.keys(jsonData[0]) : [];
-        console.log('Excel headers:', excelHeaders);
+        console.log('All Excel headers:', excelHeaders);
+        console.log('Total headers:', excelHeaders.length);
         
-        // Extract actual subject names from headers
-        const detectedSubjectHeaders = excelHeaders.filter(header => 
-          header.toLowerCase().includes('total_score') || 
-          header.toLowerCase().includes('grade') ||
-          header.toLowerCase().includes('exam') ||
-          header.toLowerCase().includes('_ca')
-        );
-        console.log('Detected subject-related headers:', detectedSubjectHeaders);
+        // Enhanced subject detection - find all potential subject headers
+        const subjectPatterns = [
+          'total_score', 'grade', 'exam', '_ca', 'mathematics', 'english', 
+          'global_perspectives', 'basic_science', 'digital_literacy', 'french',
+          'arabic', 'religion', 'human_geo', 'human_hstry', 'music', 'phe', 
+          'arts_design', 'hausa'
+        ];
         
+        const detectedSubjectHeaders = excelHeaders.filter(header => {
+          const lowerHeader = header.toLowerCase();
+          return subjectPatterns.some(pattern => lowerHeader.includes(pattern));
+        });
+        console.log('Headers matching subject patterns:', detectedSubjectHeaders);
+        
+        // Use the hook's detection method as well
         const detected = detectSubjectsFromExcel(excelHeaders, selectedClass);
-        console.log('Final detected subjects:', detected);
-        setDetectedSubjects(detected);
+        console.log('Hook detected subjects:', detected);
+        
+        // Combine both detection methods
+        const allDetectedSubjects = [...new Set([...detectedSubjectHeaders, ...detected])];
+        console.log('Final combined detected subjects:', allDetectedSubjects);
+        setDetectedSubjects(allDetectedSubjects);
 
         // Group data by student
         const studentMap = new Map<string, ParsedStudent>();
@@ -190,7 +203,17 @@ export default function AcademyUpload() {
             const isVisible = row[visibleKey] === undefined || row[visibleKey] === "Y";
             const hasValidScore = totalScore && totalScore !== "N/A" && totalScore !== null && totalScore !== undefined && totalScore !== "";
 
-            if (isVisible && hasValidScore) {
+            console.log(`Subject ${key} processing:`, {
+              totalScoreKey,
+              totalScore,
+              visibleKey,
+              isVisible: row[visibleKey],
+              hasValidScore,
+              willInclude: hasValidScore // Changed logic: include if has valid score, regardless of visibility
+            });
+
+            // CRITICAL FIX: Include subjects with valid scores even if visible="N"
+            if (hasValidScore) {
               // Find the best matching subject name from configuration
               const configuredSubject = subjects.find(s => 
                 possibleNames.some(name => 
@@ -223,15 +246,40 @@ export default function AcademyUpload() {
         });
 
         const parsedStudents = Array.from(studentMap.values());
+        
+        console.log('\n=== PARSING RESULTS ===');
+        console.log('Total students parsed:', parsedStudents.length);
+        
+        // Debug specific student if found
+        const abdallah = parsedStudents.find(s => s.name.toLowerCase().includes('abdallah'));
+        if (abdallah) {
+          console.log('\n=== ABDALLAH MOHAMMED DEBUG ===');
+          console.log('Name:', abdallah.name);
+          console.log('Total subjects:', abdallah.subjects.length);
+          console.log('Subject names:', abdallah.subjects.map(s => s.name));
+          console.log('Raw data keys:', Object.keys(abdallah.rawData || {}));
+          
+          // Check for any missed subjects in raw data
+          const rawData = abdallah.rawData || {};
+          const potentialMissedSubjects: string[] = [];
+          Object.keys(rawData).forEach(key => {
+            if (key.includes('_total_score') && !abdallah.subjects.some(s => key.startsWith(s.name.toLowerCase().replace(/\s+/g, '_')))) {
+              potentialMissedSubjects.push(key);
+            }
+          });
+          console.log('Potentially missed subjects for Abdallah:', potentialMissedSubjects);
+        }
+        
         setStudents(parsedStudents);
         
         // Store the Academy students data and selected class in localStorage for access in AcademyReport
         localStorage.setItem('academyStudentsData', JSON.stringify(parsedStudents));
         localStorage.setItem('selectedAcademyClass', selectedClass);
+        localStorage.setItem('detectedAcademySubjects', JSON.stringify(allDetectedSubjects));
         
         toast({
           title: "Excel file parsed successfully!",
-          description: `Found ${parsedStudents.length} Academy students with their subjects.`
+          description: `Found ${parsedStudents.length} Academy students with ${allDetectedSubjects.length} detected subjects.`
         });
       } catch (error) {
         toast({

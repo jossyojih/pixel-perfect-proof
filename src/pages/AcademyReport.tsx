@@ -47,12 +47,35 @@ export default function AcademyReport() {
   }, [studentName, navigate, toast]);
 
   const generateAcademyReportData = (student: any) => {
-    console.log('Generating Academy report data for student:', student);
+    console.log('\n=== ACADEMY REPORT DATA GENERATION ===');
+    console.log('Student name:', student.name);
     console.log('Student raw data available:', student.rawData ? Object.keys(student.rawData) : 'No raw data');
+    console.log('Student subjects from parsing:', student.subjects?.length || 0);
+    console.log('Student subject names:', student.subjects?.map((s: any) => s.name) || []);
+    
+    // Check if this is Abdallah Mohammed specifically
+    if (student.name.toLowerCase().includes('abdallah')) {
+      console.log('\n=== ABDALLAH MOHAMMED DETAILED DEBUG ===');
+      console.log('Full student object:', student);
+      console.log('Raw data keys:', Object.keys(student.rawData || {}));
+      
+      // Look for any score-related fields in raw data
+      const rawData = student.rawData || {};
+      const scoreFields = Object.keys(rawData).filter(key => 
+        key.includes('total_score') || 
+        key.includes('_exam') || 
+        key.includes('_ca')
+      );
+      console.log('Score-related fields in raw data:', scoreFields);
+      
+      scoreFields.forEach(field => {
+        console.log(`${field}: ${rawData[field]}`);
+      });
+    }
     
     // Use actual data from Excel parsing
     const academySubjects = student.subjects.map((subject: any) => {
-      console.log('Processing subject:', subject);
+      console.log('Processing subject for report:', subject.name, 'with data:', subject);
       
       const getLetterGrade = (score: number): string => {
         if (score >= 91) return 'A1';
