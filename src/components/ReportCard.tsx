@@ -437,6 +437,7 @@ export const ReportCard = ({
             </div>
           </div>
         </div>
+        </div>
       </div>
     </div>
   );
