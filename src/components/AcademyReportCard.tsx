@@ -62,7 +62,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
         
         {/* Header */}
-        <div className="relative z-10 flex items-center justify-start mb-1 ml-0 mt-2">
+        <div className="relative z-10 flex items-center justify-start mb-1 ml-0">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
@@ -126,17 +126,17 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <table className="w-full border-collapse border border-black text-xs text-center">
             <thead>
               <tr className="bg-blue-900 text-white">
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Subject Name</th>
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1 style={{ paddingBottom: '8px' }}">CA1</th>
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">CA2</th>
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1 style={{ padding: '8px' }}">CA3</th>
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1 style={{ padding: '8px' }}">CA4</th>
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1 mb-2">Exam</th>
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Total Score</th>
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Grade</th>
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Position</th>
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Remark</th>
-                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">CSS Average</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1">Subject Name</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1 style={{ paddingBottom: '8px' }}">CA1</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1">CA2</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1 style={{ padding: '8px' }}">CA3</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1 style={{ padding: '8px' }}">CA4</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1 mb-2">Exam</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1">Total Score</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1">Grade</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1">Position</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1">Remark</th>
+                <th style={{ paddingBottom: '14px' }} className="border border-black p-1">CSS Average</th>
               </tr>
             </thead>
             <tbody>
@@ -160,7 +160,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Summary */}
-        <div className="relative z-10 mb-3">
+        <div className="relative z-10 mb-2">
           <div className="flex justify-between text-sm font-bold">
             <span className="text-red-500">Cumulative Score: <span className="text-black ml-[2rem]">{cumulativeScore?.toFixed(2) || 0}</span></span>
             <span className="text-red-500" >Cut-Off Average : {cutOffAverage || 50}</span>
@@ -170,7 +170,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Grade Descriptors */}
         <div className="relative z-10">
-          <div className="bg-blue-900 text-white text-center font-bold p-2" style={{ paddingBottom: '14px' }}>
+          <div className="bg-blue-900 text-white text-center font-bold p-2" style={{ paddingBottom: '10px' }}>
             GRADE DESCRIPTORS
           </div>
           <table className="w-full border-collapse border border-black text-xs text-center">
@@ -196,7 +196,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Personal Tutor Comment */}
-        <div className="relative z-10 mb-5">
+        <div className="relative z-10 mb-2">
           <div className="text-black text-center font-bold p-2 text-xl">
             PERSONAL TUTOR'S COMMENT
           </div>
@@ -208,8 +208,8 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         {/* Signature */}
         <div className="relative z-10 text-center mt-8 mb-8">
           <div className="inline-block">
-            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-8 mx-auto" />
-            <div className="border-t border-black pt-2 w-48">
+            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-7 mx-auto" />
+            <div className="border-t border-black pt-1 w-48">
               <p className="text-sm font-bold">N. Y. Mikail</p>
               <p className="text-sm font-bold">Asst. Director Academics</p>
               <p className="text-sm font-bold">AUN Schools</p>
