@@ -55,7 +55,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
       <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white p-4 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
-          <img src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} alt="AUN Logo Watermark" className="w-[694px] h-[1024px]" />
+          <img src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} alt="AUN Logo Watermark" className="w-[594px] h-[924px]" />
         </div>
         
         {/* Header */}
@@ -63,7 +63,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-20 w-20 mr-4" />
+            className="h-21 w-21 mr-4" />
           <div className="text-center flex-1">
             <h1 className="text-lg font-bold">American University of Nigeria Schools – Academy</h1>
             <p className="text-sm">No. 99, Lamido Zubairu Way, Yola Bye – Pass, P.M.B. 2250</p>
@@ -72,42 +72,42 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Student Information */}
-        <div className="relative z-10 mb-4">
-          <div className="grid grid-cols-4 text-sm">
-            <div className="flex border-r border-black p-2">
-              <span className="font-bold">Student's ID</span>
-              <span className="ml-2 text-red-600">: {studentId}</span>
-            </div>
-            <div className="flex border-r border-black p-2">
-              <span className="font-bold">Student's Name</span>
-              <span className="ml-2">: {studentName}</span>
-            </div>
-            <div className="flex border-r border-black p-2">
-              <span className="font-bold">Term</span>
-              <span className="ml-2">: {term}</span>
-            </div>
-            <div className="flex p-2">
-              <span className="font-bold">Total Subject</span>
-              <span className="ml-2">: {totalSubjects}</span>
-            </div>
-            <div className="flex border-r border-black border-t border-black p-2">
-              <span className="font-bold">Class</span>
-              <span className="ml-2">: {studentClass}</span>
-            </div>
-            <div className="flex border-r border-black border-t border-black p-2">
-              <span className="font-bold">Academic Year</span>
-              <span className="ml-2">: {academicYear}</span>
-            </div>
-            <div className="flex border-r border-black border-t border-black p-2">
-              <span className="font-bold">Position in Class</span>
-              <span className="ml-2">: {positionInClass}</span>
-            </div>
-            <div className="flex border-t border-black p-2">
-              <span className="font-bold">No. in Class</span>
-              <span className="ml-2">: {noInClass}</span>
-            </div>
-          </div>
-        </div>
+<div className="relative z-10 mb-4 border-t border-b border-black">
+  <div className="grid grid-cols-4 text-sm">
+    <div className="flex p-2">
+      <span className="font-bold">Student's ID</span>
+      <span className="ml-2 text-red-600">: {studentId}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Student's Name</span>
+      <span className="ml-2">: {studentName}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Term</span>
+      <span className="ml-2">: {term}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Total Subject</span>
+      <span className="ml-2">: {totalSubjects}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Class</span>
+      <span className="ml-2">: {studentClass}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Academic Year</span>
+      <span className="ml-2">: {academicYear}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">Position in Class</span>
+      <span className="ml-2">: {positionInClass}</span>
+    </div>
+    <div className="flex p-2">
+      <span className="font-bold">No. in Class</span>
+      <span className="ml-2">: {noInClass}</span>
+    </div>
+  </div>
+</div>
 
         {/* Subjects Table */}
         <div className="relative z-10 mb-4">
@@ -187,7 +187,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Personal Tutor Comment */}
         <div className="relative z-10 mb-6">
-          <div className="text-white text-center font-bold p-2">
+          <div className="text-black text-center font-bold p-2">
             PERSONAL TUTOR'S COMMENT
           </div>
           <div className="relative z-10 p-2">
