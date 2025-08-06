@@ -221,8 +221,8 @@ export const ReportCard = ({
 
           {/* Specials Table */}
           {grade !== "Pre-Grade-A" && grade !== "Pre-Grade-B" ? (
-            <div className="">
-              {/* <table className="w-full border-collapse">
+            <div className="border border-black">
+              <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-gray-600">
                     <th className="border-r border-black px-6 py-4 text-left font-bold text-white text-base">
@@ -251,7 +251,7 @@ export const ReportCard = ({
                     </tr>
                   ))}
                 </tbody>
-              </table> */}
+              </table> 
             </div>
           ) : (
             <div className="h-64 bg-white"></div>
