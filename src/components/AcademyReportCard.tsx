@@ -51,7 +51,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     );
 
     const ReportPage = () => (
-      <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white px-7 font-sans text-black text-xs overflow-hidden">
+      <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white px-7 pb-8 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
         <div className="absolute inset-0 mb-5 flex items-center justify-center pointer-events-none opacity-30">
           <img 
@@ -62,7 +62,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
         
         {/* Header */}
-        <div className="relative z-10 flex items-center justify-start mb-1 ml-0">
+        <div className="relative z-10 flex items-center justify-start mb-1 ml-0 mt-2">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
@@ -206,7 +206,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Signature */}
-        <div className="relative z-10 text-center mt-12">
+        <div className="relative z-10 text-center mt-8 mb-8">
           <div className="inline-block">
             <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-8 mx-auto" />
             <div className="border-t border-black pt-2 w-48">
