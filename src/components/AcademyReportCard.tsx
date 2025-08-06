@@ -177,8 +177,8 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             <thead>
               <tr>
                 <th className="border border-black p-1 font-bold text-left">% Score</th>
-                <th className="border border-black p-1 font-bold">Grade</th>
-                <th className="border border-black p-1 font-bold">Descriptor</th>
+                <th className="border border-black p-1 font-bold text-center">Grade</th>
+                <th className="border border-black p-1 font-bold text-center">Descriptor</th>
               </tr>
             </thead>
             <tbody>
