@@ -77,7 +77,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Student Information */}
-        <div className="relative z-10 mb-4 border-t border-b border-black">
+        <div className="relative z-10 mb-4 border-t-[3px] border-b-[3px] border-black">
           <div className="grid grid-cols-4 text-sm">
             <div className="flex p-2">
               <span className="font-bold">Student's ID</span>
@@ -203,7 +203,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         {/* Signature */}
         <div className="relative z-10 text-center mt-10">
           <div className="inline-block">
-            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-7 mx-auto mb-2" />
+            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-9 mx-auto mb-2" />
             <div className="border-t border-black pt-2 w-48">
               <p className="text-sm font-bold">N. Y. Mikail</p>
               <p className="text-sm font-bold">Asst. Director Academics</p>
