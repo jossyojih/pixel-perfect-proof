@@ -59,6 +59,9 @@ export default function StudentReport() {
   }, [studentName, navigate, toast]);
 
   const generateReportData = (student: any) => {
+    const selectedClass = localStorage.getItem('selectedClass') || "Grade 1 A";
+    console.log('Selected Class from localStorage:', selectedClass);
+    
     // Separate main subjects from specials (include Science in specials)
     const mainSubjects = student.subjects.filter((subject: any) => 
       !['Computer Studies', 'Hausa', 'Religious Studies', 'French', 'Science', 'PHE'].includes(subject.name)
@@ -82,17 +85,18 @@ export default function StudentReport() {
     console.log(hasPhysicalEducation,"Has physical Education")
 
     const additionalSpecials = [];
-    if (!hasPhysicalEducation) {
+    // Only add Physical Education if not already in the subjects data AND not Pre-Grade-A or Pre-Grade-B
+    if (!hasPhysicalEducation && selectedClass !== "Pre-Grade A" && selectedClass !== "Pre-Grade B") {
       additionalSpecials.push({ 
         name: "PHE", 
         grade: 88, 
         teacher: "Geoffrey Nushu Gabriel" 
       });
     }
-
+    
     return {
       studentName: student.name,
-      grade: localStorage.getItem('selectedClass') || "Grade 1 A",
+      grade: selectedClass,
       term: "Term 3",
       academicYear: "2024/2025",
       subjects: mainSubjects,
