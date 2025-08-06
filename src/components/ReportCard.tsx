@@ -220,7 +220,7 @@ export const ReportCard = ({
           )}
 
           {/* Specials Table */}
-          <div className="border border-black">
+          {/* <div className="border border-black">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-600">
@@ -252,7 +252,7 @@ export const ReportCard = ({
               </tbody>
             </table>
           </div>
-        </div>
+        </div> */}
         
         {/* Footer */}
         <div className="mt-8 text-xs text-black border-t border-gray-300 pt-4">
