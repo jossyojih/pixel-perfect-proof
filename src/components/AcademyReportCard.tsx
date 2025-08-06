@@ -63,7 +63,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-[100px] w-[100px] mr-4" />
+            className="h-21 w-21 mr-4" />
           <div className="text-center flex-1">
             <h1 className="text-lg font-bold">American University of Nigeria Schools – Academy</h1>
             <p className="text-sm">No. 99, Lamido Zubairu Way, Yola Bye – Pass, P.M.B. 2250</p>
@@ -167,20 +167,20 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             <thead>
               <tr>
                 <th className="border border-black p-1 font-bold">% Score</th>
-                <th className="border border-black p-1 font-bold bg-green-300">Grade</th>
+                <th className="border border-black p-1 font-bold">Grade</th>
                 <th className="border border-black p-1 font-bold">Descriptor</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td className="border border-black p-1">91.00 - 100.00</td><td className="border border-black p-1 bg-green-200">A1</td><td className="border border-black p-1">Excellent</td></tr>
-              <tr><td className="border border-black p-1">81.00 - 90.00</td><td className="border border-black p-1 bg-green-200">B2</td><td className="border border-black p-1">Very Good</td></tr>
-              <tr><td className="border border-black p-1">71.00 - 80.00</td><td className="border border-black p-1 bg-green-200">B3</td><td className="border border-black p-1">Good</td></tr>
-              <tr><td className="border border-black p-1">65.00 - 70.00</td><td className="border border-black p-1 bg-green-200">C4</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">60.00 - 64.00</td><td className="border border-black p-1 bg-green-200">C5</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">50.00 - 59.00</td><td className="border border-black p-1 bg-green-200">C6</td><td className="border border-black p-1">Credit</td></tr>
-              <tr><td className="border border-black p-1">45.00 - 49.00</td><td className="border border-black p-1 bg-green-200">D7</td><td className="border border-black p-1">Pass</td></tr>
-              <tr><td className="border border-black p-1">40.00 - 44.00</td><td className="border border-black p-1 bg-green-200">E8</td><td className="border border-black p-1">Pass</td></tr>
-              <tr><td className="border border-black p-1">0.00 - 39.00</td><td className="border border-black p-1 bg-green-200">F9</td><td className="border border-black p-1">Fail</td></tr>
+              <tr><td className="border border-black p-1">91.00 - 100.00</td><td className="border border-black p-1">A1</td><td className="border border-black p-1">Excellent</td></tr>
+              <tr><td className="border border-black p-1">81.00 - 90.00</td><td className="border border-black p-1">B2</td><td className="border border-black p-1">Very Good</td></tr>
+              <tr><td className="border border-black p-1">71.00 - 80.00</td><td className="border border-black p-1">B3</td><td className="border border-black p-1">Good</td></tr>
+              <tr><td className="border border-black p-1">65.00 - 70.00</td><td className="border border-black p-1">C4</td><td className="border border-black p-1">Credit</td></tr>
+              <tr><td className="border border-black p-1">60.00 - 64.00</td><td className="border border-black p-1">C5</td><td className="border border-black p-1">Credit</td></tr>
+              <tr><td className="border border-black p-1">50.00 - 59.00</td><td className="border border-black p-1">C6</td><td className="border border-black p-1">Credit</td></tr>
+              <tr><td className="border border-black p-1">45.00 - 49.00</td><td className="border border-black p-1">D7</td><td className="border border-black p-1">Pass</td></tr>
+              <tr><td className="border border-black p-1">40.00 - 44.00</td><td className="border border-black p-1">E8</td><td className="border border-black p-1">Pass</td></tr>
+              <tr><td className="border border-black p-1">0.00 - 39.00</td><td className="border border-black p-1">F9</td><td className="border border-black p-1">Fail</td></tr>
             </tbody>
           </table>
         </div>
