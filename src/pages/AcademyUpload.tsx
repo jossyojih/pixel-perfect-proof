@@ -405,7 +405,7 @@ export default function AcademyUpload() {
       totalSubjects: rawData['total_subject'] || academySubjects.length,
       subjects: academySubjects,
       cumulativeScore: rawData["cumulative_score"],
-      cutOffAverage: rawData[""],
+      cutOffAverage: rawData["cut_of_average"],
       studentsAverage: rawData["student_average"],
       personalTutorComment: rawData["teacher_comment"] || "The student demonstrates good academic progress."
     };
