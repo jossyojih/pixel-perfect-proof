@@ -50,46 +50,98 @@ export const useSubjectConfig = (gradeLevel?: string) => {
   };
 
   const detectSubjectsFromExcel = (excelHeaders: string[], gradeLevel: string): string[] => {
-    // Your provided subject names list
-    const targetSubjects = [
-      'Mathematics',
-      'English',
-      'Global Perspectives',
-      'Basic Science',
-      'French',
-      'Humanities-History',
-      'Humanities-Geography',
-      'Arabic',
-      'Religion (IRS)',
-      'Religion (CRS)',
-      'Digital Literacy',
-      'Physical And Health Education (PHE)',
-      'Hausa',
-      'Arts and Design',
-      'Music'
-    ];
+    // Define subject lists based on grade level
+    const getTargetSubjects = (grade: string): string[] => {
+      if (grade === 'JSS 2') {
+        return [
+          'Mathematics',
+          'English',
+          'Basic Science',
+          'Basic Technology',
+          'Agricultural Science',
+          'History',
+          'Music',
+          'Civic Education',
+          'Social Studies',
+          'French',
+          'Hausa',
+          'Business Studies',
+          'Cultural And Creative Art (CCA)',
+          'Religion (IRS)',
+          'Religion (CRS)',
+          'Physical And Health Education (PHE)',
+          'Computer Studies',
+          'Arabic Studies'
+        ];
+      }
+      
+      // Default for Year 7 and other grades
+      return [
+        'Mathematics',
+        'English',
+        'Global Perspectives',
+        'Basic Science',
+        'French',
+        'Humanities-History',
+        'Humanities-Geography',
+        'Arabic',
+        'Religion (IRS)',
+        'Religion (CRS)',
+        'Digital Literacy',
+        'Physical And Health Education (PHE)',
+        'Hausa',
+        'Arts and Design',
+        'Music'
+      ];
+    };
+
+    const targetSubjects = getTargetSubjects(gradeLevel);
 
     console.log('Target subjects to detect:', targetSubjects);
     console.log('Excel headers to search in:', excelHeaders);
     
     // Create mapping patterns for each subject
-    const subjectPatterns = {
-      'Mathematics': ['math', 'mathematics'],
-      'English': ['english'],
-      'Global Perspectives': ['global', 'perspectives'],
-      'Basic Science': ['science', 'basic_science'],
-      'French': ['french'],
-      'Humanities-History': ['history', 'human_hstry', 'humanities'],
-      'Humanities-Geography': ['geography', 'human_geo', 'geo'],
-      'Arabic': ['arabic'],
-      'Religion (IRS)': ['religion', 'irs', 'islamic'],
-      'Religion (CRS)': ['religion_crs', 'crs', 'christian'],
-      'Digital Literacy': ['digital', 'literacy', 'computer'],
-      'Physical And Health Education (PHE)': ['phe', 'physical', 'health', 'education'],
-      'Hausa': ['hausa'],
-      'Arts and Design': ['arts', 'design', 'art'],
-      'Music': ['music']
+    const getSubjectPatterns = (grade: string) => {
+      const basePatterns = {
+        'Mathematics': ['math', 'mathematics'],
+        'English': ['english'],
+        'Basic Science': ['science', 'basic_science'],
+        'French': ['french'],
+        'Religion (IRS)': ['religion', 'irs', 'islamic'],
+        'Religion (CRS)': ['religion_crs', 'crs', 'christian'],
+        'Physical And Health Education (PHE)': ['phe', 'physical', 'health', 'education'],
+        'Hausa': ['hausa'],
+        'Music': ['music']
+      };
+
+      if (grade === 'JSS 2') {
+        return {
+          ...basePatterns,
+          'Basic Technology': ['basic_technology', 'technology'],
+          'Agricultural Science': ['agricultural_science', 'agriculture'],
+          'History': ['history'],
+          'Civic Education': ['civic_education', 'civic'],
+          'Social Studies': ['social_studies', 'social'],
+          'Business Studies': ['business_studies', 'business'],
+          'Cultural And Creative Art (CCA)': ['cultural', 'creative', 'cca', 'art'],
+          'Computer Studies': ['computer_studies', 'computer'],
+          'Arabic Studies': ['arabic_studies', 'arabic']
+        };
+      }
+      
+      // Year 7 and other grades
+      return {
+        ...basePatterns,
+        'Global Perspectives': ['global', 'perspectives'],
+        'Humanities-History': ['history', 'human_hstry', 'humanities'],
+        'Humanities-Geography': ['geography', 'human_geo', 'geo'],
+        'Arabic': ['arabic'],
+        'Digital Literacy': ['digital', 'literacy', 'computer'],
+        'Arts and Design': ['arts', 'design', 'art']
+      };
     };
+
+    const subjectPatterns = getSubjectPatterns(gradeLevel);
 
     const detectedSubjects: string[] = [];
     
