@@ -129,30 +129,30 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
                 <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Subject Name</th>
                 <th style={{ paddingBottom: '18px' }} className="border border-black p-1 style={{ paddingBottom: '8px' }}">CA1</th>
                 <th style={{ paddingBottom: '18px' }} className="border border-black p-1">CA2</th>
-                <th className="border border-black p-1 style={{ padding: '8px' }}">CA3</th>
-                <th className="border border-black p-1 style={{ padding: '8px' }}">CA4</th>
-                <th className="border border-black p-1 mb-2">Exam</th>
-                <th className="border border-black p-1">Total Score</th>
-                <th className="border border-black p-1">Grade</th>
-                <th className="border border-black p-1">Position</th>
-                <th className="border border-black p-1">Remark</th>
-                <th className="border border-black p-1">CSS Average</th>
+                <th style={{ paddingBottom: '18px' }} className="border border-black p-1 style={{ padding: '8px' }}">CA3</th>
+                <th style={{ paddingBottom: '18px' }} className="border border-black p-1 style={{ padding: '8px' }}">CA4</th>
+                <th style={{ paddingBottom: '18px' }} className="border border-black p-1 mb-2">Exam</th>
+                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Total Score</th>
+                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Grade</th>
+                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Position</th>
+                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">Remark</th>
+                <th style={{ paddingBottom: '18px' }} className="border border-black p-1">CSS Average</th>
               </tr>
             </thead>
             <tbody>
               {studentSubjects.map((subject, index) => (
                 <tr key={index} style={{ paddingBottom: '18px' }}>
-                  <td className="border border-black p-1 text-left">{subject.name}</td>
-                  <td className="border border-black p-1">{subject.ca1 || ''}</td>
-                  <td className="border border-black p-1">{subject.ca2 || ''}</td>
-                  <td className="border border-black p-1">{subject.ca3 || ''}</td>
-                  <td className="border border-black p-1">{subject.ca4 || ''}</td>
-                  <td className="border border-black p-1 mb-2">{subject.exam || ''}</td>
-                  <td className="border border-black p-1">{subject.total || ''}</td>
-                  <td className="border border-black p-1">{subject.grade || ''}</td>
-                  <td className="border border-black p-1">{subject.position || ''}</td>
-                  <td className="border border-black p-1">{subject.remark || ''}</td>
-                  <td className="border border-black p-1">{subject.teachersAverage || ''}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1 text-left">{subject.name}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.ca1 || ''}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.ca2 || ''}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.ca3 || ''}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.ca4 || ''}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1 mb-2">{subject.exam || ''}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.total || ''}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.grade || ''}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.position || ''}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.remark || ''}</td>
+                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.teachersAverage || ''}</td>
                 </tr>
               ))}
             </tbody>
