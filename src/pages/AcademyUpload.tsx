@@ -180,11 +180,11 @@ export default function AcademyUpload() {
                 'social_studies': ['Social Studies'],
                 'french': ['French'],
                 'hausa': ['Hausa'],
-                'business_studies': ['Business Studies'],
-                'cultural_creative_art': ['Cultural And Creative Art (CCA)'],
+                'business_students': ['Business Studies'], // Fixed: raw data uses "business_students"
+                'cultural_creative': ['Cultural And Creative Art (CCA)'], // Fixed: raw data uses "cultural_creative"
                 'religion': ['Religion (IRS)'],
                 'religion_crs': ['Religion (CRS)'],
-                'physical_health': ['Physical And Health Education (PHE)'],
+                'physical_health': ['Physical And Health Education (PHE)'], // Fixed: raw data uses "physical_health"
                 'computer_studies': ['Computer Studies'],
                 'arabic_studies': ['Arabic Studies'],
                 'arabic': ['Arabic'],
@@ -249,8 +249,11 @@ export default function AcademyUpload() {
             const isVisible = row[visibleKey] === "Y";
             
             // For core subjects: include if has valid score
-            // For optional subjects: include if visible="Y" AND has valid score
-            const shouldInclude = isOptionalSubject ? (isVisible && hasValidScore) : hasValidScore;
+            // For optional subjects: include if visible="Y" AND has valid score, OR if no visibility field exists but has valid score
+            const hasVisibilityField = row[visibleKey] !== undefined;
+            const shouldInclude = isOptionalSubject ? 
+              (hasVisibilityField ? (isVisible && hasValidScore) : hasValidScore) : 
+              hasValidScore;
 
             console.log(`Subject ${key} processing:`, {
               totalScoreKey,
@@ -291,7 +294,29 @@ export default function AcademyUpload() {
             }
           });
           
-          console.log(`Student ${studentName} has ${student.subjects.length} subjects:`, student.subjects.map(s => s.name));
+           console.log(`Student ${studentName} has ${student.subjects.length} subjects:`, student.subjects.map(s => s.name));
+           
+           // Detailed subject debugging for JSS 2 students
+           if (selectedClass === 'JSS 2') {
+             const expectedSubjects = Object.keys(subjectMappings);
+             const missingSubjects = expectedSubjects.filter(key => 
+               !student.subjects.some(s => {
+                 const mappedNames = subjectMappings[key as keyof typeof subjectMappings];
+                 return mappedNames.some(name => 
+                   s.name.toLowerCase().includes(name.toLowerCase()) ||
+                   name.toLowerCase().includes(s.name.toLowerCase())
+                 );
+               })
+             );
+             console.log(`JSS 2 Student ${studentName} missing subjects:`, missingSubjects);
+             
+             // Check what scores are available in raw data for missing subjects
+             missingSubjects.forEach(subjectKey => {
+               const totalScoreKey = `${subjectKey}_total_score`;
+               const visibleKey = `${subjectKey}_visible`;
+               console.log(`Missing subject ${subjectKey}: score=${row[totalScoreKey]}, visible=${row[visibleKey]}`);
+             });
+           }
         });
 
         const parsedStudents = Array.from(studentMap.values());
