@@ -142,17 +142,17 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             <tbody>
               {studentSubjects.map((subject, index) => (
                 <tr key={index} style={{ paddingBottom: '18px' }}>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1 text-left">{subject.name}</td>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.ca1 || ''}</td>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.ca2 || ''}</td>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.ca3 || ''}</td>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.ca4 || ''}</td>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1 mb-2">{subject.exam || ''}</td>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.total || ''}</td>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.grade || ''}</td>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.position || ''}</td>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.remark || ''}</td>
-                  <td style={{ paddingBottom: '18px' }} className="border border-black p-1">{subject.teachersAverage || ''}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1 text-left">{subject.name}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1">{subject.ca1 || ''}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1">{subject.ca2 || ''}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1">{subject.ca3 || ''}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1">{subject.ca4 || ''}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1 mb-2">{subject.exam || ''}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1">{subject.total || ''}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1">{subject.grade || ''}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1">{subject.position || ''}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1">{subject.remark || ''}</td>
+                  <td style={{ paddingBottom: '12px' }} className="border border-black p-1">{subject.teachersAverage || ''}</td>
                 </tr>
               ))}
             </tbody>
