@@ -63,7 +63,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
         
         {/* Header */}
-        <div className="relative z-10 flex items-center justify-start mb-1">
+        <div className="relative z-10 flex items-start justify-start mb-1">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
@@ -87,27 +87,27 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               <span className="text-red-400">Student's Name :</span>
               <span className="ml-2"> {studentName}</span>
             </div>
-            <div className="flex p-1">
+            <div className="flex p-[2px]">
               <span className="text-red-400">Class :</span>
               <span className="ml-2"> {studentClass}</span>
             </div>
-            <div className="flex p-1">
+            <div className="flex p-[2px]">
               <span className="text-red-400">Academic Year :</span>
               <span className="ml-1"> {academicYear}</span>
             </div>
-            <div className="flex p-1">
+            <div className="flex p-[2px]">
               <span className="text-red-400">Term :</span>
               <span className="ml-2"> {term}</span>
             </div>
-            <div className="flex p-1">
+            <div className="flex p-[2px]">
               <span className="text-red-400">Position in Class :</span>
               <span className="ml-2"> {positionInClass}</span>
             </div>
-            <div className="flex p-1">
+            <div className="flex p-[2px]">
               <span className="text-red-400">No. in Class :</span>
               <span className="ml-2"> {noInClass}</span>
             </div>
-            <div className="flex p-1">
+            <div className="flex p-[2px]">
               <span className="text-red-400">Total Subject :</span>
               <span className="ml-2"> {totalSubjects}</span>
             </div>
@@ -115,7 +115,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Subjects Table */}
-        <div className="relative z-10 mb-2">
+        <div className="relative z-10 mb-1">
           <table className="w-full border-collapse border border-black text-xs">
             <thead>
               <tr className="bg-blue-900 text-white">
@@ -155,7 +155,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Summary */}
-        <div className="relative z-10 mb-2">
+        <div className="relative z-10 mb-1">
           <div className="flex justify-between text-sm font-bold">
             <span className="text-red-500">Cumulative Score: <span className="text-black ml-[2rem]">{cumulativeScore?.toFixed(2) || 0}</span></span>
             <span className="text-red-500" >Cut-Off Average : {cutOffAverage || 50}</span>
