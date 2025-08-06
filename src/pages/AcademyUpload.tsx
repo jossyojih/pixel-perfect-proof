@@ -512,9 +512,9 @@ export default function AcademyUpload() {
                 scrollY: 0
               });
               
-              const imgData = canvas.toDataURL('image/png', 1.0);
-              const imgWidth = 297;
-              const pageHeight = 210;
+              const imgData = canvas.toDataURL('image/png');
+              const imgWidth = 210; // A4 width in mm
+              const pageHeight = 297;
               const imgHeight = (canvas.height * imgWidth) / canvas.width;
               
               if (i > 0) {
@@ -523,6 +523,7 @@ export default function AcademyUpload() {
               
               const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
               pdf.addImage(imgData, 'JPEG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
+
               console.log(`Added section ${section.name} to PDF`);
             } else {
               console.warn(`Section ${section.name} ref is null`);
