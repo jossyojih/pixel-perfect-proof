@@ -46,13 +46,10 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     studentsAverage, personalTutorComment, pageRefs 
   }, ref) => {
     
-    // Academy subjects in the correct order from template
-    const academySubjects = [
-      'Mathematics', 'English', 'Global Perspectives', 'Science', 'Digital Literacy',
-      'French', 'Arabic', 'Religion IRS', 'Religion CRS', 'Humanities-Geography',
-      'Humanities-History', 'Music', 'Physical And Health Education (PHE)', 
-      'Arts and Design', 'Hausa'
-    ];
+    // Filter subjects to only show those with actual data for this student
+    const studentSubjects = subjects.filter(subject => 
+      subject && (subject.score > 0 || subject.total > 0 || subject.ca1 || subject.ca2 || subject.ca3 || subject.ca4 || subject.exam)
+    );
 
     const ReportPage = () => (
       <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white p-4 font-sans text-black text-xs overflow-hidden">
@@ -134,25 +131,22 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               </tr>
             </thead>
             <tbody>
-              {academySubjects.map((subjectName, index) => {
-                const subjectData = subjects.find(s => s.name === subjectName);
-                return (
-                  <tr key={index}>
-                    <td className="border border-black p-1">{subjectName}</td>
-                    <td className="border border-black p-1">{subjectData?.ca1 || ''}</td>
-                    <td className="border border-black p-1">{subjectData?.ca2 || ''}</td>
-                    <td className="border border-black p-1">{subjectData?.ca3 || ''}</td>
-                    <td className="border border-black p-1">{subjectData?.ca4 || ''}</td>
-                    <td className="border border-black p-1">{subjectData?.exam || ''}</td>
-                    <td className="border border-black p-1">{subjectData?.total || ''}</td>
-                    <td className="border border-black p-1">{subjectData?.score || ''}</td>
-                    <td className="border border-black p-1">{subjectData?.grade || ''}</td>
-                    <td className="border border-black p-1">{subjectData?.position || ''}</td>
-                    <td className="border border-black p-1">{subjectData?.remark || ''}</td>
-                    <td className="border border-black p-1">{subjectData?.teachersAverage || ''}</td>
-                  </tr>
-                );
-              })}
+              {studentSubjects.map((subject, index) => (
+                <tr key={index}>
+                  <td className="border border-black p-1">{subject.name}</td>
+                  <td className="border border-black p-1">{subject.ca1 || ''}</td>
+                  <td className="border border-black p-1">{subject.ca2 || ''}</td>
+                  <td className="border border-black p-1">{subject.ca3 || ''}</td>
+                  <td className="border border-black p-1">{subject.ca4 || ''}</td>
+                  <td className="border border-black p-1">{subject.exam || ''}</td>
+                  <td className="border border-black p-1">{subject.total || ''}</td>
+                  <td className="border border-black p-1">{subject.score || ''}</td>
+                  <td className="border border-black p-1">{subject.grade || ''}</td>
+                  <td className="border border-black p-1">{subject.position || ''}</td>
+                  <td className="border border-black p-1">{subject.remark || ''}</td>
+                  <td className="border border-black p-1">{subject.teachersAverage || ''}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
