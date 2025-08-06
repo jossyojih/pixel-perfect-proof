@@ -122,7 +122,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Subjects Table */}
-        <div className="relative z-10 mb-1">
+        <div className="relative z-10">
           <table className="w-full border-collapse border border-black text-xs text-center">
             <thead>
               <tr className="bg-blue-900 text-white">
