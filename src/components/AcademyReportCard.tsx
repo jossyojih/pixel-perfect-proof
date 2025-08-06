@@ -67,7 +67,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-[120px] w-[120px]" 
+            className="h-[150px] w-[150px]" 
           />
           <div className="text-center flex-1">
             <h1 className="text-lg font-bold">American University of Nigeria Schools – Academy</h1>
@@ -157,9 +157,9 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         {/* Summary */}
         <div className="relative z-10 mb-2">
           <div className="flex justify-between text-sm font-bold">
-            <span className="text-red-500">Cumulative Score: <span className="text-black ml-7">{cumulativeScore?.toFixed(2) || 0}</span></span>
+            <span className="text-red-500">Cumulative Score: <span className="text-black ml-[2rem]">{cumulativeScore?.toFixed(2) || 0}</span></span>
             <span className="text-red-500" >Cut-Off Average : {cutOffAverage || 50}</span>
-            <span className="text-red-500" >Student's Average: <span className="text-black ml-7">{studentsAverage?.toFixed(2) || 0}</span></span>
+            <span className="text-red-500" >Student's Average: <span className="text-black ml-[2rem]">{studentsAverage?.toFixed(2) || 0}</span></span>
           </div>
         </div>
 
