@@ -117,26 +117,22 @@ export default function AcademyReport() {
       };
     });
 
-    // Calculate actual cumulative score and average
-    const validScores = academySubjects.filter(s => s.total > 0);
-    const cumulativeScore = validScores.reduce((sum, s) => sum + s.total, 0);
-    const studentsAverage = validScores.length > 0 ? cumulativeScore / validScores.length : 0;
-
     // Extract actual student data from Excel fields
     const rawData = student.rawData || {};
     console.log('Extracting student info from rawData:', rawData);
     
-    // Student ID is specifically in "Roll No" column
-    const studentId = rawData['Roll No'] || rawData['roll_no'] || rawData['ROLL NO'] || 
-                     rawData['Roll_No'] || rawData['__EMPTY'] || rawData['_1'] || 
+    // Student ID from Excel field __EMPTY_1
+    const studentId = rawData['__EMPTY_1'] || rawData['Roll No'] || rawData['roll_no'] || 
+                     rawData['ROLL NO'] || rawData['Roll_No'] || rawData['__EMPTY'] || 
                      `AUN${Date.now().toString().slice(-4)}`;
     
     // Term data from Excel
-    const termData = rawData['term'] || rawData['Term'] || rawData['TERM'] || 
-                    rawData['current_term'] || rawData['school_term'] || "Term 3";
+    const termData = rawData['term_name'] || rawData['term'] || rawData['Term'] || 
+                    rawData['TERM'] || rawData['current_term'] || rawData['school_term'] || "Term 3";
     
-    // Position in class - look for common position field names
-    const positionInClass = parseInt(rawData['position_in_class']) || 
+    // Position in class from Excel field position_class
+    const positionInClass = parseInt(rawData['position_class']) || 
+                           parseInt(rawData['position_in_class']) || 
                            parseInt(rawData['Position in Class']) || 
                            parseInt(rawData['position']) || 
                            parseInt(rawData['Position']) || 
@@ -145,20 +141,30 @@ export default function AcademyReport() {
                            parseInt(rawData['rank']) || 
                            parseInt(rawData['pos']) || 0;
     
+    // Cumulative Score from Excel field cumulative_score
+    const cumulativeScore = parseFloat(rawData['cumulative_score']) || 
+                           academySubjects.filter(s => s.total > 0).reduce((sum, s) => sum + s.total, 0);
+    
+    // Student's Average from Excel field student_average
+    const studentsAverage = parseFloat(rawData['student_average']) || 
+                           (academySubjects.filter(s => s.total > 0).length > 0 ? 
+                            cumulativeScore / academySubjects.filter(s => s.total > 0).length : 0);
+    
     // Number in class from Excel
     const noInClass = parseInt(rawData['no_in_class']) || 
                      parseInt(rawData['No in Class']) || 
                      parseInt(rawData['class_size']) || 
                      parseInt(rawData['total_students']) || 
                      parseInt(rawData['class_total']) || 
-                     parseInt(rawData['students_in_class']) || 30;
+                     parseInt(rawData['students_in_class']) || 15;
     
     // Total subjects should be 12 from Excel or use actual count
-    const totalSubjects = parseInt(rawData['total_subjects']) || 
+    const totalSubjects = parseInt(rawData['total_subject']) || 
+                         parseInt(rawData['total_subjects']) || 
                          parseInt(rawData['Total Subjects']) || 
                          parseInt(rawData['no_of_subjects']) || 
                          parseInt(rawData['subject_count']) || 
-                         validScores.length || 12;
+                         academySubjects.filter(s => s.total > 0).length || 12;
     
     const selectedClass = localStorage.getItem('selectedAcademyClass') || localStorage.getItem('selectedClass') || "Year 7";
     
@@ -184,7 +190,7 @@ export default function AcademyReport() {
       cumulativeScore: cumulativeScore,
       cutOffAverage: 50,
       studentsAverage: studentsAverage,
-      personalTutorComment: student.Comments || student.comments || "The student has shown excellent progress throughout the term and demonstrates strong academic potential."
+      personalTutorComment: rawData['teacher_comment'] || student.Comments || student.comments || "The student has shown excellent progress throughout the term and demonstrates strong academic potential."
     };
   };
 
