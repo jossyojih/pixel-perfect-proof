@@ -502,7 +502,7 @@ export default function AcademyUpload() {
             if (section.ref.current) {
               console.log('Generating canvas for section', section.name);
               const canvas = await html2canvas(section.ref.current, {
-                scale: 1,
+                scale: 3,
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: '#ffffff',
@@ -512,7 +512,7 @@ export default function AcademyUpload() {
                 scrollY: 0
               });
               
-              const imgData = canvas.toDataURL('image/jpeg', 0.8);
+              const imgData = canvas.toDataURL('image/png', 1.0);
               const imgWidth = 297;
               const pageHeight = 210;
               const imgHeight = (canvas.height * imgWidth) / canvas.width;
