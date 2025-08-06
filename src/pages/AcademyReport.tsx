@@ -97,56 +97,56 @@ export default function AcademyReport() {
 
   const uploadToSupabase = async () => {
     if (!student || !coverRef.current) return;
-
+  
     setIsUploading(true);
     try {
       const reportData = generateAcademyReportData(student);
-      
+  
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4',
         compress: true
       });
-
-      const pageRefs = [coverRef];
-      
+  
+      // You can add more refs here if needed
+      const pageRefs = [coverRef, subjectsRef, specialsRef, finalRef];
+  
       for (let i = 0; i < pageRefs.length; i++) {
         const pageElement = pageRefs[i].current;
         if (!pageElement) continue;
-        // Generate canvas for each page section
+  
+        // Optional: force A4 size for rendering layout consistency
+        pageElement.style.width = '794px';
+        pageElement.style.minHeight = '1123px';
+        pageElement.style.padding = '24px';
+        pageElement.style.boxSizing = 'border-box';
+        pageElement.style.backgroundColor = '#ffffff';
+  
         const canvas = await html2canvas(pageElement, {
-          scale: 1,
+          scale: 3, // High resolution
           useCORS: true,
           allowTaint: true,
           backgroundColor: '#ffffff',
-          width: pageElement.scrollWidth,
-          height: pageElement.scrollHeight,
           scrollX: 0,
           scrollY: 0
         });
-        // Convert to JPEG
-        const imgData = canvas.toDataURL('image/jpeg', 1.0);
-       
-        // Add new page for each section (except first)
-        if (i > 0) {
-          pdf.addPage();
-        }
-       
-        // Calculate dimensions to fit A4 portrait
-        const imgWidth = 210; // A4 portrait width in mm
-        const pageHeight = 297; // A4 portrait height in mm
+  
+        const imgData = canvas.toDataURL('image/png');
+  
+        const imgWidth = 210; // A4 width in mm
+        const pageHeight = 297;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
-       
-        // Center the image on the page if it's smaller than A4
+  
         const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
-       
-        pdf.addImage(imgData, 'JPEG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
+  
+        if (i > 0) pdf.addPage();
+  
+        pdf.addImage(imgData, 'PNG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
       }
-      
-      // Convert PDF to blob
+  
       const pdfBlob = pdf.output('blob');
-
+  
       // Upload to Supabase Storage
       const fileName = `academy_${student.name.toLowerCase().replace(/\s+/g, '-')}_report_${Date.now()}.pdf`;
       const { data: uploadData, error: uploadError } = await supabase.storage
@@ -154,15 +154,15 @@ export default function AcademyReport() {
         .upload(fileName, pdfBlob, {
           contentType: 'application/pdf'
         });
-
+  
       if (uploadError) throw uploadError;
-
+  
       // Get public URL
       const { data: urlData } = supabase.storage
         .from('reports')
         .getPublicUrl(fileName);
-
-      // Store Academy report metadata in database
+  
+      // Store report metadata
       const { error: dbError } = await supabase
         .from('student_reports')
         .insert({
@@ -173,9 +173,9 @@ export default function AcademyReport() {
           grade_tag: 'Academy',
           uploaded_at: new Date().toISOString()
         });
-
+  
       if (dbError) throw dbError;
-
+  
       toast({
         title: "Academy report uploaded successfully!",
         description: `Academy report for ${student.name} has been uploaded as PDF.`
