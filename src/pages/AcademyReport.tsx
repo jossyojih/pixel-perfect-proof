@@ -103,25 +103,39 @@ export default function AcademyReport() {
     const rawData = student.rawData || {};
     console.log('Extracting student info from rawData:', rawData);
     
-    // Try multiple possible field names for student ID (Roll ID)
-    const studentId = rawData['__EMPTY'] || rawData['_1'] || rawData['roll_id'] || 
-                     rawData['student_id'] || rawData['roll_no'] || rawData['id'] || 
-                     rawData['__EMPTY_1'] || rawData['registration_no'] || 
+    // Student ID is specifically in "Roll No" column
+    const studentId = rawData['Roll No'] || rawData['roll_no'] || rawData['ROLL NO'] || 
+                     rawData['Roll_No'] || rawData['__EMPTY'] || rawData['_1'] || 
                      `AUN${Date.now().toString().slice(-4)}`;
     
-    // Try multiple possible field names for term
+    // Term data from Excel
     const termData = rawData['term'] || rawData['Term'] || rawData['TERM'] || 
                     rawData['current_term'] || rawData['school_term'] || "Term 3";
     
-    // Try multiple possible field names for position in class
-    const positionInClass = rawData['position'] || rawData['position_in_class'] || 
-                           rawData['class_position'] || rawData['overall_position'] || 
-                           rawData['rank'] || rawData['pos'] || 0;
+    // Position in class - look for common position field names
+    const positionInClass = parseInt(rawData['position_in_class']) || 
+                           parseInt(rawData['Position in Class']) || 
+                           parseInt(rawData['position']) || 
+                           parseInt(rawData['Position']) || 
+                           parseInt(rawData['class_position']) || 
+                           parseInt(rawData['overall_position']) || 
+                           parseInt(rawData['rank']) || 
+                           parseInt(rawData['pos']) || 0;
     
-    // Try multiple possible field names for number in class
-    const noInClass = rawData['no_in_class'] || rawData['class_size'] || 
-                     rawData['total_students'] || rawData['class_total'] || 
-                     rawData['students_in_class'] || 30;
+    // Number in class from Excel
+    const noInClass = parseInt(rawData['no_in_class']) || 
+                     parseInt(rawData['No in Class']) || 
+                     parseInt(rawData['class_size']) || 
+                     parseInt(rawData['total_students']) || 
+                     parseInt(rawData['class_total']) || 
+                     parseInt(rawData['students_in_class']) || 30;
+    
+    // Total subjects should be 12 from Excel or use actual count
+    const totalSubjects = parseInt(rawData['total_subjects']) || 
+                         parseInt(rawData['Total Subjects']) || 
+                         parseInt(rawData['no_of_subjects']) || 
+                         parseInt(rawData['subject_count']) || 
+                         validScores.length || 12;
     
     const selectedClass = localStorage.getItem('selectedAcademyClass') || localStorage.getItem('selectedClass') || "Year 7";
     
@@ -130,6 +144,7 @@ export default function AcademyReport() {
       termData,
       positionInClass,
       noInClass,
+      totalSubjects,
       selectedClass
     });
     
@@ -141,7 +156,7 @@ export default function AcademyReport() {
       positionInClass: positionInClass,
       noInClass: noInClass,
       term: termData,
-      totalSubjects: validScores.length,
+      totalSubjects: totalSubjects,
       subjects: academySubjects,
       cumulativeScore: cumulativeScore,
       cutOffAverage: 50,
