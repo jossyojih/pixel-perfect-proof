@@ -395,7 +395,7 @@ export default function AcademyUpload() {
     
     
     return {
-      studentId:rawData['__EMPTY_2'] || `STU${Math.floor(Math.random() * 10000)}`,
+      studentId:rawData['__EMPTY_1'] || `STU${Math.floor(Math.random() * 10000)}`,
       studentName: student.name,
       class: selectedClass || "Year 7",
       academicYear: rawData['academic_year'] || "2024/2025",
@@ -404,10 +404,10 @@ export default function AcademyUpload() {
       term: rawData['term_name'] || "Term 3",
       totalSubjects: rawData['total_subject'] || academySubjects.length,
       subjects: academySubjects,
-      cumulativeScore: academySubjects.reduce((sum, s) => sum + s.score, 0),
-      cutOffAverage: 50,
-      studentsAverage: academySubjects.reduce((sum, s) => sum + s.score, 0) / academySubjects.length,
-      personalTutorComment: student.Comments || "The student demonstrates good academic progress."
+      cumulativeScore: rawData["cumulative_score"],
+      cutOffAverage: rawData[""],
+      studentsAverage: rawData["student_average"],
+      personalTutorComment: rawData["teacher_comment"] || "The student demonstrates good academic progress."
     };
   };
 
