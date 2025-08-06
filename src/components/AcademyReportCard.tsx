@@ -73,38 +73,36 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Student Information */}
         <div className="relative z-10 mb-4">
-          <div className="grid grid-cols-4 gap-4 text-sm border-b border-black pb-2">
-            <div className="flex">
+          <div className="grid grid-cols-4 text-sm border border-black">
+            <div className="flex border-r border-black p-2">
               <span className="font-bold">Student's ID</span>
-              <span className="ml-2">: {studentId}</span>
+              <span className="ml-2 text-red-600">: {studentId}</span>
             </div>
-            <div className="flex">
+            <div className="flex border-r border-black p-2">
               <span className="font-bold">Student's Name</span>
               <span className="ml-2">: {studentName}</span>
             </div>
-            <div className="flex">
+            <div className="flex border-r border-black p-2">
               <span className="font-bold">Term</span>
               <span className="ml-2">: {term}</span>
             </div>
-            <div className="flex">
+            <div className="flex p-2">
               <span className="font-bold">Total Subject</span>
               <span className="ml-2">: {totalSubjects}</span>
             </div>
-          </div>
-          <div className="grid grid-cols-4 gap-4 text-sm pt-2">
-            <div className="flex">
+            <div className="flex border-r border-black border-t border-black p-2">
               <span className="font-bold">Class</span>
               <span className="ml-2">: {studentClass}</span>
             </div>
-            <div className="flex">
+            <div className="flex border-r border-black border-t border-black p-2">
               <span className="font-bold">Academic Year</span>
               <span className="ml-2">: {academicYear}</span>
             </div>
-            <div className="flex">
+            <div className="flex border-r border-black border-t border-black p-2">
               <span className="font-bold">Position in Class</span>
               <span className="ml-2">: {positionInClass}</span>
             </div>
-            <div className="flex">
+            <div className="flex border-t border-black p-2">
               <span className="font-bold">No. in Class</span>
               <span className="ml-2">: {noInClass}</span>
             </div>
