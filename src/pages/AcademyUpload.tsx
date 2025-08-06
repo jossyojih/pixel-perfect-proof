@@ -394,7 +394,7 @@ export default function AcademyUpload() {
     
     
     return {
-      studentId:rawData[] rawData[''] || `STU${Math.floor(Math.random() * 10000)}`,
+      studentId:rawData[''] || `STU${Math.floor(Math.random() * 10000)}`,
       studentName: student.name,
       class: selectedClass || "Year 7",
       academicYear: rawData['academic_year'] || "2024/2025",
