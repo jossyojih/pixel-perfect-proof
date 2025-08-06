@@ -83,13 +83,9 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               <span className="text-red-400">Student's ID</span>
               <span className="ml-2">: {studentId}</span>
             </div>
-            <div className="flex pl-2">
+            <div className="flex pl-2 col-span-2 whitespace-nowrap">
               <span className="text-red-400">Student's Name</span>
               <span className="ml-2">: {studentName}</span>
-            </div>
-            <div className="flex pl-2">
-              <span className="text-red-400"></span>
-              <span className="ml-2"></span>
             </div>
             <div className="flex pl-2">
               <span className="text-red-400">Class</span>
