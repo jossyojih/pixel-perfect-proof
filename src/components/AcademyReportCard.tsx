@@ -47,7 +47,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     
     // Filter subjects to only show those with actual data for this student
     const studentSubjects = subjects.filter(subject => 
-      subject && (subject.score > 0 || subject.total > 0 || subject.ca1 || subject.ca2 || subject.ca3 || subject.ca4 || subject.exam)
+      subject && (subject.total > 0 || subject.ca1 || subject.ca2 || subject.ca3 || subject.ca4 || subject.exam)
     );
 
     const ReportPage = () => (
