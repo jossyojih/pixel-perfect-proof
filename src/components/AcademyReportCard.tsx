@@ -54,7 +54,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     const ReportPage = () => (
       <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white p-4 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
-        <div className="absolute inset-0 mb-5 flex items-center justify-center pointer-events-none opacity-30">
+        <div className="absolute inset-0 mb-4 flex items-center justify-center pointer-events-none opacity-30">
           <img 
             src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} 
             alt="AUN Logo Watermark" 
@@ -63,7 +63,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
         
         {/* Header */}
-        <div className="relative z-10 flex items-start mb-4">
+        <div className="relative z-10 flex items-start mb-1">
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
@@ -157,9 +157,9 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         {/* Summary */}
         <div className="relative z-10 mb-3">
           <div className="flex justify-between text-sm font-bold">
-            <span className="text-red-500">Cumulative Score: <span className="text-black">{cumulativeScore?.toFixed(2) || 0}</span></span>
+            <span className="text-red-500">Cumulative Score: <span className="text-black ml-2">{cumulativeScore?.toFixed(2) || 0}</span></span>
             <span className="text-red-500" >Cut-Off Average: {cutOffAverage || 50}</span>
-            <span className="text-red-500" >Student's Average: <span className="text-black">{studentsAverage?.toFixed(2) || 0}</span></span>
+            <span className="text-red-500" >Student's Average: <span className="text-black ml-2">{studentsAverage?.toFixed(2) || 0}</span></span>
           </div>
         </div>
 
@@ -171,7 +171,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <table className="w-full border-collapse border border-black text-xs">
             <thead>
               <tr>
-                <th className="border border-black p-1 font-bold">% Score</th>
+                <th className="border border-black p-1 font-bold text-left">% Score</th>
                 <th className="border border-black p-1 font-bold">Grade</th>
                 <th className="border border-black p-1 font-bold">Descriptor</th>
               </tr>
