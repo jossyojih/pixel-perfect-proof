@@ -79,35 +79,35 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         {/* Student Information */}
         <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
           <div className="grid grid-cols-3 text-sm">
-            <div className="flex p-2">
+            <div className="flex pl-2">
               <span className="text-red-400">Student's ID</span>
               <span className="ml-2">: {studentId}</span>
             </div>
-            <div className="flex p-2">
+            <div className="flex pl-2">
               <span className="text-red-400">Student's Name</span>
               <span className="ml-2">: {studentName}</span>
             </div>
-            <div className="flex p-2">
+            <div className="flex pl-2">
               <span className="text-red-400">Term</span>
               <span className="ml-2">: {term}</span>
             </div>
-            <div className="flex p-2">
+            <div className="flex pl-2">
               <span className="text-red-400">Total Subject</span>
               <span className="ml-2">: {totalSubjects}</span>
             </div>
-            <div className="flex p-2">
+            <div className="flex pl-2">
               <span className="text-red-400">Class</span>
               <span className="ml-2">: {studentClass}</span>
             </div>
-            <div className="flex">
+            <div className="flex pl-2">
               <span className="text-red-400">Academic Year</span>
               <span className="ml-2">: {academicYear}</span>
             </div>
-            <div className="flex">
+            <div className="flex pl-2">
               <span className="text-red-400">Position in Class</span>
               <span className="ml-2">: {positionInClass}</span>
             </div>
-            <div className="flex">
+            <div className="flex pl-2">
               <span className="text-red-400">No. in Class</span>
               <span className="ml-2">: {noInClass}</span>
             </div>
