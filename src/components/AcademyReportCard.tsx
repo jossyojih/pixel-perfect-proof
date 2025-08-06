@@ -54,7 +54,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     const ReportPage = () => (
       <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white p-4 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-9">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
           <img src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} alt="AUN Logo Watermark" className="w-[694px] h-[1024px]" />
         </div>
         
@@ -63,7 +63,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-20 w-20 mr-4" />
+            className="h-25 w-25 mr-4" />
           <div className="text-center flex-1">
             <h1 className="text-lg font-bold">American University of Nigeria Schools – Academy</h1>
             <p className="text-sm">No. 99, Lamido Zubairu Way, Yola Bye – Pass, P.M.B. 2250</p>
