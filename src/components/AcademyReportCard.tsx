@@ -142,7 +142,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             <tbody>
               {studentSubjects.map((subject, index) => (
                 <tr key={index}>
-                  <td className="border border-black text-left -mt-[50px]>{subject.name}</td>
+                  <td className="border border-black text-left -mt-[50px]">{subject.name}</td>
                   <td  className="border border-black -mt-2">{subject.ca1 || ''}</td>
                   <td  className="border border-black -mt-2">{subject.ca2 || ''}</td>
                   <td  className="border border-black -mt-2">{subject.ca3 || ''}</td>
