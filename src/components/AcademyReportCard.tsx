@@ -10,7 +10,6 @@ interface AcademySubject {
   ca4?: number;
   exam?: number;
   total: number;
-  score: number;
   grade: string;
   position?: number;
   remark: string;
@@ -95,28 +94,23 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               <span className="ml-2"> {studentClass}</span>
             </div>
             <div className="flex p-[2px]">
-              <span className="text-red-400 min-w-[120px] text-left">Academic Year</span>
-              <span className="text-red-400">:</span>
+              <span className="text-red-400">Academic Year :</span>
               <span className="ml-1"> {academicYear}</span>
             </div>
             <div className="flex p-[2px]">
-              <span className="text-red-400 min-w-[120px] text-left">Term</span>
-              <span className="text-red-400">:</span>
+              <span className="text-red-400">Term :</span>
               <span className="ml-2"> {term}</span>
             </div>
             <div className="flex p-[2px]">
-              <span className="text-red-400 min-w-[120px] text-left">Position in Class</span>
-              <span className="text-red-400">:</span>
+              <span className="text-red-400">Position in Class :</span>
               <span className="ml-2"> {positionInClass}</span>
             </div>
             <div className="flex p-[2px]">
-              <span className="text-red-400 min-w-[120px] text-left">No. in Class</span>
-              <span className="text-red-400">:</span>
+              <span className="text-red-400">No. in Class :</span>
               <span className="ml-2"> {noInClass}</span>
             </div>
             <div className="flex p-[2px]">
-              <span className="text-red-400 min-w-[120px] text-left">Total Subject</span>
-              <span className="text-red-400">:</span>
+              <span className="text-red-400">Total Subject :</span>
               <span className="ml-2"> {totalSubjects}</span>
             </div>
           </div>
@@ -133,8 +127,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
                 <th className="border border-black p-1">CA3</th>
                 <th className="border border-black p-1">CA4</th>
                 <th className="border border-black p-1">Exam</th>
-                <th className="border border-black p-1">Total</th>
-                <th className="border border-black p-1">Score</th>
+                <th className="border border-black p-1">Total Score</th>
                 <th className="border border-black p-1">Grade</th>
                 <th className="border border-black p-1">Position</th>
                 <th className="border border-black p-1">Remark</th>
@@ -151,7 +144,6 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
                   <td className="border border-black p-1">{subject.ca4 || ''}</td>
                   <td className="border border-black p-1">{subject.exam || ''}</td>
                   <td className="border border-black p-1">{subject.total || ''}</td>
-                  <td className="border border-black p-1">{subject.score || ''}</td>
                   <td className="border border-black p-1">{subject.grade || ''}</td>
                   <td className="border border-black p-1">{subject.position || ''}</td>
                   <td className="border border-black p-1">{subject.remark || ''}</td>
