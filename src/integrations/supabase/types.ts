@@ -44,6 +44,36 @@ export type Database = {
         }
         Relationships: []
       }
+      subject_configurations: {
+        Row: {
+          created_at: string
+          display_order: number | null
+          grade_level: string
+          id: string
+          is_active: boolean | null
+          subject_name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number | null
+          grade_level: string
+          id?: string
+          is_active?: boolean | null
+          subject_name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number | null
+          grade_level?: string
+          id?: string
+          is_active?: boolean | null
+          subject_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
