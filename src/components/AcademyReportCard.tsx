@@ -52,7 +52,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     );
 
     const ReportPage = () => (
-      <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white p-4 font-sans text-black text-xs overflow-hidden">
+      <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white p-7 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
         <div className="absolute inset-0 mb-5 flex items-center justify-center pointer-events-none opacity-30">
           <img 
@@ -199,8 +199,9 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             {personalTutorComment}
           </div>
         </div>
+
         {/* Signature */}
-        <div className="relative z-10 text-center mt-20">
+        <div className="relative z-10 text-center mt-15">
           <div className="inline-block">
             <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-8 mx-auto" />
             <div className="border-t border-black pt-2 w-48">
