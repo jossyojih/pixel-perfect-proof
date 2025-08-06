@@ -169,7 +169,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Grade Descriptors */}
-        <div className="relative z-10 mb-2">
+        <div className="relative z-10 mb-2" style={{ paddingBottom: '18px' }}>
           <div className="bg-blue-900 text-white text-center font-bold p-2">
             GRADE DESCRIPTORS
           </div>
