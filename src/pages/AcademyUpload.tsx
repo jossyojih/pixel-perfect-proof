@@ -95,6 +95,8 @@ export default function AcademyUpload() {
           }
 
           const student = studentMap.get(studentName)!;
+              console.log(student,"Na my student be this")
+
 
           // Academy-specific subjects based on actual Excel data structure
           const subjects = [
@@ -389,8 +391,7 @@ export default function AcademyUpload() {
 
     // Get basic student info from raw data
     const rawData = student.rawData || {};
-    console.log(student,"Na my student be this")
-    console.log(rawData,"Name raw data")
+
     
     
     return {
