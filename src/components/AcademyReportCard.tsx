@@ -141,7 +141,10 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             </thead>
             <tbody className="align-top">
               {studentSubjects.map((subject, index) => (
-                <tr key={index} className="align-top">
+                <tr key={index} className="align-top" style={{
+    verticalAlign: "top",
+    margin: "0px 8px 16px 8px"
+  }} >
                   <td   style={{
     verticalAlign: "top",
     padding: "0px 8px 16px 8px"
