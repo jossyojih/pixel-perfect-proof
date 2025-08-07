@@ -141,53 +141,50 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             </thead>
             <tbody className="align-top">
               {studentSubjects.map((subject, index) => (
-                <tr key={index} className="align-top" style={{
-    verticalAlign: "top",
-    margin: "0px 8px 16px 8px"
-  }} >
+                <tr key={index} className="align-top" >
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "12px"
+    paddingBottom: "10px"
   }} className="border border-black text-left -mt-[50px] align-top">{subject.name}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "12px"
+    paddingBottom: "10px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca1 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "12px"
+    paddingBottom: "10px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca2 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "12px"
+    paddingBottom: "10px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca3 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "12px"
+    paddingBottom: "10px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca4 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "12px"
+    paddingBottom: "10px"
   }} className="border border-black -mt-2 align-top text-center">{subject.exam || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "12px"
+    paddingBottom: "10px"
   }} className="border border-black -mt-2 align-top text-center">{subject.total || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "12px"
+    paddingBottom: "10px"
   }} className="border border-black -mt-2 align-top text-center">{subject.grade || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-   paddingBottom: "12px"
+   paddingBottom: "10px"
   }} className="border border-black -mt-2 align-top text-center">{subject.position || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-   paddingBottom: "12px"
+   paddingBottom: "10px"
   }} className="border border-black -mt-2 align-top">{subject.remark || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-   paddingBottom: "12px"
+   paddingBottom: "10px"
   }} className="border border-black -mt-2 align-top text-center">{subject.teachersAverage || ''}</td>
                 </tr>
               ))}
