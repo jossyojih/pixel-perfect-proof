@@ -193,6 +193,43 @@ export default function AcademyUpload() {
               };
             }
             
+            if (classLevel === 'SSS 1' || classLevel === 'SSS 2') {
+              return {
+                'english_lan': ['English Language'],
+                'mathematics': ['Mathematics'],
+                'civic_education': ['Civic Education'],
+                'marketing': ['Marketing'],
+                'physics': ['Physics'],
+                'computer_stud': ['Computer Studies'],
+                'chemistry': ['Chemistry'],
+                'biology': ['Biology'],
+                'agriculture': ['Agriculture'],
+                'further_mathematics': ['Further Mathematics'],
+                'government': ['Government'],
+                'economics': ['Economics'],
+                'religion_crs': ['Religion (CRS)'],
+                'religion_irs': ['Religion (IRS)'],
+                'geography': ['Geography'],
+                'commerce': ['Commerce'],
+                'financial_accounting': ['Financial Accounting'],
+                'fin_acco': ['Financial Accounting'],
+                'literature_in_english': ['Literature in English'],
+                'literature_english': ['Literature in English'],
+                'hausa': ['Hausa'],
+                'french': ['French'],
+                'food_and_nutrition': ['Food and Nutrition'],
+                'food_nutrition': ['Food and Nutrition'],
+                'food_nut': ['Food and Nutrition'],
+                'technical_drawing': ['Technical Drawing'],
+                'tech_drawing': ['Technical Drawing'],
+                'visual_art': ['Visual Art'],
+                'history': ['History'],
+                'data_processing': ['Data Processing'],
+                'Arabic_Studies': ['Arabic Studies'], // Capital format as in Excel
+                'arabic_studies': ['Arabic Studies']
+              };
+            }
+            
             // Default for Year 7 and other classes
             return {
               'mathematics': ['Mathematics'],
@@ -219,6 +256,14 @@ export default function AcademyUpload() {
           const getOptionalSubjects = (classLevel: string) => {
             if (classLevel === 'JSS 2') {
               return ['french', 'religion_crs', 'hausa', 'arabic_studies', 'arabic', 'igbo', 'yoruba'];
+            }
+            if (classLevel === 'SSS 1' || classLevel === 'SSS 2') {
+              return [
+                'hausa', 'french', 'food_nutrition', 'food_nut', 'tech_drawing', 'technical_drawing',
+                'visual_art', 'history', 'data_processing', 'arabic_studies', 'Arabic_Studies',
+                'geography', 'government', 'literature_in_english', 'literature_english',
+                'commerce', 'fin_acco', 'financial_accounting', 'agriculture', 'religion_crs', 'religion_irs'
+              ];
             }
             return ['french', 'religion_crs', 'hausa'];
           };
