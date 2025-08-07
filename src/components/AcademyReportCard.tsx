@@ -51,7 +51,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     );
 
     const ReportPage = () => (
-      <div ref={pageRefs.coverRef} className="relative -mt-5 w-[794px] h-[1123px] bg-white px-7 pb-16 font-sans text-black text-xs overflow-hidden">
+      <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white px-7 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
           <img 
@@ -66,7 +66,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-[130px] w-[130px] -ml-8" 
+            className="h-[120px] w-[120px] -ml-8" 
           />
           <div className="text-center flex-1">
             <h1 className="text-lg font-bold">American University of Nigeria Schools – Academy</h1>
@@ -77,7 +77,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
               {/* Student Information */}
         <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
-          <div className="grid grid-cols-3 text-sm text-center mb-2">
+          <div className="grid grid-cols-3 text-sm text-center mb-1">
             <div className="flex p-[2px]">
               <span className="text-left text-red-400 min-w-[120px]">Student's ID</span>
               <span className="text-red-400">:</span>
@@ -125,7 +125,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         <div className="relative z-10">
           <table className="w-full border-collapse border border-black text-xs text-center">
             <thead>
-              <tr className="bg-blue-900 text-white">
+              <tr className="bg-blue-900 text-white h-[24px]">
                 <th style={{ paddingBottom: '12px' }} className="border border-black px-1">Subject Name</th>
                 <th style={{ paddingBottom: '12px' }} className="border border-black px-1">CA1</th>
                 <th style={{ paddingBottom: '12px' }} className="border border-black px-1">CA2</th>
@@ -141,7 +141,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             </thead>
             <tbody className="align-top">
               {studentSubjects.map((subject, index) => (
-                <tr key={index} className="align-top" >
+                <tr key={index} className="align-top h-[24px]" >
                   <td   style={{
     verticalAlign: "top",
     paddingBottom: "10px"
