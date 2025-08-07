@@ -126,6 +126,37 @@ export default function ClassTable() {
     }
   };
 
+  const deleteReport = async (reportId: string, studentName: string) => {
+    try {
+      const { error } = await supabase
+        .from('student_reports')
+        .delete()
+        .eq('id', reportId);
+
+      if (error) throw error;
+
+      // Update local state
+      const updatedReports = reports.filter(report => report.id !== reportId);
+      setReports(updatedReports);
+      
+      // Update available classes in case this was the last report for a class
+      const uniqueClasses = [...new Set(updatedReports.map(report => report.class_tag))];
+      setAvailableClasses(uniqueClasses);
+      
+      toast({
+        title: "Report deleted",
+        description: `Report for ${studentName} has been deleted.`
+      });
+    } catch (error) {
+      console.error('Error deleting report:', error);
+      toast({
+        title: "Error deleting report",
+        description: "There was an error deleting the report.",
+        variant: "destructive"
+      });
+    }
+  };
+
   const clearDatabase = async () => {
     try {
       const { error } = await supabase
@@ -265,6 +296,7 @@ export default function ClassTable() {
                   <TableHead>Grade</TableHead>
                   <TableHead>Upload Date</TableHead>
                   <TableHead>Report Link</TableHead>
+                  <TableHead className="w-[100px]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -285,6 +317,36 @@ export default function ClassTable() {
                       >
                         View Report
                       </a>
+                    </TableCell>
+                    <TableCell>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button 
+                            variant="ghost" 
+                            size="icon"
+                            className="h-8 w-8 text-destructive hover:text-destructive-foreground hover:bg-destructive"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete Report</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to delete the report for "{report.student_name}"? This action cannot be undone.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction 
+                              onClick={() => deleteReport(report.id, report.student_name)}
+                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            >
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </TableCell>
                   </TableRow>
                 ))}
