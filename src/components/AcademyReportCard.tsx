@@ -39,14 +39,14 @@ interface AcademyReportCardProps {
 }
 
 export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardProps>(
-  ({ 
-    studentId, studentName, class: studentClass, academicYear, positionInClass, 
-    noInClass, term, totalSubjects, subjects, cumulativeScore, cutOffAverage, 
-    studentsAverage, personalTutorComment, pageRefs 
+  ({
+    studentId, studentName, class: studentClass, academicYear, positionInClass,
+    noInClass, term, totalSubjects, subjects, cumulativeScore, cutOffAverage,
+    studentsAverage, personalTutorComment, pageRefs
   }, ref) => {
-    
+
     // Filter subjects to only show those with actual data for this student
-    const studentSubjects = subjects.filter(subject => 
+    const studentSubjects = subjects.filter(subject =>
       subject && (subject.total > 0 || subject.ca1 || subject.ca2 || subject.ca3 || subject.ca4 || subject.exam)
     );
 
@@ -54,22 +54,22 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
       <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white px-7 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none mb-4 opacity-30">
-          <img 
-            src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} 
-            alt="AUN Logo Watermark" 
-            className="w-[750px] h-[830px]" 
+          <img
+            src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"}
+            alt="AUN Logo Watermark"
+            className="w-[750px] h-[830px]"
           />
         </div>
 
-          {/* ✅ FLEX CONTAINER with full height */}
+        {/* ✅ FLEX CONTAINER with full height */}
         <div className="relative z-10 flex flex-col h-full">
-        
+
           {/* Header */}
           <div className="relative z-10 flex items-center justify-start mb-1 ml-0">
-            <img 
-              src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
-              alt="AUN Schools Logo" 
-              className="h-[110px] w-[110px] -ml-6" 
+            <img
+              src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"
+              alt="AUN Schools Logo"
+              className="h-[110px] w-[110px] -ml-6"
             />
             <div className="text-center flex-1">
               <h1 className="text-lg font-bold">American University of Nigeria Schools – Academy</h1>
@@ -77,8 +77,8 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               <h2 className="text-lg font-bold">STUDENT REPORT CARD</h2>
             </div>
           </div>
-  
-                {/* Student Information */}
+
+          {/* Student Information */}
           <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
             <div className="grid grid-cols-3 text-sm text-center mb-1">
               <div className="flex px-[2px]">
@@ -93,7 +93,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               </div>
               <div className="flex px-[2px]">
                 <span className="text-red-400 min-w-[120px] text-left">Class</span>
-                 <span className="text-red-400">:</span>
+                <span className="text-red-400">:</span>
                 <span className="ml-2"> {studentClass}</span>
               </div>
               <div className="flex px-[2px]">
@@ -123,7 +123,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               </div>
             </div>
           </div>
-  
+
           {/* Subjects Table */}
           <div className="relative z-10">
             <table className="w-full border-collapse border border-black text-xs text-center">
@@ -145,56 +145,56 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               <tbody className="align-top">
                 {studentSubjects.map((subject, index) => (
                   <tr key={index} className="align-top h-[24px]" >
-                    <td   style={{
-      verticalAlign: "top",
-      paddingBottom: "6px"
-    }} className="border border-black text-left -mt-[50px] align-top">{subject.name}</td>
-                    <td   style={{
-      verticalAlign: "top",
-      paddingBottom: "6px"
-    }} className="border border-black -mt-2 align-top text-center">{subject.ca1 || ''}</td>
-                    <td   style={{
-      verticalAlign: "top",
-      paddingBottom: "6px"
-    }} className="border border-black -mt-2 align-top text-center">{subject.ca2 || ''}</td>
-                    <td   style={{
-      verticalAlign: "top",
-      paddingBottom: "6px"
-    }} className="border border-black -mt-2 align-top text-center">{subject.ca3 || ''}</td>
-                    <td   style={{
-      verticalAlign: "top",
-      paddingBottom: "6px"
-    }} className="border border-black -mt-2 align-top text-center">{subject.ca4 || ''}</td>
-                    <td   style={{
-      verticalAlign: "top",
-      paddingBottom: "6px"
-    }} className="border border-black -mt-2 align-top text-center">{subject.exam || ''}</td>
-                    <td   style={{
-      verticalAlign: "top",
-      paddingBottom: "6px"
-    }} className="border border-black -mt-2 align-top text-center">{subject.total || ''}</td>
-                    <td   style={{
-      verticalAlign: "top",
-      paddingBottom: "6px"
-    }} className="border border-black -mt-2 align-top text-center">{subject.grade || ''}</td>
-                    <td   style={{
-      verticalAlign: "top",
-     paddingBottom: "6px"
-    }} className="border border-black -mt-2 align-top text-center">{subject.position || ''}</td>
-                    <td   style={{
-      verticalAlign: "top",
-     paddingBottom: "6px"
-    }} className="border border-black -mt-2 align-top">{subject.remark || ''}</td>
-                    <td   style={{
-      verticalAlign: "top",
-     paddingBottom: "6px"
-    }} className="border border-black -mt-2 align-top text-center">{subject.teachersAverage || ''}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black text-left -mt-[50px] align-top">{subject.name}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black -mt-2 align-top text-center">{subject.ca1 || ''}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black -mt-2 align-top text-center">{subject.ca2 || ''}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black -mt-2 align-top text-center">{subject.ca3 || ''}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black -mt-2 align-top text-center">{subject.ca4 || ''}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black -mt-2 align-top text-center">{subject.exam || ''}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black -mt-2 align-top text-center">{subject.total || ''}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black -mt-2 align-top text-center">{subject.grade || ''}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black -mt-2 align-top text-center">{subject.position || ''}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black -mt-2 align-top">{subject.remark || ''}</td>
+                    <td style={{
+                      verticalAlign: "top",
+                      paddingBottom: "6px"
+                    }} className="border border-black -mt-2 align-top text-center">{subject.teachersAverage || ''}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-  
+
           {/* Summary */}
           <div className="relative z-10 mb-2">
             <div className="flex justify-between text-sm font-bold">
@@ -203,7 +203,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               <span className="text-red-500" >Student's Average: <span className="text-black ml-[2rem]">{studentsAverage?.toFixed(2) || 0}</span></span>
             </div>
           </div>
-  
+
           {/* Grade Descriptors */}
           <div className="relative z-10">
             <div className="bg-blue-900 text-white text-center font-bold p-1" style={{ paddingBottom: '6px' }}>
@@ -230,33 +230,33 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               </tbody>
             </table>
           </div>
-  
-            {/* Personal Tutor Comment */}
-            <div className="relative z-10 -mt-2">
-              <div className="text-black text-center font-bold p-1 text-xl">
-                PERSONAL TUTOR'S COMMENT
-              </div>
-              <div className="relative z-10 px-2">
-                {personalTutorComment}
-              </div>
+
+          {/* Personal Tutor Comment */}
+          <div className="relative z-10 -mt-2">
+            <div className="text-black text-center font-bold p-1 text-xl">
+              PERSONAL TUTOR'S COMMENT
             </div>
-    
-              {/* Spacer to push Signature down */}
-            <div className="flex-grow"></div>
-    
-            {/* Signature */}
-                  {/* <div className="relative z-10 text-center mt-5 mb-8"> */}
-            <div className="relative z-10 text-center pb-4 mt-auto">
-              <div className="inline-block">
-                <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-6 mx-auto" />
-                <div className="border-t border-black pt-1 w-48">
-                  <p className="text-sm font-bold">N. Y. Mikail</p>
-                  <p className="text-sm font-bold">Asst. Director Academics</p>
-                  <p className="text-sm font-bold">AUN Schools</p>
-                </div>
+            <div className="relative z-10 px-2">
+              {personalTutorComment}
+            </div>
+          </div>
+
+          {/* Spacer to push Signature down */}
+          <div className="flex-grow"></div>
+
+          {/* Signature */}
+          {/* <div className="relative z-10 text-center mt-5 mb-8"> */}
+          <div className="relative z-10 text-center pb-4 mt-auto">
+            <div className="inline-block">
+              <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-6 mx-auto" />
+              <div className="border-t border-black pt-1 w-48">
+                <p className="text-sm font-bold">N. Y. Mikail</p>
+                <p className="text-sm font-bold">Asst. Director Academics</p>
+                <p className="text-sm font-bold">AUN Schools</p>
               </div>
             </div>
           </div>
+        </div>
       </div>
     );
 

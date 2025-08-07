@@ -33,10 +33,10 @@ const Index = () => {
       title: "Charter School",
       description: "Charter school report management system",
       icon: <Building className="h-8 w-8" />,
-      status: "coming-soon",
+      status: "active",
       color: "bg-muted/50 text-muted-foreground border-muted",
-      buttonText: "Coming Soon",
-      onClick: () => {}
+      buttonText: "Manage Charter Reports",
+      onClick: () => navigate("/charter-upload")
     },
     {
       id: "hse",
