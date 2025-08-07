@@ -499,15 +499,15 @@ export default function AcademyUpload() {
             
             if (section.ref.current) {
               console.log('Generating canvas for section', section.name);
-              const canvas = await html2canvas(section.ref.current, {
-                scale: 1,
+           const canvas = await html2canvas(section.ref.current, {
+                scale: 2,
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: '#ffffff',
                 width: section.ref.current.scrollWidth,
                 height: section.ref.current.scrollHeight,
                 scrollX: 0,
-                scrollY: 0
+                scrollY: -window.scrollY
               });
               
               const imgData = canvas.toDataURL('image/jpeg', 1.0); 
