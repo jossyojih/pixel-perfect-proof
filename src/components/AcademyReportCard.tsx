@@ -53,7 +53,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     const ReportPage = () => (
       <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white px-7 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none mb-4 opacity-30">
           <img 
             src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} 
             alt="AUN Logo Watermark" 
@@ -228,28 +228,30 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           </table>
         </div>
 
-        {/* Personal Tutor Comment */}
-        <div className="relative z-10 -mt-4">
-          <div className="text-black text-center font-bold p-1 text-xl">
-            PERSONAL TUTOR'S COMMENT
+        <div className="flex flex-col">
+          {/* Personal Tutor Comment */}
+          <div className="relative z-10 mt-0">
+            <div className="text-black text-center font-bold p-1 text-xl">
+              PERSONAL TUTOR'S COMMENT
+            </div>
+            <div className="relative z-10 px-2">
+              {personalTutorComment}
+            </div>
           </div>
-          <div className="relative z-10 px-2">
-            {personalTutorComment}
-          </div>
-        </div>
-
-          {/* Spacer to push Signature down */}
-        <div className="flex-grow"></div>
-
-        {/* Signature */}
-              {/* <div className="relative z-10 text-center mt-5 mb-8"> */}
-        <div className="relative z-10 text-center mt-auto">
-          <div className="inline-block">
-            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-6 mx-auto" />
-            <div className="border-t border-black pt-1 w-48">
-              <p className="text-sm font-bold">N. Y. Mikail</p>
-              <p className="text-sm font-bold">Asst. Director Academics</p>
-              <p className="text-sm font-bold">AUN Schools</p>
+  
+            {/* Spacer to push Signature down */}
+          <div className="flex-grow"></div>
+  
+          {/* Signature */}
+                {/* <div className="relative z-10 text-center mt-5 mb-8"> */}
+          <div className="relative z-10 text-center mt-auto">
+            <div className="inline-block">
+              <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-6 mx-auto" />
+              <div className="border-t border-black pt-1 w-48">
+                <p className="text-sm font-bold">N. Y. Mikail</p>
+                <p className="text-sm font-bold">Asst. Director Academics</p>
+                <p className="text-sm font-bold">AUN Schools</p>
+              </div>
             </div>
           </div>
         </div>
