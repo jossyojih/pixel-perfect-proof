@@ -139,9 +139,9 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
                 <th style={{ paddingBottom: '12px' }} className="border border-black px-1">CSS Average</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="align-top">
               {studentSubjects.map((subject, index) => (
-                <tr key={index}>
+                <tr key={index} className="align-top">
                   <td className="border border-black text-left -mt-[50px] align-top">{subject.name}</td>
                   <td  className="border border-black -mt-2 align-top">{subject.ca1 || ''}</td>
                   <td  className="border border-black -mt-2 align-top">{subject.ca2 || ''}</td>
