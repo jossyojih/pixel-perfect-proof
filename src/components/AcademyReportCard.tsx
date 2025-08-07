@@ -238,6 +238,9 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           </div>
         </div>
 
+          {/* Spacer to push Signature down */}
+        <div className="flex-grow"></div>
+
         {/* Signature */}
               {/* <div className="relative z-10 text-center mt-5 mb-8"> */}
         <div className="relative z-10 text-center mt-auto">
