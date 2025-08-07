@@ -78,42 +78,42 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               {/* Student Information */}
         <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
           <div className="grid grid-cols-3 text-sm text-center mb-1">
-            <div className="flex p-[1px]">
+            <div className="flex px-[2px]">
               <span className="text-left text-red-400 min-w-[120px]">Student's ID</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {studentId}</span>
             </div>
-            <div className="flex p-[1px] col-span-2 whitespace-nowrap">
+            <div className="flex px-[2px] col-span-2 whitespace-nowrap">
               <span className="text-red-400 min-w-[120px] text-left">Student's Name </span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {studentName}</span>
             </div>
-            <div className="flex p-[1px]">
+            <div className="flex px-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">Class</span>
                <span className="text-red-400">:</span>
               <span className="ml-2"> {studentClass}</span>
             </div>
-            <div className="flex p-[1px]">
+            <div className="flex px-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">Academic Year</span>
               <span className="text-red-400">:</span>
               <span className="ml-1"> {academicYear}</span>
             </div>
-            <div className="flex p-[1px]">
+            <div className="flex px-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">Term :</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {term}</span>
             </div>
-            <div className="flex p-[1px]">
+            <div className="flex px-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">Position in Class</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {positionInClass}</span>
             </div>
-            <div className="flex p-[1px]">
+            <div className="flex px-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">No. in Class</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {noInClass}</span>
             </div>
-            <div className="flex p-[1px]">
+            <div className="flex px-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">Total Subject</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {totalSubjects}</span>
@@ -229,11 +229,11 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Personal Tutor Comment */}
-        <div className="relative z-10 -mt-2">
+        <div className="relative z-10 -mt-4">
           <div className="text-black text-center font-bold p-1 text-xl">
             PERSONAL TUTOR'S COMMENT
           </div>
-          <div className="relative z-10 p-2">
+          <div className="relative z-10 px-2">
             {personalTutorComment}
           </div>
         </div>
