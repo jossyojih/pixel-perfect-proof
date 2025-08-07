@@ -55,10 +55,19 @@ export default function AcademyUpload() {
   const { toast } = useToast();
   const { subjects, loading: subjectsLoading, fetchSubjects, detectSubjectsFromExcel, addDynamicSubject } = useSubjectConfig(selectedClass);
 
-  // Academy-specific class options
+  // Helper function to extract base grade level from class names
+  const getBaseGradeLevel = (className: string): string => {
+    if (className.startsWith('JSS 2')) return 'JSS 2';
+    if (className.startsWith('JSS 3')) return 'JSS 3';
+    if (className.startsWith('SSS 1')) return 'SSS 1';
+    if (className.startsWith('SSS 2')) return 'SSS 2';
+    return className; // For Year 7 and other base classes
+  };
+
+  // Academy-specific class options with A/B divisions
   const academyClassOptions = [
-    "Year 7", "Year 8", "Year 9", "Year 10", "Year 11", "Year 12", 
-    "JSS 1", "JSS 2", "JSS 3", "SSS 1", "SSS 2", "SSS 3"
+    "Year 7", "JSS 2A", "JSS 2B", "JSS 3A", "JSS 3B", 
+    "SSS 1A", "SSS 1B", "SSS 2A", "SSS 2B"
   ];
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,8 +112,9 @@ export default function AcademyUpload() {
         });
         console.log('Headers matching subject patterns:', detectedSubjectHeaders);
         
-        // Use the hook's detection method as well
-        const detected = detectSubjectsFromExcel(excelHeaders, selectedClass);
+        // Use the hook's detection method as well with base grade level
+        const baseGradeLevel = getBaseGradeLevel(selectedClass);
+        const detected = detectSubjectsFromExcel(excelHeaders, baseGradeLevel);
         console.log('Hook detected subjects:', detected);
         
         // Combine both detection methods
@@ -166,7 +176,8 @@ export default function AcademyUpload() {
 
           // Dynamic subject mapping based on class level
           const getSubjectMappings = (classLevel: string) => {
-            if (classLevel === 'JSS 2') {
+            const baseGrade = getBaseGradeLevel(classLevel);
+            if (baseGrade === 'JSS 2') {
               return {
                 'mathematics': ['Mathematics'],
                 'english': ['English'],
@@ -193,7 +204,34 @@ export default function AcademyUpload() {
               };
             }
             
-            if (classLevel === 'SSS 1' || classLevel === 'SSS 2') {
+            if (baseGrade === 'JSS 3') {
+              return {
+                'mathematics': ['Mathematics'],
+                'english': ['English'],
+                'basic_science': ['Basic Science'],
+                'basic_technology': ['Basic Technology'],
+                'agricultural_science': ['Agricultural Science'],
+                'home_economics': ['Home Economics'],
+                'history': ['History'],
+                'music': ['Music'],
+                'civic_education': ['Civic Education'],
+                'social_studies': ['Social Studies'],
+                'french': ['French'],
+                'hausa': ['Hausa'],
+                'business_students': ['Business Studies'],
+                'cultural_creative': ['Cultural And Creative Art (CCA)'],
+                'religion': ['Religion (IRS)'],
+                'religion_crs': ['Religion (CRS)'],
+                'physical_health': ['Physical And Health Education (PHE)'],
+                'computer_studies': ['Computer Studies'],
+                'arabic_studies': ['Arabic Studies'],
+                'arabic': ['Arabic'],
+                'igbo': ['Igbo'],
+                'yoruba': ['Yoruba']
+              };
+            }
+            
+            if (baseGrade === 'SSS 1' || baseGrade === 'SSS 2') {
               return {
                 'english_lan': ['English Language'],
                 'mathematics': ['Mathematics'],
@@ -254,10 +292,14 @@ export default function AcademyUpload() {
 
           // Define which subjects are optional (need visibility check) based on class
           const getOptionalSubjects = (classLevel: string) => {
-            if (classLevel === 'JSS 2') {
+            const baseGrade = getBaseGradeLevel(classLevel);
+            if (baseGrade === 'JSS 2') {
               return ['french', 'religion_crs', 'hausa', 'arabic_studies', 'arabic', 'igbo', 'yoruba'];
             }
-            if (classLevel === 'SSS 1' || classLevel === 'SSS 2') {
+            if (baseGrade === 'JSS 3') {
+              return ['french', 'religion_crs', 'hausa', 'arabic_studies', 'arabic', 'igbo', 'yoruba'];
+            }
+            if (baseGrade === 'SSS 1' || baseGrade === 'SSS 2') {
               return [
                 'hausa', 'french', 'food_nutrition', 'food_nut', 'tech_drawing', 'technical_drawing',
                 'visual_art', 'history', 'data_processing', 'arabic_studies', 'Arabic_Studies',

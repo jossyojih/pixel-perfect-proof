@@ -49,10 +49,20 @@ export const useSubjectConfig = (gradeLevel?: string) => {
     }
   };
 
+  // Helper function to extract base grade level from class names
+  const getBaseGradeLevel = (className: string): string => {
+    if (className.startsWith('JSS 2')) return 'JSS 2';
+    if (className.startsWith('JSS 3')) return 'JSS 3';
+    if (className.startsWith('SSS 1')) return 'SSS 1';
+    if (className.startsWith('SSS 2')) return 'SSS 2';
+    return className; // For Year 7 and other base classes
+  };
+
   const detectSubjectsFromExcel = (excelHeaders: string[], gradeLevel: string): string[] => {
     // Define subject lists based on grade level
     const getTargetSubjects = (grade: string): string[] => {
-      if (grade === 'JSS 2') {
+      const baseGrade = getBaseGradeLevel(grade);
+      if (baseGrade === 'JSS 2') {
         return [
           'Mathematics',
           'English',
@@ -79,7 +89,34 @@ export const useSubjectConfig = (gradeLevel?: string) => {
         ];
       }
       
-      if (grade === 'SSS 1' || grade === 'SSS 2') {
+      if (baseGrade === 'JSS 3') {
+        return [
+          'Mathematics',
+          'English',
+          'Basic Science',
+          'Basic Technology',
+          'Agricultural Science',
+          'Home Economics',
+          'History',
+          'Music',
+          'Civic Education',
+          'Social Studies',
+          'French',
+          'Hausa',
+          'Business Studies',
+          'Cultural And Creative Art (CCA)',
+          'Religion (IRS)',
+          'Religion (CRS)',
+          'Physical And Health Education (PHE)',
+          'Computer Studies',
+          'Arabic Studies',
+          'Arabic',
+          'Igbo',
+          'Yoruba'
+        ];
+      }
+      
+      if (baseGrade === 'SSS 1' || baseGrade === 'SSS 2') {
         return [
           'English Language',
           'Mathematics',
@@ -149,7 +186,28 @@ export const useSubjectConfig = (gradeLevel?: string) => {
         'Music': ['music']
       };
 
-      if (grade === 'JSS 2') {
+      const baseGrade = getBaseGradeLevel(grade);
+      
+      if (baseGrade === 'JSS 2') {
+        return {
+          ...basePatterns,
+          'Basic Technology': ['basic_technology', 'technology'],
+          'Agricultural Science': ['agricultural_science', 'agriculture'],
+          'Home Economics': ['home_economics', 'home', 'economics'],
+          'History': ['history'],
+          'Civic Education': ['civic_education', 'civic'],
+          'Social Studies': ['social_studies', 'social'],
+          'Business Studies': ['business_studies', 'business'],
+          'Cultural And Creative Art (CCA)': ['cultural', 'creative', 'cca', 'art'],
+          'Computer Studies': ['computer_studies', 'computer'],
+          'Arabic Studies': ['arabic_studies'],
+          'Arabic': ['arabic'],
+          'Igbo': ['igbo'],
+          'Yoruba': ['yoruba']
+        };
+      }
+      
+      if (baseGrade === 'JSS 3') {
         return {
           ...basePatterns,
           'Basic Technology': ['basic_technology', 'technology'],
@@ -168,7 +226,7 @@ export const useSubjectConfig = (gradeLevel?: string) => {
         };
       }
 
-      if (grade === 'SSS 1' || grade === 'SSS 2') {
+      if (baseGrade === 'SSS 1' || baseGrade === 'SSS 2') {
         return {
           'English Language': ['english_lan', 'english'],
           'Mathematics': ['mathematics', 'math'],
@@ -249,11 +307,12 @@ export const useSubjectConfig = (gradeLevel?: string) => {
   const addDynamicSubject = async (gradeLevel: string, subjectName: string) => {
     try {
       const maxOrder = Math.max(...subjects.map(s => s.display_order), 0);
+      const baseGradeLevel = getBaseGradeLevel(gradeLevel);
       
       const { error } = await supabase
         .from('subject_configurations')
         .insert({
-          grade_level: gradeLevel,
+          grade_level: baseGradeLevel, // Use base grade level for database
           subject_name: subjectName,
           display_order: maxOrder + 1,
           is_active: true
@@ -280,7 +339,8 @@ export const useSubjectConfig = (gradeLevel?: string) => {
 
   useEffect(() => {
     if (gradeLevel) {
-      fetchSubjects(gradeLevel);
+      const baseGradeLevel = getBaseGradeLevel(gradeLevel);
+      fetchSubjects(baseGradeLevel);
     }
   }, [gradeLevel]);
 
