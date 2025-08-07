@@ -57,7 +57,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <img 
             src={"/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"} 
             alt="AUN Logo Watermark" 
-            className="w-[740px] h-[800px]" 
+            className="w-[750px] h-[830px]" 
           />
         </div>
         
@@ -240,7 +240,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Signature */}
               {/* <div className="relative z-10 text-center mt-5 mb-8"> */}
-        <div className="relative z-10 text-center mt-2">
+        <div className="relative z-10 text-center mt-auto>
           <div className="inline-block">
             <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-6 mx-auto" />
             <div className="border-t border-black pt-1 w-48">
