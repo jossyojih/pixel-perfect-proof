@@ -144,11 +144,11 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
                 <tr key={index} className="align-top">
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px"
+    padding: "0px 8px 16px 8px"
   }} className="border border-black text-left -mt-[50px] align-top">{subject.name}</td>
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px",
+    padding: "0px 8px 16px 8px",
   }} className="border border-black -mt-2 align-top text-center">{subject.ca1 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
