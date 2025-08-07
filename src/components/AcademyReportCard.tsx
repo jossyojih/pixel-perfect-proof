@@ -240,7 +240,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Signature */}
               {/* <div className="relative z-10 text-center mt-5 mb-8"> */}
-        <div className="relative z-10 text-center mt-auto>
+        <div className="relative z-10 text-center mt-auto">
           <div className="inline-block">
             <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-6 mx-auto" />
             <div className="border-t border-black pt-1 w-48">
