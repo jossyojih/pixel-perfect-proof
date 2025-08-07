@@ -184,7 +184,7 @@ export const useSubjectConfig = (gradeLevel?: string) => {
           'Economics': ['economics'],
           'Religion (CRS)': ['religion_crs', 'crs', 'christian'],
           'Religion (IRS)': ['religion_irs', 'irs', 'islamic'],
-          'Geography': ['geography'],
+          'Geography': ['geography', 'geo'],
           'Commerce': ['commerce'],
           'Financial Accounting': ['financial_accounting', 'financial', 'accounting'],
           'Literature in English': ['literature_in_english', 'literature'],
