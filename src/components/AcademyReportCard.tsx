@@ -152,39 +152,39 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
   }} className="border border-black -mt-2 align-top text-center">{subject.ca1 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px"
+    padding: "0px 8px 16px 8px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca2 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px"
+    padding: "0px 8px 16px 8px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca3 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px"
+    padding: "0px 8px 16px 8px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca4 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px"
+    padding: "0px 8px 16px 8px"
   }} className="border border-black -mt-2 align-top text-center">{subject.exam || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px"
+    padding: "0px 8px 16px 8px"
   }} className="border border-black -mt-2 align-top text-center">{subject.total || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px"
+    padding: "0px 8px 16px 8px"
   }} className="border border-black -mt-2 align-top text-center">{subject.grade || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px"
+    padding: "0px 8px 16px 8px"
   }} className="border border-black -mt-2 align-top text-center">{subject.position || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px"
+    padding: "0px 8px 16px 8px"
   }} className="border border-black -mt-2 align-top">{subject.remark || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    padding: "-8px 8px 16px 8px"
+    padding: "0px 8px 16px 8px"
   }} className="border border-black -mt-2 align-top text-center">{subject.teachersAverage || ''}</td>
                 </tr>
               ))}
