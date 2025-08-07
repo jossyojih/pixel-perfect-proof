@@ -78,42 +78,42 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               {/* Student Information */}
         <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
           <div className="grid grid-cols-3 text-sm text-center mb-1">
-            <div className="flex px-[2px]">
+            <div className="flex p-[2px]">
               <span className="text-left text-red-400 min-w-[120px]">Student's ID</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {studentId}</span>
             </div>
-            <div className="flex px-[2px] col-span-2 whitespace-nowrap">
+            <div className="flex p-[2px] col-span-2 whitespace-nowrap">
               <span className="text-red-400 min-w-[120px] text-left">Student's Name </span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {studentName}</span>
             </div>
-            <div className="flex px-[2px]">
+            <div className="flex p-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">Class</span>
                <span className="text-red-400">:</span>
               <span className="ml-2"> {studentClass}</span>
             </div>
-            <div className="flex px-[2px]">
+            <div className="flex p-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">Academic Year</span>
               <span className="text-red-400">:</span>
               <span className="ml-1"> {academicYear}</span>
             </div>
-            <div className="flex px-[2px]">
+            <div className="flex p-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">Term :</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {term}</span>
             </div>
-            <div className="flex px-[2px]">
+            <div className="flex p-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">Position in Class</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {positionInClass}</span>
             </div>
-            <div className="flex px-[2px]">
+            <div className="flex p-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">No. in Class</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {noInClass}</span>
             </div>
-            <div className="flex px-[2px]">
+            <div className="flex p-[2px]">
               <span className="text-red-400 min-w-[120px] text-left">Total Subject</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {totalSubjects}</span>
@@ -221,16 +221,16 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               <tr className="h-[24px]"><td className="border border-black px-1 text-left">65.00 - 70.00</td><td className="border border-black px-1 text-center">C4</td><td className="border border-black px-1 text-center">Credit</td></tr>
               <tr className="h-[24px]"><td className="border border-black px-1 text-left">60.00 - 64.00</td><td className="border border-black px-1 text-center">C5</td><td className="border border-black px-1 text-center">Credit</td></tr>
               <tr className="h-[24px]><td className="border border-black px-1 text-left">50.00 - 59.00</td><td className="border border-black px-1 text-center">C6</td><td className="border border-black px-1 text-center">Credit</td></tr>
-              <tr className="h-[24px]><td className="border border-black px-1 text-left">45.00 - 49.00</td><td className="border border-black px-1 text-center">D7</td><td className="border border-black px-1 text-center">Pass</td></tr>
-              <tr className="h-[24px]><td className="border border-black px-1 text-left">40.00 - 44.00</td><td className="border border-black px-1 text-center">E8</td><td className="border border-black px-1 text-center">Pass</td></tr>
-              <tr className="h-[24px]><td className="border border-black px-1 text-left">0.00 - 39.00</td><td className="border border-black px-1 text-center">F9</td><td className="border border-black px-1 text-center">Fail</td></tr>
+              <tr ><td className="border border-black px-1 text-left">45.00 - 49.00</td><td className="border border-black px-1 text-center">D7</td><td className="border border-black px-1 text-center">Pass</td></tr>
+              <tr><td className="border border-black px-1 text-left">40.00 - 44.00</td><td className="border border-black px-1 text-center">E8</td><td className="border border-black px-1 text-center">Pass</td></tr>
+              <tr><td className="border border-black px-1 text-left">0.00 - 39.00</td><td className="border border-black px-1 text-center">F9</td><td className="border border-black px-1 text-center">Fail</td></tr>
             </tbody>
           </table>
         </div>
 
         {/* Personal Tutor Comment */}
         <div className="relative z-10 mb-1">
-          <div className="text-black text-center font-bold px-1 -mt-2 text-xl">
+          <div className="text-black text-center font-bold p-1 text-xl">
             PERSONAL TUTOR'S COMMENT
           </div>
           <div className="relative z-10 p-2">
@@ -243,7 +243,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         <div className="relative z-10 text-center mt-2">
           <div className="inline-block">
             <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-6 mx-auto" />
-            <div className="border-t border-black w-48">
+            <div className="border-t border-black pt-1 w-48">
               <p className="text-sm font-bold">N. Y. Mikail</p>
               <p className="text-sm font-bold">Asst. Director Academics</p>
               <p className="text-sm font-bold">AUN Schools</p>
