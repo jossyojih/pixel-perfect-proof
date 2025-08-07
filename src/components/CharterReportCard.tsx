@@ -44,7 +44,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
         comment
     }, ref) => {
         return (
-            <div ref={ref} className="w-[794px] h-[1123px] bg-white px-7 py-4 text-xs text-black relative font-sans overflow-hidden" >
+            <div ref={ref} className="w-[794px] h-[1123px] bg-white p-6 text-xs text-black relative font-sans overflow-hidden" >
 
                 {/* Watermark */}
                 <div className="absolute top-[85px] opacity-30 pointer-events-none">

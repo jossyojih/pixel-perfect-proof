@@ -222,7 +222,7 @@ export default function CharterReport() {
         // Optional: force A4 size for rendering layout consistency
         pageElement.style.width = '794px';
         pageElement.style.minHeight = '1123px';
-        pageElement.style.padding = '24px';
+        pageElement.style.padding = '0px';
         pageElement.style.boxSizing = 'border-box';
         pageElement.style.backgroundColor = '#ffffff';
   
@@ -237,15 +237,27 @@ export default function CharterReport() {
   
         const imgData = canvas.toDataURL('image/png');
   
-        const imgWidth = 210; // A4 width in mm
+        const pageWidth = 210; // A4 width in mm
         const pageHeight = 297;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  
-        const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
-  
+        const margin = 10; // Equal margin on all sides (in mm)
+
+        const maxWidth = pageWidth - 2 * margin;
+        const maxHeight = pageHeight - 2 * margin;
+
+        // Preserve aspect ratio while fitting within margins
+        let renderWidth = maxWidth;
+        let renderHeight = (canvas.height * renderWidth) / canvas.width;
+        if (renderHeight > maxHeight) {
+          renderHeight = maxHeight;
+          renderWidth = (canvas.width * renderHeight) / canvas.height;
+        }
+
+        const x = (pageWidth - renderWidth) / 2;
+        const y = (pageHeight - renderHeight) / 2;
+
         if (i > 0) pdf.addPage();
-  
-        pdf.addImage(imgData, 'PNG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
+
+        pdf.addImage(imgData, 'PNG', x, y, renderWidth, renderHeight);
       }
   
       // Preview the PDF in a new tab so you can see how it looks
