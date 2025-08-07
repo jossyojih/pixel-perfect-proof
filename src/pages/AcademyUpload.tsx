@@ -484,7 +484,7 @@ export default function AcademyUpload() {
             orientation: 'portrait',
             unit: 'mm',
             format: 'a4',
-            compress: true
+            compress: false
           });
           const sections = [
             { ref: coverRef, name: 'cover' },
