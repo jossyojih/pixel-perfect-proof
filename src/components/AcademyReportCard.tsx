@@ -142,17 +142,17 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
             <tbody>
               {studentSubjects.map((subject, index) => (
                 <tr key={index}>
-                  <td className="border border-black text-left -mt-[50px]">{subject.name}</td>
-                  <td  className="border border-black -mt-2">{subject.ca1 || ''}</td>
-                  <td  className="border border-black -mt-2">{subject.ca2 || ''}</td>
-                  <td  className="border border-black -mt-2">{subject.ca3 || ''}</td>
-                  <td  className="border border-black -mt-2">{subject.ca4 || ''}</td>
-                  <td  className="border border-black -mt-2">{subject.exam || ''}</td>
-                  <td  className="border border-black -mt-2">{subject.total || ''}</td>
-                  <td  className="border border-black -mt-2">{subject.grade || ''}</td>
-                  <td  className="border border-black -mt-2">{subject.position || ''}</td>
-                  <td  className="border border-black -mt-2">{subject.remark || ''}</td>
-                  <td  className="border border-black -mt-2">{subject.teachersAverage || ''}</td>
+                  <td className="border border-black text-left -mt-[50px] align-top">{subject.name}</td>
+                  <td  className="border border-black -mt-2 align-top">{subject.ca1 || ''}</td>
+                  <td  className="border border-black -mt-2 align-top">{subject.ca2 || ''}</td>
+                  <td  className="border border-black -mt-2 align-top">{subject.ca3 || ''}</td>
+                  <td  className="border border-black -mt-2 align-top">{subject.ca4 || ''}</td>
+                  <td  className="border border-black -mt-2 align-top">{subject.exam || ''}</td>
+                  <td  className="border border-black -mt-2 align-top">{subject.total || ''}</td>
+                  <td  className="border border-black -mt-2 align-top">{subject.grade || ''}</td>
+                  <td  className="border border-black -mt-2 align-top">{subject.position || ''}</td>
+                  <td  className="border border-black -mt-2 align-top">{subject.remark || ''}</td>
+                  <td  className="border border-black -mt-2 align-top">{subject.teachersAverage || ''}</td>
                 </tr>
               ))}
             </tbody>
