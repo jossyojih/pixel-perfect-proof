@@ -450,7 +450,7 @@ export default function AcademyUpload() {
           const tempContainer = document.createElement('div');
           tempContainer.style.position = 'absolute';
           tempContainer.style.left = '-9999px';
-          // tempContainer.style.top = '-9999px';
+          tempContainer.style.top = '-9999px';
           tempContainer.style.width = '794px';
           document.body.appendChild(tempContainer);
           
@@ -520,7 +520,7 @@ export default function AcademyUpload() {
               }
               
               const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
-              pdf.addImage(imgData, 'JPEG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
+              pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, Math.min(imgHeight, pageHeight));
 
               console.log(`Added section ${section.name} to PDF`);
             } else {
