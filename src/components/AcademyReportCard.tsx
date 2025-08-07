@@ -230,7 +230,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         <div className="flex flex-col">
           {/* Personal Tutor Comment */}
-          <div className="relative z-10 mt-0">
+          <div className="relative z-10 -mt-2">
             <div className="text-black text-center font-bold p-1 text-xl">
               PERSONAL TUTOR'S COMMENT
             </div>
