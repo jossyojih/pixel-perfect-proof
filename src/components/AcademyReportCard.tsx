@@ -66,12 +66,12 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <img 
             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" 
             alt="AUN Schools Logo" 
-            className="h-[120px] w-[120px] -ml-8" 
+            className="h-[110px] w-[110px] -ml-8" 
           />
           <div className="text-center flex-1">
             <h1 className="text-lg font-bold">American University of Nigeria Schools – Academy</h1>
             <p className="text-sm">No. 99, Lamido Zubairu Way, Yola Bye – Pass, P.M.B. 2250</p>
-            <h2 className="text-lg font-bold mt-2">STUDENT REPORT CARD</h2>
+            <h2 className="text-lg font-bold mt-1">STUDENT REPORT CARD</h2>
           </div>
         </div>
 
@@ -220,16 +220,16 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               <tr className="h-[24px]"><td className="border border-black px-1 text-left">71.00 - 80.00</td><td className="border border-black px-1 text-center">B3</td><td className="border border-black px-1 text-center">Good</td></tr>
               <tr className="h-[24px]"><td className="border border-black px-1 text-left">65.00 - 70.00</td><td className="border border-black px-1 text-center">C4</td><td className="border border-black px-1 text-center">Credit</td></tr>
               <tr className="h-[24px]"><td className="border border-black px-1 text-left">60.00 - 64.00</td><td className="border border-black px-1 text-center">C5</td><td className="border border-black px-1 text-center">Credit</td></tr>
-              <tr className="h-[24px]><td className="border border-black px-1 text-left">50.00 - 59.00</td><td className="border border-black px-1 text-center">C6</td><td className="border border-black px-1 text-center">Credit</td></tr>
-              <tr ><td className="border border-black px-1 text-left">45.00 - 49.00</td><td className="border border-black px-1 text-center">D7</td><td className="border border-black px-1 text-center">Pass</td></tr>
-              <tr><td className="border border-black px-1 text-left">40.00 - 44.00</td><td className="border border-black px-1 text-center">E8</td><td className="border border-black px-1 text-center">Pass</td></tr>
-              <tr><td className="border border-black px-1 text-left">0.00 - 39.00</td><td className="border border-black px-1 text-center">F9</td><td className="border border-black px-1 text-center">Fail</td></tr>
+              <tr className="h-[24px]"><td className="border border-black px-1 text-left">50.00 - 59.00</td><td className="border border-black px-1 text-center">C6</td><td className="border border-black px-1 text-center">Credit</td></tr>
+              <tr className="h-[24px]"><td className="border border-black px-1 text-left">45.00 - 49.00</td><td className="border border-black px-1 text-center">D7</td><td className="border border-black px-1 text-center">Pass</td></tr>
+              <tr className="h-[24px]"><td className="border border-black px-1 text-left">40.00 - 44.00</td><td className="border border-black px-1 text-center">E8</td><td className="border border-black px-1 text-center">Pass</td></tr>
+              <tr className="h-[24px]"><td className="border border-black px-1 text-left">0.00 - 39.00</td><td className="border border-black px-1 text-center">F9</td><td className="border border-black px-1 text-center">Fail</td></tr>
             </tbody>
           </table>
         </div>
 
         {/* Personal Tutor Comment */}
-        <div className="relative z-10 mb-1">
+        <div className="relative z-10 -mt-2">
           <div className="text-black text-center font-bold p-1 text-xl">
             PERSONAL TUTOR'S COMMENT
           </div>
