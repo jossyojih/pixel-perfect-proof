@@ -79,6 +79,37 @@ export const useSubjectConfig = (gradeLevel?: string) => {
         ];
       }
       
+      if (grade === 'SSS 1' || grade === 'SSS 2') {
+        return [
+          'English Language',
+          'Mathematics',
+          'Civic Education',
+          'Marketing',
+          'Physics',
+          'Computer Studies',
+          'Chemistry',
+          'Biology',
+          'Agriculture',
+          'Further Mathematics',
+          'Government',
+          'Economics',
+          'Religion (CRS)',
+          'Religion (IRS)',
+          'Geography',
+          'Commerce',
+          'Financial Accounting',
+          'Literature in English',
+          'Hausa',
+          'French',
+          'Food and Nutrition',
+          'Technical Drawing',
+          'Visual Art',
+          'History',
+          'Data Processing',
+          'Arabic Studies'
+        ];
+      }
+      
       // Default for Year 7 and other grades
       return [
         'Mathematics',
@@ -134,6 +165,37 @@ export const useSubjectConfig = (gradeLevel?: string) => {
           'Arabic': ['arabic'],
           'Igbo': ['igbo'],
           'Yoruba': ['yoruba']
+        };
+      }
+
+      if (grade === 'SSS 1' || grade === 'SSS 2') {
+        return {
+          'English Language': ['english_lan', 'english'],
+          'Mathematics': ['mathematics', 'math'],
+          'Civic Education': ['civic_education', 'civic'],
+          'Marketing': ['marketing'],
+          'Physics': ['physics'],
+          'Computer Studies': ['computer_stud', 'computer_studies', 'computer'],
+          'Chemistry': ['chemistry'],
+          'Biology': ['biology'],
+          'Agriculture': ['agriculture'],
+          'Further Mathematics': ['further_mathematics', 'further_math'],
+          'Government': ['government'],
+          'Economics': ['economics'],
+          'Religion (CRS)': ['religion_crs', 'crs', 'christian'],
+          'Religion (IRS)': ['religion_irs', 'irs', 'islamic'],
+          'Geography': ['geography'],
+          'Commerce': ['commerce'],
+          'Financial Accounting': ['financial_accounting', 'financial', 'accounting'],
+          'Literature in English': ['literature_in_english', 'literature'],
+          'Hausa': ['hausa'],
+          'French': ['french'],
+          'Food and Nutrition': ['food_and_nutrition', 'food', 'nutrition'],
+          'Technical Drawing': ['technical_drawing', 'technical'],
+          'Visual Art': ['visual_art', 'visual', 'art'],
+          'History': ['history'],
+          'Data Processing': ['data_processing', 'data'],
+          'Arabic Studies': ['arabic_studies', 'arabic']
         };
       }
       
