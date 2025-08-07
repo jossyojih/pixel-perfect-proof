@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import sigAun from "@/assets/sigAun.png";
 
 interface Subject {
     name: string;
@@ -215,10 +216,10 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                         <tbody>
                             <tr>
                                 <td className="w-1/2 py-4 border border-black align-middle">
-                                    <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" className="h-6 mx-auto" />
+                                    <img src={sigAun} alt="Signature of Ms. Rose Clarkson" className="h-6 mx-auto" />
                                 </td>
                                 <td className="w-1/2 border border-black align-middle">
-                                    <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" className="h-6 mx-auto" />
+                                    <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature of N. Y. Mikail" className="h-6 mx-auto" />
                                 </td>
                             </tr>
                             <tr>
