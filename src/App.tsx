@@ -13,6 +13,9 @@ import AcademyReport from "./pages/AcademyReport";
 import Results from "./pages/Results";
 import ClassTable from "./pages/ClassTable";
 import NotFound from "./pages/NotFound";
+import CharterUpload from "./pages/CharterUpload";
+import CharterReport from "./pages/CharterReport";
+
 
 const queryClient = new QueryClient();
 
@@ -35,6 +38,9 @@ const App = () => (
                 <Link to="/academy-upload">Academy Upload</Link>
               </Button>
               <Button asChild variant="outline">
+                <Link to="/charter-upload">Charter Upload</Link>
+              </Button>
+              <Button asChild variant="outline">
                 <Link to="/results">View Results</Link>
               </Button>
               <Button asChild variant="outline">
@@ -46,8 +52,10 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/upload" element={<UploadReport />} />
             <Route path="/academy-upload" element={<AcademyUpload />} />
+            <Route path="/charter-upload" element={<CharterUpload />} />
             <Route path="/report/:studentName" element={<StudentReport />} />
             <Route path="/academy-report/:studentName" element={<AcademyReport />} />
+            <Route path="/charter-report/:studentName" element={<CharterReport />} />
             <Route path="/results" element={<Results />} />
             <Route path="/class-table" element={<ClassTable />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
