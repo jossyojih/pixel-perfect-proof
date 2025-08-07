@@ -71,49 +71,49 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
           <div className="text-center flex-1">
             <h1 className="text-lg font-bold">American University of Nigeria Schools – Academy</h1>
             <p className="text-sm">No. 99, Lamido Zubairu Way, Yola Bye – Pass, P.M.B. 2250</p>
-            <h2 className="text-lg font-bold mt-1">STUDENT REPORT CARD</h2>
+            <h2 className="text-lg font-bold">STUDENT REPORT CARD</h2>
           </div>
         </div>
 
               {/* Student Information */}
         <div className="relative z-10 mb-1 border-t-[2px] border-b-[2px] border-black">
           <div className="grid grid-cols-3 text-sm text-center mb-1">
-            <div className="flex p-[2px]">
+            <div className="flex p-[1px]">
               <span className="text-left text-red-400 min-w-[120px]">Student's ID</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {studentId}</span>
             </div>
-            <div className="flex p-[2px] col-span-2 whitespace-nowrap">
+            <div className="flex p-[1px] col-span-2 whitespace-nowrap">
               <span className="text-red-400 min-w-[120px] text-left">Student's Name </span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {studentName}</span>
             </div>
-            <div className="flex p-[2px]">
+            <div className="flex p-[1px]">
               <span className="text-red-400 min-w-[120px] text-left">Class</span>
                <span className="text-red-400">:</span>
               <span className="ml-2"> {studentClass}</span>
             </div>
-            <div className="flex p-[2px]">
+            <div className="flex p-[1px]">
               <span className="text-red-400 min-w-[120px] text-left">Academic Year</span>
               <span className="text-red-400">:</span>
               <span className="ml-1"> {academicYear}</span>
             </div>
-            <div className="flex p-[2px]">
+            <div className="flex p-[1px]">
               <span className="text-red-400 min-w-[120px] text-left">Term :</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {term}</span>
             </div>
-            <div className="flex p-[2px]">
+            <div className="flex p-[1px]">
               <span className="text-red-400 min-w-[120px] text-left">Position in Class</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {positionInClass}</span>
             </div>
-            <div className="flex p-[2px]">
+            <div className="flex p-[1px]">
               <span className="text-red-400 min-w-[120px] text-left">No. in Class</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {noInClass}</span>
             </div>
-            <div className="flex p-[2px]">
+            <div className="flex p-[1px]">
               <span className="text-red-400 min-w-[120px] text-left">Total Subject</span>
               <span className="text-red-400">:</span>
               <span className="ml-2"> {totalSubjects}</span>
