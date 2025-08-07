@@ -51,7 +51,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
     );
 
     const ReportPage = () => (
-      <div ref={pageRefs.coverRef} className="relative -mt-5 w-[794px] h-[1123px] bg-white px-7 font-sans text-black text-xs overflow-hidden">
+      <div ref={pageRefs.coverRef} className="relative -mt-5 w-[794px] h-[1123px] bg-white px-7 pb-16 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
           <img 
@@ -143,16 +143,16 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               {studentSubjects.map((subject, index) => (
                 <tr key={index} className="align-top">
                   <td className="border border-black text-left -mt-[50px] align-top">{subject.name}</td>
-                  <td  className="border border-black -mt-2 align-top">{subject.ca1 || ''}</td>
-                  <td  className="border border-black -mt-2 align-top">{subject.ca2 || ''}</td>
-                  <td  className="border border-black -mt-2 align-top">{subject.ca3 || ''}</td>
-                  <td  className="border border-black -mt-2 align-top">{subject.ca4 || ''}</td>
-                  <td  className="border border-black -mt-2 align-top">{subject.exam || ''}</td>
-                  <td  className="border border-black -mt-2 align-top">{subject.total || ''}</td>
-                  <td  className="border border-black -mt-2 align-top">{subject.grade || ''}</td>
-                  <td  className="border border-black -mt-2 align-top">{subject.position || ''}</td>
+                  <td  className="border border-black -mt-2 align-top text-center">{subject.ca1 || ''}</td>
+                  <td  className="border border-black -mt-2 align-top text-center">{subject.ca2 || ''}</td>
+                  <td  className="border border-black -mt-2 align-top text-center">{subject.ca3 || ''}</td>
+                  <td  className="border border-black -mt-2 align-top text-center">{subject.ca4 || ''}</td>
+                  <td  className="border border-black -mt-2 align-top text-center">{subject.exam || ''}</td>
+                  <td  className="border border-black -mt-2 align-top text-center">{subject.total || ''}</td>
+                  <td  className="border border-black -mt-2 align-top text-center">{subject.grade || ''}</td>
+                  <td  className="border border-black -mt-2 align-top text-center">{subject.position || ''}</td>
                   <td  className="border border-black -mt-2 align-top">{subject.remark || ''}</td>
-                  <td  className="border border-black -mt-2 align-top">{subject.teachersAverage || ''}</td>
+                  <td  className="border border-black -mt-2 align-top text-center">{subject.teachersAverage || ''}</td>
                 </tr>
               ))}
             </tbody>
