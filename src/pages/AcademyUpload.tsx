@@ -450,7 +450,7 @@ export default function AcademyUpload() {
           const tempContainer = document.createElement('div');
           tempContainer.style.position = 'absolute';
           tempContainer.style.left = '-9999px';
-          tempContainer.style.top = '-9999px';
+          // tempContainer.style.top = '-9999px';
           tempContainer.style.width = '794px';
           document.body.appendChild(tempContainer);
           
@@ -484,7 +484,7 @@ export default function AcademyUpload() {
             orientation: 'portrait',
             unit: 'mm',
             format: 'a4',
-            compress: false
+            compress: true
           });
           const sections = [
             { ref: coverRef, name: 'cover' },
@@ -500,7 +500,7 @@ export default function AcademyUpload() {
             if (section.ref.current) {
               console.log('Generating canvas for section', section.name);
               const canvas = await html2canvas(section.ref.current, {
-                scale: 3,
+                scale: 1,
                 useCORS: true,
                 allowTaint: true,
                 backgroundColor: '#ffffff',
