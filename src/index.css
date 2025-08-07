@@ -109,5 +109,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
   }
 }
