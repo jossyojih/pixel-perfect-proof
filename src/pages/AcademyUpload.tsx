@@ -510,7 +510,7 @@ export default function AcademyUpload() {
                 scrollY: 0
               });
               
-              const imgData = canvas.toDataURL('image/png');
+              const imgData = canvas.toDataURL('image/jpeg', 1.0); 
               const imgWidth = 210; // A4 width in mm
               const pageHeight = 297;
               const imgHeight = (canvas.height * imgWidth) / canvas.width;
