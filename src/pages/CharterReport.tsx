@@ -199,7 +199,7 @@ export default function CharterReport() {
   };
 
   const uploadToSupabase = async () => {
-    if (!student || !coverRef.current) return;
+    if (!student || !reportRef.current) return;
   
     setIsUploading(true);
     try {
@@ -213,7 +213,7 @@ export default function CharterReport() {
       });
   
       // You can add more refs here if needed
-      const pageRefs = [coverRef, subjectsRef, specialsRef, finalRef];
+      const pageRefs = [reportRef];
   
       for (let i = 0; i < pageRefs.length; i++) {
         const pageElement = pageRefs[i].current;
@@ -247,6 +247,9 @@ export default function CharterReport() {
   
         pdf.addImage(imgData, 'PNG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
       }
+  
+      // Preview the PDF in a new tab so you can see how it looks
+      try { window.open(pdf.output('bloburl'), '_blank'); } catch (_) {}
   
       const pdfBlob = pdf.output('blob');
   
