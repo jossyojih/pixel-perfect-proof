@@ -144,47 +144,47 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
                 <tr key={index} className="align-top h-[24px]" >
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "10px"
+    paddingBottom: "6px"
   }} className="border border-black text-left -mt-[50px] align-top">{subject.name}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "10px"
+    paddingBottom: "6px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca1 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "10px"
+    paddingBottom: "6px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca2 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "10px"
+    paddingBottom: "6px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca3 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "10px"
+    paddingBottom: "6px"
   }} className="border border-black -mt-2 align-top text-center">{subject.ca4 || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "10px"
+    paddingBottom: "6px"
   }} className="border border-black -mt-2 align-top text-center">{subject.exam || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "10px"
+    paddingBottom: "6px"
   }} className="border border-black -mt-2 align-top text-center">{subject.total || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-    paddingBottom: "10px"
+    paddingBottom: "6px"
   }} className="border border-black -mt-2 align-top text-center">{subject.grade || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-   paddingBottom: "10px"
+   paddingBottom: "6px"
   }} className="border border-black -mt-2 align-top text-center">{subject.position || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-   paddingBottom: "10px"
+   paddingBottom: "6px"
   }} className="border border-black -mt-2 align-top">{subject.remark || ''}</td>
                   <td   style={{
     verticalAlign: "top",
-   paddingBottom: "10px"
+   paddingBottom: "6px"
   }} className="border border-black -mt-2 align-top text-center">{subject.teachersAverage || ''}</td>
                 </tr>
               ))}
@@ -203,23 +203,23 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
 
         {/* Grade Descriptors */}
         <div className="relative z-10">
-          <div className="bg-blue-900 text-white text-center font-bold p-2" style={{ paddingBottom: '8px' }}>
+          <div className="bg-blue-900 text-white text-center font-bold p-1" style={{ paddingBottom: '6px' }}>
             GRADE DESCRIPTORS
           </div>
           <table className="w-full border-collapse border border-black text-xs text-center">
             <thead>
-              <tr>
+              <tr className="h-[24px]">
                 <th className="border border-black px-1 font-bold text-left">% Score</th>
                 <th className="border border-black px-1 font-bold text-center">Grade</th>
                 <th className="border border-black px-1 font-bold text-center">Descriptor</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td className="border border-black px-1 text-left">91.00 - 100.00</td><td className="border border-black px-1 text-center">A1</td><td className="border border-black px-1 text-center">Excellent</td></tr>
-              <tr><td className="border border-black px-1 text-left">81.00 - 90.00</td><td className="border border-black px-1 text-center">B2</td><td className="border border-black px-1 text-center">Very Good</td></tr>
-              <tr><td className="border border-black px-1 text-left">71.00 - 80.00</td><td className="border border-black px-1 text-center">B3</td><td className="border border-black px-1 text-center">Good</td></tr>
-              <tr><td className="border border-black px-1 text-left">65.00 - 70.00</td><td className="border border-black px-1 text-center">C4</td><td className="border border-black px-1 text-center">Credit</td></tr>
-              <tr><td className="border border-black px-1 text-left">60.00 - 64.00</td><td className="border border-black px-1 text-center">C5</td><td className="border border-black px-1 text-center">Credit</td></tr>
+              <tr className="h-[24px]"><td className="border border-black px-1 text-left">91.00 - 100.00</td><td className="border border-black px-1 text-center">A1</td><td className="border border-black px-1 text-center">Excellent</td></tr>
+              <tr className="h-[24px]"><td className="border border-black px-1 text-left">81.00 - 90.00</td><td className="border border-black px-1 text-center">B2</td><td className="border border-black px-1 text-center">Very Good</td></tr>
+              <tr className="h-[24px]"><td className="border border-black px-1 text-left">71.00 - 80.00</td><td className="border border-black px-1 text-center">B3</td><td className="border border-black px-1 text-center">Good</td></tr>
+              <tr className="h-[24px]"><td className="border border-black px-1 text-left">65.00 - 70.00</td><td className="border border-black px-1 text-center">C4</td><td className="border border-black px-1 text-center">Credit</td></tr>
+              <tr className="h-[24px]"><td className="border border-black px-1 text-left">60.00 - 64.00</td><td className="border border-black px-1 text-center">C5</td><td className="border border-black px-1 text-center">Credit</td></tr>
               <tr><td className="border border-black px-1 text-left">50.00 - 59.00</td><td className="border border-black px-1 text-center">C6</td><td className="border border-black px-1 text-center">Credit</td></tr>
               <tr><td className="border border-black px-1 text-left">45.00 - 49.00</td><td className="border border-black px-1 text-center">D7</td><td className="border border-black px-1 text-center">Pass</td></tr>
               <tr><td className="border border-black px-1 text-left">40.00 - 44.00</td><td className="border border-black px-1 text-center">E8</td><td className="border border-black px-1 text-center">Pass</td></tr>
@@ -229,7 +229,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
         </div>
 
         {/* Personal Tutor Comment */}
-        <div className="relative z-10 mb-2">
+        <div className="relative z-10 mb-1">
           <div className="text-black text-center font-bold p-1 text-xl">
             PERSONAL TUTOR'S COMMENT
           </div>
@@ -242,7 +242,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
               {/* <div className="relative z-10 text-center mt-5 mb-8"> */}
         <div className="relative z-10 text-center mt-2">
           <div className="inline-block">
-            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-7 mx-auto" />
+            <img src="/lovable-uploads/c610321b-7d11-4eff-a4f8-083660a257b7.png" alt="Signature" className="h-6 mx-auto" />
             <div className="border-t border-black pt-1 w-48">
               <p className="text-sm font-bold">N. Y. Mikail</p>
               <p className="text-sm font-bold">Asst. Director Academics</p>
