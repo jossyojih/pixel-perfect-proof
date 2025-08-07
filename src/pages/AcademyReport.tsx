@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import { pdf } from '@react-pdf/renderer';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { AcademyReportCard } from "@/components/AcademyReportCard";
+import { AcademyReportCardPDF } from "@/components/AcademyReportCardPDF";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -14,11 +13,6 @@ export default function AcademyReport() {
   const { toast } = useToast();
   const [isUploading, setIsUploading] = useState(false);
   const [student, setStudent] = useState<any>(null);
-  const reportRef = useRef<HTMLDivElement>(null);
-  const coverRef = useRef<HTMLDivElement>(null);
-  const subjectsRef = useRef<HTMLDivElement>(null);
-  const specialsRef = useRef<HTMLDivElement>(null);
-  const finalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Get Academy student data from localStorage
@@ -199,56 +193,14 @@ export default function AcademyReport() {
   };
 
   const uploadToSupabase = async () => {
-    if (!student || !coverRef.current) return;
+    if (!student) return;
   
     setIsUploading(true);
     try {
       const reportData = generateAcademyReportData(student);
   
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
-        compress: true
-      });
-  
-      // You can add more refs here if needed
-      const pageRefs = [coverRef, subjectsRef, specialsRef, finalRef];
-  
-      for (let i = 0; i < pageRefs.length; i++) {
-        const pageElement = pageRefs[i].current;
-        if (!pageElement) continue;
-  
-        // Optional: force A4 size for rendering layout consistency
-        pageElement.style.width = '794px';
-        pageElement.style.minHeight = '1123px';
-        pageElement.style.padding = '24px';
-        pageElement.style.boxSizing = 'border-box';
-        pageElement.style.backgroundColor = '#ffffff';
-  
-        const canvas = await html2canvas(pageElement, {
-          scale: 3, // High resolution
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: '#ffffff',
-          scrollX: 0,
-          scrollY: 0
-        });
-  
-        const imgData = canvas.toDataURL('image/png');
-  
-        const imgWidth = 210; // A4 width in mm
-        const pageHeight = 297;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  
-        const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
-  
-        if (i > 0) pdf.addPage();
-  
-        pdf.addImage(imgData, 'PNG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
-      }
-  
-      const pdfBlob = pdf.output('blob');
+      // Generate PDF using @react-pdf/renderer
+      const pdfBlob = await pdf(<AcademyReportCardPDF {...reportData} />).toBlob();
   
       // Upload to Supabase Storage
       const fileName = `academy_${student.name.toLowerCase().replace(/\s+/g, '-')}_report_${Date.now()}.pdf`;
@@ -330,16 +282,18 @@ export default function AcademyReport() {
         </div>
       </div>
 
-      <div ref={reportRef}>
-        <AcademyReportCard 
-          {...reportData} 
-          pageRefs={{
-            coverRef,
-            subjectsRef,
-            specialsRef,
-            finalRef
-          }}
-        />
+      <div className="bg-white p-8 rounded-lg shadow">
+        <p className="text-center text-muted-foreground">
+          PDF preview will be generated when you click "Upload Academy Report"
+        </p>
+        <div className="mt-4 p-4 border rounded bg-muted/50">
+          <h3 className="font-semibold mb-2">Report Preview:</h3>
+          <p><strong>Student:</strong> {reportData.studentName}</p>
+          <p><strong>Class:</strong> {reportData.class}</p>
+          <p><strong>Subjects:</strong> {reportData.subjects.length}</p>
+          <p><strong>Average:</strong> {reportData.studentsAverage.toFixed(2)}%</p>
+          <p><strong>Position:</strong> {reportData.positionInClass} of {reportData.noInClass}</p>
+        </div>
       </div>
     </div>
   );
