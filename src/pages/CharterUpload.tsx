@@ -97,112 +97,24 @@ export default function CharterUpload() {
     return 'F';
   };
 
-  // Map Excel field names to subject display names
-  const mapExcelFieldToSubject = (fieldName: string): string => {
-    const mapping: { [key: string]: string } = {
-      'language_art_ca': 'Language Arts',
-      'language_art_exam': 'Language Arts',
-      'language_art_final': 'Language Arts',
-      'language_art_total': 'Language Arts',
-      'language_arts_ca': 'Language Arts',
-      'language_arts_exam': 'Language Arts',
-      'language_arts_final': 'Language Arts',
-      'language_arts_total': 'Language Arts',
-      'mathematics_ca': 'Mathematics',
-      'mathematics_exam': 'Mathematics',
-      'mathematics_final': 'Mathematics',
-      'mathematics_total': 'Mathematics',
-      'science_ca': 'Science', 
-      'science_exam': 'Science',
-      'science_final': 'Science',
-      'science_total': 'Science',
-      'social_studies_ca': 'Social Studies',
-      'social_studies_exam': 'Social Studies',
-      'social_studies_final': 'Social Studies',
-      'social_studies_total': 'Social Studies',
-      'health_ca': 'Health Education',
-      'health_exam': 'Health Education',
-      'health_final': 'Health Education',
-      'health_total': 'Health Education',
-      'health_education_ca': 'Health Education',
-      'health_education_exam': 'Health Education',
-      'health_education_final': 'Health Education',
-      'health_education_total': 'Health Education',
-      'nve_ca': 'National Values Education',
-      'nve_exam': 'National Values Education',
-      'nve_final': 'National Values Education',
-      'nve_total': 'National Values Education',
-      'national_values_education_ca': 'National Values Education',
-      'national_values_education_exam': 'National Values Education',
-      'national_values_education_final': 'National Values Education',
-      'national_values_education_total': 'National Values Education',
-      'phy_ed_ca': 'Physical Education',
-      'phy_ed_exam': 'Physical Education',
-      'phy_ed_final': 'Physical Education',
-      'phy_ed_total': 'Physical Education',
-      'physical_education_ca': 'Physical Education',
-      'physical_education_exam': 'Physical Education',
-      'physical_education_final': 'Physical Education',
-      'physical_education_total': 'Physical Education',
-      'fncl_literacy_ca': 'Financial Literacy',
-      'fncl_literacy_exam': 'Financial Literacy',
-      'fncl_literacy_final': 'Financial Literacy',
-      'fncl_literacy_total': 'Financial Literacy',
-      'financial_literacy_ca': 'Financial Literacy',
-      'financial_literacy_exam': 'Financial Literacy',
-      'financial_literacy_final': 'Financial Literacy',
-      'financial_literacy_total': 'Financial Literacy',
-      'religion_irk_ca': 'Religion (IRK)',
-      'religion_irk_exam': 'Religion (IRK)',
-      'religion_irk_final': 'Religion (IRK)',
-      'religion_irk_total': 'Religion (IRK)',
-      'schol_fair_ca': 'Scholastic Fair',
-      'schol_fair_exam': 'Scholastic Fair',
-      'schol_fair_final': 'Scholastic Fair',
-      'schol_fair_total': 'Scholastic Fair',
-      'scholastic_fair_ca': 'Scholastic Fair',
-      'scholastic_fair_exam': 'Scholastic Fair',
-      'scholastic_fair_final': 'Scholastic Fair',
-      'scholastic_fair_total': 'Scholastic Fair',
-      'religion_crk_ca': 'Religion (CRK)',
-      'religion_crk_exam': 'Religion (CRK)',
-      'religion_crk_final': 'Religion (CRK)',
-      'religion_crk_total': 'Religion (CRK)',
-      'music_ca': 'Music',
-      'music_exam': 'Music',
-      'music_final': 'Music',
-      'music_total': 'Music',
-      'vis_arts_ca': 'Visual Arts',
-      'vis_arts_exam': 'Visual Arts',
-      'vis_arts_final': 'Visual Arts',
-      'vis_arts_total': 'Visual Arts',
-      'visual_arts_ca': 'Visual Arts',
-      'visual_arts_exam': 'Visual Arts',
-      'visual_arts_final': 'Visual Arts',
-      'visual_arts_total': 'Visual Arts',
-      'ict_ca': 'ICT',
-      'ict_exam': 'ICT',
-      'ict_final': 'ICT',
-      'ict_total': 'ICT',
-      'french_language_ca': 'French',
-      'french_language_exam': 'French',
-      'french_language_final': 'French',
-      'french_language_total': 'French',
-      'french_ca': 'French',
-      'french_exam': 'French',
-      'french_final': 'French',
-      'french_total': 'French',
-      'arabic_ca': 'Arabic',
-      'arabic_exam': 'Arabic',
-      'arabic_final': 'Arabic',
-      'arabic_total': 'Arabic',
-      'ara_stu_ca': 'Arabic',
-      'ara_stu_exam': 'Arabic',
-      'ara_stu_final': 'Arabic',
-      'ara_stu_total': 'Arabic'
-    };
-    
-    return mapping[fieldName] || fieldName;
+  // Subject mapping for exact Excel headers
+  const SUBJECT_MAPPING = {
+    'language_art': 'Language Arts',
+    'mathematics': 'Mathematics',
+    'science': 'Science',
+    'social_studies': 'Social Studies',
+    'health': 'Health Education',
+    'nve': 'National Values Education',
+    'physical_education': 'Physical Education',
+    'fncl_literacy': 'Financial Literacy',
+    'religion_irk': 'Religion (IRK)',
+    'scholastic_fair': 'Scholastic Fair',
+    'religion_crk': 'Religion (CRK)',
+    'music': 'Music',
+    'visual_arts': 'Visual Arts',
+    'ict': 'ICT',
+    'french_language': 'French',
+    'ara_stu': 'Arabic'
   };
 
   const parseExcel = (file: File) => {
@@ -222,44 +134,65 @@ export default function CharterUpload() {
         const studentMap = new Map<string, ParsedStudent>();
 
         jsonData.forEach((row) => {
-          // Extract student name - adjust field name based on actual Excel structure
-          const studentName = row['Student Name'] || row['student_name'] || row['Name'] || row['name'] || 
-                              row['__EMPTY_1'] || row['_1'] || Object.values(row)[1];
+          // Extract student name using exact Excel header
+          const studentName = row['__EMPTY_1'];
           
           if (!studentName || typeof studentName !== 'string') return;
 
           console.log('Processing student:', studentName);
 
           if (!studentMap.has(studentName)) {
-            // Extract data from Excel row with fallbacks
-            const term = row['term'] || row['Term'] || row['TERM'] || "Term 3";
-            const academicYear = row['academic_year'] || row['Academic Year'] || row['year'] || "2024-2025";
-            const date = row['date'] || row['Date'] || row['report_date'] || new Date().toLocaleDateString();
+            // Extract data using exact Excel headers
+            const term = row['term_name'] || "Term 3";
+            const academicYear = row['year_name'] || "2024-2025";
+            const date = row['date'] || new Date().toLocaleDateString();
             
-            // Parse attendance data
-            const unexpectedAbsence = parseInt(row['unexpected_absence'] || row['Unexpected Absence'] || row['unexcused_absence'] || '0') || 0;
-            const explainedAbsence = parseInt(row['explained_absence'] || row['Explained Absence'] || row['excused_absence'] || '0') || 0;
-            const late = parseInt(row['late'] || row['Late'] || row['lateness'] || '0') || 0;
+            // Parse attendance data using exact headers
+            const unexpectedAbsence = parseInt(row['unexpected_absence'] || '0') || 0;
+            const explainedAbsence = parseInt(row['explained_absence'] || '0') || 0;
+            const late = parseInt(row['absent_late'] || '0') || 0;
             
-            // Parse remarks - try multiple possible column names
-            const interpersonal = row['interpersonal'] || row['Interpersonal'] || row['interpersonal_skills'] || 
-                                 row['Interpersonal Skills'] || row['INTERPERSONAL'] || "";
-            const effort = row['effort'] || row['Effort'] || row['student_effort'] || 
-                          row['Student Effort'] || row['EFFORT'] || "";
-            const classBehaviour = row['class_behaviour'] || row['Class Behaviour'] || row['behavior'] || 
-                                  row['behaviour'] || row['Behavior'] || row['CLASS_BEHAVIOUR'] || 
-                                  row['class_behavior'] || row['Class Behavior'] || "";
+            // Parse remarks using exact headers
+            const interpersonal = row['interpersonal_remarks'] || "";
+            const effort = row['effort_remarks'] || "";
+            const classBehaviour = row['class_behaviour_remarks'] || "";
+            
+            // Get average directly from Excel
+            const average = parseFloat(row['average_marks'] || '0') || 0;
+            
+            // Extract subjects data directly from Excel
+            const subjects = [];
+            
+            // Process each subject using exact headers
+            Object.keys(SUBJECT_MAPPING).forEach(subjectKey => {
+              const subjectName = SUBJECT_MAPPING[subjectKey as keyof typeof SUBJECT_MAPPING];
+              const ca = parseFloat(row[`${subjectKey}_ca`] || '0') || 0;
+              const exam = parseFloat(row[`${subjectKey}_exam`] || '0') || 0;
+              const overall = parseFloat(row[`${subjectKey}_overall`] || '0') || 0;
+              const grade = row[`${subjectKey}_grade`] || '';
+              
+              // Only include subjects with scores
+              if (ca > 0 || exam > 0 || overall > 0) {
+                subjects.push({
+                  name: subjectName,
+                  ca: ca,
+                  exam: exam,
+                  finalScore: overall, // Use overall score directly from Excel
+                  letterGrade: grade || getLetterGrade(overall)
+                });
+              }
+            });
             
             // Initialize student with extracted data
             studentMap.set(studentName, {
               name: studentName,
-              subjects: [],
+              subjects: subjects,
               rawData: row,
               class: selectedClass || "Grade 7 A",
               term: term,
               academicYear: academicYear,
               date: date,
-              average: 0,
+              average: average, // Use average directly from Excel
               attendance: {
                 unexpectedAbsence: unexpectedAbsence,
                 explainedAbsence: explainedAbsence,
@@ -270,64 +203,11 @@ export default function CharterUpload() {
                 effort: effort,
                 classBehaviour: classBehaviour
               },
-              comment: row['teacher_comment'] || row['comments'] || row['comment'] || row['Comment'] || 
-                       row['Comments'] || row['teacher_comments'] || row['Teacher Comment'] || 
-                       row['Teacher Comments'] || row['COMMENTS'] || row['COMMENT'] || ""
+              comment: row['teacher_comments'] || ""
             });
           }
 
-          const student = studentMap.get(studentName)!;
-
-          // Extract subjects from Excel columns
-          const subjectScores = new Map<string, { ca: number; exam: number; finalScore: number }>();
-
-          // Parse all Excel fields for subject scores
-          Object.keys(row).forEach(fieldName => {
-            const value = parseFloat(row[fieldName]) || 0;
-            
-            if (fieldName.includes('_ca')) {
-              const subjectName = mapExcelFieldToSubject(fieldName);
-              if (!subjectScores.has(subjectName)) {
-                subjectScores.set(subjectName, { ca: 0, exam: 0, finalScore: 0 });
-              }
-              subjectScores.get(subjectName)!.ca = value;
-            } else if (fieldName.includes('_exam')) {
-              const subjectName = mapExcelFieldToSubject(fieldName);
-              if (!subjectScores.has(subjectName)) {
-                subjectScores.set(subjectName, { ca: 0, exam: 0, finalScore: 0 });
-              }
-              subjectScores.get(subjectName)!.exam = value;
-            } else if (fieldName.includes('_final') || fieldName.includes('_total') || fieldName.includes('_score')) {
-              const subjectName = mapExcelFieldToSubject(fieldName.replace('_final', '').replace('_total', '').replace('_score', ''));
-              if (!subjectScores.has(subjectName)) {
-                subjectScores.set(subjectName, { ca: 0, exam: 0, finalScore: 0 });
-              }
-              subjectScores.get(subjectName)!.finalScore = value;
-            }
-          });
-
-          // Convert to subject objects and filter out subjects with no scores
-          const subjects = Array.from(subjectScores.entries())
-            .map(([subjectName, scores]) => {
-              // Use final score from Excel if available, otherwise calculate
-              const finalScore = scores.finalScore > 0 ? scores.finalScore : scores.ca + scores.exam;
-              return {
-                name: subjectName,
-                ca: scores.ca,
-                exam: scores.exam,
-                finalScore: finalScore,
-                letterGrade: getLetterGrade(finalScore)
-              };
-            })
-            .filter(subject => subject.finalScore > 0); // Only include subjects with actual scores
-
-          student.subjects = subjects;
-          
-          // Extract average directly from Excel instead of calculating
-          const excelAverage = parseFloat(row['average'] || row['Average'] || row['AVERAGE'] || row['overall_average'] || '0') || 0;
-          student.average = excelAverage > 0 ? excelAverage : (subjects.length > 0 ? subjects.reduce((sum, s) => sum + s.finalScore, 0) / subjects.length : 0);
-
-          console.log(`Student ${studentName} has ${subjects.length} subjects with scores, average: ${student.average}`);
+          console.log(`Student ${studentName} processed with ${studentMap.get(studentName)?.subjects.length} subjects`);
         });
 
         const parsedStudents = Array.from(studentMap.values());
