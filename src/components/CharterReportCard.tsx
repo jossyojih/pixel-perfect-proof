@@ -44,7 +44,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
         comment
     }, ref) => {
         return (
-            <div ref={ref} className="w-[794px] h-[1123px] bg-white px-7 text-xs text-black relative font-sans overflow-hidden" >
+            <div ref={ref} className="w-[794px] h-[1123px] bg-white px-3 text-xs text-black relative font-sans overflow-hidden" >
 
                 {/* Watermark */}
                 <div className="absolute top-[85px] opacity-30 pointer-events-none">
@@ -56,11 +56,11 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                 <div className="relative z-10 flex flex-col h-full">
 
                     {/* Header */}
-                    <div className="relative z-10 flex items-center justify-start mb-1 ml-0">
+                    <div className="relative z-10 flex items-center justify-start mb-0 ml-0">
                         <img
                             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"
                             alt="AUN Schools Logo"
-                            className="h-[110px] w-[110px] -ml-6"
+                            className="h-[100px] w-[100px] -ml-4"
                         />
                         <div className="text-center flex-1">
                             <h1 className="text-lg font-bold">American University of Nigeria Schools – Charter</h1>
@@ -320,7 +320,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
 
 
                     {/* Comment - Expanded for more space */}
-                    <div className="text-[12px] border px-2 py-2 min-h-[120px] flex-grow">
+                    <div className="text-[12px] border px-2 py-2 min-h-[120px] flex-grow mb-1">
                         <div className="text-[12px] font-bold mb-1">Comments:</div>
                         <div className="text-[11px]">{comment}</div>
                     </div>
