@@ -225,7 +225,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                                         <td style={{
                                             verticalAlign: "top",
                                             paddingBottom: "10px"
-                                        }} className="border  text-left px-2">Term 2</td>
+                                        }} className="border  text-left px-2">Term 3</td>
                                         <td style={{
                                             verticalAlign: "top",
                                             paddingBottom: "10px"
