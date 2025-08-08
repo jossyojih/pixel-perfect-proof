@@ -6,10 +6,13 @@ interface ParsedStudent {
   name: string;
   subjects: Array<{
     name: string;
-    teacher: string;
-    grade: number | "N/A";
-    comment: string;
+    ca: number;
+    exam: number;
+    finalScore: number;
+    letterGrade: string;
   }>;
+  class: string;
+  average: number;
 }
 
 interface CharterStudentsTableProps {

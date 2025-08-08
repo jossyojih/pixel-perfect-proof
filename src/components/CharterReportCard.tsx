@@ -186,7 +186,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                                 <td style={{
                                     verticalAlign: "top",
                                     paddingBottom: "10px"
-                                }} className="border ">83</td>
+                                }} className="border ">{average.toFixed(1)}</td>
                                 <td style={{
                                     verticalAlign: "top",
                                     paddingBottom: "10px"
@@ -293,7 +293,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                                     <td style={{
                                         verticalAlign: "top",
                                         paddingBottom: "10px"
-                                    }} className="border  px-1 py-[0px] w-[80%]">{remarks.interpersonal}50</td>
+                                 }} className="border  px-1 py-[0px] w-[80%]">{remarks.interpersonal}</td>
                                 </tr>
                                 <tr>
                                     <td style={{
@@ -303,7 +303,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                                     <td style={{
                                         verticalAlign: "top",
                                         paddingBottom: "10px"
-                                    }} className="border  px-1 py-[0px] w-[80%]">{remarks.effort}12</td>
+                                    }} className="border  px-1 py-[0px] w-[80%]">{remarks.effort}</td>
                                 </tr>
                                 <tr>
                                     <td style={{
@@ -313,7 +313,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                                     <td style={{
                                         verticalAlign: "top",
                                         paddingBottom: "10px"
-                                    }} className="border  px-1 py-[0px] w-[80%]">{remarks.classBehaviour}20</td>
+                                    }} className="border  px-1 py-[0px] w-[80%]">{remarks.classBehaviour}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -321,9 +321,9 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
 
 
                     {/* Comment */}
-                    <div className="text-[12px] border px-2 h-[200.5rem]">
-                        <div className="text-[12px] font-bold">Comments:</div>
-                        {comment}
+                    <div className="text-[12px] border px-2 py-2 min-h-[60px]">
+                        <div className="text-[12px] font-bold mb-1">Comments:</div>
+                        <div className="text-[11px]">{comment}</div>
                     </div>
 
                     {/* Signatures */}
