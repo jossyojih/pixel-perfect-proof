@@ -281,22 +281,22 @@ export const useSubjectConfig = (gradeLevel?: string) => {
       
       if (baseGrade === 'Grade 7') {
         return {
-          'Language Arts': ['language_art', 'language', 'arts'],
-          'Mathematics': ['mathematics', 'math'],
-          'Science': ['science'],
-          'Social Studies': ['social_studies', 'social'],
-          'Health Education': ['health_education', 'health'],
-          'National Values Education': ['national_values', 'values', 'education'],
-          'Physical Education': ['physical_education', 'physical', 'pe'],
-          'Financial Literacy': ['financial_literacy', 'financial'],
-          'Religion (IRK)': ['religion_irk', 'irk', 'islamic'],
-          'Scholastic Fair': ['scholastic_fair', 'scholastic'],
-          'Religion (CRK)': ['religion_crk', 'crk', 'christian'],
+          'Language Arts': ['language_art', 'language', 'arts', 'lang_arts'],
+          'Mathematics': ['mathematics', 'math', 'maths'],
+          'Science': ['science', 'basic_science'],
+          'Social Studies': ['social_studies', 'social', 'social_st'],
+          'Health Education': ['health_education', 'health', 'health_ca', 'health_ed'],
+          'National Values Education': ['national_values', 'values', 'education', 'nve', 'nve_ca', 'national_val'],
+          'Physical Education': ['physical_education', 'physical', 'pe', 'phy_ed', 'phys_ed'],
+          'Financial Literacy': ['financial_literacy', 'financial', 'fncl_literacy', 'fncl_literacy_ca', 'fin_lit'],
+          'Religion (IRK)': ['religion_irk', 'irk', 'islamic', 'religion_islamic'],
+          'Scholastic Fair': ['scholastic_fair', 'scholastic', 'schol_fair'],
+          'Religion (CRK)': ['religion_crk', 'crk', 'christian', 'religion_christian'],
           'Music': ['music'],
-          'Visual Arts': ['visual_arts', 'visual', 'arts'],
-          'ICT': ['ict', 'computer'],
-          'French': ['french'],
-          'Arabic': ['arabic']
+          'Visual Arts': ['visual_arts', 'visual', 'arts', 'vis_arts'],
+          'ICT': ['ict', 'computer', 'comp'],
+          'French': ['french', 'french_language', 'french_language_ca', 'french_lang'],
+          'Arabic': ['arabic', 'arabic_lang']
         };
       }
       

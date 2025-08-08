@@ -271,21 +271,47 @@ export default function CharterUpload() {
                         if (baseGrade === 'Grade 7') {
                             return {
                                 'language_art': ['Language Arts'],
+                                'lang_arts': ['Language Arts'],
                                 'mathematics': ['Mathematics'],
+                                'maths': ['Mathematics'],
                                 'science': ['Science'],
+                                'basic_science': ['Science'],
                                 'social_studies': ['Social Studies'],
+                                'social': ['Social Studies'],
+                                'social_st': ['Social Studies'],
                                 'health_education': ['Health Education'],
+                                'health': ['Health Education'],
+                                'health_ca': ['Health Education'],
+                                'health_ed': ['Health Education'],
                                 'national_values': ['National Values Education'],
+                                'nve': ['National Values Education'],
+                                'nve_ca': ['National Values Education'],
+                                'national_val': ['National Values Education'],
                                 'physical_education': ['Physical Education'],
+                                'physical': ['Physical Education'],
+                                'phy_ed': ['Physical Education'],
+                                'phys_ed': ['Physical Education'],
                                 'financial_literacy': ['Financial Literacy'],
+                                'fncl_literacy': ['Financial Literacy'],
+                                'fncl_literacy_ca': ['Financial Literacy'],
+                                'fin_lit': ['Financial Literacy'],
                                 'religion_irk': ['Religion (IRK)'],
+                                'religion_islamic': ['Religion (IRK)'],
                                 'scholastic_fair': ['Scholastic Fair'],
+                                'schol_fair': ['Scholastic Fair'],
                                 'religion_crk': ['Religion (CRK)'],
+                                'religion_christian': ['Religion (CRK)'],
                                 'music': ['Music'],
                                 'visual_arts': ['Visual Arts'],
+                                'vis_arts': ['Visual Arts'],
                                 'ict': ['ICT'],
+                                'comp': ['ICT'],
                                 'french': ['French'],
-                                'arabic': ['Arabic']
+                                'french_language': ['French'],
+                                'french_language_ca': ['French'],
+                                'french_lang': ['French'],
+                                'arabic': ['Arabic'],
+                                'arabic_lang': ['Arabic']
                             };
                         }
 
@@ -329,7 +355,7 @@ export default function CharterUpload() {
                             ];
                         }
                         if (baseGrade === 'Grade 7') {
-                            return ['religion_crk', 'arabic', 'french'];
+                            return ['religion_crk', 'religion_christian', 'arabic', 'arabic_lang', 'french', 'french_language', 'french_language_ca', 'french_lang'];
                         }
                         return ['french', 'religion_crs', 'hausa'];
                     };
