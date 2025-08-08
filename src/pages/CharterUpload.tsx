@@ -130,7 +130,9 @@ export default function CharterUpload() {
       'french_language_ca': 'French',
       'french_language_exam': 'French',
       'arabic_ca': 'Arabic',
-      'arabic_exam': 'Arabic'
+      'arabic_exam': 'Arabic',
+      'ara_stu_ca': 'Arabic',
+      'ara_stu_exam': 'Arabic'
     };
     
     return mapping[fieldName] || fieldName;
