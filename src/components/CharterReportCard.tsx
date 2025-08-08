@@ -44,7 +44,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
         comment
     }, ref) => {
         return (
-            <div ref={ref} className="w-[794px] h-[1123px] bg-white px-7 text-xs text-black relative font-sans overflow-hidden" >
+            <div ref={ref} className="w-[794px] h-[1123px] bg-white px-3 text-xs text-black relative font-sans overflow-hidden" >
 
                 {/* Watermark */}
                 <div className="absolute top-[85px] opacity-30 pointer-events-none">
@@ -56,11 +56,11 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                 <div className="relative z-10 flex flex-col h-full">
 
                     {/* Header */}
-                    <div className="relative z-10 flex items-center justify-start mb-1 ml-0">
+                    <div className="relative z-10 flex items-center justify-start mb-0 ml-0">
                         <img
                             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"
                             alt="AUN Schools Logo"
-                            className="h-[110px] w-[110px] -ml-6"
+                            className="h-[100px] w-[100px] -ml-4"
                         />
                         <div className="text-center flex-1">
                             <h1 className="text-lg font-bold">American University of Nigeria Schools – Charter</h1>
@@ -69,10 +69,10 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                         </div>
                     </div>
 
-                    <h2 className="text-sm font-bold mt-0 mb-1 text-center">Term 3 Report Card</h2>
+                    <h2 className="text-sm font-bold mt-0 mb-0 text-center">Term 3 Report Card</h2>
 
                     {/* Student Info */}
-                    <div className="relative z-10 mb-1">
+                    <div className="relative z-10 mb-0">
                         <div className="grid [grid-template-columns:1.5fr_1fr_1.5fr] gap-x-2 text-[14px] text-center mb-1">
                             <div className="flex items-center px-3">
                                 <span className="text-left min-w-[95px]">Name</span>
@@ -103,7 +103,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                     </div>
 
                     {/* Subjects Table */}
-                    <table className="w-full border border-collapse text-center mb-1 table-fixed">
+                    <table className="w-full border border-collapse text-center mb-0 table-fixed">
                         <thead className="text-[12px] align-top">
                             {/* First header row: 3 columns, each spans 2 */}
                             <tr>
@@ -195,7 +195,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                     </table>
 
                     {/* Attendance + Grade Scale */}
-                    <div className="flex justify-between text-[12px] mb-1 w-full">
+                    <div className="flex justify-between text-[12px] mb-0 w-full">
                         {/* Left Table (Attendance) */}
                         <div className="w-[59%]">
                             <table className="border  border-collapse text-center w-full table-fixed h-[4.5rem]">
@@ -269,7 +269,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                         </table>
                     </div>
                     {/* Remarks */}
-                    <div className="mb-1 text-[12px]">
+                    <div className="mb-0 text-[12px]">
                         <table className="w-full border border-collapse text-left table-fixed leading-none">
                             <thead className="text-[12px] align-top">
                                 <tr>
