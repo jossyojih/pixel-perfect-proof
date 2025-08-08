@@ -294,6 +294,8 @@ export default function CharterUpload() {
           // Wait for render
           await new Promise(resolve => setTimeout(resolve, 1000));
 
+          console.log("Generating pdf for", student)
+
           // Generate PDF
           const canvas = await html2canvas(tempDiv, {
             scale: 2,
@@ -333,7 +335,7 @@ export default function CharterUpload() {
 
           // Upload to Supabase
           const fileName = `charter_${student.name.toLowerCase().replace(/\s+/g, '-')}_report_${Date.now()}.pdf`;
-          
+          console.log("Uploading to supa-base")
           const { data: uploadData, error: uploadError } = await supabase.storage
             .from('reports')
             .upload(fileName, pdfBlob, {
@@ -364,6 +366,8 @@ export default function CharterUpload() {
           document.body.removeChild(tempDiv);
           
           successCount++;
+          console.log("Uplaod done!")
+          console.log(successCount)
 
         } catch (error) {
           console.error(`Error generating report for ${student.name}:`, error);
