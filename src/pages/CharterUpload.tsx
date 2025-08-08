@@ -66,7 +66,7 @@ export default function CharterUpload() {
 
     // Charter-specific class options with A/B divisions
     const charterClassOptions = [
-        "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12"
+        "Grade 7 A", "Grade 7 B", "Grade 8 A", "Grade 8 B", "Grade 9 B", "Grade 9 B", "Grade 10 A",  "Grade 10 B", "Grade 11 A", "Grade 11 B", "Grade 12 A",  "Grade 12 B"
     ];
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
