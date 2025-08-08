@@ -185,7 +185,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                                 <td style={{
                                     verticalAlign: "top",
                                     paddingBottom: "10px"
-                                }} className="border ">{average.toFixed(1)}</td>
+                                }} className="border ">{average.toFixed(2)}</td>
                                 <td style={{
                                     verticalAlign: "top",
                                     paddingBottom: "10px"
