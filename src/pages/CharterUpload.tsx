@@ -32,24 +32,24 @@ const GRADE_7_SUBJECTS = [
   'Arabic'
 ];
 
-// Grade 8 subjects based on user requirements
+// Grade 8 subjects - correct list
 const GRADE_8_SUBJECTS = [
   'Language Arts',
   'Mathematics',
   'Science',
+  'Basic Technology',
   'Social Studies',
-  'Health Education',
-  'National Values Education',
-  'Physical Education',
-  'Financial Literacy',
-  'Religion (IRK)',
+  'Physical and Health Education',
+  'Civic Education',
+  'Agricultural Science',
+  'Christian Religious Studies',
+  'Islamic Religious Studies',
+  'Business Studies',
+  'CCA (Creative and Cultural Arts)',
   'Scholastic Fair',
-  'Religion (CRK)',
-  'Music',
-  'Visual Arts',
   'ICT',
-  'French',
-  'Arabic'
+  'Hausa Language',
+  'Arabic Studies'
 ];
 
 interface ExcelRow {
@@ -139,22 +139,22 @@ export default function CharterUpload() {
 
   // Subject mapping for Grade 8 Excel headers
   const GRADE_8_SUBJECT_MAPPING = {
-    'english_language': 'Language Arts',
+    'language_arts': 'Language Arts',
     'mathematics': 'Mathematics',
-    'basic_science_technology': 'Science',
+    'science': 'Science',
+    'basic_technology': 'Basic Technology',
     'social_studies': 'Social Studies',
-    'health_education': 'Health Education',
-    'nve': 'National Values Education',
-    'physical_education': 'Physical Education',
-    'financial_literacy': 'Financial Literacy',
-    'religion_irk': 'Religion (IRK)',
+    'physical_health_education': 'Physical and Health Education',
+    'civic_education': 'Civic Education',
+    'agricultural_science': 'Agricultural Science',
+    'christian_religious_studies': 'Christian Religious Studies',
+    'islamic_religious_studies': 'Islamic Religious Studies',
+    'business_studies': 'Business Studies',
+    'cca': 'CCA (Creative and Cultural Arts)',
     'scholastic_fair': 'Scholastic Fair',
-    'religion_crk': 'Religion (CRK)',
-    'music': 'Music',
-    'visual_arts': 'Visual Arts',
     'ict': 'ICT',
-    'french_language': 'French',
-    'arabic_studies': 'Arabic'
+    'hausa_language': 'Hausa Language',
+    'arabic_studies': 'Arabic Studies'
   };
 
   // Get appropriate subject mapping based on selected class
