@@ -49,6 +49,7 @@ interface ParsedStudent {
   class: string;
   term: string;
   academicYear: string;
+  date: string;
   average: number;
   attendance: {
     unexpectedAbsence: number;
@@ -170,26 +171,42 @@ export default function CharterUpload() {
           console.log('Processing student:', studentName);
 
           if (!studentMap.has(studentName)) {
-            // Initialize student with basic data
+            // Extract data from Excel row with fallbacks
+            const term = row['term'] || row['Term'] || row['TERM'] || "Term 3";
+            const academicYear = row['academic_year'] || row['Academic Year'] || row['year'] || "2024-2025";
+            const date = row['date'] || row['Date'] || row['report_date'] || new Date().toLocaleDateString();
+            
+            // Parse attendance data
+            const unexpectedAbsence = parseInt(row['unexpected_absence'] || row['Unexpected Absence'] || row['unexcused_absence'] || '0') || 0;
+            const explainedAbsence = parseInt(row['explained_absence'] || row['Explained Absence'] || row['excused_absence'] || '0') || 0;
+            const late = parseInt(row['late'] || row['Late'] || row['lateness'] || '0') || 0;
+            
+            // Parse remarks
+            const interpersonal = row['interpersonal'] || row['Interpersonal'] || row['interpersonal_skills'] || "";
+            const effort = row['effort'] || row['Effort'] || row['student_effort'] || "";
+            const classBehaviour = row['class_behaviour'] || row['Class Behaviour'] || row['behavior'] || row['behaviour'] || "";
+            
+            // Initialize student with extracted data
             studentMap.set(studentName, {
               name: studentName,
               subjects: [],
               rawData: row,
               class: selectedClass || "Grade 7 A",
-              term: "Term 3",
-              academicYear: "2024-2025",
+              term: term,
+              academicYear: academicYear,
+              date: date,
               average: 0,
               attendance: {
-                unexpectedAbsence: 0,
-                explainedAbsence: 0,
-                late: 0
+                unexpectedAbsence: unexpectedAbsence,
+                explainedAbsence: explainedAbsence,
+                late: late
               },
               remarks: {
-                interpersonal: "",
-                effort: "",
-                classBehaviour: ""
+                interpersonal: interpersonal,
+                effort: effort,
+                classBehaviour: classBehaviour
               },
-              comment: row['teacher_comment'] || row['comments'] || ""
+              comment: row['teacher_comment'] || row['comments'] || row['comment'] || row['Comment'] || ""
             });
           }
 
@@ -298,7 +315,7 @@ export default function CharterUpload() {
             <CharterReportCard
               name={student.name}
               grade={student.class}
-              date={new Date().toLocaleDateString()}
+              date={student.date}
               academicYear={student.academicYear}
               term={student.term}
               subjects={student.subjects}

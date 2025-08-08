@@ -170,7 +170,7 @@ export default function CharterReport() {
         <CharterReportCard 
           name={student.name}
           grade={student.class}
-          date={new Date().toLocaleDateString()}
+          date={student.date || new Date().toLocaleDateString()}
           academicYear={student.academicYear}
           term={student.term}
           subjects={student.subjects}
