@@ -137,24 +137,24 @@ export default function CharterUpload() {
     'ara_stu': 'Arabic'
   };
 
-  // Subject mapping for Grade 8 Excel headers
+  // Subject mapping for Grade 8 Excel headers (based on actual Excel column names)
   const GRADE_8_SUBJECT_MAPPING = {
-    'language_arts': 'Language Arts',
+    'language_art': 'Language Arts',
     'mathematics': 'Mathematics',
     'science': 'Science',
     'basic_technology': 'Basic Technology',
     'social_studies': 'Social Studies',
-    'physical_health_education': 'Physical and Health Education',
-    'civic_education': 'Civic Education',
+    'physical_health': 'Physical and Health Education',
+    'civic_edu': 'Civic Education',
     'agricultural_science': 'Agricultural Science',
-    'christian_religious_studies': 'Christian Religious Studies',
-    'islamic_religious_studies': 'Islamic Religious Studies',
+    'christian_religious': 'Christian Religious Studies',
+    'islamic_religious': 'Islamic Religious Studies',
     'business_studies': 'Business Studies',
-    'cca': 'CCA (Creative and Cultural Arts)',
+    'creative_arts': 'CCA (Creative and Cultural Arts)',
     'scholastic_fair': 'Scholastic Fair',
-    'ict': 'ICT',
+    'information_technology': 'ICT',
     'hausa_language': 'Hausa Language',
-    'arabic_studies': 'Arabic Studies'
+    'ara_stu': 'Arabic Studies'
   };
 
   // Get appropriate subject mapping based on selected class
@@ -231,8 +231,12 @@ export default function CharterUpload() {
               const overall = parseFloat(row[`${subjectKey}_overall`] || '0') || 0;
               const grade = row[`${subjectKey}_grade`] || '';
               
-              // Only include subjects with scores
-              if (ca > 0 || exam > 0 || overall > 0) {
+              // Check if subject is visible for this student
+              const visibilityKey = `${subjectKey}_visible`;
+              const isVisible = row[visibilityKey] === 'Y';
+              
+              // Include subject if it has scores OR if it's marked as visible
+              if (ca > 0 || exam > 0 || overall > 0 || isVisible) {
                 subjects.push({
                   name: subjectName,
                   ca: ca,
