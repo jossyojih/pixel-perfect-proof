@@ -239,7 +239,7 @@ export default function CharterReport() {
   
         const pageWidth = 210; // A4 width in mm
         const pageHeight = 297;
-        const margin = 10; // Equal margin on all sides (in mm)
+        const margin = 1; // Equal margin on all sides (in mm)
 
         const maxWidth = pageWidth - 2 * margin;
         const maxHeight = pageHeight - 2 * margin;
