@@ -135,16 +135,18 @@ export default function CharterUpload() {
         const studentMap = new Map<string, ParsedStudent>();
 
         jsonData.forEach((row, index) => {
-          // Extract student name using exact Excel header
-          const studentName = row['__EMPTY_1'];
+          // Extract student name using exact Excel header - actual student name is in __EMPTY_2
+          const studentName = row['__EMPTY_2'];
           
-          // Skip header rows and invalid entries
+          // Skip header rows (first 3 rows are headers) and invalid entries
           if (!studentName || 
               typeof studentName !== 'string' || 
               studentName.toLowerCase().includes('roll') ||
               studentName.toLowerCase().includes('name') ||
               studentName.toLowerCase().includes('student') ||
-              index === 0) {
+              studentName === 'Student Name' ||
+              index < 3) { // Skip first 3 header rows
+            console.log(`Skipping row ${index}: ${studentName}`);
             return;
           }
 
