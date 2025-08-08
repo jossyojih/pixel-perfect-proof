@@ -127,17 +127,26 @@ export default function CharterUpload() {
         const worksheet = workbook.Sheets[sheetName];
         const jsonData: ExcelRow[] = XLSX.utils.sheet_to_json(worksheet);
 
-        console.log('Excel data:', jsonData);
-        console.log('Headers:', jsonData.length > 0 ? Object.keys(jsonData[0]) : []);
+         console.log('Excel data:', jsonData);
+         console.log('Headers:', jsonData.length > 0 ? Object.keys(jsonData[0]) : []);
+         console.log('First few rows:', jsonData.slice(0, 5));
 
         // Group by student name and parse subjects
         const studentMap = new Map<string, ParsedStudent>();
 
-        jsonData.forEach((row) => {
+        jsonData.forEach((row, index) => {
           // Extract student name using exact Excel header
           const studentName = row['__EMPTY_1'];
           
-          if (!studentName || typeof studentName !== 'string') return;
+          // Skip header rows and invalid entries
+          if (!studentName || 
+              typeof studentName !== 'string' || 
+              studentName.toLowerCase().includes('roll') ||
+              studentName.toLowerCase().includes('name') ||
+              studentName.toLowerCase().includes('student') ||
+              index === 0) {
+            return;
+          }
 
           console.log('Processing student:', studentName);
 
