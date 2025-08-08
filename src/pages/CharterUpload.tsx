@@ -157,10 +157,43 @@ export default function CharterUpload() {
     'ara_stu': 'Arabic Studies'
   };
 
+  // Subject mapping for Grades 10-12 based on provided Excel headers
+  const GRADE_10_12_SUBJECT_MAPPING = {
+    'language_art': 'Language Arts',
+    'mathematics': 'Mathematics',
+    'biology': 'Biology',
+    'chemistry': 'Chemistry', 
+    'physics': 'Physics',
+    'agriculture': 'Agriculture',
+    'further_mathematics': 'Further Mathematics',
+    'financial_accounting': 'Financial Accounting',
+    'marketing': 'Marketing',
+    'civic_education': 'Civic Education',
+    'geography': 'Geography',
+    'economics': 'Economics',
+    'commerce': 'Commerce',
+    'christian_religious': 'Christian Religious Studies',
+    'islamic_religious': 'Islamic Religious Studies',
+    'government': 'Government',
+    'hausa': 'Hausa',
+    'literature': 'Literature in English',
+    'arabic_stu': 'Arabic Studies',
+    'scholastic_fair': 'Scholastic Fair',
+    'computer_studies': 'Computer Studies',
+    'vis_art': 'Visual Art',
+    'food_nutrition': 'Food and Nutrition',
+    'technical_drawing': 'Technical Drawing',
+    'history': 'History',
+    'data_processing': 'Data Processing',
+    'french': 'French'
+  };
+
   // Get appropriate subject mapping based on selected class
   const getSubjectMapping = () => {
     if (selectedClass.includes('Grade 8')) {
       return GRADE_8_SUBJECT_MAPPING;
+    } else if (selectedClass.includes('Grade 10') || selectedClass.includes('Grade 11') || selectedClass.includes('Grade 12')) {
+      return GRADE_10_12_SUBJECT_MAPPING;
     }
     return GRADE_7_SUBJECT_MAPPING; // Default to Grade 7
   };
