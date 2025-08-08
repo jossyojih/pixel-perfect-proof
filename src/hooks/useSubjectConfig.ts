@@ -55,6 +55,7 @@ export const useSubjectConfig = (gradeLevel?: string) => {
     if (className.startsWith('JSS 3')) return 'JSS 3';
     if (className.startsWith('SSS 1')) return 'SSS 1';
     if (className.startsWith('SSS 2')) return 'SSS 2';
+    if (className.startsWith('Grade 7')) return 'Grade 7';
     return className; // For Year 7 and other base classes
   };
 
@@ -144,6 +145,27 @@ export const useSubjectConfig = (gradeLevel?: string) => {
           'History',
           'Data Processing',
           'Arabic Studies'
+        ];
+      }
+      
+      if (baseGrade === 'Grade 7') {
+        return [
+          'Language Arts',
+          'Mathematics',
+          'Science',
+          'Social Studies',
+          'Health Education',
+          'National Values Education',
+          'Physical Education',
+          'Financial Literacy',
+          'Religion (IRK)',
+          'Scholastic Fair',
+          'Religion (CRK)',
+          'Music',
+          'Visual Arts',
+          'ICT',
+          'French',
+          'Arabic'
         ];
       }
       
@@ -254,6 +276,27 @@ export const useSubjectConfig = (gradeLevel?: string) => {
           'History': ['history'],
           'Data Processing': ['data_processing', 'data', 'ict'],
           'Arabic Studies': ['arabic_studies', 'arabic']
+        };
+      }
+      
+      if (baseGrade === 'Grade 7') {
+        return {
+          'Language Arts': ['language_art', 'language', 'arts'],
+          'Mathematics': ['mathematics', 'math'],
+          'Science': ['science'],
+          'Social Studies': ['social_studies', 'social'],
+          'Health Education': ['health_education', 'health'],
+          'National Values Education': ['national_values', 'values', 'education'],
+          'Physical Education': ['physical_education', 'physical', 'pe'],
+          'Financial Literacy': ['financial_literacy', 'financial'],
+          'Religion (IRK)': ['religion_irk', 'irk', 'islamic'],
+          'Scholastic Fair': ['scholastic_fair', 'scholastic'],
+          'Religion (CRK)': ['religion_crk', 'crk', 'christian'],
+          'Music': ['music'],
+          'Visual Arts': ['visual_arts', 'visual', 'arts'],
+          'ICT': ['ict', 'computer'],
+          'French': ['french'],
+          'Arabic': ['arabic']
         };
       }
       

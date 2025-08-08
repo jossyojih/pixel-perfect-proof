@@ -61,6 +61,7 @@ export default function CharterUpload() {
         if (className.startsWith('JSS 3')) return 'JSS 3';
         if (className.startsWith('SSS 1')) return 'SSS 1';
         if (className.startsWith('SSS 2')) return 'SSS 2';
+        if (className.startsWith('Grade 7')) return 'Grade 7';
         return className; // For Year 7 and other base classes
     };
 
@@ -267,6 +268,27 @@ export default function CharterUpload() {
                             };
                         }
 
+                        if (baseGrade === 'Grade 7') {
+                            return {
+                                'language_art': ['Language Arts'],
+                                'mathematics': ['Mathematics'],
+                                'science': ['Science'],
+                                'social_studies': ['Social Studies'],
+                                'health_education': ['Health Education'],
+                                'national_values': ['National Values Education'],
+                                'physical_education': ['Physical Education'],
+                                'financial_literacy': ['Financial Literacy'],
+                                'religion_irk': ['Religion (IRK)'],
+                                'scholastic_fair': ['Scholastic Fair'],
+                                'religion_crk': ['Religion (CRK)'],
+                                'music': ['Music'],
+                                'visual_arts': ['Visual Arts'],
+                                'ict': ['ICT'],
+                                'french': ['French'],
+                                'arabic': ['Arabic']
+                            };
+                        }
+
                         // Default for Year 7 and other classes
                         return {
                             'mathematics': ['Mathematics'],
@@ -305,6 +327,9 @@ export default function CharterUpload() {
                                 'geography', 'government', 'literature_in_english', 'literature_english',
                                 'commerce', 'fin_acco', 'financial_accounting', 'agriculture', 'religion_crs', 'religion_irs'
                             ];
+                        }
+                        if (baseGrade === 'Grade 7') {
+                            return ['religion_crk', 'arabic', 'french'];
                         }
                         return ['french', 'religion_crs', 'hausa'];
                     };
