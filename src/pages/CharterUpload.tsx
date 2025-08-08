@@ -32,6 +32,26 @@ const GRADE_7_SUBJECTS = [
   'Arabic'
 ];
 
+// Grade 8 subjects based on user requirements
+const GRADE_8_SUBJECTS = [
+  'Language Arts',
+  'Mathematics',
+  'Science',
+  'Social Studies',
+  'Health Education',
+  'National Values Education',
+  'Physical Education',
+  'Financial Literacy',
+  'Religion (IRK)',
+  'Scholastic Fair',
+  'Religion (CRK)',
+  'Music',
+  'Visual Arts',
+  'ICT',
+  'French',
+  'Arabic'
+];
+
 interface ExcelRow {
   [key: string]: any;
 }
@@ -97,8 +117,8 @@ export default function CharterUpload() {
     return 'F';
   };
 
-  // Subject mapping for exact Excel headers
-  const SUBJECT_MAPPING = {
+  // Subject mapping for Grade 7 Excel headers
+  const GRADE_7_SUBJECT_MAPPING = {
     'language_art': 'Language Arts',
     'mathematics': 'Mathematics',
     'science': 'Science',
@@ -115,6 +135,34 @@ export default function CharterUpload() {
     'ict': 'ICT',
     'french_language': 'French',
     'ara_stu': 'Arabic'
+  };
+
+  // Subject mapping for Grade 8 Excel headers
+  const GRADE_8_SUBJECT_MAPPING = {
+    'english_language': 'Language Arts',
+    'mathematics': 'Mathematics',
+    'basic_science_technology': 'Science',
+    'social_studies': 'Social Studies',
+    'health_education': 'Health Education',
+    'nve': 'National Values Education',
+    'physical_education': 'Physical Education',
+    'financial_literacy': 'Financial Literacy',
+    'religion_irk': 'Religion (IRK)',
+    'scholastic_fair': 'Scholastic Fair',
+    'religion_crk': 'Religion (CRK)',
+    'music': 'Music',
+    'visual_arts': 'Visual Arts',
+    'ict': 'ICT',
+    'french_language': 'French',
+    'arabic_studies': 'Arabic'
+  };
+
+  // Get appropriate subject mapping based on selected class
+  const getSubjectMapping = () => {
+    if (selectedClass.includes('Grade 8')) {
+      return GRADE_8_SUBJECT_MAPPING;
+    }
+    return GRADE_7_SUBJECT_MAPPING; // Default to Grade 7
   };
 
   const parseExcel = (file: File) => {
@@ -174,9 +222,10 @@ export default function CharterUpload() {
             // Extract subjects data directly from Excel
             const subjects = [];
             
-            // Process each subject using exact headers
-            Object.keys(SUBJECT_MAPPING).forEach(subjectKey => {
-              const subjectName = SUBJECT_MAPPING[subjectKey as keyof typeof SUBJECT_MAPPING];
+            // Process each subject using appropriate mapping
+            const subjectMapping = getSubjectMapping();
+            Object.keys(subjectMapping).forEach(subjectKey => {
+              const subjectName = subjectMapping[subjectKey as keyof typeof subjectMapping];
               const ca = parseFloat(row[`${subjectKey}_ca`] || '0') || 0;
               const exam = parseFloat(row[`${subjectKey}_exam`] || '0') || 0;
               const overall = parseFloat(row[`${subjectKey}_overall`] || '0') || 0;
