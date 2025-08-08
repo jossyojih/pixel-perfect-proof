@@ -69,10 +69,10 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                         </div>
                     </div>
 
-                    <h2 className="text-sm font-bold mt-0 mb-1 text-center">Term 3 Report Card</h2>
+                    <h2 className="text-sm font-bold mt-0 mb-0 text-center">Term 3 Report Card</h2>
 
                     {/* Student Info */}
-                    <div className="relative z-10 mb-1">
+                    <div className="relative z-10 mb-0">
                         <div className="grid [grid-template-columns:1.5fr_1fr_1.5fr] gap-x-2 text-[14px] text-center mb-1">
                             <div className="flex items-center px-3">
                                 <span className="text-left min-w-[95px]">Name</span>
@@ -103,7 +103,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                     </div>
 
                     {/* Subjects Table */}
-                    <table className="w-full border border-collapse text-center mb-1 table-fixed">
+                    <table className="w-full border border-collapse text-center mb-0 table-fixed">
                         <thead className="text-[12px] align-top">
                             {/* First header row: 3 columns, each spans 2 */}
                             <tr>
@@ -195,7 +195,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                     </table>
 
                     {/* Attendance + Grade Scale */}
-                    <div className="flex justify-between text-[12px] mb-1 w-full">
+                    <div className="flex justify-between text-[12px] mb-0 w-full">
                         {/* Left Table (Attendance) */}
                         <div className="w-[59%]">
                             <table className="border  border-collapse text-center w-full table-fixed h-[4.5rem]">
@@ -269,7 +269,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                         </table>
                     </div>
                     {/* Remarks */}
-                    <div className="mb-1 text-[12px]">
+                    <div className="mb-0 text-[12px]">
                         <table className="w-full border border-collapse text-left table-fixed leading-none">
                             <thead className="text-[12px] align-top">
                                 <tr>
