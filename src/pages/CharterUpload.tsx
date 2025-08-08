@@ -102,44 +102,104 @@ export default function CharterUpload() {
     const mapping: { [key: string]: string } = {
       'language_art_ca': 'Language Arts',
       'language_art_exam': 'Language Arts',
+      'language_art_final': 'Language Arts',
+      'language_art_total': 'Language Arts',
+      'language_arts_ca': 'Language Arts',
+      'language_arts_exam': 'Language Arts',
+      'language_arts_final': 'Language Arts',
+      'language_arts_total': 'Language Arts',
       'mathematics_ca': 'Mathematics',
       'mathematics_exam': 'Mathematics',
+      'mathematics_final': 'Mathematics',
+      'mathematics_total': 'Mathematics',
       'science_ca': 'Science', 
       'science_exam': 'Science',
+      'science_final': 'Science',
+      'science_total': 'Science',
       'social_studies_ca': 'Social Studies',
       'social_studies_exam': 'Social Studies',
+      'social_studies_final': 'Social Studies',
+      'social_studies_total': 'Social Studies',
       'health_ca': 'Health Education',
       'health_exam': 'Health Education',
+      'health_final': 'Health Education',
+      'health_total': 'Health Education',
+      'health_education_ca': 'Health Education',
+      'health_education_exam': 'Health Education',
+      'health_education_final': 'Health Education',
+      'health_education_total': 'Health Education',
       'nve_ca': 'National Values Education',
       'nve_exam': 'National Values Education',
+      'nve_final': 'National Values Education',
+      'nve_total': 'National Values Education',
+      'national_values_education_ca': 'National Values Education',
+      'national_values_education_exam': 'National Values Education',
+      'national_values_education_final': 'National Values Education',
+      'national_values_education_total': 'National Values Education',
       'phy_ed_ca': 'Physical Education',
       'phy_ed_exam': 'Physical Education',
+      'phy_ed_final': 'Physical Education',
+      'phy_ed_total': 'Physical Education',
       'physical_education_ca': 'Physical Education',
       'physical_education_exam': 'Physical Education',
+      'physical_education_final': 'Physical Education',
+      'physical_education_total': 'Physical Education',
       'fncl_literacy_ca': 'Financial Literacy',
       'fncl_literacy_exam': 'Financial Literacy',
+      'fncl_literacy_final': 'Financial Literacy',
+      'fncl_literacy_total': 'Financial Literacy',
+      'financial_literacy_ca': 'Financial Literacy',
+      'financial_literacy_exam': 'Financial Literacy',
+      'financial_literacy_final': 'Financial Literacy',
+      'financial_literacy_total': 'Financial Literacy',
       'religion_irk_ca': 'Religion (IRK)',
       'religion_irk_exam': 'Religion (IRK)',
+      'religion_irk_final': 'Religion (IRK)',
+      'religion_irk_total': 'Religion (IRK)',
       'schol_fair_ca': 'Scholastic Fair',
       'schol_fair_exam': 'Scholastic Fair',
+      'schol_fair_final': 'Scholastic Fair',
+      'schol_fair_total': 'Scholastic Fair',
       'scholastic_fair_ca': 'Scholastic Fair',
       'scholastic_fair_exam': 'Scholastic Fair',
+      'scholastic_fair_final': 'Scholastic Fair',
+      'scholastic_fair_total': 'Scholastic Fair',
       'religion_crk_ca': 'Religion (CRK)',
       'religion_crk_exam': 'Religion (CRK)',
+      'religion_crk_final': 'Religion (CRK)',
+      'religion_crk_total': 'Religion (CRK)',
       'music_ca': 'Music',
       'music_exam': 'Music',
+      'music_final': 'Music',
+      'music_total': 'Music',
       'vis_arts_ca': 'Visual Arts',
       'vis_arts_exam': 'Visual Arts',
+      'vis_arts_final': 'Visual Arts',
+      'vis_arts_total': 'Visual Arts',
       'visual_arts_ca': 'Visual Arts',
       'visual_arts_exam': 'Visual Arts',
+      'visual_arts_final': 'Visual Arts',
+      'visual_arts_total': 'Visual Arts',
       'ict_ca': 'ICT',
       'ict_exam': 'ICT',
+      'ict_final': 'ICT',
+      'ict_total': 'ICT',
       'french_language_ca': 'French',
       'french_language_exam': 'French',
+      'french_language_final': 'French',
+      'french_language_total': 'French',
+      'french_ca': 'French',
+      'french_exam': 'French',
+      'french_final': 'French',
+      'french_total': 'French',
       'arabic_ca': 'Arabic',
       'arabic_exam': 'Arabic',
+      'arabic_final': 'Arabic',
+      'arabic_total': 'Arabic',
       'ara_stu_ca': 'Arabic',
-      'ara_stu_exam': 'Arabic'
+      'ara_stu_exam': 'Arabic',
+      'ara_stu_final': 'Arabic',
+      'ara_stu_total': 'Arabic'
     };
     
     return mapping[fieldName] || fieldName;
@@ -181,10 +241,14 @@ export default function CharterUpload() {
             const explainedAbsence = parseInt(row['explained_absence'] || row['Explained Absence'] || row['excused_absence'] || '0') || 0;
             const late = parseInt(row['late'] || row['Late'] || row['lateness'] || '0') || 0;
             
-            // Parse remarks
-            const interpersonal = row['interpersonal'] || row['Interpersonal'] || row['interpersonal_skills'] || "";
-            const effort = row['effort'] || row['Effort'] || row['student_effort'] || "";
-            const classBehaviour = row['class_behaviour'] || row['Class Behaviour'] || row['behavior'] || row['behaviour'] || "";
+            // Parse remarks - try multiple possible column names
+            const interpersonal = row['interpersonal'] || row['Interpersonal'] || row['interpersonal_skills'] || 
+                                 row['Interpersonal Skills'] || row['INTERPERSONAL'] || "";
+            const effort = row['effort'] || row['Effort'] || row['student_effort'] || 
+                          row['Student Effort'] || row['EFFORT'] || "";
+            const classBehaviour = row['class_behaviour'] || row['Class Behaviour'] || row['behavior'] || 
+                                  row['behaviour'] || row['Behavior'] || row['CLASS_BEHAVIOUR'] || 
+                                  row['class_behavior'] || row['Class Behavior'] || "";
             
             // Initialize student with extracted data
             studentMap.set(studentName, {
@@ -206,14 +270,16 @@ export default function CharterUpload() {
                 effort: effort,
                 classBehaviour: classBehaviour
               },
-              comment: row['teacher_comment'] || row['comments'] || row['comment'] || row['Comment'] || ""
+              comment: row['teacher_comment'] || row['comments'] || row['comment'] || row['Comment'] || 
+                       row['Comments'] || row['teacher_comments'] || row['Teacher Comment'] || 
+                       row['Teacher Comments'] || row['COMMENTS'] || row['COMMENT'] || ""
             });
           }
 
           const student = studentMap.get(studentName)!;
 
           // Extract subjects from Excel columns
-          const subjectScores = new Map<string, { ca: number; exam: number }>();
+          const subjectScores = new Map<string, { ca: number; exam: number; finalScore: number }>();
 
           // Parse all Excel fields for subject scores
           Object.keys(row).forEach(fieldName => {
@@ -222,22 +288,29 @@ export default function CharterUpload() {
             if (fieldName.includes('_ca')) {
               const subjectName = mapExcelFieldToSubject(fieldName);
               if (!subjectScores.has(subjectName)) {
-                subjectScores.set(subjectName, { ca: 0, exam: 0 });
+                subjectScores.set(subjectName, { ca: 0, exam: 0, finalScore: 0 });
               }
               subjectScores.get(subjectName)!.ca = value;
             } else if (fieldName.includes('_exam')) {
               const subjectName = mapExcelFieldToSubject(fieldName);
               if (!subjectScores.has(subjectName)) {
-                subjectScores.set(subjectName, { ca: 0, exam: 0 });
+                subjectScores.set(subjectName, { ca: 0, exam: 0, finalScore: 0 });
               }
               subjectScores.get(subjectName)!.exam = value;
+            } else if (fieldName.includes('_final') || fieldName.includes('_total') || fieldName.includes('_score')) {
+              const subjectName = mapExcelFieldToSubject(fieldName.replace('_final', '').replace('_total', '').replace('_score', ''));
+              if (!subjectScores.has(subjectName)) {
+                subjectScores.set(subjectName, { ca: 0, exam: 0, finalScore: 0 });
+              }
+              subjectScores.get(subjectName)!.finalScore = value;
             }
           });
 
           // Convert to subject objects and filter out subjects with no scores
           const subjects = Array.from(subjectScores.entries())
             .map(([subjectName, scores]) => {
-              const finalScore = scores.ca + scores.exam;
+              // Use final score from Excel if available, otherwise calculate
+              const finalScore = scores.finalScore > 0 ? scores.finalScore : scores.ca + scores.exam;
               return {
                 name: subjectName,
                 ca: scores.ca,
@@ -250,12 +323,11 @@ export default function CharterUpload() {
 
           student.subjects = subjects;
           
-          // Calculate average
-          if (subjects.length > 0) {
-            student.average = subjects.reduce((sum, s) => sum + s.finalScore, 0) / subjects.length;
-          }
+          // Extract average directly from Excel instead of calculating
+          const excelAverage = parseFloat(row['average'] || row['Average'] || row['AVERAGE'] || row['overall_average'] || '0') || 0;
+          student.average = excelAverage > 0 ? excelAverage : (subjects.length > 0 ? subjects.reduce((sum, s) => sum + s.finalScore, 0) / subjects.length : 0);
 
-          console.log(`Student ${studentName} has ${subjects.length} subjects with scores`);
+          console.log(`Student ${studentName} has ${subjects.length} subjects with scores, average: ${student.average}`);
         });
 
         const parsedStudents = Array.from(studentMap.values());
