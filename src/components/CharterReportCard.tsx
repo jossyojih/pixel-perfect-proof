@@ -44,7 +44,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
         comment
     }, ref) => {
         return (
-            <div ref={ref} className="w-[794px] h-[1123px] bg-white p-6 text-xs text-black relative font-sans overflow-hidden" >
+            <div ref={ref} className="w-[794px] h-[1123px] bg-white px-7 text-xs text-black relative font-sans overflow-hidden" >
 
                 {/* Watermark */}
                 <div className="absolute top-[85px] opacity-30 pointer-events-none">
@@ -60,20 +60,19 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                         <img
                             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"
                             alt="AUN Schools Logo"
-                            className="h-[130px] w-[130px] -ml-6"
+                            className="h-[110px] w-[110px] -ml-6"
                         />
-                        <div className="text-center flex-1 mb-2">
+                        <div className="text-center flex-1">
                             <h1 className="text-lg font-bold">American University of Nigeria Schools – Charter</h1>
                             <p className="text-sm">No. 99, Lamido Zubairu Way, Yola Bye – Pass, P.M.B. 2250</p>
                             <p className="text-sm">Phone: +234 7055019053 Email: charter.schoo@aun.edu.ng</p>
-
                         </div>
                     </div>
 
-                    <h2 className="text-sm font-bold mt-0 mb-3 text-center">Term 3 Report Card</h2>
+                    <h2 className="text-sm font-bold mt-0 mb-1 text-center">Term 3 Report Card</h2>
 
                     {/* Student Info */}
-                    <div className="relative z-10 mb-2">
+                    <div className="relative z-10 mb-1">
                         <div className="grid [grid-template-columns:1.5fr_1fr_1.5fr] gap-x-2 text-[14px] text-center mb-1">
                             <div className="flex items-center px-3">
                                 <span className="text-left min-w-[95px]">Name</span>
@@ -198,7 +197,7 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                     {/* Attendance + Grade Scale */}
                     <div className="flex justify-between text-[12px] mb-1 w-full">
                         {/* Left Table (Attendance) */}
-                        <div className="mt-[1.5rem] mb-[1.5rem] w-[59%]">
+                        <div className="w-[59%]">
                             <table className="border  border-collapse text-center w-full table-fixed h-[4.5rem]">
                                 <thead>
                                     <tr className="h-[24px]">
@@ -320,14 +319,14 @@ export const CharterReportCard = forwardRef<HTMLDivElement, CharterReportCardPro
                     </div>
 
 
-                    {/* Comment */}
-                    <div className="text-[12px] border px-2 py-2 min-h-[60px]">
+                    {/* Comment - Expanded for more space */}
+                    <div className="text-[12px] border px-2 py-2 min-h-[120px] flex-grow">
                         <div className="text-[12px] font-bold mb-1">Comments:</div>
                         <div className="text-[11px]">{comment}</div>
                     </div>
 
                     {/* Signatures */}
-                    <table className="w-full text-center text-[12px] my-1 border border-collapse table-fixed">
+                    <table className="w-full text-center text-[12px] mt-auto border border-collapse table-fixed">
                         <tbody>
                             <tr className="h-[24px]">
                                 <td className="w-1/2 py-3 border align-middle">
