@@ -20,47 +20,7 @@ interface ExcelRow {
 
 interface ParsedStudent {
     name: string;
-    rawData?: ExcelRow;
-    // ELC specific fields from Excel
-    term_name?: string;
-    year_name?: string;
-    school_year?: string;
-    teacher_name?: string;
-    no_of_school_days?: number;
-    days_present?: number;
-    days_absent?: number;
-    teacher_comments?: string;
-    
-    // Development assessments - Personal, Social and Emotional Development
-    relationships_term3?: string;
-    self_awareness_term3?: string;
-    managing_feelings_term3?: string;
-    
-    // Communication and Language
-    listening_term3?: string;
-    understanding_term3?: string;
-    speaking_term3?: string;
-    
-    // Physical Development
-    moving_handling_term3?: string;
-    health_selfcare_term3?: string;
-    
-    // Literacy
-    reading_term3?: string;
-    writing_term3?: string;
-    
-    // Mathematics
-    numbers_term3?: string;
-    shape_term3?: string;
-    
-    // Understanding the World
-    communities_term3?: string;
-    world_term3?: string;
-    technology_term3?: string;
-    
-    // Expressive Arts and Design
-    exploring_term3?: string;
-    imaginative_term3?: string;
+    rawData: ExcelRow;
 }
 
 
@@ -111,47 +71,7 @@ export default function ELCUploadReport() {
                     if (!studentMap.has(studentName)) {
                         studentMap.set(studentName, {
                             name: studentName,
-                            rawData: row,
-                            // Extract ELC specific data using actual Excel column names
-                            term_name: row['term_name'],
-                            year_name: row['year_name'],
-                            school_year: row['school_year'],
-                            teacher_name: row['teacher_name'],
-                            no_of_school_days: parseInt(row['no_of_school_days']) || 53,
-                            days_present: parseInt(row['days_present']) || 48,
-                            days_absent: parseInt(row['days_absent']) || 5,
-                            teacher_comments: row['teacher_comment'],
-                            
-                            // Development assessments using actual Excel field names - Personal, Social and Emotional Development
-                            relationships_term3: row['term3_can_play_taking_turns_relationships'],
-                            self_awareness_term3: row['term3_Can_say_when_self_awareness'] || row['term3_Is_confident_to_self_awareness'],
-                            managing_feelings_term3: row['term3_consequences_managing_feelings'],
-                            
-                            // Communication and Language
-                            listening_term3: row['term3_situations_listening'],
-                            understanding_term3: row['term3_ideas_or_actions_understanding'],
-                            speaking_term3: row['term3_listeners_speaking'],
-                            
-                            // Physical Development
-                            moving_handling_term3: row['term3_small_movements_moving_handling'],
-                            health_selfcare_term3: row['term3_toilet_independently_health_self_care'],
-                            
-                            // Literacy
-                            reading_term3: row['term3_aloud_accurately_reading'],
-                            writing_term3: row['term3_spoken_sounds_writing'],
-                            
-                            // Mathematics
-                            numbers_term3: row['term3_names_in_sequence'],
-                            shape_term3: row['term3_describe_them_shape'],
-                            
-                            // Understanding the World
-                            communities_term3: row['term3_family_members_communities'],
-                            world_term3: row['term3_talk_about_changes_communities'],
-                            technology_term3: row['term3_schools_technology'],
-                            
-                            // Expressive Arts and Design
-                            exploring_term3: row['term3_experiment_exploring'],
-                            imaginative_term3: row['term3_stories_imaginative'],
+                            rawData: row
                         });
                     }
 
@@ -180,54 +100,11 @@ export default function ELCUploadReport() {
         reader.readAsArrayBuffer(file);
     };
 
-    // Generate ELC specific report data
+    // Generate ELC specific report data - pass raw data directly
     const generateReportData = (student: any) => {
         return {
             studentName: student.name,
-            grade: selectedClass || student.rawData?.class || "Grade 1-A",
-            term: student.term_name || "Term 3",
-            academicYear: student.school_year || "2024 - 2025",
-            teacherName: student.teacher_name || "Class Teacher",
-            attendance: {
-                totalDays: student.no_of_school_days || 53,
-                daysPresent: student.days_present || 48,
-                daysAbsent: student.days_absent || 5
-            },
-            generalComment: student.teacher_comments || "",
-            
-            // Development assessments
-            developmentAssessments: {
-                // Personal, Social and Emotional Development
-                relationships: student.relationships_term3 || "",
-                selfAwareness: student.self_awareness_term3 || "",
-                managingFeelings: student.managing_feelings_term3 || "",
-                
-                // Communication and Language
-                listening: student.listening_term3 || "",
-                understanding: student.understanding_term3 || "",
-                speaking: student.speaking_term3 || "",
-                
-                // Physical Development
-                movingHandling: student.moving_handling_term3 || "",
-                healthSelfcare: student.health_selfcare_term3 || "",
-                
-                // Literacy
-                reading: student.reading_term3 || "",
-                writing: student.writing_term3 || "",
-                
-                // Mathematics
-                numbers: student.numbers_term3 || "",
-                shape: student.shape_term3 || "",
-                
-                // Understanding the World
-                communities: student.communities_term3 || "",
-                world: student.world_term3 || "",
-                technology: student.technology_term3 || "",
-                
-                // Expressive Arts and Design
-                exploring: student.exploring_term3 || "",
-                imaginative: student.imaginative_term3 || ""
-            }
+            rawData: student.rawData
         };
     };
 

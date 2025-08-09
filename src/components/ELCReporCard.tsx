@@ -36,17 +36,7 @@ interface DevelopmentAssessments {
 
 interface ReportCardProps {
     studentName: string;
-    grade: string;
-    term: string;
-    academicYear: string;
-    teacherName: string;
-    attendance: {
-        totalDays: number;
-        daysPresent: number;
-        daysAbsent: number;
-    };
-    generalComment: string;
-    developmentAssessments: DevelopmentAssessments;
+    rawData: any;
     pageRefs?: {
         coverRef: React.RefObject<HTMLDivElement>;
         subjectsRef: React.RefObject<HTMLDivElement>;
@@ -58,15 +48,21 @@ interface ReportCardProps {
 
 export const ELCReportCard = ({
     studentName,
-    grade,
-    term,
-    academicYear,
-    teacherName,
-    attendance,
-    generalComment,
-    developmentAssessments,
+    rawData,
     pageRefs,
 }: ReportCardProps) => {
+    // Extract data directly from Excel columns
+    const grade = rawData?.year_name || '2024 - 2025';
+    const term = rawData?.term_name || 'Term 3';
+    const academicYear = rawData?.school_year || '2024 - 2025';
+    const teacherName = rawData?.teacher_name || 'Teacher Name';
+    const totalDays = parseInt(rawData?.no_of_school_days) || 53;
+    const daysPresent = parseInt(rawData?.days_present) || 48;
+    const daysAbsent = parseInt(rawData?.days_absent) || 5;
+    const generalComment = rawData?.teacher_comment || 'No comments provided';
+    
+    // Helper function to get rating from Excel data
+    const getRating = (fieldName: string) => rawData?.[fieldName] || 'NA';
     return (
         <div className="bg-white font-sans text-black">
             {/* Cover Page */}
@@ -159,11 +155,11 @@ export const ELCReportCard = ({
                         <tr>
                             <td className="border border-black px-2 py-1 font-bold" colSpan={4}>Class : <span>{grade}</span></td>
                             <td className="border border-black px-2 py-1 font-bold">No. of school days</td>
-                            <td className="border border-black px-2 py-1">{attendance.totalDays}</td>
+                            <td className="border border-black px-2 py-1">{totalDays}</td>
                             <td className="border border-black px-2 py-1 font-bold">Days Present</td>
-                            <td className="border border-black px-2 py-1">{attendance.daysPresent}</td>
+                            <td className="border border-black px-2 py-1">{daysPresent}</td>
                             <td className="border border-black px-2 py-1 font-bold">Days Absent</td>
-                            <td className="border border-black px-2 py-1">{attendance.daysAbsent}</td>
+                            <td className="border border-black px-2 py-1">{daysAbsent}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 font-bold">Key</td>
@@ -194,7 +190,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Making relationships</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.relationships}</td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_can_play_taking_turns_relationships')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -221,7 +217,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-blue-100 text-left font-bold" colSpan={4}>Self Confidence and Self Awareness</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.selfAwareness}</td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_Can_say_when_self_awareness')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -255,7 +251,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Managing Feelings and Behaviour</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.managingFeelings}</td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_consequences_managing_feelings')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -305,7 +301,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Listening and Attention</th>
                             <th className="border border-black px-2 py-1 font-bold"></th>
                             <th className="border border-black px-2 py-1 font-bold"></th>
-                            <th className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.listening}</th>
+                            <th className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_situations_listening')}</th>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -342,7 +338,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-blue-100 text-left font-bold" colSpan={4}>Understanding</th>
                             <td className="border border-black px-2 py-1 w-[8%]"></td>
                             <td className="border border-black px-2 py-1 w-[8%]"></td>
-                            <td className="border border-black px-2 py-1 w-[8%] text-center font-bold">{developmentAssessments.understanding}</td>
+                            <td className="border border-black px-2 py-1 w-[8%] text-center font-bold">{getRating('term3_ideas_or_actions_understanding')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -362,7 +358,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Speaking</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.speaking}</td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_listeners_speaking')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -395,7 +391,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Moving and Handling</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.movingHandling}</td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_small_movements_moving_handling')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -422,7 +418,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Health and Self Care</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.healthSelfcare}</td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_toilet_independently_health_self_care')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -451,7 +447,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Reading</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.reading}</td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_aloud_accurately_reading')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -478,7 +474,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Writing</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_spoken_sounds_writing')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -497,7 +493,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Numbers</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.numbers}</td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_names_in_sequence')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -562,7 +558,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Shape, Space and Measure</th>
                             <td className="border border-black px-2 py-1 w-[8%]"></td>
                             <td className="border border-black px-2 py-1 w-[8%]"></td>
-                            <td className="border border-black px-2 py-1 w-[8%]"></td>
+                            <td className="border border-black px-2 py-1 w-[8%] text-center font-bold">{getRating('term3_describe_them_shape')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -595,7 +591,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>People and Communities</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_family_members_communities')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -622,7 +618,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>The World</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_talk_about_changes_communities')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -649,7 +645,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Technology</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_schools_technology')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -678,7 +674,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Exploring and Using Media and Materials</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_experiment_exploring')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -698,7 +694,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Being Imaginative</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{getRating('term3_stories_imaginative')}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>

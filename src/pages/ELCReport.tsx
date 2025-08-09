@@ -61,55 +61,10 @@ export default function ELCStudentReport() {
   }, [studentName, navigate, toast]);
 
   const generateReportData = (student: any) => {
-    const selectedClass = localStorage.getItem('selectedClass') || "Grade 1 A";
-    console.log('Selected Class from localStorage:', selectedClass);
-    
+    // Pass the raw Excel data directly to the report card
     return {
       studentName: student.name,
-      grade: selectedClass || student.rawData?.class || "Grade 1-A",
-      term: student.term_name || "Term 3",
-      academicYear: student.school_year || "2024 - 2025",
-      teacherName: student.teacher_name || "Class Teacher",
-      attendance: {
-        totalDays: student.no_of_school_days || 53,
-        daysPresent: student.days_present || 48,
-        daysAbsent: student.days_absent || 5
-      },
-      generalComment: student.teacher_comments || "",
-      
-      // Development assessments
-      developmentAssessments: {
-        // Personal, Social and Emotional Development
-        relationships: student.relationships_term3 || "",
-        selfAwareness: student.self_awareness_term3 || "",
-        managingFeelings: student.managing_feelings_term3 || "",
-        
-        // Communication and Language
-        listening: student.listening_term3 || "",
-        understanding: student.understanding_term3 || "",
-        speaking: student.speaking_term3 || "",
-        
-        // Physical Development
-        movingHandling: student.moving_handling_term3 || "",
-        healthSelfcare: student.health_selfcare_term3 || "",
-        
-        // Literacy
-        reading: student.reading_term3 || "",
-        writing: student.writing_term3 || "",
-        
-        // Mathematics
-        numbers: student.numbers_term3 || "",
-        shape: student.shape_term3 || "",
-        
-        // Understanding the World
-        communities: student.communities_term3 || "",
-        world: student.world_term3 || "",
-        technology: student.technology_term3 || "",
-        
-        // Expressive Arts and Design
-        exploring: student.exploring_term3 || "",
-        imaginative: student.imaginative_term3 || ""
-      }
+      rawData: student.rawData
     };
   };
 
