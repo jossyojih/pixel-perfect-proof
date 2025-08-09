@@ -11,8 +11,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useRef } from "react";
 import * as XLSX from 'xlsx';
-import { ELCReportCard } from "@/components/ELCReporCard";
-import { ELCStudentsTable } from "@/components/ELCStudentsTable";
+import { DolphinReportCard } from "@/components/DolphinReportCard";
 import { DolphinStudentsTable } from "@/components/DolphinStudentsTable";
 
 interface ExcelRow {
@@ -317,7 +316,7 @@ export default function DolphinUploadReport() {
                     console.log('Rendering ReportCard component');
                     await new Promise<void>((resolve) => {
                         root.render(
-                            <ELCReportCard
+                            <DolphinReportCard
                                 {...reportData}
                                 pageRefs={{
                                     coverRef,

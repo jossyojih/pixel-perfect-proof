@@ -1,22 +1,37 @@
 import { Card } from "@/components/ui/card";
 import { forwardRef } from "react";
 
-interface Subject {
-    name: string;
-    grade: number | "N/A";
-    teacher: string;
-    comment?: string;
-}
-
-interface Special {
-    name: string;
-    grade: number | "N/A";
-    teacher: string;
-}
-
-interface WorkHabit {
-    trait: string;
-    rating: string;
+interface DevelopmentAssessments {
+    // Personal, Social and Emotional Development
+    relationships: string;
+    selfAwareness: string;
+    managingFeelings: string;
+    
+    // Communication and Language
+    listening: string;
+    understanding: string;
+    speaking: string;
+    
+    // Physical Development
+    movingHandling: string;
+    healthSelfcare: string;
+    
+    // Literacy
+    reading: string;
+    writing: string;
+    
+    // Mathematics
+    numbers: string;
+    shape: string;
+    
+    // Understanding the World
+    communities: string;
+    world: string;
+    technology: string;
+    
+    // Expressive Arts and Design
+    exploring: string;
+    imaginative: string;
 }
 
 interface ReportCardProps {
@@ -24,18 +39,14 @@ interface ReportCardProps {
     grade: string;
     term: string;
     academicYear: string;
-    subjects: Subject[];
-    specials: Special[];
-    scienceSubject?: Subject;
-    workHabits: WorkHabit[];
-    generalComment: string;
-    mathLanguageArt?: string;
-    englishLanguageArtTeacherName?: string;
+    teacherName: string;
     attendance: {
         totalDays: number;
         daysPresent: number;
         daysAbsent: number;
     };
+    generalComment: string;
+    developmentAssessments: DevelopmentAssessments;
     pageRefs?: {
         coverRef: React.RefObject<HTMLDivElement>;
         subjectsRef: React.RefObject<HTMLDivElement>;
@@ -50,14 +61,10 @@ export const ELCReportCard = ({
     grade,
     term,
     academicYear,
-    subjects,
-    specials,
-    scienceSubject,
-    workHabits,
-    generalComment,
-    mathLanguageArt,
-    englishLanguageArtTeacherName,
+    teacherName,
     attendance,
+    generalComment,
+    developmentAssessments,
     pageRefs,
 }: ReportCardProps) => {
     return (
@@ -83,10 +90,10 @@ export const ELCReportCard = ({
                                 End of Term Report
                             </h2>
                             <p className="text-lg font-medium text-blue-600">
-                                Term 3
+                                {term}
                             </p>
                             <p className="text-lg text-black">
-                                2024 - 2025
+                                {academicYear}
                             </p>
                         </div>
 
@@ -98,7 +105,7 @@ export const ELCReportCard = ({
                                 {grade}
                             </p>
                             <p className="text-base text-black">
-                                Class teacher name found in excel
+                                {teacherName}
                             </p>
                         </div>
                     </div>
@@ -187,7 +194,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Making relationships</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.relationships}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -214,7 +221,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-blue-100 text-left font-bold" colSpan={4}>Self Confidence and Self Awareness</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.selfAwareness}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -248,7 +255,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Managing Feelings and Behaviour</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.managingFeelings}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -298,7 +305,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Listening and Attention</th>
                             <th className="border border-black px-2 py-1 font-bold"></th>
                             <th className="border border-black px-2 py-1 font-bold"></th>
-                            <th className="border border-black px-2 py-1 font-bold"></th>
+                            <th className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.listening}</th>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -335,7 +342,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-blue-100 text-left font-bold" colSpan={4}>Understanding</th>
                             <td className="border border-black px-2 py-1 w-[8%]"></td>
                             <td className="border border-black px-2 py-1 w-[8%]"></td>
-                            <td className="border border-black px-2 py-1 w-[8%]"></td>
+                            <td className="border border-black px-2 py-1 w-[8%] text-center font-bold">{developmentAssessments.understanding}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -355,7 +362,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Speaking</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.speaking}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -388,7 +395,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Moving and Handling</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.movingHandling}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -415,7 +422,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Health and Self Care</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.healthSelfcare}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -444,7 +451,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Reading</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.reading}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>
@@ -490,7 +497,7 @@ export const ELCReportCard = ({
                             <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Numbers</th>
                             <td className="border border-black px-2 py-1"></td>
                             <td className="border border-black px-2 py-1"></td>
-                            <td className="border border-black px-2 py-1"></td>
+                            <td className="border border-black px-2 py-1 text-center font-bold">{developmentAssessments.numbers}</td>
                         </tr>
                         <tr>
                             <td className="border border-black px-2 py-1 text-sm">❖</td>

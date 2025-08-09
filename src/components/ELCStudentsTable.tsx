@@ -4,12 +4,19 @@ import { useNavigate } from "react-router-dom";
 
 interface ParsedStudent {
   name: string;
-  subjects: Array<{
-    name: string;
-    teacher: string;
-    grade: number | "N/A";
-    comment: string;
-  }>;
+  rawData?: any;
+  term_name?: string;
+  year_name?: string;
+  school_year?: string;
+  teacher_name?: string;
+  no_of_school_days?: number;
+  days_present?: number;
+  days_absent?: number;
+  teacher_comments?: string;
+  // Add development assessments for display purposes
+  relationships_term3?: string;
+  self_awareness_term3?: string;
+  managing_feelings_term3?: string;
 }
 
 interface StudentsTableProps {
@@ -34,8 +41,8 @@ export function ELCStudentsTable({ students }: StudentsTableProps) {
         <TableHeader>
           <TableRow>
             <TableHead>Student Name</TableHead>
-            <TableHead>Number of Subjects</TableHead>
-            <TableHead>Subjects</TableHead>
+            <TableHead>Teacher</TableHead>
+            <TableHead>Term</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -43,21 +50,8 @@ export function ELCStudentsTable({ students }: StudentsTableProps) {
           {students.map((student, index) => (
             <TableRow key={index}>
               <TableCell className="font-medium">{student.name}</TableCell>
-              <TableCell>{student.subjects.length}</TableCell>
-              <TableCell>
-                <div className="flex flex-wrap gap-1">
-                  {student.subjects.slice(0, 3).map((subject, idx) => (
-                    <span key={idx} className="text-xs bg-secondary px-2 py-1 rounded">
-                      {subject.name}
-                    </span>
-                  ))}
-                  {student.subjects.length > 3 && (
-                    <span className="text-xs text-muted-foreground">
-                      +{student.subjects.length - 3} more
-                    </span>
-                  )}
-                </div>
-              </TableCell>
+              <TableCell>{student.teacher_name || 'N/A'}</TableCell>
+              <TableCell>{student.term_name || 'N/A'}</TableCell>
               <TableCell>
                 <Button 
                   onClick={() => handleStudentClick(student)}

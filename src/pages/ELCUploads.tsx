@@ -20,22 +20,47 @@ interface ExcelRow {
 
 interface ParsedStudent {
     name: string;
-    subjects: Array<{
-        name: string;
-        teacher: string;
-        grade: number | "N/A";
-        comment: string;
-    }>;
-    rawData?: ExcelRow; // Optional raw Excel data for accessing teacher names
-    // Additional fields for report
-    Comments?: string;
-    showsEffort?: string;
-    worksWellWithOthers?: string;
-    producesLegibleHandwriting?: string;
-    demonstratesGreatCharacterTrait?: string;
-    totalDays?: number;
-    daysPresent?: number;
-    daysAbsent?: number;
+    rawData?: ExcelRow;
+    // ELC specific fields from Excel
+    term_name?: string;
+    year_name?: string;
+    school_year?: string;
+    teacher_name?: string;
+    no_of_school_days?: number;
+    days_present?: number;
+    days_absent?: number;
+    teacher_comments?: string;
+    
+    // Development assessments - Personal, Social and Emotional Development
+    relationships_term3?: string;
+    self_awareness_term3?: string;
+    managing_feelings_term3?: string;
+    
+    // Communication and Language
+    listening_term3?: string;
+    understanding_term3?: string;
+    speaking_term3?: string;
+    
+    // Physical Development
+    moving_handling_term3?: string;
+    health_selfcare_term3?: string;
+    
+    // Literacy
+    reading_term3?: string;
+    writing_term3?: string;
+    
+    // Mathematics
+    numbers_term3?: string;
+    shape_term3?: string;
+    
+    // Understanding the World
+    communities_term3?: string;
+    world_term3?: string;
+    technology_term3?: string;
+    
+    // Expressive Arts and Design
+    exploring_term3?: string;
+    imaginative_term3?: string;
 }
 
 
@@ -77,7 +102,7 @@ export default function ELCUploadReport() {
                 jsonData.forEach((row, index) => {
                     console.log(`Processing row ${index}:`, row);
                     // The student name can be in either __EMPTY_2 or _2 depending on Excel format
-                    const studentName = row['__EMPTY_2'] || row['_2'];
+                    const studentName = row['__EMPTY_2'] || row['_2'] || row['child_name'];
                     console.log(`Student name found: "${studentName}"`);
 
                     if (!studentName || typeof studentName !== 'string') return;
@@ -85,90 +110,51 @@ export default function ELCUploadReport() {
                     if (!studentMap.has(studentName)) {
                         studentMap.set(studentName, {
                             name: studentName,
-                            subjects: [],
-                            rawData: row, // Store the raw Excel row data for teacher names
-                            // Extract additional data from Excel using correct column names
-                            Comments: row['teacher_comments'],
-                            showsEffort: row['shows_effort_remarks'],
-                            worksWellWithOthers: row['works_with_remarks'],
-                            producesLegibleHandwriting: row['produces_legible_remarks'],
-                            demonstratesGreatCharacterTrait: row['demonstrates_great_remarks'],
-                            totalDays: parseInt(row['no_of_school_days']) || 53,
-                            daysPresent: parseInt(row['days_present']) || 48,
-                            daysAbsent: parseInt(row['days_absent']) || 5
+                            rawData: row,
+                            // Extract ELC specific data from Excel
+                            term_name: row['term_name'],
+                            year_name: row['year_name'],
+                            school_year: row['school_year'],
+                            teacher_name: row['teacher_name'],
+                            no_of_school_days: parseInt(row['no_of_school_days']) || 53,
+                            days_present: parseInt(row['days_present']) || 48,
+                            days_absent: parseInt(row['days_absent']) || 5,
+                            teacher_comments: row['teacher_comments'],
+                            
+                            // Development assessments - Personal, Social and Emotional Development
+                            relationships_term3: row['relationships_term3'],
+                            self_awareness_term3: row['self_awareness_term3'],
+                            managing_feelings_term3: row['managing_feelings_term3'],
+                            
+                            // Communication and Language
+                            listening_term3: row['listening_term3'],
+                            understanding_term3: row['understanding_term3'],
+                            speaking_term3: row['speaking_term3'],
+                            
+                            // Physical Development
+                            moving_handling_term3: row['moving_handling_term3'],
+                            health_selfcare_term3: row['health_selfcare_term3'],
+                            
+                            // Literacy
+                            reading_term3: row['reading_term3'],
+                            writing_term3: row['writing_term3'],
+                            
+                            // Mathematics
+                            numbers_term3: row['numbers_term3'],
+                            shape_term3: row['shape_term3'],
+                            
+                            // Understanding the World
+                            communities_term3: row['communities_term3'],
+                            world_term3: row['world_term3'],
+                            technology_term3: row['technology_term3'],
+                            
+                            // Expressive Arts and Design
+                            exploring_term3: row['exploring_term3'],
+                            imaginative_term3: row['imaginative_term3'],
                         });
                     }
 
-                    const student = studentMap.get(studentName)!;
-
-                    console.log(student, "Student map o")
-
-                    // Parse all the subjects from the row
-                    const subjects = [
-                        {
-                            name: 'English Language',
-                            teacher: row['english_language_teacher_name'] || '',
-                            grade: row['english_language_art'] || "N/A",
-                            comment: row['english_language_remark'] || ''
-                        },
-                        {
-                            name: 'Mathematics',
-                            teacher: row['math_language_teacher_name'] || '',
-                            grade: row['math_language_art'] || "N/A",
-                            comment: row['math_language_art_remark'] || ''
-                        },
-                        {
-                            name: 'Social Studies',
-                            teacher: row['social_studies_teacher_name'] || '',
-                            grade: row['social_studies_art'] || "N/A",
-                            comment: row['social_studies_remark'] || ''
-                        },
-                        {
-                            name: 'Science',
-                            teacher: row['science_teacher_name'] || '',
-                            grade: row['science_art'] || "N/A",
-                            comment: row['science_remark'] || ''
-                        },
-                        {
-                            name: 'Computer Studies',
-                            teacher: row['computer_teacher_name'] || '',
-                            grade: row['Computer_art'] || "N/A",
-                            comment: ''
-                        },
-                        {
-                            name: 'Hausa',
-                            teacher: row['hausa_teacher_name'] || '',
-                            grade: row['hausa_art'] || "N/A",
-                            comment: ''
-                        },
-                        {
-                            name: 'Religious Studies',
-                            teacher: row['religious_studies_teacher_name'] || '',
-                            grade: row['religious_studies_art'] || row['religious_studies_art2'] || "N/A",
-                            comment: ''
-                        },
-                        {
-                            name: 'French',
-                            teacher: row['french_teacher_name'] || '',
-                            grade: row['french_art'] || "N/A",
-                            comment: ''
-                        },
-                        {
-                            name: 'PHE',
-                            teacher: row['phe_teacher_name'] || '',
-                            grade: row['phe_art'] || "N/A",
-                            comment: ''
-                        }
-                    ];
-
-                    // Add subjects that have valid grades to the student
-                    subjects.forEach(subject => {
-                        if (subject.grade !== "N/A" && subject.grade !== null && subject.grade !== undefined && subject.grade !== "") {
-                            student.subjects.push(subject);
-                        }
-                    });
-
-                    console.log(`Student ${studentName} has ${student.subjects.length} subjects:`, student.subjects.map(s => s.name));
+                    console.log(`Student ${studentName} ELC data:`, studentMap.get(studentName));
                 });
 
                 const parsedStudents = Array.from(studentMap.values());
@@ -193,58 +179,53 @@ export default function ELCUploadReport() {
         reader.readAsArrayBuffer(file);
     };
 
-    // Use the exact same data processing logic as StudentReport.tsx
+    // Generate ELC specific report data
     const generateReportData = (student: any) => {
-        // Separate main subjects from specials (include Science in specials)
-        const mainSubjects = student.subjects.filter((subject: any) =>
-            !['Computer Studies', 'Hausa', 'Religious Studies', 'French', 'Science', 'PHE'].includes(subject.name)
-        );
-
-        const specialSubjects = student.subjects.filter((subject: any) =>
-            ['Computer Studies', 'Hausa', 'Religious Studies', 'French', "PHE"].includes(subject.name)
-        );
-
-        // Get Science subject for specials page
-        const scienceSubject = student.subjects.filter((subject: any) =>
-            subject.name === 'Science'
-        );
-
-        // // Only add Physical Education if not already in the subjects data
-        // const hasPhysicalEducation = specialSubjects.some((subject: any) => 
-        //   subject.name.toLowerCase().includes('physical') || subject.name.toLowerCase().includes('pe')
-        //   || subject.name.toLowerCase().includes('PHE')
-        // );
-
-        // const additionalSpecials = [];
-        // if (!hasPhysicalEducation) {
-        //   additionalSpecials.push({ 
-        //     name: "Physical Education", 
-        //     grade: 88, 
-        //     teacher: "Geoffrey Nushu Gabriel" 
-        //   });
-        // }
-
         return {
             studentName: student.name,
-            grade: selectedClass || "Grade 1-A",
-            term: "First Term",
-            academicYear: "2023/2024",
-            subjects: mainSubjects,
-            specials: specialSubjects,
-            scienceSubject: scienceSubject[0] || null, // Pass science subject separately
-            workHabits: [
-                { trait: "Shows Effort", rating: student.showsEffort || "Outstanding" },
-                { trait: "Works well with others", rating: student.worksWellWithOthers || "Satisfactory" },
-                { trait: "Produces legible handwriting", rating: student.producesLegibleHandwriting || "Outstanding" },
-                { trait: "Demonstrates great character trait", rating: student.demonstratesGreatCharacterTrait || "Satisfactory" }
-            ],
-            generalComment: student.Comments || student.comments,
-            mathLanguageArt: student.rawData?.['math_language_teacher_name'] || "Math Teacher",
-            englishLanguageArtTeacherName: student.rawData?.['english_language_teacher_name'] || "English Teacher",
+            grade: selectedClass || student.rawData?.class || "Grade 1-A",
+            term: student.term_name || "Term 3",
+            academicYear: student.school_year || "2024 - 2025",
+            teacherName: student.teacher_name || "Class Teacher",
             attendance: {
-                totalDays: student.totalDays || 53,
-                daysPresent: student.daysPresent || 53,
-                daysAbsent: student.daysAbsent || (student.totalDays && student.daysPresent ? student.totalDays - student.daysPresent : 0)
+                totalDays: student.no_of_school_days || 53,
+                daysPresent: student.days_present || 48,
+                daysAbsent: student.days_absent || 5
+            },
+            generalComment: student.teacher_comments || "",
+            
+            // Development assessments
+            developmentAssessments: {
+                // Personal, Social and Emotional Development
+                relationships: student.relationships_term3 || "",
+                selfAwareness: student.self_awareness_term3 || "",
+                managingFeelings: student.managing_feelings_term3 || "",
+                
+                // Communication and Language
+                listening: student.listening_term3 || "",
+                understanding: student.understanding_term3 || "",
+                speaking: student.speaking_term3 || "",
+                
+                // Physical Development
+                movingHandling: student.moving_handling_term3 || "",
+                healthSelfcare: student.health_selfcare_term3 || "",
+                
+                // Literacy
+                reading: student.reading_term3 || "",
+                writing: student.writing_term3 || "",
+                
+                // Mathematics
+                numbers: student.numbers_term3 || "",
+                shape: student.shape_term3 || "",
+                
+                // Understanding the World
+                communities: student.communities_term3 || "",
+                world: student.world_term3 || "",
+                technology: student.technology_term3 || "",
+                
+                // Expressive Arts and Design
+                exploring: student.exploring_term3 || "",
+                imaginative: student.imaginative_term3 || ""
             }
         };
     };
@@ -258,13 +239,13 @@ export default function ELCUploadReport() {
             return;
         }
 
-        // Filter out students with no subjects
-        const studentsWithSubjects = students.filter(student => student.subjects.length > 0);
-        console.log(`Filtered to ${studentsWithSubjects.length} students with subjects`);
+        // Filter out students with no valid data
+        const studentsWithData = students.filter(student => student.name && student.name.trim() !== '');
+        console.log(`Filtered to ${studentsWithData.length} students with valid data`);
 
-        if (studentsWithSubjects.length === 0) {
+        if (studentsWithData.length === 0) {
             toast({
-                title: "No students with valid subjects found",
+                title: "No students with valid data found",
                 description: "Please check your Excel file format and data.",
                 variant: "destructive"
             });
@@ -277,9 +258,9 @@ export default function ELCUploadReport() {
             let successCount = 0;
             let errorCount = 0;
 
-            for (let index = 0; index < studentsWithSubjects.length; index++) {
-                const student = studentsWithSubjects[index];
-                console.log(`Processing student ${index + 1}/${studentsWithSubjects.length}: ${student.name}`);
+            for (let index = 0; index < studentsWithData.length; index++) {
+                const student = studentsWithData[index];
+                console.log(`Processing student ${index + 1}/${studentsWithData.length}: ${student.name}`);
 
                 try {
                     // Generate report data using the same logic as StudentReport
@@ -287,11 +268,8 @@ export default function ELCUploadReport() {
                     const reportData = generateReportData(student);
                     console.log('Report data generated:', reportData);
 
-                    // Skip students with no main subjects to avoid empty reports
-                    if (reportData.subjects.length === 0) {
-                        console.log(`Skipping ${student.name} - no main subjects`);
-                        continue;
-                    }
+                    // ELC reports don't require subjects, so no need to skip
+                    console.log(`Processing ELC report for ${student.name}`);
 
                     // Create temporary DOM elements for PDF generation (same as StudentReport)
                     console.log('Creating temporary DOM container');
