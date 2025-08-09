@@ -95,6 +95,7 @@ export default function ELCUploadReport() {
 
                 console.log('Raw JSON data from Excel:', jsonData);
                 console.log('First row keys:', jsonData.length > 0 ? Object.keys(jsonData[0]) : 'No data');
+                console.log('First row data sample:', jsonData[0]);
 
                 // Group data by student
                 const studentMap = new Map<string, ParsedStudent>();
