@@ -31,6 +31,7 @@ export default function ELCStudentReport() {
   const coverRef = useRef<HTMLDivElement>(null);
   const subjectsRef = useRef<HTMLDivElement>(null);
   const specialsRef = useRef<HTMLDivElement>(null);
+  const shapeRef = useRef<HTMLDivElement>(null);
   const finalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -134,7 +135,7 @@ export default function ELCStudentReport() {
         compress: true
       });
 
-      const pageRefs = [coverRef, subjectsRef, specialsRef, finalRef];
+      const pageRefs = [coverRef, subjectsRef, specialsRef, shapeRef, finalRef];
       
       for (let i = 0; i < pageRefs.length; i++) {
         const pageElement = pageRefs[i].current;
@@ -261,6 +262,7 @@ export default function ELCStudentReport() {
             coverRef,
             subjectsRef,
             specialsRef,
+            shapeRef,
             finalRef
           }}
         />

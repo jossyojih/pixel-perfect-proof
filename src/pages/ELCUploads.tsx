@@ -47,7 +47,7 @@ export default function ELCUploadReport() {
     const { toast } = useToast();
 
     const classOptions = [
-        "Busy Bees", "Eager Explorers 1", "Eager Explorers 2", "Lively Learners 1", "Lively Learners 2"
+        "Busy Bees 1", "Eager Explorers 1", "Eager Explorers 2", "Lively Learners 1", "Lively Learners 2"
     ];
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -306,6 +306,7 @@ export default function ELCUploadReport() {
                     const coverRef = { current: null };
                     const subjectsRef = { current: null };
                     const specialsRef = { current: null };
+                    const shapeRef = { current: null };
                     const finalRef = { current: null };
 
                     // Render ReportCard component using same approach as StudentReport
@@ -322,6 +323,7 @@ export default function ELCUploadReport() {
                                     coverRef,
                                     subjectsRef,
                                     specialsRef,
+                                    shapeRef,
                                     finalRef
                                 }}
                             />
@@ -341,6 +343,7 @@ export default function ELCUploadReport() {
                         { ref: coverRef, name: 'cover' },
                         { ref: subjectsRef, name: 'subjects' },
                         { ref: specialsRef, name: 'specials' },
+                        { ref: shapeRef, name: 'shape' },
                         { ref: finalRef, name: 'final' }
                     ];
 
