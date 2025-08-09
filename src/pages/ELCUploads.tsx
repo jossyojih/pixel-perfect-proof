@@ -112,7 +112,7 @@ export default function ELCUploadReport() {
                         studentMap.set(studentName, {
                             name: studentName,
                             rawData: row,
-                            // Extract ELC specific data from Excel
+                            // Extract ELC specific data using actual Excel column names
                             term_name: row['term_name'],
                             year_name: row['year_name'],
                             school_year: row['school_year'],
@@ -120,38 +120,38 @@ export default function ELCUploadReport() {
                             no_of_school_days: parseInt(row['no_of_school_days']) || 53,
                             days_present: parseInt(row['days_present']) || 48,
                             days_absent: parseInt(row['days_absent']) || 5,
-                            teacher_comments: row['teacher_comments'],
+                            teacher_comments: row['teacher_comment'],
                             
-                            // Development assessments - Personal, Social and Emotional Development
-                            relationships_term3: row['relationships_term3'],
-                            self_awareness_term3: row['self_awareness_term3'],
-                            managing_feelings_term3: row['managing_feelings_term3'],
+                            // Development assessments using actual Excel field names - Personal, Social and Emotional Development
+                            relationships_term3: row['term3_can_play_taking_turns_relationships'],
+                            self_awareness_term3: row['term3_Can_say_when_self_awareness'] || row['term3_Is_confident_to_self_awareness'],
+                            managing_feelings_term3: row['term3_consequences_managing_feelings'],
                             
                             // Communication and Language
-                            listening_term3: row['listening_term3'],
-                            understanding_term3: row['understanding_term3'],
-                            speaking_term3: row['speaking_term3'],
+                            listening_term3: row['term3_situations_listening'],
+                            understanding_term3: row['term3_ideas_or_actions_understanding'],
+                            speaking_term3: row['term3_listeners_speaking'],
                             
                             // Physical Development
-                            moving_handling_term3: row['moving_handling_term3'],
-                            health_selfcare_term3: row['health_selfcare_term3'],
+                            moving_handling_term3: row['term3_small_movements_moving_handling'],
+                            health_selfcare_term3: row['term3_toilet_independently_health_self_care'],
                             
                             // Literacy
-                            reading_term3: row['reading_term3'],
-                            writing_term3: row['writing_term3'],
+                            reading_term3: row['term3_aloud_accurately_reading'],
+                            writing_term3: row['term3_spoken_sounds_writing'],
                             
                             // Mathematics
-                            numbers_term3: row['numbers_term3'],
-                            shape_term3: row['shape_term3'],
+                            numbers_term3: row['term3_names_in_sequence'],
+                            shape_term3: row['term3_describe_them_shape'],
                             
                             // Understanding the World
-                            communities_term3: row['communities_term3'],
-                            world_term3: row['world_term3'],
-                            technology_term3: row['technology_term3'],
+                            communities_term3: row['term3_family_members_communities'],
+                            world_term3: row['term3_talk_about_changes_communities'],
+                            technology_term3: row['term3_schools_technology'],
                             
                             // Expressive Arts and Design
-                            exploring_term3: row['exploring_term3'],
-                            imaginative_term3: row['imaginative_term3'],
+                            exploring_term3: row['term3_experiment_exploring'],
+                            imaginative_term3: row['term3_stories_imaginative'],
                         });
                     }
 
