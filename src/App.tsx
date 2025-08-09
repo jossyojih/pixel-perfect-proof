@@ -15,6 +15,10 @@ import ClassTable from "./pages/ClassTable";
 import NotFound from "./pages/NotFound";
 import CharterUpload from "./pages/CharterUpload";
 import CharterReport from "./pages/CharterReport";
+import ELCUploadReport from "./pages/ELCUploads";
+import ELCStudentReport from "./pages/ELCReport";
+import DolphinStudentReport from "./pages/DolphinReport";
+import DolphinUploadReport from "./pages/DolphinUpload";
 
 
 const queryClient = new QueryClient();
@@ -41,6 +45,12 @@ const App = () => (
                 <Link to="/charter-upload">Charter Upload</Link>
               </Button>
               <Button asChild variant="outline">
+                <Link to="/elc-upload">ELC Upload</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/dolphin-upload">Dolphin Upload</Link>
+              </Button>
+              <Button asChild variant="outline">
                 <Link to="/results">View Results</Link>
               </Button>
               <Button asChild variant="outline">
@@ -51,11 +61,15 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/upload" element={<UploadReport />} />
+            <Route path="/elc-upload" element={<ELCUploadReport />} />
+            <Route path="/dolphin-upload" element={<DolphinUploadReport />} />
             <Route path="/academy-upload" element={<AcademyUpload />} />
             <Route path="/charter-upload" element={<CharterUpload />} />
             <Route path="/report/:studentName" element={<StudentReport />} />
             <Route path="/academy-report/:studentName" element={<AcademyReport />} />
             <Route path="/charter-report/:studentName" element={<CharterReport />} />
+            <Route path="/elc-report/:studentName" element={<ELCStudentReport />} />
+            <Route path="/dolphin-report/:studentName" element={<DolphinStudentReport />} />
             <Route path="/results" element={<Results />} />
             <Route path="/class-table" element={<ClassTable />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

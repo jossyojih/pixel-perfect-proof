@@ -34,29 +34,29 @@ const Index = () => {
       description: "Charter school report management system",
       icon: <Building className="h-8 w-8" />,
       status: "active",
-      color: "bg-muted/50 text-muted-foreground border-muted",
+      color: "bg-primary/10 text-primary border-primary/20",
       buttonText: "Manage Charter Reports",
       onClick: () => navigate("/charter-upload")
     },
     {
-      id: "hse",
-      title: "HSE",
-      description: "Higher School Education report generation",
+      id: "elc",
+      title: "ELC",
+      description: "Early Learning Center report generation",
       icon: <BookOpen className="h-8 w-8" />,
-      status: "coming-soon",
-      color: "bg-muted/50 text-muted-foreground border-muted",
-      buttonText: "Coming Soon",
-      onClick: () => {}
+      status: "active",
+      color: "bg-primary/10 text-primary border-primary/20",
+      buttonText: "Manage ELC Reports",
+      onClick: () => {navigate("/elc-upload") }
     },
     {
       id: "dolphin",
       title: "Dolphin",
       description: "Dolphin program report management",
       icon: <Trophy className="h-8 w-8" />,
-      status: "coming-soon",
-      color: "bg-muted/50 text-muted-foreground border-muted",
-      buttonText: "Coming Soon",
-      onClick: () => {}
+      status: "active",
+      color: "bg-primary/10 text-primary border-primary/20",
+      buttonText: "Manage Dolphin Reports",
+      onClick: () => {navigate("/dolphin-upload")}
     },
     {
       id: "administration",
