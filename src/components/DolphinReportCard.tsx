@@ -21,21 +21,8 @@ interface WorkHabit {
 
 interface ReportCardProps {
     studentName: string;
-    grade: string;
-    term: string;
-    academicYear: string;
-    subjects: Subject[];
-    specials: Special[];
-    scienceSubject?: Subject;
-    workHabits: WorkHabit[];
-    generalComment: string;
-    mathLanguageArt?: string;
-    englishLanguageArtTeacherName?: string;
-    attendance: {
-        totalDays: number;
-        daysPresent: number;
-        daysAbsent: number;
-    };
+    dateOfBirth?: string;
+    rawData: any;
     pageRefs?: {
         coverRef: React.RefObject<HTMLDivElement>;
         subjectsRef: React.RefObject<HTMLDivElement>;
@@ -46,19 +33,12 @@ interface ReportCardProps {
 
 export const DolphinReportCard = ({
     studentName,
-    grade,
-    term,
-    academicYear,
-    subjects,
-    specials,
-    scienceSubject,
-    workHabits,
-    generalComment,
-    mathLanguageArt,
-    englishLanguageArtTeacherName,
-    attendance,
+    dateOfBirth,
+    rawData,
     pageRefs,
 }: ReportCardProps) => {
+    // Helper function to get checkbox state from raw data
+    const getCheckboxState = (field: string) => rawData?.[field] === 'Y';
     const today = new Date().toLocaleDateString('en-US', { 
         year: 'numeric', 
         month: 'long', 
@@ -95,7 +75,7 @@ export const DolphinReportCard = ({
                     </div>
                     <div className="border-b-2 border-gray-400 pb-2">
                         <p className="font-bold">Date of birth</p>
-                        <p className="mt-2"></p>
+                        <p className="mt-2">{dateOfBirth || ''}</p>
                     </div>
                     <div className="border-b-2 border-gray-400 pb-2">
                         <p className="font-bold">Today's Date</p>
@@ -113,22 +93,24 @@ export const DolphinReportCard = ({
                 <div className="space-y-6">
                     <h3 className="text-lg font-bold text-blue-600 mb-4">What Most Children Do at this Age :</h3>
 
-                    {/* Social/Emotional */}
+                     {/* Social/Emotional */}
                     <div>
                         <h4 className="text-md font-bold text-blue-600 mb-3">Social/Emotional</h4>
                         <div className="space-y-2">
                             {[
-                                "Likes to hand things to others as play",
-                                "May have temper tantrums", 
-                                "May be afraid of strangers",
-                                "Shows affection to familiar people",
-                                "May cling to caregivers in new situation",
-                                "Points to show others something interesting",
-                                "Explores alone but with parents close by"
+                                { text: "Likes to hand things to others as play", field: "likes_to_hand_social" },
+                                { text: "May have temper tantrums", field: "tantrums_social" }, 
+                                { text: "May be afraid of strangers", field: "strangers_social" },
+                                { text: "Shows affection to familiar people", field: "familiar_social" },
+                                { text: "May cling to caregivers in new situation", field: "situation_social" },
+                                { text: "Points to show others something interesting", field: "interesting_social" },
+                                { text: "Explores alone but with parents close by", field: "explores_social" }
                             ].map((item, index) => (
                                 <div key={index} className="flex items-center">
-                                    <div className="w-4 h-4 border border-gray-400 mr-3"></div>
-                                    <span className="text-sm">{item}</span>
+                                    <div className={`w-4 h-4 border border-gray-400 mr-3 flex items-center justify-center ${getCheckboxState(item.field) ? 'bg-blue-600' : ''}`}>
+                                        {getCheckboxState(item.field) && <span className="text-white text-xs">✓</span>}
+                                    </div>
+                                    <span className="text-sm">{item.text}</span>
                                 </div>
                             ))}
                         </div>
@@ -139,14 +121,16 @@ export const DolphinReportCard = ({
                         <h4 className="text-md font-bold text-blue-600 mb-3">Language/Communication</h4>
                         <div className="space-y-2">
                             {[
-                                "Says several single words",
-                                "Says and shakes head \"no\"",
-                                "Points to show someone what he/she wants",
-                                "Imitates words and actions"
+                                { text: "Says several single words", field: "several_communication" },
+                                { text: "Says and shakes head \"no\"", field: "shakes_communication" },
+                                { text: "Points to show someone what he/she wants", field: "wants_communication" },
+                                { text: "Imitates words and actions", field: "imitates_words" }
                             ].map((item, index) => (
                                 <div key={index} className="flex items-center">
-                                    <div className="w-4 h-4 border border-gray-400 mr-3"></div>
-                                    <span className="text-sm">{item}</span>
+                                    <div className={`w-4 h-4 border border-gray-400 mr-3 flex items-center justify-center ${getCheckboxState(item.field) ? 'bg-blue-600' : ''}`}>
+                                        {getCheckboxState(item.field) && <span className="text-white text-xs">✓</span>}
+                                    </div>
+                                    <span className="text-sm">{item.text}</span>
                                 </div>
                             ))}
                         </div>
@@ -157,15 +141,17 @@ export const DolphinReportCard = ({
                         <h4 className="text-md font-bold text-blue-600 mb-3">Cognitive</h4>
                         <div className="space-y-2">
                             {[
-                                "Points to get attention of others",
-                                "Shows interest in doll or stuffed animal by pretending to feed",
-                                "Consistently responds to name",
-                                "Scribbles on his own",
-                                "Can follow 1-step verbal command without any gestures; for example, sits when you say \"sit down\""
+                                { text: "Points to get attention of others", field: "attention_cognitive" },
+                                { text: "Shows interest in doll or stuffed animal by pretending to feed", field: "feed_cognitive" },
+                                { text: "Consistently responds to name", field: "body_consistently" },
+                                { text: "Scribbles on his own", field: "own_cognitive" },
+                                { text: "Can follow 1-step verbal command without any gestures; for example, sits when you say \"sit down\"", field: "command_cognitive" }
                             ].map((item, index) => (
                                 <div key={index} className="flex items-center">
-                                    <div className="w-4 h-4 border border-gray-400 mr-3"></div>
-                                    <span className="text-sm">{item}</span>
+                                    <div className={`w-4 h-4 border border-gray-400 mr-3 flex items-center justify-center ${getCheckboxState(item.field) ? 'bg-blue-600' : ''}`}>
+                                        {getCheckboxState(item.field) && <span className="text-white text-xs">✓</span>}
+                                    </div>
+                                    <span className="text-sm">{item.text}</span>
                                 </div>
                             ))}
                         </div>
@@ -176,16 +162,18 @@ export const DolphinReportCard = ({
                         <h4 className="text-md font-bold text-blue-600 mb-3">Movement/Physical Development</h4>
                         <div className="space-y-2">
                             {[
-                                "Walks alone",
-                                "May walk up steps and run",
-                                "Pulls toys while walking",
-                                "Moves body to music",
-                                "Drinks from a cup",
-                                "Eats with a spoon"
+                                { text: "Walks alone", field: "alone_development" },
+                                { text: "May walk up steps and run", field: "run_development" },
+                                { text: "Pulls toys while walking", field: "walking_development" },
+                                { text: "Moves body to music", field: "help_moves" },
+                                { text: "Drinks from a cup", field: "cup_development" },
+                                { text: "Eats with a spoon", field: "spoon_development" }
                             ].map((item, index) => (
                                 <div key={index} className="flex items-center">
-                                    <div className="w-4 h-4 border border-gray-400 mr-3"></div>
-                                    <span className="text-sm">{item}</span>
+                                    <div className={`w-4 h-4 border border-gray-400 mr-3 flex items-center justify-center ${getCheckboxState(item.field) ? 'bg-blue-600' : ''}`}>
+                                        {getCheckboxState(item.field) && <span className="text-white text-xs">✓</span>}
+                                    </div>
+                                    <span className="text-sm">{item.text}</span>
                                 </div>
                             ))}
                         </div>
@@ -293,6 +281,13 @@ export const DolphinReportCard = ({
                         </div>
                     </div>
                 </div>
+
+                {/* Teacher Comments */}
+                {rawData?.teacher_comments && (
+                    <div className="mb-8">
+                        <p className="text-sm leading-relaxed">{rawData.teacher_comments}</p>
+                    </div>
+                )}
 
                 {/* Signature Section */}
                 <div className="mt-16 text-center">

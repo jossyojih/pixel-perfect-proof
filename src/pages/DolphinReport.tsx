@@ -257,7 +257,8 @@ export default function DolphinStudentReport() {
 
       <div ref={reportRef}>
         <DolphinReportCard 
-          {...reportData} 
+          studentName={reportData.studentName}
+          rawData={student.rawData}
           pageRefs={{
             coverRef,
             subjectsRef,

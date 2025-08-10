@@ -317,7 +317,8 @@ export default function DolphinUploadReport() {
                     await new Promise<void>((resolve) => {
                         root.render(
                             <DolphinReportCard
-                                {...reportData}
+                                studentName={reportData.studentName}
+                                rawData={student.rawData}
                                 pageRefs={{
                                     coverRef,
                                     subjectsRef,
