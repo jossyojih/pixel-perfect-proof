@@ -15,7 +15,10 @@ interface ELCReportCardProps {
   };
 }
 
+
+
 export function ELCReportCard({ studentName, rawData, pageRefs }: ELCReportCardProps) {
+  console.log(rawData, 'rawData in ELCReportCard');
   const getRating = (fieldName: string) => {
     return rawData[fieldName] || '';
   };
@@ -84,7 +87,7 @@ export function ELCReportCard({ studentName, rawData, pageRefs }: ELCReportCardP
       <div ref={pageRefs.subjectsRef} className="w-full p-4" style={{ minHeight: '210mm', width: '297mm' }}>
         {/* Header */}
         <div className="flex items-center mb-4">
-          <img src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"  alt="AUN Schools Logo" className="h-[140px] w-[130px] -ml-7" />
+          <img src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png" alt="AUN Schools Logo" className="h-[140px] w-[130px] -ml-7" />
           <div className="-ml-7">
             <h1 className="text-[26px] font-bold">AUN SCHOOLS</h1>
             <p className="text-lg">Early Learning Center</p>
@@ -96,7 +99,7 @@ export function ELCReportCard({ studentName, rawData, pageRefs }: ELCReportCardP
           <tbody>
             <tr>
               <td className="border border-black px-2 py-1 font-bold" colSpan={4}>Child's Name : <span>{studentName}</span></td>
-              <td className="border border-black px-2 py-1 font-bold" colSpan={2}>DOB : 24 Sep 2022</td>
+              <td className="border border-black px-2 py-1 font-bold" colSpan={2}>DOB : </td>
               <td className="border border-black px-2 py-1 font-bold" colSpan={2}>SEN Level :</td>
               <td className="border border-black px-2 py-1 font-bold">School Year</td>
               <td className="border border-black px-2 py-1">{getRating('year_name')}</td>
@@ -680,14 +683,19 @@ export function ELCReportCard({ studentName, rawData, pageRefs }: ELCReportCardP
             </tbody>
           </table>
 
-          <div className="border border-black mb-8" style={{ minHeight: '200px' }}>
-            <p className="border-b border-black text-sm font-bold mb-2"><span className="px-2">Comment :</span></p>
+          <div
+            className="border border-black mb-8 flex flex-col justify-start"
+            style={{ minHeight: '200px' }}
+          >
+            <p className="border-b border-black text-sm font-bold leading-tight m-0 pb-2">
+              <span className="px-2">Comment :</span>
+            </p>
             <div className="text-sm px-2">{getRating('teacher_comment')}</div>
           </div>
 
           <div className="text-center">
             <div className="mb-4">
-              <img  src="/lovable-uploads/8e2cb997-99fd-4baa-98af-b2cfb393803f.png"  alt="Signature" className="h-10 mx-auto" />
+              <img src="/lovable-uploads/8e2cb997-99fd-4baa-98af-b2cfb393803f.png" alt="Signature" className="h-10 mx-auto" />
             </div>
             <div className="border-t border-black mx-auto w-64 mb-2"></div>
             <div className="text-sm">
