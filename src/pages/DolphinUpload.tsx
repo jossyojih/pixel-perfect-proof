@@ -23,7 +23,7 @@ interface ParsedStudent {
     subjects: Array<{
         name: string;
         teacher: string;
-        grade: number | "N/A";
+        grade: number | string | "N/A";
         comment: string;
     }>;
     rawData?: ExcelRow; // Optional raw Excel data for accessing teacher names
@@ -103,70 +103,23 @@ export default function DolphinUploadReport() {
 
                     console.log(student, "Student map o")
 
-                    // Parse all the subjects from the row
-                    const subjects = [
-                        {
-                            name: 'English Language',
-                            teacher: row['english_language_teacher_name'] || '',
-                            grade: row['english_language_art'] || "N/A",
-                            comment: row['english_language_remark'] || ''
-                        },
-                        {
-                            name: 'Mathematics',
-                            teacher: row['math_language_teacher_name'] || '',
-                            grade: row['math_language_art'] || "N/A",
-                            comment: row['math_language_art_remark'] || ''
-                        },
-                        {
-                            name: 'Social Studies',
-                            teacher: row['social_studies_teacher_name'] || '',
-                            grade: row['social_studies_art'] || "N/A",
-                            comment: row['social_studies_remark'] || ''
-                        },
-                        {
-                            name: 'Science',
-                            teacher: row['science_teacher_name'] || '',
-                            grade: row['science_art'] || "N/A",
-                            comment: row['science_remark'] || ''
-                        },
-                        {
-                            name: 'Computer Studies',
-                            teacher: row['computer_teacher_name'] || '',
-                            grade: row['Computer_art'] || "N/A",
-                            comment: ''
-                        },
-                        {
-                            name: 'Hausa',
-                            teacher: row['hausa_teacher_name'] || '',
-                            grade: row['hausa_art'] || "N/A",
-                            comment: ''
-                        },
-                        {
-                            name: 'Religious Studies',
-                            teacher: row['religious_studies_teacher_name'] || '',
-                            grade: row['religious_studies_art'] || row['religious_studies_art2'] || "N/A",
-                            comment: ''
-                        },
-                        {
-                            name: 'French',
-                            teacher: row['french_teacher_name'] || '',
-                            grade: row['french_art'] || "N/A",
-                            comment: ''
-                        },
-                        {
-                            name: 'PHE',
-                            teacher: row['phe_teacher_name'] || '',
-                            grade: row['phe_art'] || "N/A",
-                            comment: ''
-                        }
-                    ];
+                    // For Dolphin students, we don't have traditional subjects
+                    // Instead, we'll create a dummy subject if they have developmental data
+                    const hasDevelopmentalData = 
+                        row['likes_to_hand_social'] || 
+                        row['several_communication'] || 
+                        row['attention_cognitive'] || 
+                        row['alone_development'] || 
+                        row['teacher_comments'];
 
-                    // Add subjects that have valid grades to the student
-                    subjects.forEach(subject => {
-                        if (subject.grade !== "N/A" && subject.grade !== null && subject.grade !== undefined && subject.grade !== "") {
-                            student.subjects.push(subject);
-                        }
-                    });
+                    if (hasDevelopmentalData) {
+                        student.subjects.push({
+                            name: 'Developmental Assessment',
+                            teacher: 'Early Learning Teacher',
+                            grade: 'Completed',
+                            comment: row['teacher_comments'] || 'Developmental assessment completed'
+                        });
+                    }
 
                     console.log(`Student ${studentName} has ${student.subjects.length} subjects:`, student.subjects.map(s => s.name));
                 });
@@ -176,7 +129,7 @@ export default function DolphinUploadReport() {
 
                 // Store the students data and selected class in localStorage for access in StudentReport
                 localStorage.setItem('studentsData', JSON.stringify(parsedStudents));
-                localStorage.setItem('selectedClass', selectedClass);
+                localStorage.setItem('selectedClass', selectedClass || 'Curious Dolphins');
 
                 toast({
                     title: "Excel file parsed successfully!",
@@ -226,7 +179,7 @@ export default function DolphinUploadReport() {
 
         return {
             studentName: student.name,
-            grade: selectedClass || "Grade 1-A",
+            grade: selectedClass || "Curious Dolphins",
             term: "First Term",
             academicYear: "2023/2024",
             subjects: mainSubjects,
@@ -287,11 +240,10 @@ export default function DolphinUploadReport() {
                     const reportData = generateReportData(student);
                     console.log('Report data generated:', reportData);
 
-                    // Skip students with no main subjects to avoid empty reports
-                    if (reportData.subjects.length === 0) {
-                        console.log(`Skipping ${student.name} - no main subjects`);
-                        continue;
-                    }
+                    // For Dolphin students, we don't need to skip based on subjects
+                    // They have developmental assessments instead
+                    console.log(`Processing ${student.name} - developmental assessment`);
+                    
 
                     // Create temporary DOM elements for PDF generation (same as StudentReport)
                     console.log('Creating temporary DOM container');
@@ -433,7 +385,7 @@ export default function DolphinUploadReport() {
                                 student_name: student.name,
                                 file_path: uploadData.path,
                                 public_url: publicUrl,
-                                class_tag: selectedClass || "Grade 3A",
+                                class_tag: selectedClass || "Curious Dolphins",
                                 grade_tag: "A"
                             });
 

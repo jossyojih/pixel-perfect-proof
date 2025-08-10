@@ -7,7 +7,7 @@ interface ParsedStudent {
   subjects: Array<{
     name: string;
     teacher: string;
-    grade: number | "N/A";
+    grade: number | string | "N/A";
     comment: string;
   }>;
 }
