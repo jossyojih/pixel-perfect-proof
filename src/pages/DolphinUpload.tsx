@@ -243,7 +243,7 @@ export default function DolphinUploadReport() {
                     tempContainer.style.left = '-9999px';
                     tempContainer.style.top = '-9999px';
                     tempContainer.style.width = '794px'; // A4 portrait width at 96 DPI
-                    tempContainer.style.minHeight = '1123px'; // A4 portrait height at 96 DPI
+                    // tempContainer.style.minHeight = '1123px'; // A4 portrait height at 96 DPI
                     document.body.appendChild(tempContainer);
 
                     const coverRef = { current: null };
@@ -289,24 +289,24 @@ export default function DolphinUploadReport() {
                         const section = sections[i];
                         if (section.ref.current) {
                             const canvas = await html2canvas(section.ref.current, {
-                                scale: 1,
+                                scale: 2,
                                 useCORS: true,
                                 allowTaint: true,
                                 backgroundColor: '#ffffff',
                                 width: section.ref.current.scrollWidth,
                                 height: section.ref.current.scrollHeight,
                                 scrollX: 0,
-                                scrollY: 0
+                                scrollY: -window.scrollY
                             });
 
-                            const imgData = canvas.toDataURL('image/jpeg', 0.8);
+                            const imgData = canvas.toDataURL('image/jpeg', 1.0);
 
                             // Portrait A4 dimensions
                             const pageWidth = 210;   // mm
                             const pageHeight = 297;  // mm
 
                             // Scale to fit inside portrait page
-                            let imgWidth = pageWidth;
+                            let imgWidth = 210;
                             let imgHeight = (canvas.height * imgWidth) / canvas.width;
 
                             if (imgHeight > pageHeight) {
@@ -319,7 +319,7 @@ export default function DolphinUploadReport() {
                             const yPosition = (pageHeight - imgHeight) / 2;
 
                             if (i > 0) pdf.addPage();
-                            pdf.addImage(imgData, 'JPEG', xPosition, yPosition, imgWidth, imgHeight);
+                            pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, Math.min(imgHeight, pageHeight));
                         }
                     }
 
