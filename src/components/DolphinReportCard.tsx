@@ -49,7 +49,7 @@ export const DolphinReportCard = ({
             {/* Page 1 */}
             <div
                 ref={pageRefs?.coverRef}
-                className="w-full p-8 bg-white"
+                className="w-full p-4 bg-white"
                 style={{ minHeight: '297mm', width: '210mm' }}
             >
                 {/* Header */}
@@ -222,7 +222,7 @@ export const DolphinReportCard = ({
             {/* Page 2 */}
             <div
                 ref={pageRefs?.subjectsRef}
-                className="w-full p-8 bg-white"
+                className="w-full p-4 bg-white"
                 style={{ minHeight: '297mm', width: '210mm' }}
             >
                 {/* Header */}
