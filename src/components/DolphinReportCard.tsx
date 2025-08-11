@@ -141,8 +141,8 @@ export const DolphinReportCard = ({
             {/* Page 1 */}
             <div
                 ref={pageRefs?.coverRef}
-                className="w-full p-4 bg-white"
-                style={{ minHeight: '297mm', width: '210mm' }}
+                className="w-full px-1 py-2 bg-white"
+                style={{ minHeight: '297mm', width: '100%', maxWidth: '210mm' }}
             >
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
@@ -150,7 +150,7 @@ export const DolphinReportCard = ({
                         <img
                             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"
                             alt="AUN Schools Logo"
-                            className="h-[130px] w-[130px] mr-4 -ml-7"
+                            className="h-[130px] w-[130px] mr-4 -ml-4"
                         />
                         <div className="text-center flex-1">
                             <h1 className="text-lg font-bold">
@@ -314,8 +314,8 @@ export const DolphinReportCard = ({
             {/* Page 2 */}
             <div
                 ref={pageRefs?.subjectsRef}
-                className="w-full p-4 bg-white"
-                style={{ minHeight: '297mm', width: '210mm' }}
+                className="w-full px-1 py-2 bg-white"
+                style={{ minHeight: '297mm', width: '100%', maxWidth: '210mm' }}
             >
                 {/* Header */}
                 <div className="border-4 border-green-600 bg-blue-900 text-white p-6 rounded-xl mb-6">
