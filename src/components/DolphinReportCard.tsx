@@ -48,7 +48,7 @@ export const DolphinReportCard = ({
         <>
             {/* Page 1 */}
             <div
-                ref={pageRefs?.specialsRef}
+                ref={pageRefs?.coverRef}
                 className="w-full p-4 bg-white"
                 style={{ minHeight: '297mm', width: '210mm' }}
             >
