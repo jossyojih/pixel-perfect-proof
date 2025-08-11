@@ -105,11 +105,11 @@ export default function DolphinUploadReport() {
 
                     // For Dolphin students, we don't have traditional subjects
                     // Instead, we'll create a dummy subject if they have developmental data
-                    const hasDevelopmentalData = 
-                        row['likes_to_hand_social'] || 
-                        row['several_communication'] || 
-                        row['attention_cognitive'] || 
-                        row['alone_development'] || 
+                    const hasDevelopmentalData =
+                        row['likes_to_hand_social'] ||
+                        row['several_communication'] ||
+                        row['attention_cognitive'] ||
+                        row['alone_development'] ||
                         row['teacher_comments'];
 
                     if (hasDevelopmentalData) {
@@ -235,37 +235,25 @@ export default function DolphinUploadReport() {
                 console.log(`Processing student ${index + 1}/${studentsWithSubjects.length}: ${student.name}`);
 
                 try {
-                    // Generate report data using the same logic as StudentReport
-                    console.log('Generating report data for', student.name);
                     const reportData = generateReportData(student);
-                    console.log('Report data generated:', reportData);
 
-                    // For Dolphin students, we don't need to skip based on subjects
-                    // They have developmental assessments instead
-                    console.log(`Processing ${student.name} - developmental assessment`);
-                    
-
-                    // Create temporary DOM elements for PDF generation (same as StudentReport)
-                    console.log('Creating temporary DOM container');
+                    // Create temporary DOM container (portrait dimensions)
                     const tempContainer = document.createElement('div');
                     tempContainer.style.position = 'absolute';
                     tempContainer.style.left = '-9999px';
                     tempContainer.style.top = '-9999px';
-                    tempContainer.style.width = '794px'; // A4 width in pixels at 96 DPI
+                    tempContainer.style.width = '794px'; // A4 portrait width at 96 DPI
+                    tempContainer.style.minHeight = '1123px'; // A4 portrait height at 96 DPI
                     document.body.appendChild(tempContainer);
 
-                    // Create refs for each section (same as StudentReport)
                     const coverRef = { current: null };
                     const subjectsRef = { current: null };
                     const specialsRef = { current: null };
                     const finalRef = { current: null };
 
-                    // Render ReportCard component using same approach as StudentReport
-                    console.log('Importing react-dom/client');
                     const { createRoot } = await import('react-dom/client');
                     const root = createRoot(tempContainer);
 
-                    console.log('Rendering ReportCard component');
                     await new Promise<void>((resolve) => {
                         root.render(
                             <DolphinReportCard
@@ -279,17 +267,17 @@ export default function DolphinUploadReport() {
                                 }}
                             />
                         );
-                        setTimeout(resolve, 1500); // Increased wait time for render
+                        setTimeout(resolve, 1500);
                     });
 
-                    console.log('Starting PDF generation');
-                    // Generate PDF using the same optimized settings as StudentReport
+                    // Create PDF in portrait
                     const pdf = new jsPDF({
-                        orientation: 'landscape',
+                        orientation: 'portrait',
                         unit: 'mm',
                         format: 'a4',
                         compress: true
                     });
+
                     const sections = [
                         { ref: coverRef, name: 'cover' },
                         { ref: subjectsRef, name: 'subjects' },
@@ -299,10 +287,7 @@ export default function DolphinUploadReport() {
 
                     for (let i = 0; i < sections.length; i++) {
                         const section = sections[i];
-                        console.log(`Processing section ${i + 1}/${sections.length}: ${section.name}`);
-
                         if (section.ref.current) {
-                            console.log('Generating canvas for section', section.name);
                             const canvas = await html2canvas(section.ref.current, {
                                 scale: 1,
                                 useCORS: true,
@@ -314,102 +299,86 @@ export default function DolphinUploadReport() {
                                 scrollY: 0
                             });
 
-                            // Convert to JPEG with compression
                             const imgData = canvas.toDataURL('image/jpeg', 0.8);
-                            const imgWidth = 297; // A4 landscape width in mm
-                            const pageHeight = 210; // A4 landscape height in mm
-                            const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-                            if (i > 0) {
-                                pdf.addPage();
+                            // Portrait A4 dimensions
+                            const pageWidth = 210;   // mm
+                            const pageHeight = 297;  // mm
+
+                            // Scale to fit inside portrait page
+                            let imgWidth = pageWidth;
+                            let imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                            if (imgHeight > pageHeight) {
+                                imgHeight = pageHeight;
+                                imgWidth = (canvas.width * imgHeight) / canvas.height;
                             }
 
-                            // Center the image on the page if it's smaller than A4
-                            const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
+                            // Center horizontally & vertically
+                            const xPosition = (pageWidth - imgWidth) / 2;
+                            const yPosition = (pageHeight - imgHeight) / 2;
 
-                            pdf.addImage(imgData, 'JPEG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
-                            console.log(`Added section ${section.name} to PDF`);
-                        } else {
-                            console.warn(`Section ${section.name} ref is null`);
+                            if (i > 0) pdf.addPage();
+                            pdf.addImage(imgData, 'JPEG', xPosition, yPosition, imgWidth, imgHeight);
                         }
                     }
 
-                    console.log('Cleaning up DOM');
-                    // Clean up
+                    // Cleanup
                     root.unmount();
                     document.body.removeChild(tempContainer);
 
-                    console.log('Starting upload to Supabase');
+                    // Upload to Supabase
+                    const pdfBlob = pdf.output('blob');
+                    const fileName = `${student.name.replace(/[^a-zA-Z0-9]/g, '_')}_report.pdf`;
 
-                    try {
-                        // Upload to Supabase with timeout and better error handling
-                        const pdfBlob = pdf.output('blob');
-                        const fileName = `${student.name.replace(/[^a-zA-Z0-9]/g, '_')}_report.pdf`;
+                    const uploadPromise = supabase.storage
+                        .from('reports')
+                        .upload(fileName, pdfBlob, {
+                            cacheControl: '3600',
+                            upsert: true
+                        });
 
-                        console.log(`Uploading PDF blob of size: ${pdfBlob.size} bytes for ${student.name}`);
+                    const timeoutPromise = new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error('Upload timeout after 30 seconds')), 30000)
+                    );
 
-                        // Add timeout wrapper for upload
-                        const uploadPromise = supabase.storage
-                            .from('reports')
-                            .upload(fileName, pdfBlob, {
-                                cacheControl: '3600',
-                                upsert: true
-                            });
+                    const { data: uploadData, error: uploadError } = await Promise.race([
+                        uploadPromise,
+                        timeoutPromise
+                    ]) as any;
 
-                        const timeoutPromise = new Promise((_, reject) =>
-                            setTimeout(() => reject(new Error('Upload timeout after 30 seconds')), 30000)
-                        );
-
-                        const { data: uploadData, error: uploadError } = await Promise.race([
-                            uploadPromise,
-                            timeoutPromise
-                        ]) as any;
-
-                        if (uploadError) {
-                            console.error('Upload error for', student.name, uploadError);
-                            errorCount++;
-                            continue;
-                        }
-
-                        console.log('Upload successful, getting public URL for', student.name);
-                        // Get public URL
-                        const { data: { publicUrl } } = supabase.storage
-                            .from('reports')
-                            .getPublicUrl(fileName);
-
-                        console.log('Public URL obtained, inserting database record for', student.name);
-                        // Insert record into database with timeout
-                        const dbPromise = supabase
-                            .from('student_reports')
-                            .insert({
-                                student_name: student.name,
-                                file_path: uploadData.path,
-                                public_url: publicUrl,
-                                class_tag: selectedClass || "Curious Dolphins",
-                                grade_tag: "A"
-                            });
-
-                        const dbTimeoutPromise = new Promise((_, reject) =>
-                            setTimeout(() => reject(new Error('Database timeout after 10 seconds')), 10000)
-                        );
-
-                        const { error: dbError } = await Promise.race([
-                            dbPromise,
-                            dbTimeoutPromise
-                        ]) as any;
-
-                        if (dbError) {
-                            console.error('Database error for', student.name, dbError);
-                            errorCount++;
-                        } else {
-                            successCount++;
-                            console.log(`Successfully processed ${student.name} - Complete!`);
-                        }
-
-                    } catch (timeoutError) {
-                        console.error('Timeout or network error for', student.name, timeoutError);
+                    if (uploadError) {
                         errorCount++;
                         continue;
+                    }
+
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('reports')
+                        .getPublicUrl(fileName);
+
+                    const dbPromise = supabase
+                        .from('student_reports')
+                        .insert({
+                            student_name: student.name,
+                            file_path: uploadData.path,
+                            public_url: publicUrl,
+                            class_tag: selectedClass || "Curious Dolphins",
+                            grade_tag: "A"
+                        });
+
+                    const dbTimeoutPromise = new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error('Database timeout after 10 seconds')), 10000)
+                    );
+
+                    const { error: dbError } = await Promise.race([
+                        dbPromise,
+                        dbTimeoutPromise
+                    ]) as any;
+
+                    if (dbError) {
+                        errorCount++;
+                    } else {
+                        successCount++;
                     }
 
                 } catch (error) {
@@ -418,14 +387,12 @@ export default function DolphinUploadReport() {
                 }
             }
 
-            console.log(`Bulk upload completed. Success: ${successCount}, Errors: ${errorCount}`);
             toast({
                 title: "Bulk upload completed!",
                 description: `Successfully uploaded ${successCount} reports. ${errorCount > 0 ? `${errorCount} failed.` : ''}`
             });
 
         } catch (error) {
-            console.error('Fatal error during bulk upload:', error);
             toast({
                 title: "Error during bulk upload",
                 description: "Please try again or upload reports individually.",
