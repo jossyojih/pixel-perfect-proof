@@ -71,7 +71,7 @@ export const DolphinReportCard = ({
                 if (!pageElement) continue;
 
                 const canvas = await html2canvas(pageElement, {
-                    scale: 1,
+                    scale: 2,
                     useCORS: true,
                     allowTaint: true,
                     backgroundColor: '#ffffff',
@@ -79,7 +79,7 @@ export const DolphinReportCard = ({
                     height: pageElement.scrollHeight,
                 });
 
-                const imgData = canvas.toDataURL('image/jpeg', 0.8);
+                const imgData = canvas.toDataURL('image/jpeg', 0.9);
                 
                 if (i > 0) {
                     pdf.addPage();
@@ -94,7 +94,7 @@ export const DolphinReportCard = ({
             
             const pdfBlob = pdf.output('blob');
 
-            const fileName = `${studentName.replace(/\s+/g, '_')}_report.pdf`;
+            const fileName = `dolphin_${studentName.replace(/\s+/g, '_')}_${Date.now()}.pdf`;
             const { data: uploadData, error: uploadError } = await supabase.storage
                 .from('reports')
                 .upload(fileName, pdfBlob, {
@@ -102,7 +102,10 @@ export const DolphinReportCard = ({
                     upsert: true
                 });
 
-            if (uploadError) throw uploadError;
+            if (uploadError) {
+                console.error('Upload error:', uploadError);
+                throw uploadError;
+            }
 
             const { data: urlData } = supabase.storage
                 .from('reports')
@@ -118,7 +121,10 @@ export const DolphinReportCard = ({
                     grade_tag: 'A'
                 });
 
-            if (dbError) throw dbError;
+            if (dbError) {
+                console.error('Database error:', dbError);
+                throw dbError;
+            }
 
             toast({
                 title: "Report uploaded successfully!",
@@ -128,7 +134,7 @@ export const DolphinReportCard = ({
             console.error('Upload error:', error);
             toast({
                 title: "Upload failed",
-                description: "There was an error uploading the report. Please try again.",
+                description: `Error: ${error.message || 'Please try again.'}`,
                 variant: "destructive"
             });
         } finally {
