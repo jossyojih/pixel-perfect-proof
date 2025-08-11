@@ -1,5 +1,10 @@
 import { Card } from "@/components/ui/card";
-import { forwardRef } from "react";
+import { Button } from "@/components/ui/button";
+import { forwardRef, useState } from "react";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Subject {
     name: string;
@@ -37,12 +42,99 @@ export const DolphinReportCard = ({
     rawData,
     pageRefs,
 }: ReportCardProps) => {
+    const [isUploading, setIsUploading] = useState(false);
+    const { toast } = useToast();
+    
     const getCheckboxState = (field: string) => rawData?.[field] === 'Y';
     const today = new Date().toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
+
+    const uploadToSupabase = async () => {
+        if (!pageRefs?.coverRef.current || !pageRefs?.subjectsRef.current) return;
+
+        setIsUploading(true);
+        try {
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4',
+                compress: true
+            });
+
+            const pageElements = [pageRefs.coverRef.current, pageRefs.subjectsRef.current];
+            
+            for (let i = 0; i < pageElements.length; i++) {
+                const pageElement = pageElements[i];
+                if (!pageElement) continue;
+
+                const canvas = await html2canvas(pageElement, {
+                    scale: 1,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff',
+                    width: pageElement.scrollWidth,
+                    height: pageElement.scrollHeight,
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', 0.8);
+                
+                if (i > 0) {
+                    pdf.addPage();
+                }
+                
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 297; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, Math.min(imgHeight, pageHeight));
+            }
+            
+            const pdfBlob = pdf.output('blob');
+
+            const fileName = `${studentName.replace(/\s+/g, '_')}_report.pdf`;
+            const { data: uploadData, error: uploadError } = await supabase.storage
+                .from('reports')
+                .upload(fileName, pdfBlob, {
+                    contentType: 'application/pdf',
+                    upsert: true
+                });
+
+            if (uploadError) throw uploadError;
+
+            const { data: urlData } = supabase.storage
+                .from('reports')
+                .getPublicUrl(fileName);
+
+            const { error: dbError } = await supabase
+                .from('student_reports')
+                .insert({
+                    student_name: studentName,
+                    file_path: fileName,
+                    public_url: urlData.publicUrl,
+                    class_tag: 'Curious Dolphins',
+                    grade_tag: 'A'
+                });
+
+            if (dbError) throw dbError;
+
+            toast({
+                title: "Report uploaded successfully!",
+                description: `Report for ${studentName} has been uploaded as PDF.`
+            });
+        } catch (error) {
+            console.error('Upload error:', error);
+            toast({
+                title: "Upload failed",
+                description: "There was an error uploading the report. Please try again.",
+                variant: "destructive"
+            });
+        } finally {
+            setIsUploading(false);
+        }
+    };
 
     return (
         <>
@@ -305,6 +397,17 @@ export const DolphinReportCard = ({
                     <div className="text-sm font-bold">Asst. Director Academics</div>
                     <div className="text-sm font-bold">AUN Schools</div>
                 </div>
+            </div>
+
+            {/* Upload Button */}
+            <div className="w-full text-center mt-6 print:hidden">
+                <Button 
+                    onClick={uploadToSupabase}
+                    disabled={isUploading}
+                    className="px-8 py-2"
+                >
+                    {isUploading ? "Uploading Report..." : "Upload Report as PDF"}
+                </Button>
             </div>
         </>
     );
