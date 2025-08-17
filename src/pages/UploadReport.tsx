@@ -11,6 +11,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useRef } from "react";
 import * as XLSX from 'xlsx';
+import JSZip from 'jszip';
 
 interface ExcelRow {
   [key: string]: any; // More flexible structure to handle different Excel formats
@@ -41,6 +42,7 @@ export default function UploadReport() {
   const [file, setFile] = useState<File | null>(null);
   const [students, setStudents] = useState<ParsedStudent[]>([]);
   const [isGeneratingReports, setIsGeneratingReports] = useState(false);
+  const [isGeneratingZip, setIsGeneratingZip] = useState(false);
   const [selectedClass, setSelectedClass] = useState<string>("");
   const { toast } = useToast();
 
@@ -482,6 +484,191 @@ export default function UploadReport() {
     }
   };
 
+  // Generate PDFs and download as ZIP
+  const downloadAllAsZip = async () => {
+    console.log('Starting ZIP download for', students.length, 'students');
+    
+    if (students.length === 0) {
+      console.log('No students found');
+      return;
+    }
+    
+    // Filter out students with no subjects
+    const studentsWithSubjects = students.filter(student => student.subjects.length > 0);
+    console.log(`Filtered to ${studentsWithSubjects.length} students with subjects`);
+    
+    if (studentsWithSubjects.length === 0) {
+      toast({
+        title: "No students with valid subjects found",
+        description: "Please check your Excel file format and data.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    setIsGeneratingZip(true);
+    
+    try {
+      const zip = new JSZip();
+      let successCount = 0;
+      let errorCount = 0;
+      
+      for (let index = 0; index < studentsWithSubjects.length; index++) {
+        const student = studentsWithSubjects[index];
+        console.log(`Processing student ${index + 1}/${studentsWithSubjects.length}: ${student.name}`);
+        
+        try {
+          // Generate report data using the same logic as generateBulkReports
+          console.log('Generating report data for', student.name);
+          const reportData = generateReportData(student);
+          console.log('Report data generated:', reportData);
+          
+          // Skip students with no main subjects to avoid empty reports
+          if (reportData.subjects.length === 0) {
+            console.log(`Skipping ${student.name} - no main subjects`);
+            continue;
+          }
+          
+          // Create temporary DOM elements for PDF generation
+          console.log('Creating temporary DOM container');
+          const tempContainer = document.createElement('div');
+          tempContainer.style.position = 'absolute';
+          tempContainer.style.left = '-9999px';
+          tempContainer.style.top = '-9999px';
+          tempContainer.style.width = '794px'; // A4 width in pixels at 96 DPI
+          document.body.appendChild(tempContainer);
+          
+          // Create refs for each section
+          const coverRef = { current: null };
+          const subjectsRef = { current: null };
+          const specialsRef = { current: null };
+          const finalRef = { current: null };
+          
+          // Render ReportCard component
+          console.log('Importing react-dom/client');
+          const { createRoot } = await import('react-dom/client');
+          const root = createRoot(tempContainer);
+          
+          console.log('Rendering ReportCard component');
+          await new Promise<void>((resolve) => {
+            root.render(
+              <ReportCard 
+                {...reportData}
+                pageRefs={{
+                  coverRef,
+                  subjectsRef,
+                  specialsRef,
+                  finalRef
+                }}
+              />
+            );
+            setTimeout(resolve, 1500); // Wait for render
+          });
+          
+          console.log('Starting PDF generation');
+          // Generate PDF using the same optimized settings
+          const pdf = new jsPDF({
+            orientation: 'landscape',
+            unit: 'mm',
+            format: 'a4',
+            compress: true
+          });
+          const sections = [
+            { ref: coverRef, name: 'cover' },
+            { ref: subjectsRef, name: 'subjects' },
+            { ref: specialsRef, name: 'specials' },
+            { ref: finalRef, name: 'final' }
+          ];
+          
+          for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            console.log(`Processing section ${i + 1}/${sections.length}: ${section.name}`);
+            
+            if (section.ref.current) {
+              console.log('Generating canvas for section', section.name);
+              const canvas = await html2canvas(section.ref.current, {
+                scale: 1,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
+                width: section.ref.current.scrollWidth,
+                height: section.ref.current.scrollHeight,
+                scrollX: 0,
+                scrollY: 0
+              });
+              
+              // Convert to JPEG with compression
+              const imgData = canvas.toDataURL('image/jpeg', 0.8);
+              const imgWidth = 297; // A4 landscape width in mm
+              const pageHeight = 210; // A4 landscape height in mm
+              const imgHeight = (canvas.height * imgWidth) / canvas.width;
+              
+              if (i > 0) {
+                pdf.addPage();
+              }
+              
+              // Center the image on the page if it's smaller than A4
+              const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
+              
+              pdf.addImage(imgData, 'JPEG', 0, yPosition, imgWidth, Math.min(imgHeight, pageHeight));
+              console.log(`Added section ${section.name} to PDF`);
+            } else {
+              console.warn(`Section ${section.name} ref is null`);
+            }
+          }
+          
+          console.log('Cleaning up DOM');
+          // Clean up
+          root.unmount();
+          document.body.removeChild(tempContainer);
+          
+          // Add PDF to ZIP
+          const pdfBlob = pdf.output('blob');
+          const fileName = `${student.name.replace(/[^a-zA-Z0-9]/g, '_')}_report.pdf`;
+          zip.file(fileName, pdfBlob);
+          
+          successCount++;
+          console.log(`Successfully processed ${student.name} - Added to ZIP!`);
+          
+        } catch (error) {
+          console.error('Error processing', student.name, error);
+          errorCount++;
+        }
+      }
+      
+      console.log(`ZIP generation completed. Success: ${successCount}, Errors: ${errorCount}`);
+      
+      // Generate and download the ZIP file
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const zipFileName = `${selectedClass || 'Reports'}_reports.zip`;
+      
+      // Create download link
+      const url = URL.createObjectURL(zipBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = zipFileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      toast({
+        title: "ZIP download completed!",
+        description: `Successfully generated ${successCount} reports and downloaded as ${zipFileName}. ${errorCount > 0 ? `${errorCount} failed.` : ''}`
+      });
+      
+    } catch (error) {
+      console.error('Fatal error during ZIP generation:', error);
+      toast({
+        title: "Error during ZIP generation",
+        description: "Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGeneratingZip(false);
+    }
+  };
+
 
 
   return (
@@ -536,16 +723,26 @@ export default function UploadReport() {
                 <div>
                   <h3 className="text-lg font-medium">Reports Generation</h3>
                   <p className="text-sm text-muted-foreground">
-                    Generate all reports using the exact /report/:studentName format, or click on individual students
+                    Upload to Supabase or download as ZIP file
                   </p>
                 </div>
-                <Button 
-                  onClick={generateBulkReports}
-                  disabled={isGeneratingReports || !selectedClass}
-                  size="lg"
-                >
-                  {isGeneratingReports ? "Generating..." : "Generate All Reports"}
-                </Button>
+                <div className="flex gap-3">
+                  <Button 
+                    onClick={downloadAllAsZip}
+                    disabled={isGeneratingZip || !selectedClass}
+                    size="lg"
+                    variant="outline"
+                  >
+                    {isGeneratingZip ? "Creating ZIP..." : "Download All as ZIP"}
+                  </Button>
+                  <Button 
+                    onClick={generateBulkReports}
+                    disabled={isGeneratingReports || !selectedClass}
+                    size="lg"
+                  >
+                    {isGeneratingReports ? "Generating..." : "Generate All Reports"}
+                  </Button>
+                </div>
                 {!selectedClass && (
                   <p className="text-sm text-muted-foreground">
                     Please select a class to enable report generation
