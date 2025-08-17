@@ -191,8 +191,8 @@ export const useSubjectConfig = (gradeLevel?: string) => {
 
     const targetSubjects = getTargetSubjects(gradeLevel);
 
-    console.log('Target subjects to detect:', targetSubjects);
-    console.log('Excel headers to search in:', excelHeaders);
+    // console.log('Target subjects to detect:', targetSubjects);
+    // console.log('Excel headers to search in:', excelHeaders);
     
     // Create mapping patterns for each subject
     const getSubjectPatterns = (grade: string) => {
@@ -329,7 +329,7 @@ export const useSubjectConfig = (gradeLevel?: string) => {
           // Check pattern without underscores
           const containsPatternNoUnderscore = cleanHeader.includes(pattern.replace('_', ''));
           
-          console.log(`Checking "${targetSubject}" pattern "${pattern}" against header "${cleanHeader}": starts=${startsWithPattern}, contains=${containsPattern}, noUnderscore=${containsPatternNoUnderscore}`);
+          // console.log(`Checking "${targetSubject}" pattern "${pattern}" against header "${cleanHeader}": starts=${startsWithPattern}, contains=${containsPattern}, noUnderscore=${containsPatternNoUnderscore}`);
           
           return startsWithPattern || containsPattern || containsPatternNoUnderscore;
         });
@@ -337,13 +337,13 @@ export const useSubjectConfig = (gradeLevel?: string) => {
       
       if (hasMatch) {
         detectedSubjects.push(targetSubject);
-        console.log(`✓ Detected subject: ${targetSubject}`);
+        // console.log(`✓ Detected subject: ${targetSubject}`);
       } else {
-        console.log(`✗ Subject not found in Excel: ${targetSubject} (patterns: ${patterns.join(', ')})`);
+        // console.log(`✗ Subject not found in Excel: ${targetSubject} (patterns: ${patterns.join(', ')})`);
       }
     });
 
-    console.log('Final detected subjects from Excel:', detectedSubjects);
+    // console.log('Final detected subjects from Excel:', detectedSubjects);
     return detectedSubjects;
   };
 

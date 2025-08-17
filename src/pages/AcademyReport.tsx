@@ -47,17 +47,17 @@ export default function AcademyReport() {
   }, [studentName, navigate, toast]);
 
   const generateAcademyReportData = (student: any) => {
-    console.log('\n=== ACADEMY REPORT DATA GENERATION ===');
-    console.log('Student name:', student.name);
-    console.log('Student raw data available:', student.rawData ? Object.keys(student.rawData) : 'No raw data');
-    console.log('Student subjects from parsing:', student.subjects?.length || 0);
-    console.log('Student subject names:', student.subjects?.map((s: any) => s.name) || []);
+    // console.log('\n=== ACADEMY REPORT DATA GENERATION ===');
+    // console.log('Student name:', student.name);
+    // console.log('Student raw data available:', student.rawData ? Object.keys(student.rawData) : 'No raw data');
+    // console.log('Student subjects from parsing:', student.subjects?.length || 0);
+    // console.log('Student subject names:', student.subjects?.map((s: any) => s.name) || []);
     
     // Check if this is Abdallah Mohammed specifically
     if (student.name.toLowerCase().includes('abdallah')) {
-      console.log('\n=== ABDALLAH MOHAMMED DETAILED DEBUG ===');
-      console.log('Full student object:', student);
-      console.log('Raw data keys:', Object.keys(student.rawData || {}));
+      // console.log('\n=== ABDALLAH MOHAMMED DETAILED DEBUG ===');
+      // console.log('Full student object:', student);
+      // console.log('Raw data keys:', Object.keys(student.rawData || {}));
       
       // Look for any score-related fields in raw data
       const rawData = student.rawData || {};
@@ -66,17 +66,17 @@ export default function AcademyReport() {
         key.includes('_exam') || 
         key.includes('_ca')
       );
-      console.log('Score-related fields in raw data:', scoreFields);
+      // console.log('Score-related fields in raw data:', scoreFields);
       
-      scoreFields.forEach(field => {
-        console.log(`${field}: ${rawData[field]}`);
-      });
+      // scoreFields.forEach(field => {
+      //   console.log(`${field}: ${rawData[field]}`);
+      // });
     }
     
     // Use actual data from Excel parsing and filter subjects with complete scores
     const academySubjects = student.subjects
       .map((subject: any) => {
-        console.log('Processing subject for report:', subject.name, 'with data:', subject);
+        // console.log('Processing subject for report:', subject.name, 'with data:', subject);
         
         const getLetterGrade = (score: number): string => {
           if (score >= 91) return 'A1';
@@ -102,6 +102,8 @@ export default function AcademyReport() {
         const comment = subject.comment || '';
         const cssAverage = subject.cssAverage || 0;
 
+        // console.log(subject.name, "This is subject ere o")
+
         return {
           name: subject.name,
           ca1: ca1,
@@ -121,14 +123,14 @@ export default function AcademyReport() {
         // Only include subjects that have a Total Score
         const includeSubject = subject.total > 0;
         
-        console.log(`Subject ${subject.name}: Total=${subject.total}, Include=${includeSubject}`);
+        // console.log(`Subject ${subject.name}: Total=${subject.total}, Include=${includeSubject}`);
         
         return includeSubject;
       });
 
     // Extract actual student data from Excel fields
     const rawData = student.rawData || {};
-    console.log('Extracting student info from rawData:', rawData);
+    // console.log('Extracting student info from rawData:', rawData);
     
     // Student ID from Excel field __EMPTY_1
     const studentId = rawData['__EMPTY_1'] || rawData['Roll No'] || rawData['roll_no'] || 
@@ -172,14 +174,14 @@ export default function AcademyReport() {
     
     const selectedClass = localStorage.getItem('selectedAcademyClass') || localStorage.getItem('selectedClass') || "Year 7";
     
-    console.log('Extracted student info:', {
-      studentId,
-      termData,
-      positionInClass,
-      noInClass,
-      totalSubjects,
-      selectedClass
-    });
+    // console.log('Extracted student info:', {
+    //   studentId,
+    //   termData,
+    //   positionInClass,
+    //   noInClass,
+    //   totalSubjects,
+    //   selectedClass
+    // });
     
     return {
       studentId: studentId,

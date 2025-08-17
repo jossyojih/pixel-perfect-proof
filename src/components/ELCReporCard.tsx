@@ -18,10 +18,14 @@ interface ELCReportCardProps {
 
 
 export function ELCReportCard({ studentName, rawData, pageRefs }: ELCReportCardProps) {
-  console.log(rawData, 'rawData in ELCReportCard');
+
   const getRating = (fieldName: string) => {
     return rawData[fieldName] || '';
   };
+
+  console.log(rawData, " rawData");
+
+  const selectedClass = (localStorage.getItem('selectedClass'))
 
   return (
     <div className="bg-white font-sans text-black">
@@ -54,7 +58,7 @@ export function ELCReportCard({ studentName, rawData, pageRefs }: ELCReportCardP
                 {studentName}
               </h3>
               <p className="text-lg font-medium text-black">
-                Busy Bees 1
+                {selectedClass || "Busy Bees 1"}
               </p>
               <p className="text-base text-black">
                 {getRating('teacher_name')}
@@ -401,25 +405,119 @@ export function ELCReportCard({ studentName, rawData, pageRefs }: ELCReportCardP
             </tr>
             <tr>
               <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Has favourite stories, rhymes, songs, poems or jingles.</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('sentences_reading')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_sentences_reading')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_sentences_reading')}</td>
+
+              {
+                selectedClass.startsWith("Busy Bees") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Has favourite stories, rhymes, songs, poems or jingles.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('sentences_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_sentences_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_sentences_reading')}</td>
+                  </>
+                ) : selectedClass.startsWith("Eager Explorers") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can recognise and identify their sounds.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('sentences_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_sentences_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_sentences_reading')}</td>
+                  </>
+
+                ) : selectedClass.startsWith("Lively Learners") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can read and understand simple sentences.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('sentences_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_sentences_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_sentences_reading')}</td>
+                  </>
+                ) : null
+              }
+
             </tr>
             <tr>
               <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can repeat words or phrases from familiar stories.</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('aloud_accurately_reading')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_aloud_accurately_reading')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_aloud_accurately_reading')}</td>
+
+              {
+                selectedClass.startsWith("Busy Bees") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can repeat words or phrases from familiar stories.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('aloud_accurately_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_aloud_accurately_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_aloud_accurately_reading')}</td>
+                  </>
+                ) : selectedClass.startsWith("Eager Explorers") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can use phonic knowledge to decode regular words and read them aloud accurately.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('aloud_accurately_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_aloud_accurately_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_aloud_accurately_reading')}</td>
+                  </>
+
+                ) : selectedClass.startsWith("Lively Learners") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can use phonic knowledge to decode regular words and read them aloud accurately.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('aloud_accurately_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_aloud_accurately_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_aloud_accurately_reading')}</td>
+                  </>
+                ) : null
+              }
             </tr>
             <tr>
               <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can fill the missing word or phrase in a known rhymes, story or game, e.g. 'Humpty Dumpty sat on a'</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('irregular_words_reading')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_irregular_words_reading')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_irregular_words_reading')}</td>
+
+              {
+                selectedClass.startsWith("Busy Bees") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can fill the missing word or phrase in a known rhymes, story or game, e.g. 'Humpty Dumpty sat on a'</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('irregular_words_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_irregular_words_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_irregular_words_reading')}</td>
+                  </>
+                ) : selectedClass.startsWith("Eager Explorers") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}> Can also sound and blend irregular words.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('irregular_words_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_irregular_words_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_irregular_words_reading')}</td>
+                  </>
+
+                ) : selectedClass.startsWith("Lively Learners") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can also read some common irregular words.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('irregular_words_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_irregular_words_reading')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_irregular_words_reading')}</td>
+                  </>
+                ) : null
+              }
             </tr>
+            {
+
+              (selectedClass.startsWith("Eager Explorers") || selectedClass.startsWith("Lively Learners")) && (
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+
+                  {
+                    selectedClass.startsWith("Eager Explorers") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}> Can demonstrate understanding when talking with others about what they have read.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('sentences_reading')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_sentences_reading')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_sentences_reading')}</td>
+                      </>
+
+                    ) : selectedClass.startsWith("Lively Learners") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can demonstrate understanding when talking with others about what they have read.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('reads_reading')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_reads_reading')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_reads_reading')}</td>
+                      </>
+                    ) : null
+                  }
+                </tr>
+              )
+            }
             <tr>
               <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Writing</th>
               <td className="border border-black px-2 py-1"></td>
@@ -428,65 +526,242 @@ export function ELCReportCard({ studentName, rawData, pageRefs }: ELCReportCardP
             </tr>
             <tr>
               <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can distinguish between the different marks they make.</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('spoken_sounds_writing')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_spoken_sounds_writing')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_spoken_sounds_writing')}</td>
+
+              {
+                selectedClass.startsWith("Busy Bees") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can distinguish between the different marks they make.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('spoken_sounds_writing')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_spoken_sounds_writing')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_spoken_sounds_writing')}</td>
+                  </>
+                ) : selectedClass.startsWith("Eager Explorers") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can use their phonic knowledge to write words in ways which match their spoken sounds.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('spoken_sounds_writing')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_spoken_sounds_writing')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_spoken_sounds_writing')}</td>
+                  </>
+
+                ) : selectedClass.startsWith("Lively Learners") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can use his/her phonic knowledge to write words in ways which match their spoken sounds.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('spoken_sounds_writing')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_spoken_sounds_writing')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_spoken_sounds_writing')}</td>
+                  </>
+                ) : null
+              }
             </tr>
-            <tr>
-              <th className="border border-black px-2 py-1 bg-blue-200 text-left font-bold" colSpan={4}>Mathematics</th>
-              <td className="border border-black px-2 py-1"></td>
-              <td className="border border-black px-2 py-1"></td>
-              <td className="border border-black px-2 py-1"></td>
-            </tr>
-            <tr>
-              <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can recite some number names in sequence</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('names_in_sequence')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_names_in_sequence')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_names_in_sequence')}</td>
-            </tr>
-            <tr>
-              <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can use some language of quantities, such as 'more' and 'a lot'</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('language_of_quantities')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_language_of_quantities')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_language_of_quantities')}</td>
-            </tr>
-            <tr>
-              <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Knows that a group of things changes in quantity when something is added or taken away.</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('quantity_when_something')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_quantity_when_something')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_quantity_when_something')}</td>
-            </tr>
-            <tr>
-              <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Numbers</th>
-              <td className="border border-black px-2 py-1"></td>
-              <td className="border border-black px-2 py-1"></td>
-              <td className="border border-black px-2 py-1"></td>
-            </tr>
-            <tr>
-              <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can use everyday language to talk about size, weight, capacity, position, distance, time and money to compare quantities and objects and to solve problems.</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('given_number_numbers')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_given_number_numbers')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_given_number_numbers')}</td>
-            </tr>
-            <tr>
-              <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can recognise, create and describe patterns</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('find_the_answer_numbers')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_find_the_answer_numbers')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_find_the_answer_numbers')}</td>
-            </tr>
-            <tr>
-              <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can explore characteristics of everyday objects and shapes and use mathematical language to describe them</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('solve_problems_shape')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_solve_problems_shape')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_solve_problems_shape')}</td>
-            </tr>
+            {
+
+              (selectedClass.startsWith("Eager Explorers") || selectedClass.startsWith("Lively Learners")) && (
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+
+                  {
+                    selectedClass.startsWith("Eager Explorers") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can gives meaning to marks as they draw and paint.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('common_words_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_common_words_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_common_words_writing')}</td>
+                      </>
+
+                    ) : selectedClass.startsWith("Lively Learners") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can also write some irregular common words.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('irregular_in_sequence_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_irregular_in_sequence_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_irregular_in_sequence_writing')}</td>
+                      </>
+                    ) : null
+                  }
+                </tr>
+              )
+            }
+            {
+
+              (selectedClass.startsWith("Eager Explorers") || selectedClass.startsWith("Lively Learners")) && (
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+
+                  {
+                    selectedClass.startsWith("Eager Explorers") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can trace each sound correctly.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('themselves_and_others_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_themselves_and_others_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_themselves_and_others_writing')}</td>
+                      </>
+
+                    ) : selectedClass.startsWith("Lively Learners") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can write simple sentences which can be read by themselves and others.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('themselves_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_themselves_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_themselves_writing')}</td>
+                      </>
+                    ) : null
+                  }
+                </tr>
+              )
+            }
+            {
+
+              (selectedClass.startsWith("Eager Explorers") || selectedClass.startsWith("Lively Learners")) && (
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+                  {
+                    selectedClass.startsWith("Eager Explorers") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can write each sound correctly.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('phonetically_plausible_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('phonetically_plausible_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('phonetically_plausible_writing')}</td>
+                      </>
+
+
+                    ) : selectedClass.startsWith("Lively Learners") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can show some words are spelt correctly and others are phonetically plausible.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('phonetically_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_phonetically_writing')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_phonetically_writing')}</td>
+                      </>
+                    ) : null
+                  }
+                </tr>
+              )
+            }
+
+            {/* Show this for only Busy bees and eager explorers. The Lively learners is pushed to next page */}
+            {
+              (selectedClass.startsWith("Busy Bees") || selectedClass.startsWith("Eager Explorers")) &&
+              <tr>
+                <th className="border border-black px-2 py-1 bg-blue-200 text-left font-bold" colSpan={4}>Mathematics</th>
+                <td className="border border-black px-2 py-1"></td>
+                <td className="border border-black px-2 py-1"></td>
+                <td className="border border-black px-2 py-1"></td>
+              </tr>
+            }
+
+
+            {
+              selectedClass.startsWith("Busy Bees") && (
+                <>
+                  <tr>
+                    <td className="border border-black px-2 py-1 text-sm">❖</td>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can recite some number names in sequence</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('names_in_sequence')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_names_in_sequence')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_names_in_sequence')}</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-black px-2 py-1 text-sm">❖</td>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can use some language of quantities, such as 'more' and 'a lot'</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('language_of_quantities')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_language_of_quantities')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_language_of_quantities')}</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-black px-2 py-1 text-sm">❖</td>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Knows that a group of things changes in quantity when something is added or taken away.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('quantity_when_something')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_quantity_when_something')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_quantity_when_something')}</td>
+                  </tr>
+                </>
+              )
+
+            }
+
+            {
+              (selectedClass.startsWith("Busy Bees") || selectedClass.startsWith("Eager Explorers")) &&
+              <>
+                <tr>
+                  <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Numbers</th>
+                  <td className="border border-black px-2 py-1"></td>
+                  <td className="border border-black px-2 py-1"></td>
+                  <td className="border border-black px-2 py-1"></td>
+                </tr>
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+                  {
+                    selectedClass.startsWith("Busy Bees") ? (
+                      <>
+
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can use everyday language to talk about size, weight, capacity, position, distance, time and money to compare quantities and objects and to solve problems.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('given_number_numbers')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_given_number_numbers')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_given_number_numbers')}</td>
+                      </>
+                    ) : selectedClass.startsWith("Eager Explorers") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can count reliably with numbers from one to twenty and place them in order</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('given_number_numbers')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_given_number_numbers')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_given_number_numbers')}</td>
+                      </>
+
+                    ) : null
+                  }
+
+                </tr>
+
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+
+                  {
+                    selectedClass.startsWith("Busy Bees") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can recognise, create and describe patterns</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('find_the_answer_numbers')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_find_the_answer_numbers')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_find_the_answer_numbers')}</td>
+                      </>
+                    ) : selectedClass.startsWith("Eager Explorers") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Compares two groups of objects, saying when they have the same number.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('find_the_answer_numbers')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_find_the_answer_numbers')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_find_the_answer_numbers')}</td>
+                      </>
+
+                    ) : null
+                  }
+                </tr>
+              </>
+
+
+            }
+
+            {
+
+              (selectedClass.startsWith("Busy Bees")) && (
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+                  {
+                    selectedClass.startsWith("Busy Bees") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can explore characteristics of everyday objects and shapes and use mathematical language to describe them.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('solve_problems_shape')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_solve_problems_shape')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_solve_problems_shape')}</td>
+                      </>
+                    ) : selectedClass.startsWith("Lively Learners") ? (
+                      <>
+                        <td className="border border-black px-2 py-1" colSpan={3}>Can write simple sentences which can be read by themselves and others.</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('sentences_reading')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term2_sentences_reading')}</td>
+                        <td className="border border-black px-2 py-1 text-center">{getRating('term3_sentences_reading')}</td>
+                      </>
+                    ) : null
+                  }
+                </tr>
+              )
+            }
+
           </tbody>
         </table>
       </div>
@@ -495,6 +770,56 @@ export function ELCReportCard({ studentName, rawData, pageRefs }: ELCReportCardP
       <div ref={pageRefs.shapeRef} className="w-full p-4" style={{ minHeight: '210mm', width: '297mm' }}>
         <table className="w-full border-collapse border border-black text-xs mb-2">
           <tbody>
+            {
+              (selectedClass.startsWith("Lively Learners")) &&
+              <>
+                <tr>
+                  <th className="border border-black px-2 py-1 bg-blue-200 text-left font-bold" colSpan={4}>Mathematics</th>
+                  <td className="border border-black px-2 py-1"></td>
+                  <td className="border border-black px-2 py-1"></td>
+                  <td className="border border-black px-2 py-1"></td>
+                </tr>
+                <tr>
+                  <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Numbers</th>
+                  <td className="border border-black px-2 py-1"></td>
+                  <td className="border border-black px-2 py-1"></td>
+                  <td className="border border-black px-2 py-1"></td>
+                </tr>
+
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+                  <td className="border border-black px-2 py-1" colSpan={3}>Can count reliably with numbers from one to twenty and place them in order.</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('given_number_numbers')}</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('term2_given_number_numbers')}</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('term3_given_number_numbers')}</td>
+                </tr>
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+                  <td className="border border-black px-2 py-1" colSpan={3}>Says which number is one more or one less than a given number.</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('order_numbers')}</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('term2_order_numbers')}</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('term3_order_numbers')}</td>
+                </tr>
+
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+                  <td className="border border-black px-2 py-1" colSpan={3}>Using quantities and objects , can add and subtract two single digit numbers and count on or back to find the answer.</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('find_the_answer_numbers')}</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('term2_find_the_answer_numbers')}</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('term3_find_the_answer_numbers')}</td>
+
+                </tr>
+
+                <tr>
+                  <td className="border border-black px-2 py-1 text-sm">❖</td>
+                  <td className="border border-black px-2 py-1" colSpan={3}>Can solve problems, including doubling, halving and sharing.</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('sharing_numbers')}</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('term2_sharing_numbers')}</td>
+                  <td className="border border-black px-2 py-1 text-center">{getRating('term3_sharing_numbers')}</td>
+                </tr>
+
+              </>
+            }
 
             <tr>
               <th className="border border-black px-2 py-1 bg-pink-100 text-left font-bold" colSpan={4}>Shape, Space and Measure</th>
@@ -504,25 +829,112 @@ export function ELCReportCard({ studentName, rawData, pageRefs }: ELCReportCardP
             </tr>
             <tr>
               <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can notice simple shapes and pattern pictures</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('patterns_shape')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_patterns_shape')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_patterns_shape')}</td>
+              {
+                selectedClass.startsWith("Busy Bees") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can notice simple shapes and pattern pictures</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('patterns_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_patterns_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_patterns_shape')}</td>
+                  </>
+
+                ) : selectedClass.startsWith("Eager Explorers") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Using quantities and objects, can add two single digit numbers and count on or back to find the answer.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('patterns_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_patterns_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_patterns_shape')}</td>
+                  </>
+                ) : selectedClass.startsWith("Lively Learners") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can use everyday language to talk about size, weight, capacity, position, distance, time and money to compare quantities
+                      and objects and to solve problems.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('solve_problems_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_solve_problems_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_solve_problems_shape')}</td>
+                  </>
+                ) : null
+              }
+
+
             </tr>
             <tr>
               <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can begin to use the language of size</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('describe_them_shape')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_describe_them_shape')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_describe_them_shape')}</td>
+              {
+                selectedClass.startsWith("Busy Bees") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can begin to use the language of size</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('describe_them_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_describe_them_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_describe_them_shape')}</td>
+                  </>
+                ) : selectedClass.startsWith("Eager Explorers") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Knows that numbers identify how many objects are in a set.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('sharing_numbers')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_sharing_numbers')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_sharing_numbers')}</td>
+                  </>
+                ) : selectedClass.startsWith("Lively Learners") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can recognise, create and describe patterns.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('patterns_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_patterns_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_patterns_shape')}</td>
+                  </>
+                ) : null
+              }
+
             </tr>
             <tr>
               <td className="border border-black px-2 py-1 text-sm">❖</td>
-              <td className="border border-black px-2 py-1" colSpan={3}>Can anticipate specific time-based events such as mealtimes or home time.</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('order_numbers')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term2_order_numbers')}</td>
-              <td className="border border-black px-2 py-1 text-center">{getRating('term3_order_numbers')}</td>
+              {
+                selectedClass.startsWith("Busy Bees") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can anticipate specific time-based events such as mealtimes or home time.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('order_numbers')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_order_numbers')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_order_numbers')}</td>
+                  </>
+                ) : selectedClass.startsWith("Eager Explorers") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can use everyday language to talk about size, weight, capacity, position, distance, time and money to compare
+                      quantities and objects and to solve problems.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('solve_problems_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_solve_problems_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_solve_problems_shape')}</td>
+                  </>
+                ) : selectedClass.startsWith("Lively Learners") ? (
+                  <>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can explore characteristics of everyday objects and shapes and use mathematical language to describe them.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('describe_them_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_describe_them_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_describe_them_shape')}</td>
+                  </>
+                ) : null
+              }
             </tr>
+            {
+              selectedClass.startsWith("Eager Explorers") && (
+                <>
+                  <tr>
+                    <td className="border border-black px-2 py-1 text-sm">❖</td>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can recognise, create and describe patterns.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('patterns_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_patterns_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_patterns_shape')}</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-black px-2 py-1 text-sm">❖</td>
+                    <td className="border border-black px-2 py-1" colSpan={3}>Can explore characteristics of everyday objects and shapes and use mathematical language to describe them.</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('describe_them_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term2_describe_them_shape')}</td>
+                    <td className="border border-black px-2 py-1 text-center">{getRating('term3_describe_them_shape')}</td>
+                  </tr>
+                </>
+
+              )
+            }
             <tr>
               <td className="border border-black px-2 bg-red-600 py-1 h-6" colSpan={8}></td>
             </tr>

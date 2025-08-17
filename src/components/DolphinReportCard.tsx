@@ -42,9 +42,11 @@ export const DolphinReportCard = ({
     rawData,
     pageRefs,
 }: ReportCardProps) => {
+
+    console.log(rawData, "RawData")
     const [isUploading, setIsUploading] = useState(false);
     const { toast } = useToast();
-    
+
     const getCheckboxState = (field: string) => rawData?.[field] === 'Y';
     const today = new Date().toLocaleDateString('en-US', {
         year: 'numeric',
@@ -65,7 +67,7 @@ export const DolphinReportCard = ({
             });
 
             const pageElements = [pageRefs.coverRef.current, pageRefs.subjectsRef.current];
-            
+
             for (let i = 0; i < pageElements.length; i++) {
                 const pageElement = pageElements[i];
                 if (!pageElement) continue;
@@ -79,19 +81,19 @@ export const DolphinReportCard = ({
                     height: pageElement.scrollHeight,
                 });
 
-                const imgData = canvas.toDataURL('image/jpeg', 0.9);
-                
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
                 if (i > 0) {
                     pdf.addPage();
                 }
-                
+
                 const imgWidth = 210; // A4 width in mm
                 const pageHeight = 297; // A4 height in mm
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                
+
                 pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, Math.min(imgHeight, pageHeight));
             }
-            
+
             const pdfBlob = pdf.output('blob');
 
             const fileName = `dolphin_${studentName.replace(/\s+/g, '_')}_${Date.now()}.pdf`;
@@ -147,16 +149,16 @@ export const DolphinReportCard = ({
             {/* Page 1 */}
             <div
                 ref={pageRefs?.coverRef}
-                className="w-full p-4 bg-white"
-                style={{ minHeight: '297mm', width: '210mm' }}
+                className="px-6 bg-white w-full py-2"
+                style={{ minHeight: '297mm', width: '210mm', marginTop: '-5rem' }}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between">
                     <div className="flex items-center w-full">
                         <img
                             src="/lovable-uploads/954eecdc-9246-49b3-925a-05f9a22862d4.png"
                             alt="AUN Schools Logo"
-                            className="h-[130px] w-[130px] mr-4"
+                            className="h-[115px] w-[130px] -ml-4"
                         />
                         <div className="text-center flex-1">
                             <h1 className="text-lg font-bold">
@@ -173,7 +175,7 @@ export const DolphinReportCard = ({
                 </div>
 
                 {/* Age Group Header */}
-                <div className="border-4 border-green-600 bg-blue-900 text-white p-6 rounded-xl mb-6">
+                <div className="border-4 border-green-600 bg-blue-900 text-white p-6 rounded-xl mb-6 w-full">
                     <h2 className="text-2xl font-bold py-0" style={{
                         verticalAlign: "top",
                         paddingBottom: "10px"
@@ -183,7 +185,7 @@ export const DolphinReportCard = ({
                 </div>
 
                 {/* Student Info */}
-                <div className="grid grid-cols-[3fr_1fr_1fr] gap-4 mb-6 text-center items-start">
+                <div className="grid grid-cols-[3fr_1fr_1fr] gap-4 mb-0 text-center items-start">
                     {/* Child's Name */}
                     <div className="pb-2 self-start">
                         <p
@@ -221,21 +223,21 @@ export const DolphinReportCard = ({
                                 paddingBottom: "10px",
                             }}
                         >
-                            {today}
+                            {rawData?.today_date}
                         </p>
                         <p className="font-bold">Today's Date</p>
                     </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-sm mb-6">
+                <p className="text-xs mb-0">
                     How your child plays, learns, speaks, acts and moves offers important clues about your child's development.
                     Developmental milestones which this report is based on are things children can do by certain age.
                 </p>
 
                 {/* Development Sections */}
-                <div className="space-y-6">
-                    <h3 className="text-lg font-bold text-blue-600 mb-4">
+                <div className="space-y-1">
+                    <h3 className="text-lg font-bold text-blue-600 mb-0">
                         What Most Children Do at this Age :
                     </h3>
 
@@ -284,11 +286,11 @@ export const DolphinReportCard = ({
                         }
                     ].map((section, sIdx) => (
                         <div key={sIdx}>
-                            <h4 className="text-md font-bold text-blue-600 mb-3">{section.title}</h4>
-                            <div className="space-y-2">
+                            <h4 className="text-md font-bold text-blue-600 mb-2">{section.title}</h4>
+                            <div className="space-y-1">
                                 {section.items.map((item, index) => (
                                     <div key={index} className="flex items-start">
-                                        <div className={`w-5 h-5 border border-black mr-3 flex items-center justify-center ${getCheckboxState(item.field) ? 'bg-white' : ''}`}>
+                                        <div className={`w-5 h-5 border border-black mr-3 flex items-start justify-center ${getCheckboxState(item.field) ? 'bg-white' : ''}`}>
                                             {getCheckboxState(item.field) && (
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -308,6 +310,7 @@ export const DolphinReportCard = ({
                                         <span className="text-sm py-0" style={{
                                             verticalAlign: "top",
                                             paddingBottom: "10px",
+                                            marginTop: "-0.5rem"
                                         }}>{item.text}</span>
                                     </div>
                                 ))}
@@ -320,7 +323,7 @@ export const DolphinReportCard = ({
             {/* Page 2 */}
             <div
                 ref={pageRefs?.subjectsRef}
-                className="w-full p-4 bg-white"
+                className="w-full p-6 bg-white"
                 style={{ minHeight: '297mm', width: '210mm' }}
             >
                 {/* Header */}
@@ -407,7 +410,7 @@ export const DolphinReportCard = ({
 
             {/* Upload Button */}
             <div className="w-full text-center mt-6 print:hidden">
-                <Button 
+                <Button
                     onClick={uploadToSupabase}
                     disabled={isUploading}
                     className="px-8 py-2"

@@ -275,7 +275,6 @@ export default function DolphinUploadReport() {
                         orientation: 'portrait',
                         unit: 'mm',
                         format: 'a4',
-                        compress: true
                     });
 
                     const sections = [
@@ -293,33 +292,39 @@ export default function DolphinUploadReport() {
                                 useCORS: true,
                                 allowTaint: true,
                                 backgroundColor: '#ffffff',
-                                width: section.ref.current.scrollWidth,
-                                height: section.ref.current.scrollHeight,
-                                scrollX: 0,
-                                scrollY: -window.scrollY
+                                // width: section.ref.current.scrollWidth,
+                                // height: section.ref.current.scrollHeight,
+                                // scrollX: 0,
+                                // scrollY: -window.scrollY
                             });
-
-                            const imgData = canvas.toDataURL('image/jpeg', 1.0);
-
-                            // Portrait A4 dimensions
-                            const pageWidth = 210;   // mm
-                            const pageHeight = 297;  // mm
-
-                            // Scale to fit inside portrait page
+                    
+                            const imgData = canvas.toDataURL('image/png', 1.0);
+                    
+                            const pageWidth = 210; // mm
+                            const pageHeight = 297; // mm
+                    
                             let imgWidth = 210;
                             let imgHeight = (canvas.height * imgWidth) / canvas.width;
-
+                    
                             if (imgHeight > pageHeight) {
                                 imgHeight = pageHeight;
                                 imgWidth = (canvas.width * imgHeight) / canvas.height;
                             }
-
-                            // Center horizontally & vertically
+                    
+                            // Center horizontally & vertically for first page only
                             const xPosition = (pageWidth - imgWidth) / 2;
                             const yPosition = (pageHeight - imgHeight) / 2;
-
+                    
                             if (i > 0) pdf.addPage();
-                            pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, Math.min(imgHeight, pageHeight));
+                            
+                            if (i === 0) {
+                                // First page centered
+                                // pdf.addImage(imgData, 'JPEG', xPosition, yPosition, imgWidth, imgHeight);
+                                pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+                            } else {
+                                // Other pages aligned to top-left
+                                pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+                            }
                         }
                     }
 

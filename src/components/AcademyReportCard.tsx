@@ -50,6 +50,7 @@ export const AcademyReportCard = forwardRef<HTMLDivElement, AcademyReportCardPro
       subject && (subject.total > 0 || subject.ca1 || subject.ca2 || subject.ca3 || subject.ca4 || subject.exam)
     );
 
+
     const ReportPage = () => (
       <div ref={pageRefs.coverRef} className="relative w-[794px] h-[1123px] bg-white px-7 font-sans text-black text-xs overflow-hidden">
         {/* Logo Watermark */}

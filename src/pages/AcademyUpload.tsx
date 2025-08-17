@@ -88,15 +88,10 @@ export default function AcademyUpload() {
         const worksheet = workbook.Sheets[sheetName];
         const jsonData: ExcelRow[] = XLSX.utils.sheet_to_json(worksheet);
 
-        console.log('\n=== EXCEL PARSING DEBUG ===');
-        console.log('Raw JSON data from Excel:', jsonData);
-        console.log('Total rows:', jsonData.length);
-        console.log('First row keys:', jsonData.length > 0 ? Object.keys(jsonData[0]) : 'No data');
-
         // Get all Excel headers for comprehensive analysis
         const excelHeaders = jsonData.length > 0 ? Object.keys(jsonData[0]) : [];
-        console.log('All Excel headers:', excelHeaders);
-        console.log('Total headers:', excelHeaders.length);
+
+        console.log(excelHeaders,"")
         
         // Enhanced subject detection - find all potential subject headers
         const subjectPatterns = [
@@ -109,53 +104,29 @@ export default function AcademyUpload() {
         const detectedSubjectHeaders = excelHeaders.filter(header => {
           const lowerHeader = header.toLowerCase();
           return subjectPatterns.some(pattern => lowerHeader.includes(pattern));
-        });
-        console.log('Headers matching subject patterns:', detectedSubjectHeaders);
-        
+        }); 
         // Use the hook's detection method as well with base grade level
         const baseGradeLevel = getBaseGradeLevel(selectedClass);
         const detected = detectSubjectsFromExcel(excelHeaders, baseGradeLevel);
-        console.log('Hook detected subjects:', detected);
+
         
         // Combine both detection methods
         const allDetectedSubjects = [...new Set([...detectedSubjectHeaders, ...detected])];
-        console.log('Final combined detected subjects:', allDetectedSubjects);
+
         setDetectedSubjects(allDetectedSubjects);
 
         // Group data by student
         const studentMap = new Map<string, ParsedStudent>();
 
         jsonData.forEach((row, index) => {
-          console.log(`Processing row ${index}:`, row);
-          console.log('Available Excel fields:', Object.keys(row));
+
           
           const studentName = row['__EMPTY_2'] || row['_2'];
-          console.log(`Student name found: "${studentName}"`);
           
           if (!studentName || typeof studentName !== 'string') return;
 
           if (!studentMap.has(studentName)) {
-            // Log potential student ID fields
-            console.log('Potential student ID fields:', {
-              roll_id: row['__EMPTY'] || row['_1'],
-              student_id: row['student_id'],
-              roll_no: row['roll_no'],
-              id: row['id'],
-              empty_1: row['__EMPTY_1'],
-              registration_no: row['registration_no']
-            });
-            
-            // Log potential class/term fields
-            console.log('Potential class/term fields:', {
-              term: row['term'],
-              class: row['class'],
-              grade: row['grade'],
-              position: row['position'],
-              position_in_class: row['position_in_class'],
-              no_in_class: row['no_in_class'],
-              class_size: row['class_size'],
-              total_students: row['total_students']
-            });
+
             
             studentMap.set(studentName, {
               name: studentName,
@@ -246,7 +217,7 @@ export default function AcademyUpload() {
                 'government': ['Government'],
                 'economics': ['Economics'],
                 'religion_crs': ['Religion (CRS)'],
-                'religion_irs': ['Religion (IRS)'],
+                'religion': ['Religion (IRS)'],
                 'geography': ['Geography'],
                 'commerce': ['Commerce'],
                 'financial_accounting': ['Financial Accounting'],
@@ -290,6 +261,7 @@ export default function AcademyUpload() {
 
           const subjectMappings = getSubjectMappings(selectedClass);
 
+
           // Define which subjects are optional (need visibility check) based on class
           const getOptionalSubjects = (classLevel: string) => {
             const baseGrade = getBaseGradeLevel(classLevel);
@@ -304,7 +276,7 @@ export default function AcademyUpload() {
                 'hausa', 'french', 'food_nutrition', 'food_nut', 'tech_drawing', 'technical_drawing',
                 'visual_art', 'history', 'data_processing', 'arabic_studies', 'Arabic_Studies',
                 'geography', 'government', 'literature_in_english', 'literature_english',
-                'commerce', 'fin_acco', 'financial_accounting', 'agriculture', 'religion_crs', 'religion_irs'
+                'commerce', 'fin_acco', 'financial_accounting', 'agriculture', 'religion_crs', 'religion'
               ];
             }
             return ['french', 'religion_crs', 'hausa'];
@@ -312,8 +284,6 @@ export default function AcademyUpload() {
           
           const optionalSubjects = getOptionalSubjects(selectedClass);
           
-          console.log('Processing student:', studentName, 'with subject mappings:', Object.keys(subjectMappings));
-
           // Process subjects dynamically
           Object.entries(subjectMappings).forEach(([key, possibleNames]) => {
             const totalScoreKey = `${key}_total_score`;
@@ -342,24 +312,21 @@ export default function AcademyUpload() {
               (hasVisibilityField ? (isVisible && hasValidScore) : hasValidScore) : 
               hasValidScore;
 
-            console.log(`Subject ${key} processing:`, {
-              totalScoreKey,
-              totalScore,
-              visibleKey,
-              isVisible: row[visibleKey],
-              hasValidScore,
-              isOptionalSubject,
-              shouldInclude
-            });
 
             if (shouldInclude) {
               // Find the best matching subject name from configuration
-              const configuredSubject = subjects.find(s => 
+              const configuredSubject = subjects.find(s => {
+
+                console.log(s.subject_name,"This is S",)
                 possibleNames.some(name => 
                   s.subject_name.toLowerCase().includes(name.toLowerCase()) ||
                   name.toLowerCase().includes(s.subject_name.toLowerCase())
                 )
+              }
+               
               );
+
+              // console.log(configuredSubject,"Getting closer!")
 
               const subjectName = configuredSubject?.subject_name || possibleNames[0];
 
@@ -380,8 +347,7 @@ export default function AcademyUpload() {
               });
             }
           });
-          
-           console.log(`Student ${studentName} has ${student.subjects.length} subjects:`, student.subjects.map(s => s.name));
+
            
            // Detailed subject debugging for JSS 2 students
            if (selectedClass === 'JSS 2') {
@@ -395,30 +361,25 @@ export default function AcademyUpload() {
                  );
                })
              );
-             console.log(`JSS 2 Student ${studentName} missing subjects:`, missingSubjects);
+
              
              // Check what scores are available in raw data for missing subjects
              missingSubjects.forEach(subjectKey => {
                const totalScoreKey = `${subjectKey}_total_score`;
                const visibleKey = `${subjectKey}_visible`;
-               console.log(`Missing subject ${subjectKey}: score=${row[totalScoreKey]}, visible=${row[visibleKey]}`);
+
              });
            }
         });
 
         const parsedStudents = Array.from(studentMap.values());
         
-        console.log('\n=== PARSING RESULTS ===');
-        console.log('Total students parsed:', parsedStudents.length);
+
         
         // Debug specific student if found
         const abdallah = parsedStudents.find(s => s.name.toLowerCase().includes('abdallah'));
         if (abdallah) {
-          console.log('\n=== ABDALLAH MOHAMMED DEBUG ===');
-          console.log('Name:', abdallah.name);
-          console.log('Total subjects:', abdallah.subjects.length);
-          console.log('Subject names:', abdallah.subjects.map(s => s.name));
-          console.log('Raw data keys:', Object.keys(abdallah.rawData || {}));
+
           
           // Check for any missed subjects in raw data
           const rawData = abdallah.rawData || {};
@@ -428,10 +389,11 @@ export default function AcademyUpload() {
               potentialMissedSubjects.push(key);
             }
           });
-          console.log('Potentially missed subjects for Abdallah:', potentialMissedSubjects);
+
         }
         
         setStudents(parsedStudents);
+
         
         // Store the Academy students data and selected class in localStorage for access in AcademyReport
         localStorage.setItem('academyStudentsData', JSON.stringify(parsedStudents));
@@ -494,15 +456,14 @@ export default function AcademyUpload() {
   };
 
   const generateBulkReports = async () => {
-    console.log('Starting Academy bulk upload for', students.length, 'students');
+
     
     if (students.length === 0) {
-      console.log('No students found');
+
       return;
     }
     
     const studentsWithSubjects = students.filter(student => student.subjects.length > 0);
-    console.log(`Filtered to ${studentsWithSubjects.length} Academy students with subjects`);
     
     if (studentsWithSubjects.length === 0) {
       toast({
@@ -521,19 +482,15 @@ export default function AcademyUpload() {
       
       for (let index = 0; index < studentsWithSubjects.length; index++) {
         const student = studentsWithSubjects[index];
-        console.log(`Processing Academy student ${index + 1}/${studentsWithSubjects.length}: ${student.name}`);
         
         try {
-          console.log('Generating report data for', student.name);
           const reportData = generateReportData(student);
-          console.log('Report data generated:', reportData);
+
           
           if (reportData.subjects.length === 0) {
-            console.log(`Skipping ${student.name} - no main subjects`);
             continue;
           }
           
-          console.log('Creating temporary DOM container');
           const tempContainer = document.createElement('div');
           tempContainer.style.position = 'absolute';
           tempContainer.style.left = '-9999px';
@@ -546,11 +503,9 @@ export default function AcademyUpload() {
           const specialsRef = { current: null };
           const finalRef = { current: null };
           
-          console.log('Importing react-dom/client');
           const { createRoot } = await import('react-dom/client');
           const root = createRoot(tempContainer);
           
-          console.log('Rendering AcademyReportCard component');
           await new Promise<void>((resolve) => {
             root.render(
               <AcademyReportCard 
@@ -566,7 +521,6 @@ export default function AcademyUpload() {
             setTimeout(resolve, 1500);
           });
           
-          console.log('Starting PDF generation');
           const pdf = new jsPDF({
             orientation: 'portrait',
             unit: 'mm',
@@ -582,10 +536,8 @@ export default function AcademyUpload() {
           
           for (let i = 0; i < sections.length; i++) {
             const section = sections[i];
-            console.log(`Processing section ${i + 1}/${sections.length}: ${section.name}`);
             
             if (section.ref.current) {
-              console.log('Generating canvas for section', section.name);
            const canvas = await html2canvas(section.ref.current, {
                 scale: 2,
                 useCORS: true,
@@ -609,23 +561,17 @@ export default function AcademyUpload() {
               const yPosition = imgHeight < pageHeight ? (pageHeight - imgHeight) / 2 : 0;
               pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, Math.min(imgHeight, pageHeight));
 
-              console.log(`Added section ${section.name} to PDF`);
             } else {
-              console.warn(`Section ${section.name} ref is null`);
             }
           }
           
-          console.log('Cleaning up DOM');
           root.unmount();
           document.body.removeChild(tempContainer);
-          
-          console.log('Starting upload to Supabase');
+        
           
           try {
             const pdfBlob = pdf.output('blob');
             const fileName = `academy_${student.name.replace(/[^a-zA-Z0-9]/g, '_')}_report.pdf`;
-            
-            console.log(`Uploading Academy PDF blob of size: ${pdfBlob.size} bytes for ${student.name}`);
             
             const uploadPromise = supabase.storage
               .from('reports')
@@ -644,7 +590,6 @@ export default function AcademyUpload() {
             ]) as any;
 
             if (uploadError) {
-              console.error('Upload error for', student.name, uploadError);
               errorCount++;
               continue;
             }
