@@ -13,6 +13,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useRef } from "react";
 import * as XLSX from 'xlsx';
+import JSZip from 'jszip';
 
 interface ExcelRow {
   [key: string]: any;
@@ -50,6 +51,7 @@ export default function AcademyUpload() {
   const [file, setFile] = useState<File | null>(null);
   const [students, setStudents] = useState<ParsedStudent[]>([]);
   const [isGeneratingReports, setIsGeneratingReports] = useState(false);
+  const [isGeneratingZip, setIsGeneratingZip] = useState(false);
   const [selectedClass, setSelectedClass] = useState<string>("");
   const [detectedSubjects, setDetectedSubjects] = useState<string[]>([]);
   const { toast } = useToast();
@@ -656,6 +658,154 @@ export default function AcademyUpload() {
     }
   };
 
+  const downloadAllAsZip = async () => {
+    if (students.length === 0) {
+      toast({
+        title: "No students found",
+        description: "Please upload and parse an Excel file first.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    const studentsWithSubjects = students.filter(student => student.subjects.length > 0);
+    
+    if (studentsWithSubjects.length === 0) {
+      toast({
+        title: "No Academy students with valid subjects found",
+        description: "Please check your Excel file format and data.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    setIsGeneratingZip(true);
+    
+    try {
+      const zip = new JSZip();
+      
+      for (let index = 0; index < studentsWithSubjects.length; index++) {
+        const student = studentsWithSubjects[index];
+        
+        try {
+          const reportData = generateReportData(student);
+          
+          if (reportData.subjects.length === 0) {
+            continue;
+          }
+          
+          const tempContainer = document.createElement('div');
+          tempContainer.style.position = 'absolute';
+          tempContainer.style.left = '-9999px';
+          tempContainer.style.top = '-9999px';
+          tempContainer.style.width = '794px';
+          document.body.appendChild(tempContainer);
+          
+          const coverRef = { current: null };
+          const subjectsRef = { current: null };
+          const specialsRef = { current: null };
+          const finalRef = { current: null };
+          
+          const { createRoot } = await import('react-dom/client');
+          const root = createRoot(tempContainer);
+          
+          await new Promise<void>((resolve) => {
+            root.render(
+              <AcademyReportCard 
+                {...reportData}
+                pageRefs={{
+                  coverRef,
+                  subjectsRef,
+                  specialsRef,
+                  finalRef
+                }}
+              />
+            );
+            setTimeout(resolve, 1500);
+          });
+          
+          const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4',
+            compress: true
+          });
+          
+          const sections = [
+            { ref: coverRef, name: 'cover' },
+            { ref: subjectsRef, name: 'subjects' },
+            { ref: specialsRef, name: 'specials' },
+            { ref: finalRef, name: 'final' }
+          ];
+          
+          for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            
+            if (section.ref.current) {
+              const canvas = await html2canvas(section.ref.current, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
+                width: section.ref.current.scrollWidth,
+                height: section.ref.current.scrollHeight,
+                scrollX: 0,
+                scrollY: -window.scrollY
+              });
+              
+              const imgData = canvas.toDataURL('image/jpeg', 1.0);
+              const imgWidth = 210;
+              const pageHeight = 297;
+              const imgHeight = (canvas.height * imgWidth) / canvas.width;
+              
+              if (i > 0) {
+                pdf.addPage();
+              }
+              
+              pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, Math.min(imgHeight, pageHeight));
+            }
+          }
+          
+          root.unmount();
+          document.body.removeChild(tempContainer);
+          
+          const pdfBlob = pdf.output('blob');
+          const fileName = `${student.name.replace(/[^a-zA-Z0-9]/g, '_')}_report.pdf`;
+          zip.file(fileName, pdfBlob);
+          
+        } catch (studentError) {
+          console.error('Error processing Academy student', student.name, studentError);
+        }
+      }
+      
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const zipFileName = `${selectedClass || 'Academy'}_reports.zip`;
+      
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(zipBlob);
+      link.download = zipFileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+      
+      toast({
+        title: "ZIP download completed!",
+        description: `Downloaded ${studentsWithSubjects.length} Academy reports as ${zipFileName}.`,
+      });
+      
+    } catch (error) {
+      console.error('Error generating ZIP:', error);
+      toast({
+        title: "Error generating ZIP file",
+        description: "An error occurred while creating the ZIP file.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGeneratingZip(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-4xl mx-auto space-y-6">
@@ -708,10 +858,19 @@ export default function AcademyUpload() {
                 <div className="flex gap-4">
                   <Button 
                     onClick={generateBulkReports}
-                    disabled={isGeneratingReports || !selectedClass}
+                    disabled={isGeneratingReports || isGeneratingZip || !selectedClass}
                     className="flex-1"
                   >
                     {isGeneratingReports ? "Generating Academy Reports..." : "Generate All Academy Reports"}
+                  </Button>
+                  
+                  <Button 
+                    onClick={downloadAllAsZip}
+                    disabled={isGeneratingReports || isGeneratingZip || !selectedClass}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    {isGeneratingZip ? "Creating ZIP..." : "Download All as ZIP"}
                   </Button>
                 </div>
               </div>
