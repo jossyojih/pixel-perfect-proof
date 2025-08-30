@@ -10,6 +10,7 @@ import { CharterReportCard } from "@/components/CharterReportCard";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { useRef } from "react";
+import JSZip from 'jszip';
 import * as XLSX from 'xlsx';
 
 // Grade 7 subjects based on user requirements
@@ -88,6 +89,7 @@ export default function CharterUpload() {
   const [file, setFile] = useState<File | null>(null);
   const [students, setStudents] = useState<ParsedStudent[]>([]);
   const [isGeneratingReports, setIsGeneratingReports] = useState(false);
+  const [isGeneratingZip, setIsGeneratingZip] = useState(false);
   const [selectedClass, setSelectedClass] = useState<string>("");
   const { toast } = useToast();
 
@@ -478,6 +480,132 @@ export default function CharterUpload() {
     }
   };
 
+  const downloadAllAsZip = async () => {
+    if (students.length === 0) {
+      toast({
+        title: "No students found",
+        description: "Please upload an Excel file first.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsGeneratingZip(true);
+    
+    try {
+      const zip = new JSZip();
+      
+      for (const student of students) {
+        try {
+          // Create a temporary DOM element for PDF generation
+          const tempDiv = document.createElement('div');
+          tempDiv.style.position = 'absolute';
+          tempDiv.style.left = '-9999px';
+          tempDiv.style.width = '794px';
+          tempDiv.style.height = '1123px';
+          document.body.appendChild(tempDiv);
+
+          // Create React element and render it
+          const { createRoot } = await import('react-dom/client');
+          const root = createRoot(tempDiv);
+          
+          const reportElement = (
+            <CharterReportCard
+              name={student.name}
+              grade={student.class}
+              date={student.date}
+              academicYear={student.academicYear}
+              term={student.term}
+              subjects={student.subjects}
+              average={student.average}
+              attendance={student.attendance}
+              remarks={student.remarks}
+              comment={student.comment}
+            />
+          );
+
+          root.render(reportElement);
+
+          // Wait for render
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          // Generate PDF
+          const canvas = await html2canvas(tempDiv, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff'
+          });
+
+          const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4'
+          });
+
+          const imgData = canvas.toDataURL('image/png');
+          const pageWidth = 210;
+          const pageHeight = 297;
+          const margin = 10;
+          
+          const maxWidth = pageWidth - 2 * margin;
+          const maxHeight = pageHeight - 2 * margin;
+          
+          let renderWidth = maxWidth;
+          let renderHeight = (canvas.height * renderWidth) / canvas.width;
+          
+          if (renderHeight > maxHeight) {
+            renderHeight = maxHeight;
+            renderWidth = (canvas.width * renderHeight) / canvas.height;
+          }
+
+          const x = (pageWidth - renderWidth) / 2;
+          const y = (pageHeight - renderHeight) / 2;
+
+          pdf.addImage(imgData, 'PNG', x, y, renderWidth, renderHeight);
+
+          // Add PDF to ZIP
+          const pdfBlob = pdf.output('blob');
+          const fileName = `${student.name.replace(/\s+/g, '_')}_report.pdf`;
+          zip.file(fileName, pdfBlob);
+
+          // Clean up
+          root.unmount();
+          document.body.removeChild(tempDiv);
+
+        } catch (error) {
+          console.error(`Error generating PDF for ${student.name}:`, error);
+        }
+      }
+
+      // Generate and download ZIP
+      const zipBlob = await zip.generateAsync({type: 'blob'});
+      const url = URL.createObjectURL(zipBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${selectedClass}_Charter_reports.zip`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      toast({
+        title: "ZIP download completed",
+        description: `Downloaded ${students.length} Charter reports as ZIP file.`
+      });
+
+    } catch (error) {
+      console.error('ZIP generation error:', error);
+      toast({
+        title: "Error generating ZIP",
+        description: "There was an error creating the ZIP file.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsGeneratingZip(false);
+    }
+  };
+
   return (
     <div className="container mx-auto p-6">
       <Card className="p-6">
@@ -521,12 +649,21 @@ export default function CharterUpload() {
                 <h2 className="text-lg font-semibold">
                   Charter Students ({students.length})
                 </h2>
-                <Button 
-                  onClick={generateBulkReports}
-                  disabled={isGeneratingReports}
-                >
-                  {isGeneratingReports ? "Generating Reports..." : "Generate All Reports"}
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={downloadAllAsZip}
+                    disabled={isGeneratingZip || isGeneratingReports}
+                    variant="outline"
+                  >
+                    {isGeneratingZip ? "Creating ZIP..." : "Download All as ZIP"}
+                  </Button>
+                  <Button 
+                    onClick={generateBulkReports}
+                    disabled={isGeneratingReports || isGeneratingZip}
+                  >
+                    {isGeneratingReports ? "Generating Reports..." : "Generate All Reports"}
+                  </Button>
+                </div>
               </div>
               
               <CharterStudentsTable students={students} />
